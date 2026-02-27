@@ -46,7 +46,7 @@ function initSliders(questions: { id: string }[]): SliderQuestions {
 }
 
 const DEFAULT_DATA: AssessmentFormData = {
-  onboarding: { partnerAName: "", partnerBName: "", relationshipDuration: "", primaryConcern: "", consentGiven: false },
+  onboarding: { partnerAName: "", partnerBName: "", partnerAEmail: "", partnerBEmail: "", relationshipDuration: "", primaryConcern: "", consentGiven: false },
   attachment: { partnerA: "secure", partnerB: "secure" },
   trauma: { partnerA: initSliders(TRAUMA_QUESTIONS), partnerB: initSliders(TRAUMA_QUESTIONS) },
   adhd: { partnerA: initSliders(ADHD_QUESTIONS), partnerB: initSliders(ADHD_QUESTIONS) },
@@ -224,6 +224,28 @@ export default function AssessmentPage() {
                   placeholder="First name"
                   value={data.onboarding.partnerBName}
                   onChange={(e) => updateOnboarding("partnerBName", e.target.value)}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="partnerAEmail" className="text-[#1a365d]">Partner A&apos;s Email <span className="text-[#a0aec0] font-normal">(optional)</span></Label>
+                <Input
+                  id="partnerAEmail"
+                  type="email"
+                  placeholder="email@example.com"
+                  value={data.onboarding.partnerAEmail}
+                  onChange={(e) => updateOnboarding("partnerAEmail", e.target.value)}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="partnerBEmail" className="text-[#1a365d]">Partner B&apos;s Email <span className="text-[#a0aec0] font-normal">(optional)</span></Label>
+                <Input
+                  id="partnerBEmail"
+                  type="email"
+                  placeholder="email@example.com"
+                  value={data.onboarding.partnerBEmail}
+                  onChange={(e) => updateOnboarding("partnerBEmail", e.target.value)}
                   className="mt-1"
                 />
               </div>

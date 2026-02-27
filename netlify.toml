@@ -1,0 +1,26 @@
+# ── Netlify configuration for FOLA Relationship Assessment Platform ──
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command   = "npm run build"
+  publish   = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Next.js adapter — handles SSR, ISR, image optimisation, and middleware
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Netlify Functions configuration
+[functions]
+  directory     = "netlify/functions"
+  node_bundler  = "esbuild"    # tree-shakes googleapis for a smaller bundle
+  node_version  = "20"
+
+# ── Local dev redirects (optional, mirrors production routing) ──
+# Uncomment if you need to test functions locally with `netlify dev`.
+# [[redirects]]
+#   from   = "/.netlify/functions/*"
+#   to     = "/.netlify/functions/:splat"
+#   status = 200

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Radar,
@@ -71,6 +71,7 @@ function ScoreGauge({ score }: { score: number }) {
 export default function ReportPage() {
   const router = useRouter();
   const [report, setReport] = useState<AssessmentReport | null>(null);
+  const auditFired = useRef(false);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("fola-report");
@@ -80,6 +81,51 @@ export default function ReportPage() {
     }
     setReport(JSON.parse(stored));
   }, [router]);
+
+  // Fire audit log once when the report is first rendered
+  useEffect(() => {
+    if (!report || auditFired.current) return;
+    auditFired.current = true;
+
+    const formDataRaw = sessionStorage.getItem("fola-form-data");
+    const formData = formDataRaw ? JSON.parse(formDataRaw) : null;
+
+    const dimensionScores = report.domainScores.reduce(
+      (acc, d) => ({
+        ...acc,
+        [d.domain]: {
+          a: d.partnerAScore,
+          b: d.partnerBScore,
+          alignment: d.alignmentPercent,
+          risk: d.riskLevel,
+        },
+      }),
+      {} as Record<string, unknown>
+    );
+
+    const phaseResult =
+      `Overall: ${report.overallScore}/100 | ` +
+      `Phases: ${report.treatmentPlan.length} | ` +
+      `Investment: R${report.totalInvestment.toLocaleString("en-ZA")}`;
+
+    fetch("/.netlify/functions/log-report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        reportId: report.id,
+        submissionDate: new Date().toISOString(),
+        coupleName: `${report.couple.partnerA} & ${report.couple.partnerB}`,
+        partnerAEmail: formData?.onboarding?.partnerAEmail ?? "",
+        partnerBEmail: formData?.onboarding?.partnerBEmail ?? "",
+        phaseResult,
+        dimensionScores: JSON.stringify(dimensionScores),
+        reportGenerated: "Y",
+      }),
+    }).catch((err) => {
+      // Silently swallow — audit logging must never break the report view
+      console.warn("FOLA audit log: request failed →", err);
+    });
+  }, [report]);
 
   if (!report) {
     return (

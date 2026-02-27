@@ -11,6 +11,8 @@ export type ChangeReadiness =
 export interface OnboardingData {
   partnerAName: string;
   partnerBName: string;
+  partnerAEmail: string;
+  partnerBEmail: string;
   relationshipDuration: string;
   primaryConcern: string;
   consentGiven: boolean;
