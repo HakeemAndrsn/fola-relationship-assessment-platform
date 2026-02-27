@@ -6,7 +6,7 @@ Love Better (formerly FOLA Relationship Growth Assessment) is a clinically groun
 Couples complete an 8-dimension relationship assessment. The app generates a personalised report with radar charts, ACE-informed trauma screening, ADHD/neurodivergence mapping, and a 3-phase treatment pathway. Priced at R600 per couple. Sessions upsell from R4,500 to R7,500 depending on phase.
 
 **Live URL:** https://lovebetter.co.za
-**Repo:** GitHub (connected to Netlify — pushes to main auto-deploy)
+**Repo:** github.com/HakeemAndrsn/love-better-relationship-assessment-app (connected to Netlify — pushes to main auto-deploy)
 **Host:** Netlify ✅ (migration from Vercel complete)
 **Email:** hello@lovebetter.co.za via Google Workspace ✅
 
