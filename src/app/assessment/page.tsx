@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -126,10 +126,6 @@ function SliderDomainSection({
 
 export default function AssessmentPage() {
   const router = useRouter();
-  useEffect(() => {
-    const paid = sessionStorage.getItem('lb_payment_verified')
-    if (!paid) router.push('/')
-  }, [router])
   const [step, setStep] = useState(0);
   const [data, setData] = useState<AssessmentFormData>(DEFAULT_DATA);
   const [isGenerating, setIsGenerating] = useState(false);
