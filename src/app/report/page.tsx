@@ -70,10 +70,6 @@ function ScoreGauge({ score }: { score: number }) {
 
 export default function ReportPage() {
   const router = useRouter();
-  useEffect(() => {
-    const paid = sessionStorage.getItem('lb_payment_verified')
-    if (!paid) router.push('/')
-  }, [router])
   const [report, setReport] = useState<AssessmentReport | null>(null);
 
   useEffect(() => {
