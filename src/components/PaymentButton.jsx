@@ -1,10 +1,12 @@
+'use client'
+
 import { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 
 /**
  * YOCO Payment Button
  *
- * - Initialises the YOCO Popup SDK using the VITE_YOCO_PUBLIC_KEY env var.
+ * - Initialises the YOCO Popup SDK using the NEXT_PUBLIC_YOCO_PUBLIC_KEY env var.
  * - On click, opens the YOCO popup (never on page load).
  * - On popup success, POSTs the token to /.netlify/functions/verify-payment.
  * - On server verification success, sets lb_payment_verified in sessionStorage
@@ -17,7 +19,7 @@ export default function PaymentButton({ email }) {
   const [status, setStatus] = useState('idle') // 'idle' | 'loading' | 'error'
   const [errorMessage, setErrorMessage] = useState('')
   const yocoRef = useRef(null)
-  const navigate = useNavigate()
+  const router = useRouter()
 
   // Initialise YOCO SDK once after the page loads.
   // The script tag in index.html loads the SDK; we wait for it to be available.
@@ -25,7 +27,7 @@ export default function PaymentButton({ email }) {
     const init = () => {
       if (window.YocoSDK) {
         yocoRef.current = new window.YocoSDK({
-          publicKey: import.meta.env.VITE_YOCO_PUBLIC_KEY,
+          publicKey: process.env.NEXT_PUBLIC_YOCO_PUBLIC_KEY,
         })
       }
     }
@@ -60,9 +62,6 @@ export default function PaymentButton({ email }) {
       description: 'Love Better Relationship Assessment',
       callback: async (result) => {
         if (result.error) {
-          // Distinguish between a deliberate cancel and a payment failure.
-          // YOCO signals cancel via an error object; payment failures contain
-          // specific messages about the card or transaction.
           const errStr = JSON.stringify(result.error).toLowerCase()
           const isCancel =
             errStr.includes('cancel') ||
@@ -71,7 +70,6 @@ export default function PaymentButton({ email }) {
             !result.error.message
 
           if (isCancel) {
-            // User dismissed popup — silently reset, stay on landing page
             setStatus('idle')
           } else {
             setStatus('error')
@@ -82,7 +80,6 @@ export default function PaymentButton({ email }) {
           return
         }
 
-        // Payment token received — verify server-side before unlocking
         try {
           const response = await fetch('/.netlify/functions/verify-payment', {
             method: 'POST',
@@ -94,9 +91,8 @@ export default function PaymentButton({ email }) {
           })
 
           if (response.ok) {
-            // Server confirmed payment — set session token and enter assessment
             sessionStorage.setItem('lb_payment_verified', 'true')
-            navigate('/assessment')
+            router.push('/assessment')
           } else {
             setStatus('error')
             setErrorMessage(
