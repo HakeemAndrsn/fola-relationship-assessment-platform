@@ -73,6 +73,11 @@ export default function ReportPage() {
   const [report, setReport] = useState<AssessmentReport | null>(null);
 
   useEffect(() => {
+    const paid = sessionStorage.getItem("lb_payment_verified");
+    if (!paid) router.push("/");
+  }, [router]);
+
+  useEffect(() => {
     const stored = sessionStorage.getItem("fola-report");
     if (!stored) {
       router.push("/assessment");
