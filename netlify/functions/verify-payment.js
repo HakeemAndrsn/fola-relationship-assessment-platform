@@ -3,36 +3,34 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  let token;
-  try {
-    ({ token } = JSON.parse(event.body));
-  } catch {
-    return { statusCode: 400, body: JSON.stringify({ error: "Invalid request body" }) };
-  }
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://lovebetter.co.za";
 
-  if (!token) {
-    return { statusCode: 400, body: JSON.stringify({ error: "Missing payment token" }) };
-  }
-
-  let chargeData;
+  let checkoutData;
   try {
-    const response = await fetch("https://online.yoco.com/v1/charges/", {
+    const response = await fetch("https://payments.yoco.com/api/checkouts", {
       method: "POST",
       headers: {
-        "X-Auth-Secret-Key": process.env.YOCO_SECRET_KEY,
+        Authorization: `Bearer ${process.env.YOCO_SECRET_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token,
-        amountInCents: 60000,
+        amount: 60000,
         currency: "ZAR",
+        successUrl: `${appUrl}/assessment?lb_paid=1`,
+        cancelUrl: `${appUrl}/`,
+        metadata: {
+          product: "love-better-assessment",
+        },
       }),
     });
 
-    chargeData = await response.json();
+    checkoutData = await response.json();
 
-    if (!response.ok || chargeData.error) {
-      const message = chargeData?.error?.message || chargeData?.errorCode || "Payment failed";
+    if (!response.ok || !checkoutData.redirectUrl) {
+      const message =
+        checkoutData?.errorCode ||
+        checkoutData?.message ||
+        "Checkout creation failed";
       return {
         statusCode: 402,
         body: JSON.stringify({ error: message }),
@@ -41,11 +39,13 @@ exports.handler = async (event) => {
   } catch {
     return {
       statusCode: 502,
-      body: JSON.stringify({ error: "Could not reach payment provider. Please try again." }),
+      body: JSON.stringify({
+        error: "Could not reach payment provider. Please try again.",
+      }),
     };
   }
 
-  // Google Sheets audit log — fails silently so it never blocks payment confirmation
+  // Google Sheets audit log — fails silently so it never blocks payment
   try {
     // Sheets integration to be built in a later step (see CLAUDE.md priority list item 5)
   } catch {
@@ -54,6 +54,6 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ success: true }),
+    body: JSON.stringify({ redirectUrl: checkoutData.redirectUrl }),
   };
 };

@@ -1,83 +1,39 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-declare global {
-  interface Window {
-    YocoSDK: new (config: { publicKey: string }) => {
-      showPopup(options: {
-        amountInCents: number;
-        currency: string;
-        name: string;
-        description: string;
-        callback: (result: {
-          error?: { message: string; type?: string };
-          id?: string;
-        }) => void;
-      }): void;
-    };
-  }
-}
 
 type ButtonState = "idle" | "loading" | "error";
 
 export default function YocoButton() {
-  const router = useRouter();
   const [state, setState] = useState<ButtonState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setState("loading");
     setErrorMessage("");
 
-    const yoco = new window.YocoSDK({
-      publicKey: process.env.NEXT_PUBLIC_YOCO_PUBLIC_KEY!,
-    });
+    try {
+      const res = await fetch("/.netlify/functions/verify-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    yoco.showPopup({
-      amountInCents: 60000,
-      currency: "ZAR",
-      name: "Love Better",
-      description: "Relationship Growth Assessment — R600",
-      callback: async (result) => {
-        if (result.error) {
-          if (result.error.type === "CANCELLED") {
-            setState("idle");
-          } else {
-            setErrorMessage(
-              result.error.message || "Payment failed. Please try again."
-            );
-            setState("error");
-          }
-          return;
-        }
+      const data = await res.json().catch(() => ({}));
 
-        try {
-          const res = await fetch("/.netlify/functions/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token: result.id }),
-          });
+      if (!res.ok || !(data as { redirectUrl?: string }).redirectUrl) {
+        setErrorMessage(
+          (data as { error?: string }).error ||
+            "Payment could not be initiated. Please try again."
+        );
+        setState("error");
+        return;
+      }
 
-          if (!res.ok) {
-            const data = await res.json().catch(() => ({}));
-            setErrorMessage(
-              (data as { error?: string }).error ||
-                "Payment could not be verified. Please try again."
-            );
-            setState("error");
-            return;
-          }
-
-          sessionStorage.setItem("lb_payment_verified", "true");
-          router.push("/assessment");
-        } catch {
-          setErrorMessage("A network error occurred. Please try again.");
-          setState("error");
-        }
-      },
-    });
+      window.location.href = (data as { redirectUrl: string }).redirectUrl;
+    } catch {
+      setErrorMessage("A network error occurred. Please try again.");
+      setState("error");
+    }
   };
 
   return (
@@ -88,7 +44,7 @@ export default function YocoButton() {
         className="group relative inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-8 py-4 rounded-xl text-base font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/25 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
       >
         {state === "loading" ? (
-          "Opening payment\u2026"
+          "Redirecting to payment\u2026"
         ) : (
           <>
             Begin Assessment \u2014 R600

@@ -128,8 +128,16 @@ export default function AssessmentPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const paid = sessionStorage.getItem("lb_payment_verified");
-    if (!paid) router.push("/");
+    const params = new URLSearchParams(window.location.search);
+    const justPaid = params.get("lb_paid") === "1";
+    const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
+
+    if (justPaid) {
+      sessionStorage.setItem("lb_payment_verified", "true");
+      window.history.replaceState({}, "", "/assessment");
+    } else if (!alreadyPaid) {
+      router.push("/");
+    }
   }, [router]);
 
   const [step, setStep] = useState(0);
