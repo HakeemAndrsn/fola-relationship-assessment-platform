@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import YocoButton from "@/components/YocoButton";
 
 function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
   const [count, setCount] = useState(0);
@@ -186,15 +187,7 @@ export default function Home() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/assessment"
-                className="group relative inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-8 py-4 rounded-xl text-base font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/25 hover:-translate-y-0.5"
-              >
-                Take the Assessment — R600
-                <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
+              <YocoButton />
               <a href="#how-it-works" className="text-sm text-[#a0aec0] hover:text-white transition-colors underline underline-offset-4 decoration-[#a0aec0]/30 font-sans">
                 See how it works
               </a>
@@ -411,15 +404,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/assessment"
-                className="mt-10 inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-8 py-4 rounded-xl text-base font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/25 hover:-translate-y-0.5 w-full sm:w-auto justify-center"
-              >
-                Start Your Assessment Now
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
+              <YocoButton />
               <p className="mt-4 text-xs text-[#718096] font-sans">
                 Secure & private — your data never leaves your browser
               </p>
@@ -506,15 +491,7 @@ export default function Home() {
             <p className="mt-4 text-[#a0aec0] text-base font-sans">
               Take the first step toward real understanding. R600. 30 minutes. A lifetime of clarity.
             </p>
-            <Link
-              href="/assessment"
-              className="mt-8 inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-8 py-4 rounded-xl text-base font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/25 hover:-translate-y-0.5"
-            >
-              Begin the FOLA Relationship Growth Assessment
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
+            <YocoButton />
           </div>
         </section>
 

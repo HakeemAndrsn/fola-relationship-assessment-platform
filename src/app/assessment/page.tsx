@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -126,6 +126,20 @@ function SliderDomainSection({
 
 export default function AssessmentPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const justPaid = params.get("lb_paid") === "1";
+    const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
+
+    if (justPaid) {
+      sessionStorage.setItem("lb_payment_verified", "true");
+      window.history.replaceState({}, "", "/assessment");
+    } else if (!alreadyPaid) {
+      router.push("/");
+    }
+  }, [router]);
+
   const [step, setStep] = useState(0);
   const [data, setData] = useState<AssessmentFormData>(DEFAULT_DATA);
   const [isGenerating, setIsGenerating] = useState(false);
