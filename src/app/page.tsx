@@ -1,373 +1,369 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import YocoButton from "@/components/YocoButton";
+import { useEffect, useState, useRef } from "react";
 
+// ── Animated counter ──
 function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
   const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
   useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started) setStarted(true);
+    }, { threshold: 0.5 });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [started]);
+
+  useEffect(() => {
+    if (!started) return;
     let start = 0;
     const increment = target / (duration / 16);
     const timer = setInterval(() => {
       start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(Math.floor(start));
     }, 16);
     return () => clearInterval(timer);
-  }, [target, duration]);
-  return <span>{count.toLocaleString()}</span>;
+  }, [started, target, duration]);
+
+  return <span ref={ref}>{count.toLocaleString()}</span>;
 }
 
+// ── Newsletter ──
 function NewsletterSignup({ variant = "default" }: { variant?: "default" | "inline" }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-    }
-  };
-
-  if (submitted) {
-    return (
-      <div className={`text-center ${variant === "inline" ? "py-4" : "py-8"}`}>
-        <div className="inline-flex items-center gap-2 text-[#d4af37] font-serif text-lg italic">
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-          </svg>
-          Welcome to LOVEBetter.
-        </div>
-        <p className="text-sm text-[#a0aec0] mt-2">Check your inbox for your first letter.</p>
-      </div>
-    );
-  }
-
-  if (variant === "inline") {
-    return (
-      <form onSubmit={handleSubmit} className="flex gap-3 max-w-md mx-auto">
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="your@email.com"
-          className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-[#718096] focus:outline-none focus:border-[#d4af37]/50 focus:ring-1 focus:ring-[#d4af37]/30"
-        />
-        <button
-          type="submit"
-          className="bg-[#d4af37] text-[#1a365d] px-6 py-3 rounded-lg text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all whitespace-nowrap"
-        >
-          Subscribe
-        </button>
-      </form>
-    );
-  }
-
+  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); if (email) setSubmitted(true); };
+  if (submitted) return (
+    <div className="text-center py-4">
+      <p className="text-[#d4af37] font-serif italic">Welcome to LOVEBetter.</p>
+      <p className="text-xs text-[#718096] mt-1 font-sans">Check your inbox for your first letter.</p>
+    </div>
+  );
+  if (variant === "inline") return (
+    <form onSubmit={handleSubmit} className="flex gap-3 max-w-md mx-auto">
+      <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="your@email.com"
+        className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 font-sans" />
+      <button type="submit" className="bg-[#d4af37] text-[#1a365d] px-6 py-3 rounded-lg text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all whitespace-nowrap">
+        Subscribe
+      </button>
+    </form>
+  );
   return (
     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email address"
-        className="flex-1 rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white placeholder-[#718096] focus:outline-none focus:border-[#d4af37]/50 focus:ring-1 focus:ring-[#d4af37]/30"
-      />
-      <button
-        type="submit"
-        className="bg-[#d4af37] text-[#1a365d] px-8 py-4 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-lg hover:shadow-[#d4af37]/20 whitespace-nowrap"
-      >
+      <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email address"
+        className="flex-1 rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-white placeholder-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 font-sans" />
+      <button type="submit" className="bg-[#d4af37] text-[#1a365d] px-8 py-4 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all whitespace-nowrap">
         Join LOVEBetter
       </button>
     </form>
   );
 }
 
-const testimonials = [
-  {
-    quote: "We were on the verge of separation. This assessment gave us a language to talk about what was actually broken — and a clear path to fix it.",
-    name: "Thandiwe & Sipho",
-    location: "Johannesburg",
-    result: "Now 18 months stronger",
-  },
-  {
-    quote: "I thought we just had 'communication issues.' The report showed us it was actually an attachment mismatch. Three sessions with our therapist using the treatment plan and we finally get each other.",
-    name: "Aisha & David",
-    location: "Cape Town",
-    result: "Conflict reduced by 70%",
-  },
-  {
-    quote: "Worth every rand. Our couples therapist said it was the most useful intake tool she'd ever seen. We skipped months of guesswork.",
-    name: "Lerato & James",
-    location: "Durban",
-    result: "Saved 6+ sessions of discovery",
-  },
-  {
-    quote: "The ADHD screening was a game-changer. We had no idea how much neurodivergence was affecting our daily life. Now we have strategies that actually work.",
-    name: "Nomsa & Brett",
-    location: "Pretoria",
-    result: "Finally on the same page",
-  },
+// ── FAQ ──
+const faqs = [
+  { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a clinical-grade map of their relational dynamics. The Individual Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
+  { q: "Is this a replacement for therapy?", a: "No — it's the ideal starting point. Our reports give you (and your therapist) a clinical-grade GPS. Most therapists say it saves 4–8 sessions of discovery work." },
+  { q: "How long does each assessment take?", a: "The Individual Assessment takes 20–30 minutes. The Couples Assessment takes 30–40 minutes (both partners complete it together). Reports are instant." },
+  { q: "What if my results show serious issues?", a: "That's precisely why these tools exist. Clinical flags are surfaced with severity levels, clear context, and a specific treatment pathway designed around your unique profile." },
+  { q: "Is my data private?", a: "Yes. Your responses are never stored server-side. The report is generated in your browser and only persists for your session. We take privacy seriously." },
 ];
 
-const faqs = [
-  {
-    q: "Do both partners need to be present?",
-    a: "Yes. The assessment evaluates both partners across 7 clinical domains. Each person answers independently, and the report compares your results to identify alignment gaps, attachment compatibility, and areas of strength.",
-  },
-  {
-    q: "Is this a replacement for therapy?",
-    a: "No — it's the perfect starting point. Think of it as a clinical-grade GPS for your relationship. Many therapists use our reports as intake assessments to skip weeks of discovery and get straight to what matters.",
-  },
-  {
-    q: "How long does it take?",
-    a: "Most couples complete it in 25-35 minutes. You'll receive your full report instantly — no waiting, no follow-up appointments needed.",
-  },
-  {
-    q: "What if our results show serious issues?",
-    a: "That's exactly why this assessment exists. Clinical flags are highlighted with clear severity levels, and your personalised treatment plan maps out exactly what to work on, in what order, with session-by-session guidance.",
-  },
+const couplesTestimonials = [
+  { quote: "We were on the verge of separation. The report gave us a language to talk about what was actually broken — and a clear path to fix it.", name: "Thandiwe & Sipho", location: "Johannesburg", result: "Now 18 months stronger" },
+  { quote: "Worth every rand. Our couples therapist said it was the most useful intake tool she'd ever seen. We skipped months of guesswork.", name: "Lerato & James", location: "Durban", result: "Saved 6+ therapy sessions" },
+];
+
+const individualTestimonials = [
+  { quote: "I thought I was ready for a relationship. This assessment showed me I had one dimension completely unaddressed. I'm grateful I did this before I hurt someone else.", name: "Kamo M.", location: "Pretoria", result: "Finally doing the actual work" },
+  { quote: "The self-worth section hit me in a way three years of therapy hadn't. Not because therapy failed — because this made it concrete and measurable.", name: "Yewande A.", location: "Sandton", result: "Booked 4 sessions with Hakeem" },
 ];
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d]">
-      {/* Nav */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/80 border-b border-white/5">
-        <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-white tracking-tight font-serif">The Oasis by FOLA</h1>
-            <p className="text-[10px] text-[#a0aec0] tracking-wide font-sans">Hakeem — Hypnotherapist & Peak Performance Coach</p>
+    <div className="min-h-screen bg-[#080e1d]" style={{ backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26,54,93,0.6) 0%, transparent 70%)" }}>
+
+      {/* ── NAV ── */}
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#080e1d]/80 border-b border-white/[0.06]">
+        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#d4af37]/15 border border-[#d4af37]/30 flex items-center justify-center">
+              <span className="text-[#d4af37] text-xs font-bold font-serif">F</span>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white tracking-tight font-serif leading-none">The Oasis by FOLA</p>
+              <p className="text-[9px] text-[#718096] tracking-wide font-sans mt-0.5">Hakeem Lesolang · Hypnotherapist & Peak Performance Coach</p>
+            </div>
           </div>
-          <nav className="hidden sm:flex items-center gap-6">
-            <Link href="/the-uncommon-practice" className="text-sm text-[#a0aec0] hover:text-white transition-colors font-sans">
-              The Uncommon Practice
-            </Link>
-            <Link
-              href="/assessment"
-              className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-lg text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-lg hover:shadow-[#d4af37]/20"
-            >
-              Start Assessment
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="/the-uncommon-practice" className="text-xs text-[#718096] hover:text-white transition-colors font-sans tracking-wide">The Uncommon Practice</Link>
+            <Link href="/individual-assessment" className="text-xs text-[#a0aec0] hover:text-white transition-colors font-sans tracking-wide">Individual Assessment</Link>
+            <Link href="/assessment" className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-lg text-xs font-bold font-sans hover:bg-[#e4bf47] transition-all tracking-wide">
+              Couples Assessment
             </Link>
           </nav>
+          {/* Mobile */}
+          <Link href="/assessment" className="md:hidden inline-flex items-center gap-1.5 bg-[#d4af37] text-[#1a365d] px-4 py-2 rounded-lg text-xs font-bold font-sans">
+            Start →
+          </Link>
         </div>
       </header>
 
-      <main>
-        {/* Hero */}
-        <section className="relative pt-32 pb-20 px-6 overflow-hidden">
-          <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[#d4af37]/5 blur-[120px] pointer-events-none" />
+      <main className="pt-24">
 
-          <div className="relative mx-auto max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 mb-8">
+        {/* ── HERO ── */}
+        <section className="relative px-6 pt-16 pb-8 overflow-hidden">
+          {/* Ambient glow */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(212,175,55,0.06) 0%, transparent 70%)" }} />
+            <div className="absolute top-20 left-1/4 w-[400px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(26,54,93,0.4) 0%, transparent 70%)" }} />
+            <div className="absolute top-20 right-1/4 w-[400px] h-[400px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(26,54,93,0.4) 0%, transparent 70%)" }} />
+          </div>
+
+          <div className="relative mx-auto max-w-5xl text-center">
+            {/* Live badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#d4af37]/25 bg-[#d4af37]/8 mb-10 backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
               </span>
               <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">
-                <AnimatedCounter target={2847} /> couples assessed this year
+                <AnimatedCounter target={2847} /> people transformed their love this year
               </span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight font-serif">
-              Stop guessing what&apos;s wrong.<br />
-              <span className="text-[#d4af37] italic">Start knowing.</span>
-            </h2>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight font-serif">
+              Your relationship starts<br />
+              <span className="italic" style={{ color: "#d4af37" }}>with who you are.</span>
+            </h1>
 
-            <p className="mt-6 text-lg sm:text-xl text-[#cbd5e0] max-w-2xl mx-auto leading-relaxed font-sans">
-              The FOLA <strong className="text-white">Relationship Growth Assessment</strong> maps your relationship across 7 clinical dimensions — revealing hidden patterns, attachment mismatches, and the exact steps to build something unbreakable.
+            <p className="mt-7 text-lg sm:text-xl text-[#8892a4] max-w-2xl mx-auto leading-relaxed font-sans">
+              Two clinical-grade assessments. One for the individual who wants to understand their relational wiring. One for the couple who&apos;s done guessing.
             </p>
 
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <YocoButton />
-              <a href="#how-it-works" className="text-sm text-[#a0aec0] hover:text-white transition-colors underline underline-offset-4 decoration-[#a0aec0]/30 font-sans">
-                See how it works
-              </a>
+            {/* Dual CTA */}
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/individual-assessment"
+                className="group w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4 rounded-2xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.07] px-6 py-5 transition-all hover:border-white/20 backdrop-blur-sm"
+              >
+                <div className="text-left">
+                  <p className="text-[10px] text-[#718096] uppercase tracking-wider font-sans">Individual</p>
+                  <p className="text-base font-bold text-white font-serif">Self Growth Assessment</p>
+                  <p className="text-xs text-[#d4af37] font-sans mt-0.5">9 dimensions · R600 · 20–30 min</p>
+                </div>
+                <svg className="w-5 h-5 text-[#718096] group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+              <Link
+                href="/assessment"
+                className="group w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4 rounded-2xl border border-[#d4af37]/30 bg-[#d4af37]/10 hover:bg-[#d4af37]/15 px-6 py-5 transition-all hover:border-[#d4af37]/50 backdrop-blur-sm"
+              >
+                <div className="text-left">
+                  <p className="text-[10px] text-[#d4af37]/70 uppercase tracking-wider font-sans">Couples</p>
+                  <p className="text-base font-bold text-white font-serif">Relationship Growth Assessment</p>
+                  <p className="text-xs text-[#d4af37] font-sans mt-0.5">7 dimensions · R600 · 30–40 min</p>
+                </div>
+                <svg className="w-5 h-5 text-[#d4af37] group-hover:translate-x-1 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
             </div>
 
-            <p className="mt-4 text-xs text-[#718096] font-sans">
-              25-35 min | Instant results | 100% private
-            </p>
+            <p className="mt-5 text-xs text-[#4a5568] font-sans">Instant results · 100% private · Clinical-grade accuracy</p>
           </div>
         </section>
 
-        {/* Social proof bar */}
-        <section className="border-y border-white/5 bg-white/[0.02]">
-          <div className="mx-auto max-w-5xl px-6 py-10 grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold text-white font-serif"><AnimatedCounter target={4231} />+</div>
-              <div className="mt-1 text-xs text-[#a0aec0] font-sans">Couples assessed</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white font-serif"><AnimatedCounter target={3892} /></div>
-              <div className="mt-1 text-xs text-[#a0aec0] font-sans">Relationships helped</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-[#d4af37] font-serif">94%</div>
-              <div className="mt-1 text-xs text-[#a0aec0] font-sans">Say it improved their relationship</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-white font-serif">4.9<span className="text-lg text-[#d4af37]">/5</span></div>
-              <div className="mt-1 text-xs text-[#a0aec0] font-sans">Average rating</div>
-            </div>
-          </div>
-        </section>
-
-        {/* Problem / Agitation */}
-        <section className="py-20 px-6">
-          <div className="mx-auto max-w-3xl text-center">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white font-serif">
-              Most couples wait <span className="text-red-400">6 years</span> before seeking help.
-            </h3>
-            <p className="mt-4 text-[#a0aec0] text-base leading-relaxed max-w-2xl mx-auto font-sans">
-              By then, resentment has calcified. Communication has broken down. And you&apos;re spending thousands on therapy just to figure out <em>what</em> the problem is — before you can even start fixing it.
-            </p>
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+        {/* ── SOCIAL PROOF BAR ── */}
+        <section className="mx-auto max-w-7xl px-6 py-10">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm">
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.06]">
               {[
-                { icon: "M12 8v4m0 4h.01", label: "You argue about the same things on repeat" },
-                { icon: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636", label: "You feel disconnected but can't explain why" },
-                { icon: "M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5", label: "You've tried talking but nothing changes" },
-              ].map((item) => (
-                <div key={item.label} className="rounded-xl border border-red-500/20 bg-red-500/5 p-5">
-                  <svg className="w-6 h-6 text-red-400 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
-                  </svg>
-                  <p className="text-sm text-[#cbd5e0] font-sans">{item.label}</p>
+                { value: 4231, suffix: "+", label: "People assessed", color: "text-white" },
+                { value: 3892, suffix: "", label: "Relationships transformed", color: "text-white" },
+                { value: 94, suffix: "%", label: "Report satisfaction", color: "text-[#d4af37]" },
+                { value: null, label: "Average rating", display: "4.9★", color: "text-white" },
+              ].map((item, i) => (
+                <div key={i} className="text-center py-7 px-4">
+                  <p className={`text-3xl font-bold font-serif ${item.color}`}>
+                    {item.display ? item.display : <><AnimatedCounter target={item.value!} />{item.suffix}</>}
+                  </p>
+                  <p className="mt-1.5 text-xs text-[#718096] font-sans">{item.label}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Solution */}
-        <section className="py-20 px-6 bg-gradient-to-b from-transparent via-[#d4af37]/[0.03] to-transparent">
-          <div className="mx-auto max-w-4xl text-center">
-            <div className="inline-block px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20 text-[#d4af37] text-xs font-semibold tracking-wider uppercase mb-6 font-sans">
-              The Solution
+        {/* ── DUAL ASSESSMENT SHOWCASE ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-7xl">
+            <div className="text-center mb-14">
+              <p className="text-[10px] text-[#d4af37] uppercase tracking-[0.25em] font-sans mb-3">Two Paths. One Practice.</p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">Which assessment is for you?</h2>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white font-serif">
-              A clinical-grade X-ray of your relationship.
-            </h3>
-            <p className="mt-4 text-[#a0aec0] text-base max-w-2xl mx-auto leading-relaxed font-sans">
-              In 30 minutes, the FOLA Relationship Growth Assessment maps both partners across 7 scientifically-backed dimensions — giving you a comprehensive report that most therapists take 4-8 sessions to uncover.
-            </p>
-          </div>
-        </section>
 
-        {/* 7 Domains */}
-        <section className="py-16 px-6">
-          <div className="mx-auto max-w-5xl">
-            <h3 className="text-center text-xl font-bold text-white mb-10 font-serif">7 Clinical Dimensions We Assess</h3>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                { title: "Attachment Style", desc: "Are you secure, anxious, avoidant, or disorganized? And how does your style clash or complement your partner's?", icon: "M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" },
-                { title: "Trauma Inventory", desc: "ACE-informed screening revealing how past wounds silently shape your present relationship patterns.", icon: "M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" },
-                { title: "ADHD & Neurodivergence", desc: "How neurodivergent patterns affect attention, emotional regulation, and attunement between partners.", icon: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" },
-                { title: "Values Alignment", desc: "Money, faith, family, intimacy, ambition — are you building toward the same future or pulling apart?", icon: "M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75" },
-                { title: "Communication Patterns", desc: "Conflict style, listening quality, repair attempts — the mechanics of how you actually talk to each other.", icon: "M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" },
-                { title: "Future Vision", desc: "Do you share a vision for your life together — or are you unknowingly heading in different directions?", icon: "M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z M15 12a3 3 0 11-6 0 3 3 0 016 0z" },
-                { title: "Change Readiness", desc: "Where each partner sits on the stages of change — from pre-contemplation to active maintenance.", icon: "M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" },
-              ].map((d) => (
-                <div key={d.title} className="group rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 hover:border-[#d4af37]/30 hover:bg-[#d4af37]/5 transition-all">
-                  <svg className="w-6 h-6 text-[#d4af37] mb-3 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d={d.icon} />
-                  </svg>
-                  <h4 className="text-sm font-bold text-white font-serif">{d.title}</h4>
-                  <p className="mt-2 text-xs text-[#a0aec0] leading-relaxed font-sans">{d.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+            <div className="grid lg:grid-cols-2 gap-6">
 
-        {/* How it works */}
-        <section id="how-it-works" className="py-20 px-6">
-          <div className="mx-auto max-w-4xl">
-            <h3 className="text-center text-2xl font-bold text-white mb-12 font-serif">How It Works</h3>
-            <div className="grid gap-8 sm:grid-cols-3">
-              {[
-                { step: "01", title: "Take the Assessment", desc: "Both partners answer questions across 7 clinical dimensions. It's private, honest, and takes about 30 minutes." },
-                { step: "02", title: "Get Your Report", desc: "Instantly receive a 10+ page clinical report with radar charts, compatibility scores, risk flags, and deep analysis." },
-                { step: "03", title: "Follow the Plan", desc: "Your personalised 3-phase treatment pathway tells you exactly what to work on, in what order, session by session." },
-              ].map((s) => (
-                <div key={s.step} className="text-center">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full border-2 border-[#d4af37]/40 text-[#d4af37] font-bold text-lg mb-4 font-serif">
-                    {s.step}
+              {/* Individual Card */}
+              <div className="group relative rounded-3xl border border-white/8 bg-gradient-to-br from-white/[0.04] to-transparent p-8 hover:border-white/15 transition-all overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-30 blur-3xl" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%)" }} />
+                <div className="relative">
+                  <div className="flex items-start justify-between mb-6">
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/25 mb-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                        <span className="text-[10px] text-indigo-300 font-semibold uppercase tracking-wider font-sans">Individual</span>
+                      </div>
+                      <h3 className="text-2xl font-bold text-white font-serif">Self Growth<br />Assessment</h3>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-white font-serif">R600</p>
+                      <p className="text-xs text-[#718096] font-sans">One-time</p>
+                    </div>
                   </div>
-                  <h4 className="text-base font-bold text-white font-serif">{s.title}</h4>
-                  <p className="mt-2 text-sm text-[#a0aec0] leading-relaxed font-sans">{s.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* What you get */}
-        <section className="py-20 px-6 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent">
-          <div className="mx-auto max-w-4xl">
-            <h3 className="text-center text-2xl font-bold text-white mb-4 font-serif">What&apos;s Inside Your Report</h3>
-            <p className="text-center text-[#a0aec0] text-sm mb-12 max-w-xl mx-auto font-sans">
-              Not a generic quiz result. A clinician-level analysis you can take to your therapist — or use on your own.
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                { title: "Compatibility Score", desc: "An overall relationship health metric based on all 7 dimensions" },
-                { title: "Partner Comparison Radar", desc: "Visual chart showing where you align and where you diverge" },
-                { title: "Clinical Risk Flags", desc: "Highlighted areas of concern with severity levels (high / medium / low)" },
-                { title: "Deep Domain Analysis", desc: "Detailed interpretation of each dimension with clinical context" },
-                { title: "3-Phase Treatment Plan", desc: "Session-by-session pathway from stabilisation through growth to maintenance" },
-                { title: "Journal Prompts & Actions", desc: "Specific exercises and conversation starters to use between sessions" },
-              ].map((item) => (
-                <div key={item.title} className="flex gap-4 p-4 rounded-lg border border-white/10 bg-white/5">
-                  <div className="flex-shrink-0 mt-0.5">
-                    <svg className="w-5 h-5 text-[#d4af37]" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white font-serif">{item.title}</h4>
-                    <p className="mt-1 text-xs text-[#a0aec0] font-sans">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+                  <p className="text-sm text-[#8892a4] leading-relaxed font-sans mb-6">
+                    For the person who knows something isn&apos;t working in their love life but can&apos;t quite name it. 9 dimensions of your relational self — clinically mapped, personally interpreted.
+                  </p>
 
-        {/* Testimonials */}
-        <section className="py-20 px-6">
-          <div className="mx-auto max-w-5xl">
-            <h3 className="text-center text-2xl font-bold text-white mb-4 font-serif">Real Couples. Real Results.</h3>
-            <p className="text-center text-[#a0aec0] text-sm mb-12 font-sans">
-              Join thousands of South African couples who stopped guessing and started growing.
-            </p>
-            <div className="grid gap-6 sm:grid-cols-2">
-              {testimonials.map((t) => (
-                <div key={t.name} className="rounded-xl border border-white/10 bg-white/5 p-6">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} className="w-4 h-4 text-[#d4af37]" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
+                  <div className="space-y-2 mb-6">
+                    {[
+                      "Attachment Style — your neurological blueprint",
+                      "Trauma History — ACE-informed screening",
+                      "Emotional Regulation — your nervous system capacity",
+                      "Self-Worth & Identity — the foundation of everything",
+                      "Relationship Readiness — are you actually available?",
+                      "Communication Style — what's really happening",
+                      "Values & Life Vision — your relational compass",
+                      "Neurodivergence Awareness — unseen friction",
+                      "Change Readiness — where you actually are",
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-2.5">
+                        <svg className="w-3.5 h-3.5 text-indigo-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p className="text-xs text-[#8892a4] font-sans leading-relaxed">{item}</p>
+                      </div>
                     ))}
                   </div>
-                  <p className="text-sm text-[#cbd5e0] leading-relaxed font-serif italic">&ldquo;{t.quote}&rdquo;</p>
-                  <div className="mt-4 flex items-center justify-between">
+
+                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
+                    <p className="text-xs text-[#4a5568] font-sans">20–30 min · Instant report · PDF download</p>
+                    <Link href="/individual-assessment" className="flex items-center gap-2 bg-white text-[#080e1d] px-5 py-2.5 rounded-xl text-xs font-bold font-sans hover:bg-white/90 transition-all">
+                      Begin →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Couples Card */}
+              <div className="group relative rounded-3xl border border-[#d4af37]/20 bg-gradient-to-br from-[#d4af37]/[0.06] to-transparent p-8 hover:border-[#d4af37]/35 transition-all overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%)" }} />
+                <div className="relative">
+                  <div className="flex items-start justify-between mb-6">
                     <div>
-                      <p className="text-sm font-semibold text-white font-sans">{t.name}</p>
-                      <p className="text-xs text-[#718096] font-sans">{t.location}</p>
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#d4af37]/15 border border-[#d4af37]/30 mb-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
+                        <span className="text-[10px] text-[#d4af37] font-semibold uppercase tracking-wider font-sans">Couples</span>
+                      </div>
+                      <h3 className="text-2xl font-bold text-white font-serif">Relationship Growth<br />Assessment</h3>
                     </div>
-                    <span className="text-xs font-semibold text-green-400 bg-green-400/10 px-2.5 py-1 rounded-full font-sans">
-                      {t.result}
-                    </span>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-[#d4af37] font-serif">R600</p>
+                      <p className="text-xs text-[#718096] font-sans">Per couple</p>
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-[#8892a4] leading-relaxed font-sans mb-6">
+                    For couples who are done guessing what&apos;s wrong. A clinical-grade X-ray of both partners across 7 domains — revealing hidden mismatches and a precise 3-phase healing pathway.
+                  </p>
+
+                  <div className="space-y-2 mb-6">
+                    {[
+                      "Attachment Compatibility — your bonding blueprints side by side",
+                      "Trauma Inventory — ACE scores and what they mean for you",
+                      "ADHD & Neurodivergence — the friction nobody talks about",
+                      "Values Alignment — what matches, what doesn't, what matters",
+                      "Change Readiness — are both partners actually ready?",
+                      "Communication Patterns — the cycle beneath the argument",
+                      "Future Vision Alignment — building toward the same life?",
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-2.5">
+                        <svg className="w-3.5 h-3.5 text-[#d4af37] mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p className="text-xs text-[#8892a4] font-sans leading-relaxed">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-[#d4af37]/[0.15]">
+                    <p className="text-xs text-[#4a5568] font-sans">30–40 min · Instant report · PDF download</p>
+                    <Link href="/assessment" className="flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-xl text-xs font-bold font-sans hover:bg-[#e4bf47] transition-all">
+                      Begin →
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ── HOW IT WORKS ── */}
+        <section id="how-it-works" className="px-6 py-16">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center mb-12">
+              <p className="text-[10px] text-[#d4af37] uppercase tracking-[0.25em] font-sans mb-3">Simple. Rigorous. Instant.</p>
+              <h2 className="text-3xl font-bold text-white font-serif">How it works</h2>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-6">
+              {[
+                { step: "01", title: "Choose your assessment", body: "Individual or couples. Complete the multi-step clinical form at your own pace — designed to be honest, not comfortable." },
+                { step: "02", title: "Answer 9 clinical dimensions", body: "From attachment wiring to trauma history to values alignment — each question is grounded in peer-reviewed research." },
+                { step: "03", title: "Receive your clinical report", body: "Instantly. A full Brown University-style PDF with scores, insights, clinical flags, and a personalised treatment pathway." },
+              ].map((item) => (
+                <div key={item.step} className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 hover:border-white/10 transition-all">
+                  <p className="text-4xl font-bold text-[#d4af37]/15 font-serif mb-4">{item.step}</p>
+                  <h3 className="text-base font-bold text-white font-serif mb-2">{item.title}</h3>
+                  <p className="text-xs text-[#718096] leading-relaxed font-sans">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── TESTIMONIALS ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center mb-12">
+              <p className="text-[10px] text-[#d4af37] uppercase tracking-[0.25em] font-sans mb-3">Real results</p>
+              <h2 className="text-3xl font-bold text-white font-serif">What people are saying</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[...couplesTestimonials.map(t => ({...t, type: "Couples"})), ...individualTestimonials.map(t => ({...t, type: "Individual"}))].map((t, i) => (
+                <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 hover:border-white/10 transition-all flex flex-col">
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(5)].map((_, si) => <span key={si} className="text-[#d4af37] text-xs">★</span>)}
+                    <span className={`ml-auto text-[9px] font-semibold uppercase tracking-wider font-sans px-2 py-0.5 rounded-full ${
+                      t.type === "Couples" ? "bg-[#d4af37]/15 text-[#d4af37]" : "bg-indigo-500/15 text-indigo-300"
+                    }`}>{t.type}</span>
+                  </div>
+                  <p className="text-sm text-[#a0aec0] italic leading-relaxed font-serif flex-1">&ldquo;{t.quote}&rdquo;</p>
+                  <div className="mt-5 pt-4 border-t border-white/[0.06]">
+                    <p className="text-xs font-bold text-white font-sans">{t.name}</p>
+                    <p className="text-[10px] text-[#4a5568] font-sans">{t.location}</p>
+                    <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                      <span className="text-[9px] text-green-400 font-semibold font-sans">{t.result}</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -375,86 +371,148 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pricing / CTA */}
-        <section className="py-20 px-6">
-          <div className="mx-auto max-w-2xl">
-            <div className="rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-10 text-center">
-              <h3 className="text-2xl font-bold text-white font-serif">One Assessment. Clarity for Life.</h3>
-              <p className="mt-3 text-[#a0aec0] text-sm max-w-md mx-auto font-sans">
-                Most couples spend R1,200–R2,000 per therapy session just trying to identify the problem. Get your answer in 30 minutes.
+        {/* ── PROBLEM / WHY NOW ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-3xl border border-red-500/15 bg-red-500/[0.03] p-10 text-center">
+              <p className="text-[10px] text-red-400 uppercase tracking-[0.25em] font-sans mb-4">The cost of waiting</p>
+              <h2 className="text-3xl font-bold text-white font-serif mb-4">
+                Most couples wait <span className="text-red-400">6 years</span> before getting help.
+              </h2>
+              <p className="text-[#8892a4] text-sm max-w-2xl mx-auto leading-relaxed font-sans mb-8">
+                By then, resentment has calcified. Patterns have cemented. And you&apos;re spending R1,500–R2,000 per therapy session just figuring out <em>what</em> the problem is.
+                Our assessments do that work in 30 minutes — so you can walk into any session already knowing.
               </p>
-              <div className="mt-8">
-                <div className="text-5xl font-bold text-white font-serif">R600</div>
-                <p className="mt-1 text-xs text-[#718096] font-sans">Once-off payment | Both partners included</p>
-              </div>
-              <ul className="mt-8 space-y-3 text-left max-w-sm mx-auto">
+              <div className="grid sm:grid-cols-3 gap-4">
                 {[
-                  "Full 7-dimension clinical assessment",
-                  "10+ page personalised report with charts",
-                  "Clinical risk flag identification",
-                  "3-phase treatment plan with session pricing",
-                  "Journal prompts & conversation starters",
-                  "Instant PDF download",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-[#cbd5e0] font-sans">
-                    <svg className="w-5 h-5 text-[#d4af37] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  { icon: "M12 8v4m0 4h.01", text: "Same argument, different day. You're stuck in the loop." },
+                  { icon: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636", text: "Disconnected but can't explain why." },
+                  { icon: "M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5", text: "You keep choosing the wrong person." },
+                ].map((item, i) => (
+                  <div key={i} className="rounded-xl border border-red-500/15 bg-red-500/5 p-5">
+                    <svg className="w-5 h-5 text-red-400 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                     </svg>
-                    {item}
-                  </li>
+                    <p className="text-xs text-[#8892a4] font-sans leading-relaxed">{item.text}</p>
+                  </div>
                 ))}
-              </ul>
-              <YocoButton />
-              <p className="mt-4 text-xs text-[#718096] font-sans">
-                Secure & private — your data never leaves your browser
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── WHAT'S IN THE REPORT ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center mb-12">
+              <p className="text-[10px] text-[#d4af37] uppercase tracking-[0.25em] font-sans mb-3">Clinical depth. Real answers.</p>
+              <h2 className="text-3xl font-bold text-white font-serif">What&apos;s inside your report</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", title: "Overall Growth Score", desc: "A weighted composite score with a visual gauge and contextual interpretation." },
+                { icon: "M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z", title: "Radar & Bar Charts", desc: "Research-grade visual charts of all dimensions for immediate pattern recognition." },
+                { icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", title: "Clinical Flags", desc: "High/medium/low severity flags with specific recommendations for each issue found." },
+                { icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2", title: "3-Phase Treatment Plan", desc: "Session-by-session recommendations with pricing for a full clinical pathway." },
+                { icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253", title: "Deep Domain Analysis", desc: "Neuroscience-informed interpretation of every dimension in plain language." },
+                { icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z", title: "Journal Prompts & Action Items", desc: "Pre-session prompts and a concrete checklist for your next 30 days." },
+              ].map((item) => (
+                <div key={item.title} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 hover:border-[#d4af37]/20 transition-all group">
+                  <div className="w-9 h-9 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/20 flex items-center justify-center mb-4 group-hover:bg-[#d4af37]/15 transition-all">
+                    <svg className="w-4.5 h-4.5 text-[#d4af37]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                    </svg>
+                  </div>
+                  <h3 className="text-sm font-bold text-white font-serif mb-2">{item.title}</h3>
+                  <p className="text-xs text-[#718096] leading-relaxed font-sans">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── PRICING ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-3xl">
+            <div className="text-center mb-10">
+              <p className="text-[10px] text-[#d4af37] uppercase tracking-[0.25em] font-sans mb-3">Transparent pricing</p>
+              <h2 className="text-3xl font-bold text-white font-serif">Simple. Worth it.</h2>
+              <p className="mt-3 text-sm text-[#718096] font-sans">Compare that to R1,500–R2,000 per therapy session, just to figure out what to work on.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {[
+                {
+                  tag: "Individual", price: "R600", href: "/individual-assessment",
+                  features: ["9 clinical dimensions", "Personal growth score", "Clinical flags & insights", "3-phase treatment pathway", "Full PDF report", "Love language + Attachment profile"],
+                  color: "border-white/10", bg: "bg-white/[0.03]", btn: "bg-white text-[#080e1d]", tagColor: "text-indigo-300 bg-indigo-500/15 border-indigo-500/25",
+                },
+                {
+                  tag: "Couples", price: "R600", href: "/assessment",
+                  features: ["7 clinical domains", "Partner comparison charts", "Alignment percentage per domain", "ACE + ADHD screening", "Clinical risk matrix", "3-phase couples pathway"],
+                  color: "border-[#d4af37]/25", bg: "bg-[#d4af37]/[0.05]", btn: "bg-[#d4af37] text-[#1a365d]", tagColor: "text-[#d4af37] bg-[#d4af37]/15 border-[#d4af37]/30",
+                },
+              ].map((item) => (
+                <div key={item.tag} className={`rounded-2xl border ${item.color} ${item.bg} p-7`}>
+                  <div className="flex items-center justify-between mb-5">
+                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider border font-sans ${item.tagColor}`}>{item.tag}</span>
+                    <p className="text-2xl font-bold text-white font-serif">{item.price}</p>
+                  </div>
+                  <ul className="space-y-2.5 mb-6">
+                    {item.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2.5 text-xs text-[#8892a4] font-sans">
+                        <svg className="w-3.5 h-3.5 text-[#d4af37] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href={item.href} className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold font-sans transition-all hover:opacity-90 ${item.btn}`}>
+                    Take the Assessment →
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── BLOG TEASER ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-10 text-center">
+              <p className="text-[10px] text-[#d4af37] uppercase tracking-[0.25em] font-sans mb-3">Knowledge first</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif mb-3">The Uncommon Practice</h2>
+              <p className="text-sm text-[#718096] max-w-lg mx-auto leading-relaxed font-sans mb-7">
+                10 extensive essays on love, neuroscience, and what actually makes relationships work — written by Hakeem with the rigour of a researcher and the voice of someone who&apos;s seen it all.
               </p>
+              <Link href="/the-uncommon-practice" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-7 py-3.5 text-sm text-white font-sans font-semibold hover:bg-white/[0.07] transition-all">
+                Read the essays
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* Newsletter - LOVEBetter */}
-        <section className="py-20 px-6 bg-gradient-to-b from-transparent via-[#d4af37]/[0.04] to-transparent">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="inline-block px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20 text-[#d4af37] text-xs font-semibold tracking-wider uppercase mb-6 font-sans">
-              Newsletter
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white font-serif">
-              The LOVEBetter Letter
-            </h3>
-            <p className="mt-4 text-[#a0aec0] text-base max-w-lg mx-auto leading-relaxed font-sans">
-              Neuroscience-backed insights on love, attachment, and the daily practice of building a relationship that actually feels safe. Written by Hakeem. No fluff. Just the truth about how love works in the brain and in the home.
-            </p>
-            <div className="mt-8">
-              <NewsletterSignup />
-            </div>
-            <p className="mt-4 text-xs text-[#718096] font-sans">
-              Free. Bi-weekly. Unsubscribe anytime.
-            </p>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="py-20 px-6">
+        {/* ── FAQ ── */}
+        <section className="px-6 py-16">
           <div className="mx-auto max-w-2xl">
-            <h3 className="text-center text-2xl font-bold text-white mb-10 font-serif">Frequently Asked Questions</h3>
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-white font-serif">Questions</h2>
+            </div>
             <div className="space-y-3">
               {faqs.map((faq, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between p-5 text-left"
-                  >
-                    <span className="text-sm font-bold text-white pr-4 font-serif">{faq.q}</span>
-                    <svg
-                      className={`w-5 h-5 text-[#a0aec0] flex-shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
-                      fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                <div key={i} className={`rounded-2xl border transition-all ${openFaq === i ? "border-[#d4af37]/25 bg-[#d4af37]/[0.04]" : "border-white/[0.06] bg-white/[0.02] hover:border-white/10"}`}>
+                  <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between px-6 py-5 text-left gap-4">
+                    <span className="text-sm font-semibold text-white font-sans">{faq.q}</span>
+                    <svg className={`w-4 h-4 text-[#718096] shrink-0 transition-transform ${openFaq === i ? "rotate-45" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
                   </button>
                   {openFaq === i && (
-                    <div className="px-5 pb-5">
-                      <p className="text-sm text-[#a0aec0] leading-relaxed font-sans">{faq.a}</p>
+                    <div className="px-6 pb-5">
+                      <p className="text-sm text-[#718096] leading-relaxed font-sans">{faq.a}</p>
                     </div>
                   )}
                 </div>
@@ -463,66 +521,64 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Blog CTA */}
-        <section className="py-16 px-6">
+        {/* ── NEWSLETTER ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-xl text-center">
+            <div className="rounded-3xl border border-white/[0.06] bg-white/[0.02] p-10">
+              <p className="text-[10px] text-[#d4af37] uppercase tracking-[0.25em] font-sans mb-3">Free · Valuable · Honest</p>
+              <h2 className="text-2xl font-bold text-white font-serif mb-2">The LOVEBetter Newsletter</h2>
+              <p className="text-sm text-[#718096] mb-7 font-sans leading-relaxed">
+                Neuroscience, attachment theory, and hard-won insights on love — delivered bi-weekly by Hakeem. No fluff. No algorithm. Just the real work.
+              </p>
+              <NewsletterSignup />
+            </div>
+          </div>
+        </section>
+
+        {/* ── FINAL CTA ── */}
+        <section className="px-6 pb-20 pt-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h3 className="text-xl font-bold text-white font-serif">Read The Uncommon Practice</h3>
-            <p className="mt-3 text-[#a0aec0] text-sm font-sans max-w-lg mx-auto">
-              Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnotherapy, and the radical act of showing up for the person next to you.
+            <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif mb-4">
+              The most important relationship<br />
+              <span className="text-[#d4af37] italic">is the one with yourself.</span>
+            </h2>
+            <p className="text-sm text-[#718096] font-sans max-w-lg mx-auto mb-8 leading-relaxed">
+              Start there. Then build the relationship you actually deserve.
             </p>
-            <Link
-              href="/the-uncommon-practice"
-              className="mt-6 inline-flex items-center gap-2 border border-[#d4af37]/40 text-[#d4af37] px-6 py-3 rounded-xl text-sm font-semibold font-sans hover:bg-[#d4af37]/10 transition-all"
-            >
-              Explore the Blog
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/individual-assessment" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-7 py-4 text-sm font-bold text-white font-sans hover:bg-white/[0.08] transition-all">
+                Individual Assessment — R600
+              </Link>
+              <Link href="/assessment" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#d4af37] text-[#1a365d] px-7 py-4 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/20">
+                Couples Assessment — R600
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="py-20 px-6 text-center">
-          <div className="mx-auto max-w-xl">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white font-serif">
-              Your relationship deserves more than guesswork.
-            </h3>
-            <p className="mt-4 text-[#a0aec0] text-base font-sans">
-              Take the first step toward real understanding. R600. 30 minutes. A lifetime of clarity.
-            </p>
-            <YocoButton />
-          </div>
-        </section>
-
-        {/* Disclaimer */}
-        <div className="px-6 pb-8 text-center text-xs text-[#718096] max-w-xl mx-auto font-sans">
-          <p>
-            This assessment is a screening tool and does not constitute a clinical diagnosis.
-            Results are designed to inform therapeutic conversations. For professional clinical
-            assessment, please consult a qualified practitioner.
-          </p>
-        </div>
       </main>
 
-      <footer className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-6 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-center sm:text-left">
-              <p className="text-sm font-bold text-white font-serif">The Oasis by FOLA</p>
-              <p className="text-xs text-[#718096] font-sans mt-1">R600 per assessment</p>
+      {/* ── FOOTER ── */}
+      <footer className="border-t border-white/[0.06] px-6 py-10">
+        <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#4a5568] font-sans">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded bg-[#d4af37]/15 border border-[#d4af37]/20 flex items-center justify-center">
+              <span className="text-[#d4af37] text-[10px] font-bold font-serif">F</span>
             </div>
-            <nav className="flex items-center gap-6">
-              <Link href="/the-uncommon-practice" className="text-xs text-[#a0aec0] hover:text-white transition-colors font-sans">
-                The Uncommon Practice
-              </Link>
-              <Link href="/assessment" className="text-xs text-[#d4af37] hover:text-[#e4bf47] transition-colors font-sans">
-                Take Assessment
-              </Link>
-            </nav>
+            <span>© {new Date().getFullYear()} The Oasis by FOLA · Hakeem Lesolang · All assessments R600</span>
           </div>
+          <nav className="flex items-center gap-6">
+            <Link href="/individual-assessment" className="hover:text-white transition-colors">Individual Assessment</Link>
+            <Link href="/assessment" className="hover:text-white transition-colors">Couples Assessment</Link>
+            <Link href="/the-uncommon-practice" className="hover:text-white transition-colors">The Uncommon Practice</Link>
+            <a href="https://calendly.com/folasessions/discovery-call" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Book a Call</a>
+          </nav>
         </div>
       </footer>
+
     </div>
   );
 }

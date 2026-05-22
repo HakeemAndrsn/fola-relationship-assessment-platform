@@ -39,7 +39,7 @@ export default function RootLayout({
           strategy="afterInteractive"
           data-orchids-project-id="d1fd77fb-9945-4966-8e47-96495864b188"
         />
-<ErrorReporter />
+        <ErrorReporter />
         <Script
           src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
           strategy="afterInteractive"

@@ -1,4 +1,5 @@
-import BlogList from "./BlogList";
+import Link from "next/link";
+import { blogPosts } from "@/lib/blog-data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,24 +14,27 @@ export default function BlogIndex() {
       {/* Nav */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/80 border-b border-white/5">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-          <a href="/">
+          <Link href="/">
             <h1 className="text-lg font-bold text-white tracking-tight font-serif">
               The Oasis by FOLA
             </h1>
             <p className="text-[10px] text-[#a0aec0] tracking-wide font-sans">
               Hakeem — Hypnotherapist & Peak Performance Coach
             </p>
-          </a>
+          </Link>
           <nav className="hidden sm:flex items-center gap-6">
-            <a href="/the-uncommon-practice" className="text-sm text-white font-sans">
+            <Link
+              href="/the-uncommon-practice"
+              className="text-sm text-white font-sans"
+            >
               The Uncommon Practice
-            </a>
-            <a
+            </Link>
+            <Link
               href="/assessment"
               className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-lg text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-lg hover:shadow-[#d4af37]/20"
             >
               Start Assessment
-            </a>
+            </Link>
           </nav>
         </div>
       </header>
@@ -47,16 +51,92 @@ export default function BlogIndex() {
             </h2>
             <p className="mt-4 text-lg text-[#a0aec0] max-w-2xl mx-auto font-sans leading-relaxed">
               Where neuroscience meets the nightstand. On love, attachment,
-              hypnotherapy, NLP, and the radical act of showing up for the
-              person next to you.
+              hypnotherapy, NLP, and the radical act of showing up for the person
+              next to you.
             </p>
             <p className="mt-2 text-sm text-[#718096] font-sans italic">
               Written by Hakeem Lesolang
             </p>
           </div>
 
-          {/* Blog list with sort toggle */}
-          <BlogList />
+          {/* Featured Post */}
+          <Link
+            href={`/the-uncommon-practice/${blogPosts[0].slug}`}
+            className="block group mb-12"
+          >
+            <article className="rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 sm:p-10 hover:border-[#d4af37]/50 transition-all">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-xs font-semibold text-[#d4af37] bg-[#d4af37]/10 px-2.5 py-1 rounded-full font-sans">
+                  {blogPosts[0].category}
+                </span>
+                <span className="text-xs text-[#718096] font-sans">
+                  {blogPosts[0].date}
+                </span>
+                <span className="text-xs text-[#718096] font-sans">
+                  {blogPosts[0].readTime}
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white font-serif group-hover:text-[#d4af37] transition-colors">
+                {blogPosts[0].title}
+              </h3>
+              <p className="mt-1 text-base text-[#d4af37]/70 font-serif italic">
+                {blogPosts[0].subtitle}
+              </p>
+              <p className="mt-4 text-[#cbd5e0] font-sans leading-relaxed">
+                {blogPosts[0].excerpt}
+              </p>
+              <div className="mt-6 inline-flex items-center gap-2 text-[#d4af37] text-sm font-semibold font-sans group-hover:gap-3 transition-all">
+                Read Article
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </div>
+            </article>
+          </Link>
+
+          {/* Post Grid */}
+          <div className="grid gap-6 sm:grid-cols-2">
+            {blogPosts.slice(1).map((post) => (
+              <Link
+                key={post.slug}
+                href={`/the-uncommon-practice/${post.slug}`}
+                className="group"
+              >
+                <article className="h-full rounded-xl border border-white/10 bg-white/5 p-6 hover:border-[#d4af37]/30 hover:bg-[#d4af37]/5 transition-all">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-[10px] font-semibold text-[#d4af37] bg-[#d4af37]/10 px-2 py-0.5 rounded-full font-sans uppercase tracking-wider">
+                      {post.category}
+                    </span>
+                    <span className="text-[10px] text-[#718096] font-sans">
+                      {post.readTime}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white font-serif group-hover:text-[#d4af37] transition-colors leading-snug">
+                    {post.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-[#d4af37]/60 font-serif italic">
+                    {post.subtitle}
+                  </p>
+                  <p className="mt-3 text-sm text-[#a0aec0] font-sans leading-relaxed line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  <div className="mt-4 text-xs text-[#718096] font-sans">
+                    {post.date}
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
 
           {/* Newsletter CTA */}
           <div className="mt-20 rounded-2xl border border-white/10 bg-white/5 p-8 sm:p-10 text-center">
@@ -101,18 +181,18 @@ export default function BlogIndex() {
               </p>
             </div>
             <nav className="flex items-center gap-6">
-              <a
+              <Link
                 href="/the-uncommon-practice"
                 className="text-xs text-[#a0aec0] hover:text-white transition-colors font-sans"
               >
                 The Uncommon Practice
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/assessment"
                 className="text-xs text-[#d4af37] hover:text-[#e4bf47] transition-colors font-sans"
               >
                 Take Assessment
-              </a>
+              </Link>
             </nav>
           </div>
         </div>
