@@ -96,8 +96,8 @@ export default function Home() {
               <span className="text-[#d4af37] text-xs font-bold font-serif">F</span>
             </div>
             <div>
-              <p className="text-sm font-bold text-white tracking-tight font-serif leading-none">The Oasis by FOLA</p>
-              <p className="text-[9px] text-[#718096] tracking-wide font-sans mt-0.5">Hakeem Lesolang · Hypnotherapist & Peak Performance Coach</p>
+              <p className="text-sm font-bold text-white tracking-tight font-serif leading-none">LoveBetter</p>
+              <p className="text-[9px] text-[#718096] tracking-wide font-sans mt-0.5">Relationship Growth Readiness Assessment</p>
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-6">
@@ -133,7 +133,7 @@ export default function Home() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
               </span>
               <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">
-                <AnimatedCounter target={2847} /> people transformed their love this year
+                <AnimatedCounter target={247} /> people chose how to love better this year...
               </span>
             </div>
 
@@ -154,7 +154,7 @@ export default function Home() {
               >
                 <div className="text-left">
                   <p className="text-[10px] text-[#718096] uppercase tracking-wider font-sans">Individual</p>
-                  <p className="text-base font-bold text-white font-serif">Self Growth Assessment</p>
+                  <p className="text-base font-bold text-white font-serif">Personal Growth Assessment</p>
                   <p className="text-xs text-[#d4af37] font-sans mt-0.5">9 dimensions · R600 · 20–30 min</p>
                 </div>
                 <svg className="w-5 h-5 text-[#718096] group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -221,7 +221,7 @@ export default function Home() {
                         <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
                         <span className="text-[10px] text-indigo-300 font-semibold uppercase tracking-wider font-sans">Individual</span>
                       </div>
-                      <h3 className="text-2xl font-bold text-white font-serif">Self Growth<br />Assessment</h3>
+                      <h3 className="text-2xl font-bold text-white font-serif">Personal Growth<br />Assessment</h3>
                     </div>
                     <div className="text-right">
                       <p className="text-2xl font-bold text-white font-serif">R600</p>
@@ -568,7 +568,7 @@ export default function Home() {
             <div className="w-6 h-6 rounded bg-[#d4af37]/15 border border-[#d4af37]/20 flex items-center justify-center">
               <span className="text-[#d4af37] text-[10px] font-bold font-serif">F</span>
             </div>
-            <span>© {new Date().getFullYear()} The Oasis by FOLA · Hakeem Lesolang · All assessments R600</span>
+            <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · All assessments R600</span>
           </div>
           <nav className="flex items-center gap-6">
             <Link href="/individual-assessment" className="hover:text-white transition-colors">Individual Assessment</Link>

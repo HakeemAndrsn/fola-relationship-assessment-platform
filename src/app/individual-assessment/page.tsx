@@ -208,7 +208,7 @@ export default function IndividualAssessmentPage() {
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/90 border-b border-white/5">
         <div className="mx-auto max-w-3xl px-6 py-4 flex items-center justify-between">
           <div>
-            <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</p>
+            <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</p>
             <p className="text-[10px] text-[#718096] font-sans">The Oasis by FOLA</p>
           </div>
           <div className="text-right">
@@ -252,7 +252,7 @@ export default function IndividualAssessmentPage() {
             <div className="space-y-8">
               <div className="text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 mb-6">
-                  <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</span>
+                  <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl font-bold text-white font-serif leading-tight">
                   Know yourself completely.<br />
@@ -498,7 +498,7 @@ export default function IndividualAssessmentPage() {
                   onClick={handleSubmit}
                   className="w-full flex items-center justify-center gap-2 bg-[#d4af37] text-[#1a365d] py-4 rounded-xl text-base font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/25"
                 >
-                  Generate My Clinical Report — R600
+                  Generate My Personal Growth Report — R600
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
