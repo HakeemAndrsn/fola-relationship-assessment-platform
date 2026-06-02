@@ -406,6 +406,9 @@ export default function IndividualReportPage() {
               <div>
                 <p className="text-xs text-[#a0aec0] font-sans uppercase tracking-wider">Total Recommended Investment</p>
                 <p className="text-xs text-[#718096] font-sans mt-0.5">{report.priceBreakdown}</p>
+                <p className="mt-2 text-xs text-[#e2e8f0] font-sans leading-relaxed">
+                  Session rate note: all sessions start at R2500/hour, maintenance & expansion sessions are R2000, and Age Regression Therapy sessions are R3800 each. A 10-session package is available for deeper, longer-term work.
+                </p>
               </div>
               <p className="text-3xl font-bold text-[#d4af37] font-serif">R{report.totalInvestment.toLocaleString()}</p>
             </div>

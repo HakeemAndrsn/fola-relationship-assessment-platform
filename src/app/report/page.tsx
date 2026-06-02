@@ -443,6 +443,9 @@ export default function ReportPage() {
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">Estimated Total Investment</p>
                 <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases</p>
+                <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
+                  Session rate note: all sessions start at R2500/hour, maintenance & expansion sessions are R2000, and Age Regression Therapy sessions are R3800 each. A 10-session package is available for deeper, longer-term work.
+                </p>
               </div>
               <span className="text-3xl font-bold">R{report.totalInvestment.toLocaleString()}</span>
             </div>

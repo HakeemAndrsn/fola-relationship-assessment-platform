@@ -305,14 +305,12 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
 
   // Dynamic pricing
   const flagCount = flags.filter((f) => f.severity === "high").length;
-  const basePrice = 600;
-  const finalPrice = flagCount >= 3 ? 950 : flagCount >= 1 ? 750 : 600;
+  const basePrice = 2500;
+  const finalPrice = flagCount >= 3 ? 3800 : flagCount >= 1 ? 2500 : 2500;
   const breakdown =
     flagCount >= 3
-      ? "Trauma mapping + Attachment rewiring + Emotion regulation pathway = R950"
-      : flagCount >= 1
-      ? "Core assessment + Priority clinical pathway = R750"
-      : "Standard Individual Growth Assessment = R600";
+      ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
+      : "Session starting rate = R2500/hour | Maintenance & Expansion sessions = R2000 | Age Regression Therapy = R3800 each";
 
   // Treatment plan
   const treatmentPlan: IndividualTreatmentPhase[] = [
@@ -323,10 +321,10 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       focus: "Nervous system regulation, trauma processing, and core self-worth installation",
       sessions: [
         ...(traumaScore < 50
-          ? [{ description: "Breakthrough Trauma Session", target: "Subconscious trauma processing & nervous system reset", price: 1800 }]
+          ? [{ description: "Age Regression Therapy Session", target: "Subconscious trauma processing & nervous system reset", price: 3800 }]
           : []),
-        { description: "Individual Peak Performance Session", target: `${primaryGrowthEdge.label} — foundational work`, price: 1500 },
-        { description: "Hypnotherapy: Self-Worth Installation", target: "Subconscious self-worth reprogramming via NLP", price: 1800 },
+        { description: "Individual Peak Performance Session", target: `${primaryGrowthEdge.label} — foundational work`, price: 2500 },
+        { description: "Hypnotherapy: Self-Worth Installation", target: "Subconscious self-worth reprogramming via NLP", price: 3800 },
       ],
     },
     {
@@ -335,10 +333,10 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       weeks: "Weeks 4–7",
       focus: "Communication mastery, values clarification, and relationship readiness",
       sessions: [
-        { description: "Communication Pattern Rewiring", target: "Assertion, listening, repair — all three pillars", price: 1500 },
-        { description: "Values & Vision Clarity Session", target: "Crystallising non-negotiables and relationship vision", price: 1500 },
+        { description: "Communication Pattern Rewiring", target: "Assertion, listening, repair — all three pillars", price: 2500 },
+        { description: "Values & Vision Clarity Session", target: "Crystallising non-negotiables and relationship vision", price: 2500 },
         ...(attachScore < 60
-          ? [{ description: "Attachment Rewiring Session", target: "Earned secure attachment — NLP timeline work", price: 1800 }]
+          ? [{ description: "Age Regression Therapy Session", target: "Earned secure attachment — NLP timeline work", price: 3800 }]
           : []),
       ],
     },
@@ -348,8 +346,8 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       weeks: "Ongoing",
       focus: "Sustaining growth, integration check-ins, and future relationship design",
       sessions: [
-        { description: "Monthly Integration Check-in", target: "Progress audit, recalibration, and next chapter planning", price: 900 },
-        { description: "6-Month Growth Reassessment", target: "Repeat Individual Assessment to measure transformation", price: 600 },
+        { description: "Maintenance & Expansion Session", target: "Progress audit, recalibration, and next chapter planning", price: 2000 },
+        { description: "6-Month Growth Reassessment", target: "Repeat Individual Assessment to measure transformation", price: 2000 },
       ],
     },
   ];

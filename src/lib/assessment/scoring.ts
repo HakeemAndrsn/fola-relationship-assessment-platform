@@ -265,9 +265,9 @@ export function identifyClinicalFlags(data: AssessmentFormData, scores: DomainSc
 
 // ── Dynamic Pricing ──
 export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalFlag[]): { price: number; breakdown: string } {
-  const base = 500;
+  const base = 2500;
   let multiplier = 1.0;
-  const components: string[] = ["Base assessment (R500)"];
+  const components: string[] = ["Session starting rate (R2500/hour)"];
 
   if (flags.some((f) => f.type === "trauma" && f.severity === "high")) {
     multiplier += 0.3;
@@ -286,8 +286,9 @@ export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalF
     components.push("Complex multi-domain analysis (+R100)");
   }
 
-  const price = Math.min(950, Math.max(450, Math.round(base * multiplier)));
-  return { price, breakdown: components.join(" | ") };
+  const price = Math.min(3800, Math.max(2500, Math.round(base * multiplier)));
+  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2000 | Age Regression Therapy = R3800 each`;
+  return { price, breakdown };
 }
 
 // ── Treatment plan generation ──
