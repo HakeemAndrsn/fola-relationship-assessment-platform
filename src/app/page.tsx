@@ -92,13 +92,13 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#080e1d]/80 border-b border-white/[0.06]">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#d4af37]/15 border border-[#d4af37]/30 flex items-center justify-center">
-              <span className="text-[#d4af37] text-xs font-bold font-serif">F</span>
-            </div>
-            <div>
-              <p className="text-sm font-bold text-white tracking-tight font-serif leading-none">LoveBetter</p>
-              <p className="text-[9px] text-[#718096] tracking-wide font-sans mt-0.5">Relationship Growth Readiness Assessment</p>
-            </div>
+            <Link href="/" className="flex items-center gap-2">
+              <img src="/icon-32.png" alt="FOLA" className="w-8 h-8" />
+              <div>
+                <p className="text-sm font-bold text-white tracking-tight font-serif leading-none">LoveBetter</p>
+                <p className="text-[9px] text-[#718096] tracking-wide font-sans mt-0.5">Relationship Growth Readiness Assessment</p>
+              </div>
+            </Link>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/the-uncommon-practice" className="text-xs text-[#718096] hover:text-white transition-colors font-sans tracking-wide">The Uncommon Practice</Link>

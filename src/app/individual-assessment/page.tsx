@@ -293,10 +293,13 @@ export default function IndividualAssessmentPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d]">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/90 border-b border-white/5">
-        <div className="mx-auto max-w-3xl px-6 py-4 flex items-center justify-between">
-          <div>
-            <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</p>
-            <p className="text-[10px] text-[#718096] font-sans">The Oasis by FOLA</p>
+        <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <div>
+              <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</p>
+              <p className="text-[10px] text-[#718096] font-sans">The Oasis by FOLA</p>
+            </div>
           </div>
           <div className="text-right">
             <p className="text-xs text-[#a0aec0] font-sans">{STEPS[step]}</p>

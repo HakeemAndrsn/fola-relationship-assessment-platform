@@ -99,10 +99,10 @@ export default function IndividualReportPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d] print:bg-white print:from-white print:via-white print:to-white">
       {/* Print nav */}
       <header className="print:hidden fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/90 border-b border-white/5">
-        <div className="mx-auto max-w-4xl px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-sm text-[#a0aec0] hover:text-white transition-colors font-sans flex items-center gap-2">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" /></svg>
-            Home
+        <div className="mx-auto max-w-4xl px-6 py-3 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 group">
+            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <span className="text-sm text-[#a0aec0] group-hover:text-white transition-colors font-sans">Home</span>
           </Link>
           <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Personal Growth Report</p>
           <button
@@ -120,6 +120,9 @@ export default function IndividualReportPage() {
 
           {/* ── COVER ── */}
           <section className="rounded-3xl border border-[#d4af37]/20 bg-gradient-to-br from-[#1a365d] via-[#0f1f3d] to-[#0a1628] p-8 sm:p-12 text-center print:border-2 print:border-[#1a365d]">
+            <div className="flex justify-center mb-4">
+              <img src="/icon-192.png" alt="FOLA" className="w-16 h-16" />
+            </div>
             <p className="text-[10px] tracking-[0.3em] text-[#d4af37] uppercase font-sans mb-4">The Oasis by FOLA · Hakeem Lesolang</p>
             <h1 className="text-3xl sm:text-4xl font-bold text-white font-serif leading-tight">Personal Growth Assessment</h1>
             <p className="text-lg text-[#d4af37] italic font-serif mt-2">Personal Clinical Report</p>

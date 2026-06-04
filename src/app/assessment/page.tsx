@@ -170,10 +170,13 @@ export default function AssessmentPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#f7f8fc] to-white">
       {/* Header */}
       <header className="border-b border-[#e2e8f0] bg-white/80 backdrop-blur-sm sticky top-0 z-10">
-        <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-[#1a365d] tracking-tight">FOLA Relational Assessment</h1>
-            <p className="text-xs text-[#718096]">The Oasis by FOLA</p>
+        <div className="mx-auto max-w-3xl px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <div>
+              <h1 className="text-lg font-bold text-[#1a365d] tracking-tight leading-none">FOLA Relational Assessment</h1>
+              <p className="text-xs text-[#718096]">The Oasis by FOLA</p>
+            </div>
           </div>
           <div className="text-right">
             <p className="text-xs font-medium text-[#4a5568]">Step {step + 1} of {STEPS.length}</p>

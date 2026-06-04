@@ -110,7 +110,10 @@ export default function ReportPage() {
       {/* Print-hidden controls */}
       <div className="print:hidden sticky top-0 z-10 bg-white border-b border-[#e2e8f0] px-4 py-3">
         <div className="mx-auto max-w-4xl flex items-center justify-between">
-          <h1 className="text-lg font-bold text-[#1a365d]">FOLA Assessment Report</h1>
+          <div className="flex items-center gap-3">
+            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <h1 className="text-lg font-bold text-[#1a365d]">FOLA Assessment Report</h1>
+          </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => router.push("/assessment")} className="text-[#4a5568]">
               New Assessment
@@ -127,6 +130,9 @@ export default function ReportPage() {
         <section className="text-center py-16 print:py-12 border-b-2 border-[#1a365d]">
           <div className="inline-block px-6 py-2 bg-[#1a365d] text-white text-xs font-semibold tracking-widest uppercase rounded mb-6">
             Confidential Clinical Document
+          </div>
+          <div className="flex justify-center mb-6">
+            <img src="/icon-192.png" alt="FOLA" className="w-20 h-20" />
           </div>
           <h1 className="text-4xl font-bold text-[#1a365d] tracking-tight">
             FOLA Relational Assessment
