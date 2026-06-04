@@ -95,10 +95,10 @@ export default async function BlogPost({
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <Link href="/">
             <h1 className="text-lg font-bold text-white tracking-tight font-serif">
-              The Oasis by FOLA
+              LoveBetter
             </h1>
             <p className="text-[10px] text-[#a0aec0] tracking-wide font-sans">
-              Hakeem — Hypnotherapist & Peak Performance Coach
+              Relationship Growth Readiness Assessment
             </p>
           </Link>
           <nav className="hidden sm:flex items-center gap-6">

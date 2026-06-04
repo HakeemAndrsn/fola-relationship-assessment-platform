@@ -998,6 +998,110 @@ That is the uncommon practice. That is what it means to be the man she needs.
 
 Not once. Not at the beginning. But through every phase of who she's becoming.`,
   },
+  {
+    slug: "the-version-of-you-that-went-quiet",
+    title: "The Version of You That Went Quiet",
+    subtitle: "Quiet and gone are not the same thing.",
+    date: "June 3, 2026",
+    readTime: "4 min read",
+    category: "Self-Worth | Inner Work",
+    excerpt: "There is a version of you that used to move. Not because they had a plan. Not because they knew what was on the other side. But because there was something inside them that just kept going.",
+    content: `There is a version of you that used to move.
+
+Not because they had a plan. Not because they knew what was on the other side. But because there was something inside them — a drive, a restlessness, a refusal to stay in the same block — that just kept going. You jumped. You landed somewhere new. You jumped again.
+
+And then something happened. A relationship that collapsed around you. A goal that didn't come together the way you imagined. A moment where life revealed that your courage alone is not always enough to protect you from disappointment.
+
+And that version of you — the one that moved — went quiet.
+
+You didn't call it giving up. You called it being realistic. You called it growing up. You called it understanding how the world actually works. You got busy. You found reasons. You told yourself you'd get back to it next month, next year, when the kids are older, when work calms down, when things are different.
+
+But that is what giving up looks like from the inside. It doesn't announce itself. It just slowly, gradually, replaces action with intention. It replaces the doing with the planning-to-do. It replaces the appointment you made with yourself with the perfectly reasonable excuse.
+
+Here is what I know from working with people at this exact threshold: the version of you that went quiet did not leave.
+
+That person got disappointed. They got let down by a plan that didn't hold, by a person who didn't show up the way they said they would, by their own choices in a moment they weren't equipped to navigate differently. And they learned something, in that disappointment, that got filed in the wrong place: I cannot trust myself to see this through.
+
+That is the wound underneath the giving up. Not the failure. The loss of trust in your own judgment.
+
+And it shows up everywhere after that. In the things you start but don't finish. In the promises you make to yourself that you break quietly, without fanfare, because no one is watching. In the way you perform for other people's approval because somewhere along the way you stopped being able to give it to yourself.
+
+The brain has a role in this too. It mistakes what is familiar for what is safe. If what is familiar is surviving on less than you deserve, on the narrowest version of your life, on doing just enough to get through — your brain will protect that. It will call growth dangerous. It will call comfort zones home.
+
+Training rewires that.
+
+Not motivation. Not a morning playlist. Not a quote on your wall. Training. The deliberate, unglamorous repetition of choosing yourself — even when no one is watching, even when the results aren't visible yet, even when the voice in your head is asking who's going to clap for you at the end.
+
+Here is the answer to that question: you are.
+
+That is not a small thing. It is actually the only thing that works long-term. Because when you learn to applaud yourself, you teach every other person in your life how you are to be treated. Not by telling them. By showing them.
+
+The version of you that went quiet is not gone. Quiet and gone are not the same thing. One is temporary. One requires grief.
+
+This is temporary. What it requires is choice.
+
+Come back to yourself. One day, one decision, one kept appointment at a time.`,
+  },
+  {
+    slug: "you-cant-expect-others-to-show-up-when-you-dont-show-up-for-yourself",
+    title: "You Can't Expect Others to Show Up When You Don't Show Up for Yourself",
+    subtitle: "The math of self-betrayal doesn't add up.",
+    date: "June 3, 2026",
+    readTime: "4 min read",
+    category: "Self-Worth | Inner Work",
+    excerpt: "You are walking around silently expecting people to show up for you when they've watched you break your own promises to yourself.",
+    content: `You are walking around silently expecting people to show up for you when they've watched you break your own promises to yourself.
+
+Think about that for a second.
+
+You told yourself you'd start that project in January. It's June. You told yourself you'd go to the gym this week. It's Thursday and you haven't packed your bag. You told yourself you'd stop accepting the treatment you don't deserve. You accepted it again yesterday.
+
+And then you wonder why your partner doesn't take your needs seriously. Why your boss doesn't respect your boundaries. Why your friends don't call as often as they used to.
+
+They are mirroring your relationship with yourself back to you.
+
+## The Invisible Curriculum
+
+Every promise you break to yourself is a lesson you teach everyone around you. Not through words — through demonstration. You are broadcasting, 24 hours a day, what treatment is acceptable. And the people in your life are learning from it.
+
+When you say you'll wake up at 5am and you hit snooze until 7, you are not just failing a morning routine. You are training everyone who depends on you that your word is negotiable. When you say you'll stop drinking, stop scrolling, stop settling — and you don't — you are not just disappointing yourself. You are lowering the bar for how seriously anyone has to take you.
+
+The cruelest part? Most of the people around you aren't even conscious of it. They can't articulate why they don't trust your follow-through. They just feel it. They feel the gap between what you say and what you do. And they adjust their expectations accordingly.
+
+## The Relationship Mirror
+
+Here is what I see in my practice, over and over: people come in wanting their partner to show up differently. More present. More reliable. More emotionally available. And I ask them one question: "When was the last time you showed up for yourself like that?"
+
+The silence is always the same length.
+
+You cannot give what you do not have. You cannot demand what you do not demonstrate. If you are unreliable with yourself, you will attract people who are unreliable with you. If you tolerate your own excuses, you will tolerate theirs. If you abandon yourself when things get hard, you will find partners who do the same.
+
+This is not punishment. This is alignment. The universe is not punishing you — it is matching you.
+
+## The Repair
+
+The fix is not complicated. It is just uncomfortable.
+
+Start with one promise. A small one. Something you can keep today. Not next week. Not on Monday. Today.
+
+Drink the water. Make the call. Write the sentence. Send the email. Show up at the time you said you would. Not for anyone else. For you.
+
+And when you keep it — and you will — notice what happens. Not in your schedule. In your nervous system. Something shifts. A thread of trust, thin as spider silk, reconnects between your word and your action.
+
+Keep that thread. Build on it. Tomorrow, make another promise. Keep that one too.
+
+Over time, the people around you will notice. Not because you told them. Because the broadcast changes. The signal shifts. You start walking differently. Speaking differently. Occupying space differently. And the people who were mirroring your self-abandonment will either rise to meet you or fall away.
+
+Both outcomes are progress.
+
+## The Bottom Line
+
+You cannot expect others to show up for you in ways you have not shown up for yourself. It is not fair to them. It is not kind to you.
+
+The relationship you want starts with the one you are willing to have with yourself. Not tomorrow. Not when you're ready. Now.
+
+Show up. Keep showing up. Watch what happens.`,
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import YocoButton from "@/components/YocoButton";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -160,6 +161,17 @@ export default function IndividualAssessmentPage() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<IndividualFormData>(DEFAULT);
   const [generating, setGenerating] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const justPaid = params.get("lb_paid") === "1";
+    const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
+    if (justPaid || alreadyPaid) {
+      sessionStorage.setItem("lb_payment_verified", "true");
+      setIsPaid(true);
+    }
+  }, []);
 
   const updateSliders = useCallback(
     (field: keyof IndividualFormData, id: string, val: number) => {
@@ -201,6 +213,26 @@ export default function IndividualAssessmentPage() {
     { label: "Self-Worth", score: Math.round((Object.values(data.selfWorth).reduce((a, b) => a + b, 0) / SELF_WORTH_QUESTIONS.length) * 10) },
     { label: "Readiness", score: Math.round((Object.values(data.relationshipReadiness).reduce((a, b) => a + b, 0) / RELATIONSHIP_READINESS_QUESTIONS.length) * 10) },
   ];
+
+  // ── Payment Gate ──
+  if (!isPaid) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d] flex items-center justify-center px-6">
+        <div className="max-w-md w-full text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10">
+            <span className="text-[#d4af37] text-sm">🔒</span>
+            <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Secure Payment Required</span>
+          </div>
+          <h1 className="mt-4 text-3xl font-bold text-white font-serif">Unlock Your Individual Growth Assessment</h1>
+          <p className="text-[#a0aec0] font-sans text-sm leading-relaxed">
+            Complete your secure payment first, then continue into your personal growth assessment.
+          </p>
+          <YocoButton />
+          <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d]">
