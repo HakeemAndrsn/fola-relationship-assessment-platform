@@ -202,27 +202,18 @@ export default function IndividualAssessmentPage() {
     const report = generateIndividualReport(data);
     sessionStorage.setItem("folaIndividualReport", JSON.stringify(report));
 
-    // Fire Zapier webhook with assessment completion data
-    const assessmentWebhook = process.env.NEXT_PUBLIC_ZAPIER_ASSESSMENT_WEBHOOK;
-    if (assessmentWebhook) {
-      try {
-        await fetch(assessmentWebhook, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            event: "assessment_completed",
-            email: customerEmail,
-            phone: customerPhone,
-            name: data.onboarding.name,
-            overallScore: report.overallScore,
-            primaryGrowthEdge: report.primaryGrowthEdge?.dimension,
-            timestamp: new Date().toISOString(),
-          }),
-        });
-      } catch (e) {
-        console.warn("Zapier webhook failed:", e);
-      }
-    }
+    // Fire MailerLite directly (no Zapier)
+    fetch("/.netlify/functions/mailerlite", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: customerEmail,
+        phone: customerPhone,
+        name: data.onboarding.name,
+        overallScore: report.overallScore,
+        primaryGrowthEdge: report.primaryGrowthEdge?.dimension,
+      }),
+    }).catch((e) => console.warn("MailerLite function failed:", e));
 
     router.push("/individual-report");
   };
