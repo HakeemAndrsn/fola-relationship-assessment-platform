@@ -283,6 +283,7 @@ export default function IndividualAssessmentPage() {
             customerEmail={customerEmail}
             customerPhone={customerPhone}
             customerName={data.onboarding.name}
+            productDescription="LoveBETTER Individual Assessment"
           />
           <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
         </div>

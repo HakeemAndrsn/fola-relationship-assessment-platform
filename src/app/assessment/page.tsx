@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
+import YocoButton from "@/components/YocoButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -130,6 +131,19 @@ export default function AssessmentPage() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<AssessmentFormData>(DEFAULT_DATA);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const justPaid = params.get("lb_paid") === "1";
+    const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
+    if (justPaid || alreadyPaid) {
+      sessionStorage.setItem("lb_payment_verified", "true");
+      setIsPaid(true);
+    }
+  }, []);
 
   const pA = data.onboarding.partnerAName || "Partner A";
   const pB = data.onboarding.partnerBName || "Partner B";
@@ -162,10 +176,85 @@ export default function AssessmentPage() {
     // Store in sessionStorage for the report page
     sessionStorage.setItem("fola-report", JSON.stringify(report));
     sessionStorage.setItem("fola-form-data", JSON.stringify(data));
+
+    // Fire Zapier webhook with assessment completion data
+    const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event: "assessment_completed",
+            email: customerEmail,
+            phone: customerPhone,
+            name: `${data.onboarding.partnerAName} & ${data.onboarding.partnerBName}`,
+            overallScore: report.overallScore,
+            primaryGrowthEdge: report.primaryGrowthEdge?.dimension,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (e) {
+        console.warn("Zapier webhook failed:", e);
+      }
+    }
+
     router.push("/report");
   };
 
   const progress = ((step + 1) / STEPS.length) * 100;
+
+  // ── Payment Gate ──
+  if (!isPaid) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#f7f8fc] to-white flex items-center justify-center px-6">
+        <div className="max-w-md w-full text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10">
+            <span className="text-[#d4af37] text-sm">🔒</span>
+            <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Secure Payment Required</span>
+          </div>
+          <h1 className="mt-4 text-3xl font-bold text-[#1a365d] font-serif">Unlock Your Couples Assessment</h1>
+          <p className="text-[#4a5568] font-sans text-sm leading-relaxed">
+            Enter your details below to begin. Your assessment report and invoice will be sent to your email.
+          </p>
+
+          {/* Customer details form */}
+          <div className="space-y-3 text-left">
+            <div>
+              <label className="block text-xs text-[#4a5568] font-sans mb-1">Email address *</label>
+              <input
+                type="email"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-[#e2e8f0] text-[#1a365d] text-sm font-sans placeholder:text-[#a0aec0] focus:outline-none focus:border-[#d4af37]/50 transition-colors"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-[#4a5568] font-sans mb-1">Phone number (optional)</label>
+              <input
+                type="tel"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                placeholder="+27 12 345 6789"
+                className="w-full px-4 py-3 rounded-lg bg-white border border-[#e2e8f0] text-[#1a365d] text-sm font-sans placeholder:text-[#a0aec0] focus:outline-none focus:border-[#d4af37]/50 transition-colors"
+              />
+            </div>
+          </div>
+
+          <YocoButton
+            customerEmail={customerEmail}
+            customerPhone={customerPhone}
+            customerName={`${data.onboarding.partnerAName || "Partner A"} & ${data.onboarding.partnerBName || "Partner B"}`}
+            productDescription="LoveBETTER Couples Assessment"
+            amountInCents={120000}
+          />
+          <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f7f8fc] to-white">

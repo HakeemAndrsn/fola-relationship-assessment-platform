@@ -6,9 +6,11 @@ interface YocoButtonProps {
   customerEmail?: string;
   customerPhone?: string;
   customerName?: string;
+  productDescription?: string;
+  amountInCents?: number;
 }
 
-export default function YocoButton({ customerEmail, customerPhone, customerName }: YocoButtonProps) {
+export default function YocoButton({ customerEmail, customerPhone, customerName, productDescription, amountInCents }: YocoButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,10 +27,10 @@ export default function YocoButton({ customerEmail, customerPhone, customerName 
       });
 
       yoco.showPopup({
-        amountInCents: 60000, // R600.00
+        amountInCents: amountInCents || 60000, // R600.00
         currency: "ZAR",
         name: "FOLA Polyclinics",
-        description: "LoveBETTER Individual Assessment",
+        description: productDescription || "LoveBETTER Individual Assessment",
         customer: {
           email: customerEmail || "",
           phone: customerPhone || "",
@@ -69,8 +71,8 @@ export default function YocoButton({ customerEmail, customerPhone, customerName 
                         phone: customerPhone || "",
                         name: customerName || "",
                         paymentId: result.id,
-                        amount: "R600",
-                        product: "Individual Growth Assessment",
+                        amount: amountInCents ? `R${amountInCents / 100}` : "R600",
+                        product: productDescription || "Individual Growth Assessment",
                         source: "lovebetter-assessment",
                         timestamp: new Date().toISOString(),
                       }),
@@ -101,8 +103,8 @@ export default function YocoButton({ customerEmail, customerPhone, customerName 
                       phone: customerPhone || "",
                       name: customerName || "",
                       paymentId: result.id,
-                      amount: "R600",
-                      product: "Individual Growth Assessment",
+                        amount: amountInCents ? `R${amountInCents / 100}` : "R600",
+                        product: productDescription || "Individual Growth Assessment",
                       source: "lovebetter-assessment",
                       timestamp: new Date().toISOString(),
                     }),
