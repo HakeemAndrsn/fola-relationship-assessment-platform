@@ -2,6 +2,8 @@ import Link from "next/link";
 import { blogPosts, getPostBySlug } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import SocialShare from "@/components/SocialShare";
+import Comments from "@/components/Comments";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -182,6 +184,12 @@ export default async function BlogPost({
 
           {/* Content */}
           <div className="prose-custom">{renderContent(post.content)}</div>
+
+          {/* Social Share */}
+          <SocialShare title={post.title} slug={post.slug} />
+
+          {/* Comments */}
+          <Comments />
 
             {/* Free Discovery Call CTA */}
             <div className="mt-16 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 text-center">

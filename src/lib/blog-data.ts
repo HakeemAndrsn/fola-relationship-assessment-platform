@@ -1104,6 +1104,18 @@ Show up. Keep showing up. Watch what happens.`,
   },
 ];
 
+function parseDate(dateStr: string): Date {
+  const months: Record<string, number> = {
+    January: 0, February: 1, March: 2, April: 3, May: 4, June: 5,
+    July: 6, August: 7, September: 8, October: 9, November: 10, December: 11,
+  };
+  const [month, day, year] = dateStr.split(" ");
+  return new Date(parseInt(year), months[month], parseInt(day.replace(",", "")));
+}
+
+// Sort posts newest first
+blogPosts.sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
+
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((post) => post.slug === slug);
 }
