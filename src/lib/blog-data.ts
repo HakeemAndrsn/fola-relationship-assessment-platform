@@ -1000,7 +1000,7 @@ Not once. Not at the beginning. But through every phase of who she's becoming.`,
   },
   {
     slug: "the-version-of-you-that-went-quiet",
-    title: "The Version of You That Went Quiet",
+    title: "You Gave Up. You Just Didn't Call It That.",
     subtitle: "Quiet and gone are not the same thing.",
     date: "June 3, 2026",
     readTime: "4 min read",
