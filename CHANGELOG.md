@@ -13,6 +13,18 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - **Dependency conflict** — Added NPM_FLAGS=--legacy-peer-deps as a Netlify environment variable to resolve a peer dependency conflict between autumn-js@0.1.85 (requires better-auth@^1.3.17) and the installed better-auth@1.3.10.
 
+## [2026-06-04]
+
+### Added
+- **Yoco payment gateway** — Added YocoButton component and verify-payment Netlify function. Payment gate placed before questions on individual assessment page with `isPaid` state checking `lb_paid=1` URL param or sessionStorage flag.
+- **Two new blog posts** — "The Version of You That Went Quiet" and "You Can't Expect Others to Show Up When You Don't Show Up for Yourself" added to The Uncommon Practice blog.
+
+### Changed
+- **Blog page header** — Updated from "The Oasis by FOLA / Hakeem — Hypnotherapist & Peak Performance Coach" to "LoveBetter / Relationship Growth Readiness Assessment" on both index and post pages.
+
+### Fixed
+- **Deploy pipeline** — Changes were not reaching the live site because they were never pushed to GitHub. Added git push step to coding-swarm workflow.
+
 ## [2026-06-02]
 
 ### Changed
