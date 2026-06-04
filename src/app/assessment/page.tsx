@@ -178,10 +178,10 @@ export default function AssessmentPage() {
     sessionStorage.setItem("fola-form-data", JSON.stringify(data));
 
     // Fire Zapier webhook with assessment completion data
-    const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
-    if (webhookUrl) {
+    const assessmentWebhook = process.env.NEXT_PUBLIC_ZAPIER_ASSESSMENT_WEBHOOK;
+    if (assessmentWebhook) {
       try {
-        fetch(webhookUrl, {
+        fetch(assessmentWebhook, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -195,7 +195,7 @@ export default function AssessmentPage() {
           }),
         });
       } catch (e) {
-        console.warn("Zapier webhook failed:", e);
+        console.warn("Zapier assessment webhook failed:", e);
       }
     }
 

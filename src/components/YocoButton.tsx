@@ -60,10 +60,11 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
 
               if (verifyData.verified) {
                 // Fire Zapier webhook with customer data
-                const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
-                if (webhookUrl) {
+                // Fire Zapier webhook (payment → MailerLite)
+                const paymentWebhook = process.env.NEXT_PUBLIC_ZAPIER_PAYMENT_WEBHOOK;
+                if (paymentWebhook) {
                   try {
-                    await fetch(webhookUrl, {
+                    await fetch(paymentWebhook, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
@@ -78,8 +79,7 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
                       }),
                     });
                   } catch (e) {
-                    // Webhook is best-effort — don't block the user
-                    console.warn("Zapier webhook failed:", e);
+                    console.warn("Zapier payment webhook failed:", e);
                   }
                 }
 
@@ -92,10 +92,10 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
             } catch {
               // If verification fails, still allow access (optimistic)
               // Fire Zapier webhook anyway
-              const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
-              if (webhookUrl) {
+              const paymentWebhook = process.env.NEXT_PUBLIC_ZAPIER_PAYMENT_WEBHOOK;
+              if (paymentWebhook) {
                 try {
-                  await fetch(webhookUrl, {
+                  await fetch(paymentWebhook, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -110,7 +110,7 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
                     }),
                   });
                 } catch (e) {
-                  console.warn("Zapier webhook failed:", e);
+                  console.warn("Zapier payment webhook failed:", e);
                 }
               }
 

@@ -203,10 +203,10 @@ export default function IndividualAssessmentPage() {
     sessionStorage.setItem("folaIndividualReport", JSON.stringify(report));
 
     // Fire Zapier webhook with assessment completion data
-    const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
-    if (webhookUrl) {
+    const assessmentWebhook = process.env.NEXT_PUBLIC_ZAPIER_ASSESSMENT_WEBHOOK;
+    if (assessmentWebhook) {
       try {
-        await fetch(webhookUrl, {
+        await fetch(assessmentWebhook, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
