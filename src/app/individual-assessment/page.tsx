@@ -162,6 +162,8 @@ export default function IndividualAssessmentPage() {
   const [data, setData] = useState<IndividualFormData>(DEFAULT);
   const [generating, setGenerating] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -198,6 +200,29 @@ export default function IndividualAssessmentPage() {
     await new Promise((r) => setTimeout(r, 1800));
     const report = generateIndividualReport(data);
     sessionStorage.setItem("folaIndividualReport", JSON.stringify(report));
+
+    // Fire Zapier webhook with assessment completion data
+    const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event: "assessment_completed",
+            email: customerEmail,
+            phone: customerPhone,
+            name: data.onboarding.name,
+            overallScore: report.overallScore,
+            primaryGrowthEdge: report.primaryGrowthEdge?.dimension,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (e) {
+        console.warn("Zapier webhook failed:", e);
+      }
+    }
+
     router.push("/individual-report");
   };
 
@@ -225,9 +250,39 @@ export default function IndividualAssessmentPage() {
           </div>
           <h1 className="mt-4 text-3xl font-bold text-white font-serif">Unlock Your Individual Growth Assessment</h1>
           <p className="text-[#a0aec0] font-sans text-sm leading-relaxed">
-            Complete your secure payment first, then continue into your personal growth assessment.
+            Enter your details below to begin. Your assessment report and invoice will be sent to your email.
           </p>
-          <YocoButton />
+
+          {/* Customer details form */}
+          <div className="space-y-3 text-left">
+            <div>
+              <label className="block text-xs text-[#a0aec0] font-sans mb-1">Email address *</label>
+              <input
+                type="email"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 transition-colors"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-[#a0aec0] font-sans mb-1">Phone number (optional)</label>
+              <input
+                type="tel"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                placeholder="+27 12 345 6789"
+                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 transition-colors"
+              />
+            </div>
+          </div>
+
+          <YocoButton
+            customerEmail={customerEmail}
+            customerPhone={customerPhone}
+            customerName={data.onboarding.name}
+          />
           <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
         </div>
       </div>

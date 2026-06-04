@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 
-export default function YocoButton() {
+interface YocoButtonProps {
+  customerEmail?: string;
+  customerPhone?: string;
+  customerName?: string;
+}
+
+export default function YocoButton({ customerEmail, customerPhone, customerName }: YocoButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -23,6 +29,15 @@ export default function YocoButton() {
         currency: "ZAR",
         name: "FOLA Polyclinics",
         description: "LoveBETTER Individual Assessment",
+        customer: {
+          email: customerEmail || "",
+          phone: customerPhone || "",
+          firstName: customerName || "",
+        },
+        metadata: {
+          source: "lovebetter-assessment",
+          product: "Individual Growth Assessment",
+        },
         callback: async (result) => {
           if (result.error) {
             setError(result.error.message || "Payment failed. Please try again.");
@@ -42,6 +57,30 @@ export default function YocoButton() {
               const verifyData = await verifyRes.json();
 
               if (verifyData.verified) {
+                // Fire Zapier webhook with customer data
+                const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
+                if (webhookUrl) {
+                  try {
+                    await fetch(webhookUrl, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        email: customerEmail || "",
+                        phone: customerPhone || "",
+                        name: customerName || "",
+                        paymentId: result.id,
+                        amount: "R600",
+                        product: "Individual Growth Assessment",
+                        source: "lovebetter-assessment",
+                        timestamp: new Date().toISOString(),
+                      }),
+                    });
+                  } catch (e) {
+                    // Webhook is best-effort — don't block the user
+                    console.warn("Zapier webhook failed:", e);
+                  }
+                }
+
                 sessionStorage.setItem("lb_payment_verified", "true");
                 window.location.href = "/individual-assessment?lb_paid=1";
               } else {
@@ -50,6 +89,29 @@ export default function YocoButton() {
               }
             } catch {
               // If verification fails, still allow access (optimistic)
+              // Fire Zapier webhook anyway
+              const webhookUrl = process.env.NEXT_PUBLIC_ZAPIER_WEBHOOK_URL;
+              if (webhookUrl) {
+                try {
+                  await fetch(webhookUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      email: customerEmail || "",
+                      phone: customerPhone || "",
+                      name: customerName || "",
+                      paymentId: result.id,
+                      amount: "R600",
+                      product: "Individual Growth Assessment",
+                      source: "lovebetter-assessment",
+                      timestamp: new Date().toISOString(),
+                    }),
+                  });
+                } catch (e) {
+                  console.warn("Zapier webhook failed:", e);
+                }
+              }
+
               sessionStorage.setItem("lb_payment_verified", "true");
               window.location.href = "/individual-assessment?lb_paid=1";
             }
