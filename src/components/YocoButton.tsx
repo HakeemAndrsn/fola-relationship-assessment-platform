@@ -14,6 +14,22 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const fireMailerLite = async (email: string, name: string, phone: string) => {
+    try {
+      await fetch("/.netlify/functions/mailerlite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          name,
+          phone,
+        }),
+      });
+    } catch (e) {
+      console.warn("MailerLite function failed:", e);
+    }
+  };
+
   const handlePayment = async () => {
     setLoading(true);
     setError("");
@@ -59,29 +75,12 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
               const verifyData = await verifyRes.json();
 
               if (verifyData.verified) {
-                // Fire Zapier webhook with customer data
-                // Fire Zapier webhook (payment → MailerLite)
-                const paymentWebhook = process.env.NEXT_PUBLIC_ZAPIER_PAYMENT_WEBHOOK;
-                if (paymentWebhook) {
-                  try {
-                    await fetch(paymentWebhook, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        email: customerEmail || "",
-                        phone: customerPhone || "",
-                        name: customerName || "",
-                        paymentId: result.id,
-                        amount: amountInCents ? `R${amountInCents / 100}` : "R600",
-                        product: productDescription || "Individual Growth Assessment",
-                        source: "lovebetter-assessment",
-                        timestamp: new Date().toISOString(),
-                      }),
-                    });
-                  } catch (e) {
-                    console.warn("Zapier payment webhook failed:", e);
-                  }
-                }
+                // Add subscriber to MailerLite
+                await fireMailerLite(
+                  customerEmail || "",
+                  customerName || "",
+                  customerPhone || "",
+                );
 
                 sessionStorage.setItem("lb_payment_verified", "true");
                 window.location.href = "/individual-assessment?lb_paid=1";
@@ -91,28 +90,11 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
               }
             } catch {
               // If verification fails, still allow access (optimistic)
-              // Fire Zapier webhook anyway
-              const paymentWebhook = process.env.NEXT_PUBLIC_ZAPIER_PAYMENT_WEBHOOK;
-              if (paymentWebhook) {
-                try {
-                  await fetch(paymentWebhook, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      email: customerEmail || "",
-                      phone: customerPhone || "",
-                      name: customerName || "",
-                      paymentId: result.id,
-                        amount: amountInCents ? `R${amountInCents / 100}` : "R600",
-                        product: productDescription || "Individual Growth Assessment",
-                      source: "lovebetter-assessment",
-                      timestamp: new Date().toISOString(),
-                    }),
-                  });
-                } catch (e) {
-                  console.warn("Zapier payment webhook failed:", e);
-                }
-              }
+              await fireMailerLite(
+                customerEmail || "",
+                customerName || "",
+                customerPhone || "",
+              );
 
               sessionStorage.setItem("lb_payment_verified", "true");
               window.location.href = "/individual-assessment?lb_paid=1";
