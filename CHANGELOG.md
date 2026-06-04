@@ -7,6 +7,8 @@
 - Two new blog posts: "The Version of You That Went Quiet" and "You Can't Expect Others to Show Up When You Don't Show Up for Yourself."
 - Social share buttons (Twitter/X, LinkedIn, Facebook, copy link) on blog posts.
 - Comments section on blog posts via utterances (GitHub Issues-based).
+- Email and phone capture before payment — invoices and receipts can now reach customers.
+- Zapier webhook integration — fires on payment and assessment completion for automated follow-ups.
 
 ### Changed
 - Blog page header now reads "LoveBetter / Relationship Growth Readiness Assessment."
