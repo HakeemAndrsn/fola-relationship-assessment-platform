@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import Link from "next/link";
 import YocoButton from "@/components/YocoButton";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -294,13 +295,13 @@ export default function IndividualAssessmentPage() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/90 border-b border-white/5">
         <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 group">
             <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
             <div>
-              <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</p>
+              <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans group-hover:text-[#e4bf47] transition-colors">Personal Growth Assessment</p>
               <p className="text-[10px] text-[#718096] font-sans">The Oasis by FOLA</p>
             </div>
-          </div>
+          </Link>
           <div className="text-right">
             <p className="text-xs text-[#a0aec0] font-sans">{STEPS[step]}</p>
             <p className="text-[10px] text-[#4a5568] font-sans">Step {step + 1} of {STEPS.length}</p>

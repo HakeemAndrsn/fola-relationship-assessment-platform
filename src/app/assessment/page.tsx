@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -171,13 +172,13 @@ export default function AssessmentPage() {
       {/* Header */}
       <header className="border-b border-[#e2e8f0] bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="mx-auto max-w-3xl px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 group">
             <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
             <div>
-              <h1 className="text-lg font-bold text-[#1a365d] tracking-tight leading-none">FOLA Relational Assessment</h1>
+              <h1 className="text-lg font-bold text-[#1a365d] tracking-tight leading-none group-hover:text-[#2d4a7c] transition-colors">FOLA Relational Assessment</h1>
               <p className="text-xs text-[#718096]">The Oasis by FOLA</p>
             </div>
-          </div>
+          </Link>
           <div className="text-right">
             <p className="text-xs font-medium text-[#4a5568]">Step {step + 1} of {STEPS.length}</p>
             <p className="text-xs text-[#718096]">{STEPS[step]}</p>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   Radar,
@@ -110,10 +111,10 @@ export default function ReportPage() {
       {/* Print-hidden controls */}
       <div className="print:hidden sticky top-0 z-10 bg-white border-b border-[#e2e8f0] px-4 py-3">
         <div className="mx-auto max-w-4xl flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 group">
             <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
-            <h1 className="text-lg font-bold text-[#1a365d]">FOLA Assessment Report</h1>
-          </div>
+            <h1 className="text-lg font-bold text-[#1a365d] group-hover:text-[#2d4a7c] transition-colors">FOLA Assessment Report</h1>
+          </Link>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => router.push("/assessment")} className="text-[#4a5568]">
               New Assessment
