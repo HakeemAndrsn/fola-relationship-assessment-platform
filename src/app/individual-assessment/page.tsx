@@ -345,7 +345,7 @@ export default function IndividualAssessmentPage() {
                   <span className="text-[#d4af37] italic">Before you love again.</span>
                 </h1>
                 <p className="mt-4 text-[#a0aec0] text-sm max-w-lg mx-auto leading-relaxed font-sans">
-                  This is a 9-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
+                  This is a 10-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
                 </p>
               </div>
               <div className="space-y-4">
@@ -564,7 +564,7 @@ export default function IndividualAssessmentPage() {
                     </div>
                   </div>
                 ))}
-                <p className="text-[10px] text-[#4a5568] font-sans pt-2">+ 4 more dimensions in your full report</p>
+                <p className="text-[10px] text-[#4a5568] font-sans pt-2">+ 5 more dimensions in your full report</p>
               </div>
 
               {/* Summary cards */}
@@ -590,7 +590,7 @@ export default function IndividualAssessmentPage() {
                     </svg>
                     <span className="text-sm font-sans">Generating your clinical report…</span>
                   </div>
-                  <p className="text-xs text-[#718096] mt-3 font-sans">Calculating 9 dimensions across clinical frameworks…</p>
+                  <p className="text-xs text-[#718096] mt-3 font-sans">Calculating 10 dimensions across clinical frameworks…</p>
                 </div>
               ) : (
                 <button

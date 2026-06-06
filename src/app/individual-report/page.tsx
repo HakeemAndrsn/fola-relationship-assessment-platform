@@ -192,7 +192,7 @@ export default function IndividualReportPage() {
           <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:p-10">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-1 h-8 bg-[#d4af37] rounded-full" />
-              <h2 className="text-xl font-bold text-white font-serif">9-Dimension Score Matrix</h2>
+              <h2 className="text-xl font-bold text-white font-serif">10-Dimension Score Matrix</h2>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
