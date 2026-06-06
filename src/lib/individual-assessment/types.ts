@@ -7,7 +7,7 @@ export type LoveLanguage = "words" | "acts" | "gifts" | "time" | "touch";
 export interface IndividualOnboarding {
   name: string;
   age: string;
-  relationshipStatus: "single" | "dating" | "committed" | "separated" | "divorced";
+  relationshipStatus: "single" | "dating" | "committed" | "in_relationship" | "married" | "separated" | "divorced";
   primaryGoal: string;
   consentGiven: boolean;
 }
@@ -27,6 +27,7 @@ export interface IndividualFormData {
   communicationStyle: SliderAnswers;
   valuesClarity: SliderAnswers;
   neurodivergenceAwareness: SliderAnswers;
+  prejudicesBiases: SliderAnswers;
   changeReadiness: ChangeReadiness;
 }
 

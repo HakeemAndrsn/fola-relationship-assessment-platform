@@ -1,0 +1,99 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/app/_not-found/page-eb75226ccf2b8f88.js"
+    ],
+    "/global-error": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/app/global-error-73b55a445da12b55.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/css/4f9d4c9d30483e9a.css",
+      "static/css/ff49722567b19bb4.css",
+      "static/chunks/app/layout-ceae728018d380d4.js"
+    ],
+    "/individual-assessment/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/422-d3a07e50ff3c2691.js",
+      "static/chunks/313-4edf82cc87b945c2.js",
+      "static/chunks/app/individual-assessment/page-bb4b3ece06ac34ba.js"
+    ],
+    "/linkedin-callback/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/app/linkedin-callback/page-f800434c0890ba12.js"
+    ],
+    "/report/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/422-d3a07e50ff3c2691.js",
+      "static/chunks/198-6697d875c208ff51.js",
+      "static/chunks/289-8d8467556049479d.js",
+      "static/chunks/app/report/page-e49a7bfce4506afb.js"
+    ],
+    "/individual-report/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/198-6697d875c208ff51.js",
+      "static/chunks/app/individual-report/page-fbb3cbdbefedfdc0.js"
+    ],
+    "/assessment/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/422-d3a07e50ff3c2691.js",
+      "static/chunks/313-4edf82cc87b945c2.js",
+      "static/chunks/201-f4264d714aba1c33.js",
+      "static/chunks/app/assessment/page-c128fa30f041c7bd.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/app/page-aafa0ae7965ef441.js"
+    ],
+    "/the-uncommon-practice/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/app/the-uncommon-practice/page-08c3e7c5dcb2c26c.js"
+    ],
+    "/the-uncommon-practice/[slug]/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/app/the-uncommon-practice/[slug]/page-2a62f13605e3b437.js"
+    ]
+  }
+}

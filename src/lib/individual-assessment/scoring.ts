@@ -129,6 +129,12 @@ function valuesInsight(score: number): string {
   return "Values confusion is costing you. Without a clear sense of who you are and what you want, you'll keep attracting the wrong fit.";
 }
 
+function biasesInsight(score: number): string {
+  if (score >= 70) return "You have strong awareness of your gender-based assumptions and their impact — this self-knowledge is a powerful foundation for conscious relating.";
+  if (score >= 45) return "You sense that some of your beliefs about the opposite gender may be shaping your relationships, but the full picture isn't clear yet. Exploration will reveal blind spots.";
+  return "Unexamined gender beliefs are likely driving significant patterns in your relationships — what you assume about the opposite gender may be creating the very conflicts you're trying to avoid.";
+}
+
 function neurodivergenceInsight(score: number): string {
   if (score >= 70) return "Neurodivergent traits, if present, appear well-managed and integrated. Your self-awareness here is an asset.";
   if (score >= 45) return "Some neurodivergent markers are intermittently affecting your relational functioning. Understanding these patterns reduces relational friction significantly.";
@@ -154,6 +160,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const commScore = toPercent(commRaw);
   const valuesScore = toPercent(valuesRaw);
   const neuroScore = toPercent(neuroRaw);
+  const biasesScore = toPercent(avg(data.prejudicesBiases));
   const changeScore = readinessScore(data.changeReadiness);
 
   const dimensions: DimensionScore[] = [
@@ -230,6 +237,15 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       insight: neurodivergenceInsight(neuroScore),
     },
     {
+      dimension: "prejudices_biases",
+      label: "Prejudices & Biases",
+      score: biasesScore,
+      percentile: percentile(biasesScore),
+      riskLevel: riskFromScore(biasesScore),
+      clinicalWeight: "high",
+      insight: biasesInsight(biasesScore),
+    },
+    {
       dimension: "change_readiness",
       label: "Change Readiness",
       score: changeScore,
@@ -242,14 +258,15 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
 
   // Weighted overall score
   const weights: Record<string, number> = {
-    attachment: 0.18,
-    trauma: 0.17,
-    emotional_regulation: 0.13,
-    self_worth: 0.13,
-    relationship_readiness: 0.11,
-    communication: 0.09,
-    values_clarity: 0.10,
-    neurodivergence: 0.05,
+    attachment: 0.16,
+    trauma: 0.15,
+    emotional_regulation: 0.12,
+    self_worth: 0.12,
+    relationship_readiness: 0.10,
+    communication: 0.08,
+    values_clarity: 0.09,
+    neurodivergence: 0.04,
+    prejudices_biases: 0.10,
     change_readiness: 0.04,
   };
   const overallScore = Math.round(
@@ -302,6 +319,14 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       recommendation: "A formal assessment and psychoeducation around ADHD/neurodivergence could be profoundly clarifying.",
     });
   }
+  if (biasesScore < 45) {
+    flags.push({
+      type: "prejudices_biases",
+      severity: "high",
+      message: "Unexamined gender-based beliefs are likely driving recurring conflict patterns",
+      recommendation: "The LoveBetter Foundations cohort is the ideal starting point — it addresses the beliefs and biases that shape how you show up in relationships.",
+    });
+  }
 
   // Dynamic pricing
   const flagCount = flags.filter((f) => f.severity === "high").length;
@@ -312,8 +337,25 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
       : "Session starting rate = R2500/hour | Maintenance & Expansion sessions = R2000 | Age Regression Therapy = R3800 each";
 
+  // Determine if cohort is recommended (moderate patterns, biases present)
+  const recommendCohort = biasesScore < 60 || (attachScore >= 40 && attachScore < 70);
+
   // Treatment plan
   const treatmentPlan: IndividualTreatmentPhase[] = [
+    ...(recommendCohort
+      ? [{
+          phase: 0,
+          title: "LoveBetter Foundations Cohort",
+          weeks: "6 Weeks",
+          focus: "Pattern discovery, belief deconstruction, and relational education before clinical work",
+          sessions: [
+            { description: "LoveBetter Foundations — Individual", target: "6-week cohort: patterns, attachment, emotional safety, conflict, trust, secure love", price: 6000 },
+            ...(data.relationshipStatus === "in_relationship" || data.relationshipStatus === "married"
+              ? [{ description: "LoveBetter Foundations — Couple Add-on", target: "Partner joins the cohort journey together", price: 9000 }]
+              : []),
+          ],
+        }]
+      : []),
     {
       phase: 1,
       title: "Foundation & Stabilisation",
@@ -321,7 +363,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       focus: "Nervous system regulation, trauma processing, and core self-worth installation",
       sessions: [
         ...(traumaScore < 50
-          ? [{ description: "Age Regression Therapy Session", target: "Subconscious trauma processing & nervous system reset", price: 3800 }]
+          ? [{ description: "Age Regression Therapy Session", target: "Subconscious trauma processing & nervous system reset", price: 4000 }]
           : []),
         { description: "Individual Peak Performance Session", target: `${primaryGrowthEdge.label} — foundational work`, price: 2500 },
         { description: "Hypnotherapy: Self-Worth Installation", target: "Subconscious self-worth reprogramming via NLP", price: 3800 },
@@ -336,7 +378,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
         { description: "Communication Pattern Rewiring", target: "Assertion, listening, repair — all three pillars", price: 2500 },
         { description: "Values & Vision Clarity Session", target: "Crystallising non-negotiables and relationship vision", price: 2500 },
         ...(attachScore < 60
-          ? [{ description: "Age Regression Therapy Session", target: "Earned secure attachment — NLP timeline work", price: 3800 }]
+          ? [{ description: "Age Regression Therapy Session", target: "Earned secure attachment — NLP timeline work", price: 4000 }]
           : []),
       ],
     },

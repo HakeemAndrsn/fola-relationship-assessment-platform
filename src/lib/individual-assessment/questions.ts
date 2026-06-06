@@ -86,6 +86,15 @@ export const VALUES_CLARITY_QUESTIONS = [
   { id: "dealbreaker_clarity", label: "Clarity about dealbreakers", description: "I know which values are non-negotiable in a partner and which are areas of flexibility." },
 ];
 
+export const PREJUDICES_BIASES_QUESTIONS = [
+  { id: "gender_belief_origin", label: "Awareness of where your beliefs came from", description: "I can trace where my beliefs about the opposite gender originated — family, culture, past relationships, or personal experiences." },
+  { id: "projection_awareness", label: "Awareness of projecting onto partners", description: "I recognise when I'm attributing traits or intentions to my partner based on assumptions about their gender rather than who they actually are." },
+  { id: "habit_visibility", label: "Visibility of bias-driven habits", description: "I can identify specific habits or behaviours in my relationships that stem from gender-based assumptions rather than the reality of the person I'm with." },
+  { id: "relationship_weight", label: "Weight of biases on the relationship", description: "I'm aware of how much tension, misunderstanding, or distance in my relationships is caused by unexamined gender beliefs rather than genuine incompatibility." },
+  { id: "consequence_awareness", label: "Awareness of consequences", description: "I can see the real cost of my biases — the arguments that keep repeating, the trust that erodes, the intimacy that never forms because of what I assume." },
+  { id: "counter_willingness", label: "Willingness to counter biases", description: "I'm genuinely open to questioning and unlearning the gender-based beliefs I hold, even when they feel true or justified." },
+];
+
 export const NEURODIVERGENCE_QUESTIONS = [
   { id: "focus_in_conversation", label: "Sustained focus in conversation", description: "I can stay present and focused during extended conversations without drifting or getting overwhelmed." },
   { id: "emotional_intensity", label: "Emotional intensity awareness", description: "I recognise when my emotional reactions are more intense than the situation seems to warrant." },

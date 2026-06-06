@@ -19,6 +19,7 @@ import {
   COMMUNICATION_QUESTIONS,
   VALUES_CLARITY_QUESTIONS,
   NEURODIVERGENCE_QUESTIONS,
+  PREJUDICES_BIASES_QUESTIONS,
 } from "@/lib/individual-assessment/questions";
 import type {
   IndividualFormData,
@@ -39,11 +40,12 @@ const STEPS = [
   "Communication Style",
   "Values & Vision",
   "Neurodivergence",
+  "Prejudices & Biases",
   "Change Readiness",
   "Review",
 ];
 
-const STEP_ICONS = ["✦", "♡", "◈", "◎", "◇", "♦", "◉", "◐", "▲", "◫", "◆", "✓"];
+const STEP_ICONS = ["✦", "♡", "◈", "◎", "◇", "♦", "◉", "◐", "▲", "◫", "◎", "◆", "✓"];
 
 function initSliders(qs: { id: string }[]): SliderAnswers {
   const o: SliderAnswers = {};
@@ -62,6 +64,7 @@ const DEFAULT: IndividualFormData = {
   communicationStyle: initSliders(COMMUNICATION_QUESTIONS),
   valuesClarity: initSliders(VALUES_CLARITY_QUESTIONS),
   neurodivergenceAwareness: initSliders(NEURODIVERGENCE_QUESTIONS),
+  prejudicesBiases: initSliders(PREJUDICES_BIASES_QUESTIONS),
   changeReadiness: "contemplation",
 };
 
@@ -376,6 +379,8 @@ export default function IndividualAssessmentPage() {
                     <option value="single">Single</option>
                     <option value="dating">Dating / Exploring</option>
                     <option value="committed">In a committed relationship</option>
+                    <option value="in_relationship">In a relationship</option>
+                    <option value="married">Married</option>
                     <option value="separated">Separated</option>
                     <option value="divorced">Divorced</option>
                   </select>
@@ -510,8 +515,19 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 10: Change Readiness ── */}
+          {/* ── STEP 10: Prejudices & Biases ── */}
           {step === 10 && (
+            <SliderSection
+              title="Prejudices & Biases"
+              description="The beliefs you hold about the opposite gender — inherited from family, culture, past relationships — shape how you see your partner before you even meet them. This section surfaces what you're projecting."
+              questions={PREJUDICES_BIASES_QUESTIONS}
+              values={data.prejudicesBiases}
+              onChange={(id, val) => updateSliders("prejudicesBiases", id, val)}
+            />
+          )}
+
+          {/* ── STEP 11: Change Readiness ── */}
+          {step === 11 && (
             <CardSelector
               title="Where are you in your readiness for change?"
               description="The Transtheoretical Model of Change identifies the stage you're actually in — not the stage you wish you were in. Honesty here is everything."
@@ -521,8 +537,8 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 11: Review ── */}
-          {step === 11 && (
+          {/* ── STEP 12: Review ── */}
+          {step === 12 && (
             <div className="space-y-8">
               <div className="text-center">
                 <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif">Your assessment is complete.</h2>

@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/individual-assessment/page": "/individual-assessment",
+  "/linkedin-callback/page": "/linkedin-callback",
+  "/report/page": "/report",
+  "/individual-report/page": "/individual-report",
+  "/assessment/page": "/assessment",
+  "/page": "/",
+  "/the-uncommon-practice/page": "/the-uncommon-practice",
+  "/the-uncommon-practice/[slug]/page": "/the-uncommon-practice/[slug]"
+}
