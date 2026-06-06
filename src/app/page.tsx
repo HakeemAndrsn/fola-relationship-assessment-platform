@@ -168,7 +168,7 @@ export default function Home() {
                 <div className="text-left">
                   <p className="text-[10px] text-[#d4af37]/70 uppercase tracking-wider font-sans">Couples</p>
                   <p className="text-base font-bold text-white font-serif">Relationship Growth Assessment</p>
-                  <p className="text-xs text-[#d4af37] font-sans mt-0.5">9 dimensions · R600 · 30–40 min</p>
+                  <p className="text-xs text-[#d4af37] font-sans mt-0.5">9 dimensions · R2,500–R3,800 · 30–40 min</p>
                 </div>
                 <svg className="w-5 h-5 text-[#d4af37] group-hover:translate-x-1 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -277,13 +277,13 @@ export default function Home() {
                       <h3 className="text-2xl font-bold text-white font-serif">Relationship Growth<br />Assessment</h3>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-[#d4af37] font-serif">R600</p>
+                      <p className="text-2xl font-bold text-[#d4af37] font-serif">R2,500–R3,800</p>
                       <p className="text-xs text-[#718096] font-sans">Per couple</p>
                     </div>
                   </div>
 
                   <p className="text-sm text-[#8892a4] leading-relaxed font-sans mb-6">
-                    For couples who are done guessing what&apos;s wrong. A clinical-grade X-ray of both partners across 8 domains — revealing hidden mismatches and a precise 3-phase healing pathway.
+                    For couples who are done guessing what&apos;s wrong. A clinical-grade X-ray of both partners across 9 domains — revealing hidden mismatches and a precise 3-phase healing pathway.
                   </p>
 
                   <div className="space-y-2 mb-6">
@@ -449,8 +449,8 @@ export default function Home() {
                   color: "border-white/10", bg: "bg-white/[0.03]", btn: "bg-white text-[#080e1d]", tagColor: "text-indigo-300 bg-indigo-500/15 border-indigo-500/25",
                 },
                 {
-                  tag: "Couples", price: "R600", href: "/assessment",
-                  features: ["9 clinical domains", "Partner comparison charts", "Alignment percentage per domain", "ACE + ADHD screening", "Clinical risk matrix", "3-phase couples pathway"],
+                  tag: "Couples", price: "R2,500–R3,800", href: "/assessment",
+                  features: ["9 clinical domains", "Partner comparison charts", "Alignment percentage per domain", "ACE + ADHD screening", "Clinical risk matrix", "3-phase couples pathway", "Prejudices & Biases dimension"],
                   color: "border-[#d4af37]/25", bg: "bg-[#d4af37]/[0.05]", btn: "bg-[#d4af37] text-[#1a365d]", tagColor: "text-[#d4af37] bg-[#d4af37]/15 border-[#d4af37]/30",
                 },
               ].map((item) => (
@@ -552,7 +552,7 @@ export default function Home() {
                 Individual Assessment — R600
               </Link>
               <Link href="/assessment" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#d4af37] text-[#1a365d] px-7 py-4 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/20">
-                Couples Assessment — R600
+                Couples Assessment — R2,500–R3,800
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -570,7 +570,7 @@ export default function Home() {
             <div className="w-6 h-6 rounded bg-[#d4af37]/15 border border-[#d4af37]/20 flex items-center justify-center">
               <span className="text-[#d4af37] text-[10px] font-bold font-serif">F</span>
             </div>
-            <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · All assessments R600</span>
+            <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · Individual R600 · Couples R2,500–R3,800</span>
           </div>
           <nav className="flex items-center gap-6">
             <Link href="/individual-assessment" className="hover:text-white transition-colors">Individual Assessment</Link>

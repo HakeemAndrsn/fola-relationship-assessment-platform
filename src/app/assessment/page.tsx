@@ -242,7 +242,7 @@ export default function AssessmentPage() {
             customerPhone={customerPhone}
             customerName={`${data.onboarding.partnerAName || "Partner A"} & ${data.onboarding.partnerBName || "Partner B"}`}
             productDescription="LoveBETTER Couples Assessment"
-            amountInCents={120000}
+            amountInCents={250000}
           />
           <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
         </div>
