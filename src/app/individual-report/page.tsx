@@ -410,7 +410,7 @@ export default function IndividualReportPage() {
                 <p className="text-xs text-[#a0aec0] font-sans uppercase tracking-wider">Total Recommended Investment</p>
                 <p className="text-xs text-[#718096] font-sans mt-0.5">{report.priceBreakdown}</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] font-sans leading-relaxed">
-                  The LoveBetter Foundations cohort (R6,000 individual / R9,000 couple) is the recommended starting point for most profiles. Age Regression Therapy sessions are R4,000 each for deeper trauma work. Individual sessions start at R2,500/hour.
+                  The DoLoveBetter Cohort (R6,000 individual / R9,000 couple) is the recommended starting point for most profiles. Age Regression Therapy sessions are R4,000 each for deeper trauma work. Breakthrough & Maintenance sessions are R2,700 each.
                 </p>
               </div>
               <p className="text-3xl font-bold text-[#d4af37] font-serif">R{report.totalInvestment.toLocaleString()}</p>

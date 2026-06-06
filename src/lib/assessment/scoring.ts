@@ -281,7 +281,7 @@ export function identifyClinicalFlags(data: AssessmentFormData, scores: DomainSc
       type: "prejudices",
       severity: "medium",
       message: `Prejudices & Biases alignment is low (${prejudicesScore.alignmentPercent}%). Unchecked assumptions about each other may be creating invisible conflict patterns.`,
-      recommendation: "The LoveBetter Foundations cohort (R6,000 individual / R9,000 couple) is recommended as a starting point to surface and address these patterns.",
+      recommendation: "The DoLoveBetter Cohort (R6,000 individual / R9,000 couple) is recommended as a starting point to surface and address these patterns.",
     });
   }
 
@@ -292,7 +292,7 @@ export function identifyClinicalFlags(data: AssessmentFormData, scores: DomainSc
 export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalFlag[]): { price: number; breakdown: string } {
   const base = 2500;
   let multiplier = 1.0;
-  const components: string[] = ["Session starting rate (R2500/hour)"];
+  const components: string[] = ["Breakthrough Session (R2700)"];
 
   if (flags.some((f) => f.type === "trauma" && f.severity === "high")) {
     multiplier += 0.3;
@@ -312,7 +312,7 @@ export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalF
   }
 
   const price = Math.min(3800, Math.max(2500, Math.round(base * multiplier)));
-  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2000 | Age Regression Therapy = R4000 each`;
+  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2700 | Age Regression Therapy = R4000 each`;
   return { price, breakdown };
 }
 
@@ -335,14 +335,14 @@ export function generateTreatmentPlan(
       phase1Sessions.push({
         description: "Breakthrough Session: Trauma Processing",
         target: data.onboarding.partnerAName,
-        price: 1800,
+        price: 2700,
       });
     }
     if (traumaB > 7) {
       phase1Sessions.push({
         description: "Breakthrough Session: Trauma Processing",
         target: data.onboarding.partnerBName,
-        price: 1800,
+        price: 2700,
       });
     }
   }
@@ -350,14 +350,14 @@ export function generateTreatmentPlan(
     phase1Sessions.push({
       description: "Neurodivergence Awareness & Coping Strategies",
       target: "Higher-scoring partner",
-      price: 1200,
+      price: 2700,
     });
   }
   if (phase1Sessions.length === 0) {
     phase1Sessions.push({
       description: "Individual Foundation Assessment",
       target: "Both Partners",
-      price: 900,
+      price: 2700,
     });
   }
   phases.push({ phase: 1, title: "Individual Foundation", weeks: "Weeks 1-3", sessions: phase1Sessions });
@@ -369,7 +369,7 @@ export function generateTreatmentPlan(
     phase2Sessions.push({
       description: "Communication Pattern Rewiring",
       target: "Couple",
-      price: 4500,
+      price: 2700,
     });
   }
   const attachScore = scores.find((s) => s.domain === "attachment");
@@ -377,7 +377,7 @@ export function generateTreatmentPlan(
     phase2Sessions.push({
       description: "Attachment Re-patterning Workshop",
       target: "Couple",
-      price: 3500,
+      price: 2700,
     });
   }
   const valuesScore = scores.find((s) => s.domain === "values");
@@ -385,14 +385,14 @@ export function generateTreatmentPlan(
     phase2Sessions.push({
       description: "Core Values Negotiation & Alignment",
       target: "Couple",
-      price: 3000,
+      price: 2700,
     });
   }
   if (phase2Sessions.length === 0) {
     phase2Sessions.push({
       description: "Couples Integration Session",
       target: "Couple",
-      price: 3500,
+      price: 2700,
     });
   }
   phases.push({ phase: 2, title: "Couples Integration", weeks: "Weeks 4-6", sessions: phase2Sessions });
@@ -403,8 +403,8 @@ export function generateTreatmentPlan(
     title: "Maintenance & Growth",
     weeks: "Monthly ongoing",
     sessions: [
-      { description: "Monthly Check-in Session", target: "Couple", price: 1500 },
-      { description: "Quarterly Re-assessment", target: "Couple", price: 750 },
+      { description: "Monthly Check-in Session", target: "Couple", price: 2700 },
+      { description: "Quarterly Re-assessment", target: "Couple", price: 2700 },
     ],
   });
 

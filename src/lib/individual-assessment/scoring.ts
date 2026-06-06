@@ -335,7 +335,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const breakdown =
     flagCount >= 3
       ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
-      : "Session starting rate = R2500/hour | Maintenance & Expansion sessions = R2000 | Age Regression Therapy = R4000 each";
+      : "Breakthrough Session = R2700 | Maintenance & Expansion sessions = R2700 | Age Regression Therapy = R4000 each";
 
   // Determine if cohort is recommended (moderate patterns, biases present)
   const recommendCohort = biasesScore < 60 || (attachScore >= 40 && attachScore < 70);
@@ -345,13 +345,13 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
     ...(recommendCohort
       ? [{
           phase: 0,
-          title: "LoveBetter Foundations Cohort",
+          title: "DoLoveBetter Cohort",
           weeks: "6 Weeks",
           focus: "Pattern discovery, belief deconstruction, and relational education before clinical work",
           sessions: [
-            { description: "LoveBetter Foundations — Individual", target: "6-week cohort: patterns, attachment, emotional safety, conflict, trust, secure love", price: 6000 },
+            { description: "DoLoveBetter Cohort — Individual", target: "6-week cohort: patterns, attachment, emotional safety, conflict, trust, secure love", price: 6000 },
             ...(data.relationshipStatus === "in_relationship" || data.relationshipStatus === "married"
-              ? [{ description: "LoveBetter Foundations — Couple Add-on", target: "Partner joins the cohort journey together", price: 9000 }]
+              ? [{ description: "DoLoveBetter Cohort — Couple Add-on", target: "Partner joins the cohort journey together", price: 9000 }]
               : []),
           ],
         }]
@@ -365,8 +365,8 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
         ...(traumaScore < 50
           ? [{ description: "Age Regression Therapy Session", target: "Subconscious trauma processing & nervous system reset", price: 4000 }]
           : []),
-        { description: "Individual Peak Performance Session", target: `${primaryGrowthEdge.label} — foundational work`, price: 2500 },
-        { description: "Hypnotherapy: Self-Worth Installation", target: "Subconscious self-worth reprogramming via NLP", price: 3800 },
+        { description: "Individual Peak Performance Session", target: `${primaryGrowthEdge.label} — foundational work`, price: 2700 },
+        { description: "Hypnotherapy: Self-Worth Installation", target: "Subconscious self-worth reprogramming via NLP", price: 2700 },
       ],
     },
     {
@@ -375,8 +375,8 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       weeks: "Weeks 4–7",
       focus: "Communication mastery, values clarification, and relationship readiness",
       sessions: [
-        { description: "Communication Pattern Rewiring", target: "Assertion, listening, repair — all three pillars", price: 2500 },
-        { description: "Values & Vision Clarity Session", target: "Crystallising non-negotiables and relationship vision", price: 2500 },
+        { description: "Communication Pattern Rewiring", target: "Assertion, listening, repair — all three pillars", price: 2700 },
+        { description: "Values & Vision Clarity Session", target: "Crystallising non-negotiables and relationship vision", price: 2700 },
         ...(attachScore < 60
           ? [{ description: "Age Regression Therapy Session", target: "Earned secure attachment — NLP timeline work", price: 4000 }]
           : []),
@@ -388,8 +388,8 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       weeks: "Ongoing",
       focus: "Sustaining growth, integration check-ins, and future relationship design",
       sessions: [
-        { description: "Maintenance & Expansion Session", target: "Progress audit, recalibration, and next chapter planning", price: 2000 },
-        { description: "6-Month Growth Reassessment", target: "Repeat Individual Assessment to measure transformation", price: 2000 },
+        { description: "Maintenance & Expansion Session", target: "Progress audit, recalibration, and next chapter planning", price: 2700 },
+        { description: "6-Month Growth Reassessment", target: "Repeat Individual Assessment to measure transformation", price: 2700 },
       ],
     },
   ];
