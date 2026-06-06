@@ -335,7 +335,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const breakdown =
     flagCount >= 3
       ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
-      : "Session starting rate = R2500/hour | Maintenance & Expansion sessions = R2000 | Age Regression Therapy = R3800 each";
+      : "Session starting rate = R2500/hour | Maintenance & Expansion sessions = R2000 | Age Regression Therapy = R4000 each";
 
   // Determine if cohort is recommended (moderate patterns, biases present)
   const recommendCohort = biasesScore < 60 || (attachScore >= 40 && attachScore < 70);
