@@ -1,5 +1,16 @@
 # Changelog
 
+## 6 June 2026 — Prejudices & Biases + Pricing Correction
+
+**New dimension: Prejudices & Biases**
+Six new questions surface where beliefs about the opposite gender come from, what habits they create, the cost, and willingness to question them. Scores below 45 flag the cohort as the recommended starting point. Weighted at 10% of the overall score.
+
+**Pricing restructured**
+The LoveBetter Foundations cohort (R6,000 individual / R9,000 couple) is now the headline recommendation. Age Regression Therapy corrected to R4,000 per session. Report footer updated to reflect the hierarchy: cohort first, ArT second, individual sessions third.
+
+**Relationship status expanded**
+Options now include "in a relationship" and "married" so the couple pricing triggers correctly for partnered users.
+
 ## [2026-06-04]
 
 ### Added
