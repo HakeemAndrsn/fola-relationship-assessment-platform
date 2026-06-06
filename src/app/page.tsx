@@ -155,7 +155,7 @@ export default function Home() {
                 <div className="text-left">
                   <p className="text-[10px] text-[#718096] uppercase tracking-wider font-sans">Individual</p>
                   <p className="text-base font-bold text-white font-serif">Personal Growth Assessment</p>
-                  <p className="text-xs text-[#d4af37] font-sans mt-0.5">9 dimensions · R600 · 20–30 min</p>
+                  <p className="text-xs text-[#d4af37] font-sans mt-0.5">10 dimensions · R600 · 20–30 min</p>
                 </div>
                 <svg className="w-5 h-5 text-[#718096] group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -230,7 +230,7 @@ export default function Home() {
                   </div>
 
                   <p className="text-sm text-[#8892a4] leading-relaxed font-sans mb-6">
-                    For the person who knows something isn&apos;t working in their love life but can&apos;t quite name it. 9 dimensions of your relational self — clinically mapped, personally interpreted.
+                    For the person who knows something isn&apos;t working in their love life but can&apos;t quite name it. 10 dimensions of your relational self — clinically mapped, personally interpreted.
                   </p>
 
                   <div className="space-y-2 mb-6">
@@ -242,6 +242,7 @@ export default function Home() {
                       "Relationship Readiness — are you actually available?",
                       "Communication Style — what's really happening",
                       "Values & Life Vision — your relational compass",
+                      "Prejudices & Biases — beliefs you project onto partners",
                       "Neurodivergence Awareness — unseen friction",
                       "Change Readiness — where you actually are",
                     ].map((item, i) => (
@@ -327,7 +328,7 @@ export default function Home() {
             <div className="grid sm:grid-cols-3 gap-6">
               {[
                 { step: "01", title: "Choose your assessment", body: "Individual or couples. Complete the multi-step clinical form at your own pace — designed to be honest, not comfortable." },
-                { step: "02", title: "Answer 9 clinical dimensions", body: "From attachment wiring to trauma history to values alignment — each question is grounded in peer-reviewed research." },
+                { step: "02", title: "Answer 10 clinical dimensions", body: "From attachment wiring to trauma history to values alignment — each question is grounded in peer-reviewed research." },
                 { step: "03", title: "Receive your clinical report", body: "Instantly. A full Brown University-style PDF with scores, insights, clinical flags, and a personalised treatment pathway." },
               ].map((item) => (
                 <div key={item.step} className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 hover:border-white/10 transition-all">
@@ -443,7 +444,7 @@ export default function Home() {
               {[
                 {
                   tag: "Individual", price: "R600", href: "/individual-assessment",
-                  features: ["9 clinical dimensions", "Personal growth score", "Clinical flags & insights", "3-phase treatment pathway", "Full PDF report", "Love language + Attachment profile"],
+                  features: ["10 clinical dimensions", "Personal growth score", "Clinical flags & insights", "3-phase treatment pathway", "Full PDF report", "Love language + Attachment profile"],
                   color: "border-white/10", bg: "bg-white/[0.03]", btn: "bg-white text-[#080e1d]", tagColor: "text-indigo-300 bg-indigo-500/15 border-indigo-500/25",
                 },
                 {
