@@ -283,7 +283,7 @@ export default function Home() {
                   </div>
 
                   <p className="text-sm text-[#8892a4] leading-relaxed font-sans mb-6">
-                    For couples who are done guessing what&apos;s wrong. A clinical-grade X-ray of both partners across 7 domains — revealing hidden mismatches and a precise 3-phase healing pathway.
+                    For couples who are done guessing what&apos;s wrong. A clinical-grade X-ray of both partners across 8 domains — revealing hidden mismatches and a precise 3-phase healing pathway.
                   </p>
 
                   <div className="space-y-2 mb-6">
@@ -295,6 +295,7 @@ export default function Home() {
                       "Change Readiness — are both partners actually ready?",
                       "Communication Patterns — the cycle beneath the argument",
                       "Future Vision Alignment — building toward the same life?",
+                      "Prejudices & Biases — beliefs you project onto each other",
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-2.5">
                         <svg className="w-3.5 h-3.5 text-[#d4af37] mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -449,7 +450,7 @@ export default function Home() {
                 },
                 {
                   tag: "Couples", price: "R600", href: "/assessment",
-                  features: ["7 clinical domains", "Partner comparison charts", "Alignment percentage per domain", "ACE + ADHD screening", "Clinical risk matrix", "3-phase couples pathway"],
+                  features: ["8 clinical domains", "Partner comparison charts", "Alignment percentage per domain", "ACE + ADHD screening", "Clinical risk matrix", "3-phase couples pathway"],
                   color: "border-[#d4af37]/25", bg: "bg-[#d4af37]/[0.05]", btn: "bg-[#d4af37] text-[#1a365d]", tagColor: "text-[#d4af37] bg-[#d4af37]/15 border-[#d4af37]/30",
                 },
               ].map((item) => (

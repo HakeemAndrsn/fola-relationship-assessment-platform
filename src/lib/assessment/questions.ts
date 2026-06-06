@@ -36,6 +36,39 @@ export const FUTURE_VISION_QUESTIONS = [
   { id: "location", label: "We agree on where we want to live long-term", description: "0 = Major disagreement | 10 = Fully aligned" },
 ];
 
+export const PREJUDICES_QUESTIONS: { id: string; label: string; description?: string }[] = [
+  {
+    id: "pb_origin",
+    label: "Where do your beliefs about the opposite gender come from?",
+    description: "Consider whether your views are shaped by personal experience, family upbringing, media, or past relationships.",
+  },
+  {
+    id: "pb_projection",
+    label: "How often do you assume your partner will react negatively based on past experiences with others?",
+    description: "Projecting past wounds onto a current partner can create invisible barriers.",
+  },
+  {
+    id: "pb_habit",
+    label: "How visible are your biases in your daily interactions with your partner?",
+    description: "Low scores suggest you're aware and managing them. High scores suggest they're showing up in ways your partner can feel.",
+  },
+  {
+    id: "pb_weight",
+    label: "How much weight do your preconceived notions carry in your relationship decisions?",
+    description: "When biases drive decisions instead of facts about your actual partner, the relationship suffers.",
+  },
+  {
+    id: "pb_consequence",
+    label: "How aware are you of the cost your biases have had on your relationships?",
+    description: "Awareness of the damage is the first step toward dismantling the pattern.",
+  },
+  {
+    id: "pb_willingness",
+    label: "How willing are you to question and unlearn beliefs that don't serve your relationship?",
+    description: "This is the key indicator of growth potential in this dimension.",
+  },
+];
+
 export const ATTACHMENT_OPTIONS = [
   { value: "secure" as const, label: "Secure", description: "I feel comfortable with closeness and can depend on my partner" },
   { value: "anxious" as const, label: "Anxious", description: "I crave closeness but often worry my partner doesn't feel the same" },

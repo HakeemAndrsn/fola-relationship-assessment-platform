@@ -18,6 +18,7 @@ import {
   VALUES_QUESTIONS,
   COMMUNICATION_QUESTIONS,
   FUTURE_VISION_QUESTIONS,
+  PREJUDICES_QUESTIONS,
   ATTACHMENT_OPTIONS,
   CHANGE_READINESS_OPTIONS,
 } from "@/lib/assessment/questions";
@@ -38,6 +39,7 @@ const STEPS = [
   "Change Readiness",
   "Communication",
   "Future Vision",
+  "Prejudices & Biases",
   "Review & Submit",
 ];
 
@@ -56,6 +58,7 @@ const DEFAULT_DATA: AssessmentFormData = {
   changeReadiness: { partnerA: "contemplation", partnerB: "contemplation" },
   communication: { partnerA: initSliders(COMMUNICATION_QUESTIONS), partnerB: initSliders(COMMUNICATION_QUESTIONS) },
   futureVision: { partnerA: initSliders(FUTURE_VISION_QUESTIONS), partnerB: initSliders(FUTURE_VISION_QUESTIONS) },
+  prejudices: { partnerA: initSliders(PREJUDICES_QUESTIONS), partnerB: initSliders(PREJUDICES_QUESTIONS) },
 };
 
 // ── Slider Domain Section ──
@@ -155,7 +158,7 @@ export default function AssessmentPage() {
   );
 
   const updateSlider = useCallback(
-    (domain: "trauma" | "adhd" | "values" | "communication" | "futureVision", partner: "partnerA" | "partnerB", id: string, val: number) =>
+    (domain: "trauma" | "adhd" | "values" | "communication" | "futureVision" | "prejudices", partner: "partnerA" | "partnerB", id: string, val: number) =>
       setData((d) => ({
         ...d,
         [domain]: { ...d[domain], [partner]: { ...d[domain][partner], [id]: val } },
@@ -504,8 +507,23 @@ export default function AssessmentPage() {
           />
         )}
 
-        {/* Step 8: Review */}
+        {/* Step 8: Prejudices & Biases */}
         {step === 8 && (
+          <SliderDomainSection
+            title="Prejudices & Biases"
+            description="The beliefs you carry about the opposite gender — where they come from, how they show up, and what they cost your relationship. This dimension surfaces assumptions you may not even know you're projecting onto your partner."
+            questions={PREJUDICES_QUESTIONS}
+            partnerAName={pA}
+            partnerBName={pB}
+            partnerAValues={data.prejudices.partnerA}
+            partnerBValues={data.prejudices.partnerB}
+            onChangeA={(id, val) => updateSlider("prejudices", "partnerA", id, val)}
+            onChangeB={(id, val) => updateSlider("prejudices", "partnerB", id, val)}
+          />
+        )}
+
+        {/* Step 9: Review */}
+        {step === 9 && (
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-semibold text-[#1a365d]">Review & Generate Report</h2>

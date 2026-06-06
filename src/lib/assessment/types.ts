@@ -55,6 +55,11 @@ export interface FutureVisionData {
   partnerB: SliderQuestions;
 }
 
+export interface PrejudicesData {
+  partnerA: SliderQuestions;
+  partnerB: SliderQuestions;
+}
+
 export interface AssessmentFormData {
   onboarding: OnboardingData;
   attachment: AttachmentData;
@@ -64,6 +69,7 @@ export interface AssessmentFormData {
   changeReadiness: ChangeReadinessData;
   communication: CommunicationData;
   futureVision: FutureVisionData;
+  prejudices: PrejudicesData;
 }
 
 export interface DomainScore {

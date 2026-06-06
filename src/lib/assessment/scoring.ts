@@ -89,6 +89,7 @@ const DOMAIN_WEIGHTS: Record<string, number> = {
   changeReadiness: 0.1,
   communication: 0.1,
   futureVision: 0.05,
+  prejudices: 0.1,
 };
 
 // ── Main scoring function ──
@@ -190,6 +191,19 @@ export function calculateScores(data: AssessmentFormData): DomainScore[] {
     clinicalWeight: "medium",
   });
 
+  // Prejudices & Biases
+  const prejudicesAlign = sliderAlignment(data.prejudices.partnerA, data.prejudices.partnerB);
+  scores.push({
+    domain: "prejudices",
+    label: "Prejudices & Biases",
+    partnerAScore: Math.round(averageSliders(data.prejudices.partnerA) * 10) / 10,
+    partnerBScore: Math.round(averageSliders(data.prejudices.partnerB) * 10) / 10,
+    alignmentPercent: prejudicesAlign,
+    gap: Math.round(Math.abs(averageSliders(data.prejudices.partnerA) - averageSliders(data.prejudices.partnerB)) * 10) / 10,
+    riskLevel: riskFromAlignment(prejudicesAlign),
+    clinicalWeight: "medium",
+  });
+
   return scores;
 }
 
@@ -260,6 +274,17 @@ export function identifyClinicalFlags(data: AssessmentFormData, scores: DomainSc
     });
   }
 
+  // Prejudices & Biases flag
+  const prejudicesScore = scores.find((s) => s.domain === "prejudices");
+  if (prejudicesScore && prejudicesScore.alignmentPercent < 50) {
+    flags.push({
+      type: "prejudices",
+      severity: "medium",
+      message: `Prejudices & Biases alignment is low (${prejudicesScore.alignmentPercent}%). Unchecked assumptions about each other may be creating invisible conflict patterns.`,
+      recommendation: "The LoveBetter Foundations cohort (R6,000 individual / R9,000 couple) is recommended as a starting point to surface and address these patterns.",
+    });
+  }
+
   return flags;
 }
 
@@ -287,7 +312,7 @@ export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalF
   }
 
   const price = Math.min(3800, Math.max(2500, Math.round(base * multiplier)));
-  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2000 | Age Regression Therapy = R3800 each`;
+  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2000 | Age Regression Therapy = R4000 each`;
   return { price, breakdown };
 }
 
