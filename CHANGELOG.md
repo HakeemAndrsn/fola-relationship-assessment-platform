@@ -14,6 +14,9 @@ LoveBetter Foundations is now **The DoLoveBetter Cohort** — across scoring, re
 **Relationship status expanded**
 Options now include "in a relationship" and "married" so the couple pricing triggers correctly for partnered users.
 
+**Dimension count references corrected**
+Individual assessment now shows 10 dimensions (was 9), couples assessment now shows 9 dimensions (was 8) — across landing page, assessment page, and report page.
+
 ## [2026-06-04]
 
 ### Added
