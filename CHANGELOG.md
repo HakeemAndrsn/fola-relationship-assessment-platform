@@ -1,5 +1,13 @@
 # Changelog
 
+## 7 June 2026 — FAQ Trust Signals + Warm-Traffic CTA
+
+### Added
+- Sticky CTA bar appears after scrolling past hero: "Done the assessment? Ready to do the work?" → discovery call link. Targets warm/returning visitors without distracting cold traffic.
+
+### Changed
+- Two trust-critical FAQ questions now expanded by default: "Is this a replacement for therapy?" and "Is my data private?" — addresses top conversion objections at the point of friction.
+
 ## 6 June 2026 — Prejudices & Biases + Pricing Floor + Cohort Rename
 
 **New dimension: Prejudices & Biases**
