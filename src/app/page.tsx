@@ -66,10 +66,10 @@ function NewsletterSignup({ variant = "default" }: { variant?: "default" | "inli
 // ── FAQ ──
 const faqs = [
   { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a clinical-grade map of their relational dynamics. The Individual Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
-  { q: "Is this a replacement for therapy?", a: "No — it's the ideal starting point. Our reports give you (and your therapist) a clinical-grade GPS. Most therapists say it saves 4–8 sessions of discovery work." },
+  { q: "Is this a replacement for therapy?", a: "No — it's the ideal starting point. Our reports give you (and your therapist) a clinical-grade GPS. Most therapists say it saves 4–8 sessions of discovery work.", defaultOpen: true },
   { q: "How long does each assessment take?", a: "The Individual Assessment takes 20–30 minutes. The Couples Assessment takes 30–40 minutes (both partners complete it together). Reports are instant." },
   { q: "What if my results show serious issues?", a: "That's precisely why these tools exist. Clinical flags are surfaced with severity levels, clear context, and a specific treatment pathway designed around your unique profile." },
-  { q: "Is my data private?", a: "Yes. Your responses are never stored server-side. The report is generated in your browser and only persists for your session. We take privacy seriously." },
+  { q: "Is my data private?", a: "Yes. Your responses are never stored server-side. The report is generated in your browser and only persists for your session. We take privacy seriously.", defaultOpen: true },
 ];
 
 const couplesTestimonials = [
@@ -83,10 +83,37 @@ const individualTestimonials = [
 ];
 
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(() => {
+    const idx = faqs.findIndex(f => f.defaultOpen);
+    return idx >= 0 ? idx : null;
+  });
+  const [showSticky, setShowSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setShowSticky(window.scrollY > 600);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#080e1d]" style={{ backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26,54,93,0.6) 0%, transparent 70%)" }}>
+
+      {/* ── STICKY CTA (warm traffic) ── */}
+      <div className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ${showSticky ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}>
+        <div className="mx-auto max-w-7xl px-4 py-3">
+          <div className="bg-[#1a365d]/95 backdrop-blur-xl border border-[#d4af37]/20 rounded-2xl px-5 py-3 flex items-center justify-between gap-4 shadow-2xl">
+            <p className="text-sm text-white font-sans hidden sm:block">
+              <span className="text-[#d4af37] font-bold">Done the assessment?</span> Ready to do the work?
+            </p>
+            <a href="https://calendly.com/folasessions/discovery-call" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-xl text-xs font-bold font-sans hover:bg-[#e4bf47] transition-all whitespace-nowrap">
+              Book a Discovery Call
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* ── NAV ── */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[#080e1d]/80 border-b border-white/[0.06]">
