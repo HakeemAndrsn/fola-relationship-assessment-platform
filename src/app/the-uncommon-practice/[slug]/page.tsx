@@ -268,7 +268,7 @@ export default async function BlogPost({
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-center sm:text-left">
               <p className="text-sm font-bold text-white font-serif">
-                The Oasis by FOLA
+                LOVEBETTER by FOLA
               </p>
               <p className="text-xs text-[#718096] font-sans mt-1">
                 R600 per assessment

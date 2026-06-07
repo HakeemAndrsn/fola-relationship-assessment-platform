@@ -146,7 +146,7 @@ export default function ReportPage() {
           </div>
           <div className="mt-8 pt-6 border-t border-[#e2e8f0]">
             <p className="text-xs text-[#a0aec0]">
-              Prepared for: The Oasis by FOLA | Clinical Director: Hakeem
+              Prepared for: LOVEBETTER by FOLA | Clinical Director: Hakeem
             </p>
           </div>
         </section>
@@ -422,6 +422,34 @@ export default function ReportPage() {
           <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
             Clinical Pathway Recommendation
           </h2>
+
+          {/* Cohort — prominent offer, placed first */}
+          <div className="rounded-lg border-2 border-[#d4af37] bg-[#fffdf5] p-6 mb-8">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <span className="inline-block px-3 py-1 bg-[#d4af37] text-[#1a365d] text-xs font-bold uppercase tracking-wider rounded mb-3">Recommended Starting Point</span>
+                <h3 className="text-xl font-bold text-[#1a365d]">The DoLoveBetter Cohort</h3>
+                <p className="text-sm text-[#4a5568] mt-2 leading-relaxed">
+                  A structured 6-week group programme that addresses the beliefs, biases, and patterns
+                  that shape how you show up in relationships. Most couples see significant shifts before
+                  moving into individual or couples therapy.
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-lg border border-[#e2e8f0] bg-white p-4">
+                    <p className="text-xs font-semibold text-[#1a365d] uppercase tracking-wider">Individual</p>
+                    <p className="text-2xl font-bold text-[#1a365d] mt-1">R6,000</p>
+                    <p className="text-xs text-[#718096] mt-1">Per person — ideal when one partner is more ready than the other</p>
+                  </div>
+                  <div className="rounded-lg border border-[#e2e8f0] bg-white p-4">
+                    <p className="text-xs font-semibold text-[#1a365d] uppercase tracking-wider">Couple</p>
+                    <p className="text-2xl font-bold text-[#1a365d] mt-1">R9,000</p>
+                    <p className="text-xs text-[#718096] mt-1">Both partners — shared growth, shared language, shared transformation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="space-y-8">
             {report.treatmentPlan.map((phase) => (
               <div key={phase.phase} className="rounded-lg border border-[#e2e8f0] overflow-hidden">
@@ -435,11 +463,16 @@ export default function ReportPage() {
                 <div className="divide-y divide-[#e2e8f0]">
                   {phase.sessions.map((sess, i) => (
                     <div key={i} className="px-6 py-4 flex items-center justify-between">
-                      <div>
+                      <div className="flex-1">
                         <p className="text-sm font-medium text-[#2d3748]">{sess.description}</p>
-                        <p className="text-xs text-[#718096]">Target: {sess.target}</p>
+                        <p className="text-xs text-[#718096]">
+                          <span className="font-medium">Who:</span> {sess.target}
+                          {sess.why && (
+                            <span className="ml-2 text-[#d4af37]">— Why: {sess.why}</span>
+                          )}
+                        </p>
                       </div>
-                      <span className="text-sm font-bold text-[#1a365d]">R{sess.price.toLocaleString()}</span>
+                      <span className="text-sm font-bold text-[#1a365d] ml-4">R{sess.price.toLocaleString()}</span>
                     </div>
                   ))}
                 </div>
@@ -449,9 +482,9 @@ export default function ReportPage() {
             <div className="rounded-lg bg-[#1a365d] text-white p-6 flex items-center justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">Estimated Total Investment</p>
-                <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases</p>
+                <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases (excluding cohort)</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
-                  The DoLoveBetter Cohort (R6,000 individual / R9,000 couple) is the recommended starting point for most couples. Age Regression Therapy sessions are R4,000 each for deeper trauma work. Breakthrough & Maintenance sessions are R2,700 each.
+                  Age Regression Therapy sessions are R4,000 each for deeper trauma work. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
                 </p>
               </div>
               <span className="text-3xl font-bold">R{report.totalInvestment.toLocaleString()}</span>
@@ -478,7 +511,7 @@ export default function ReportPage() {
                 </label>
                 <label className="flex items-start gap-3">
                   <input type="checkbox" className="mt-1 accent-[#1a365d]" readOnly />
-                  <span>Book an initial consultation with The Oasis by FOLA</span>
+                  <span>Book an initial consultation with LOVEBETTER by FOLA</span>
                 </label>
                 <label className="flex items-start gap-3">
                   <input type="checkbox" className="mt-1 accent-[#1a365d]" readOnly />
@@ -530,14 +563,14 @@ export default function ReportPage() {
                 This report is a screening instrument and does not constitute a clinical diagnosis.
                 Results are intended to inform and guide therapeutic conversations, not replace
                 professional assessment. All data is processed locally and is not stored on any server.
-                By using this tool, you acknowledge that The Oasis by FOLA and its practitioners
+                By using this tool, you acknowledge that LOVEBETTER by FOLA and its practitioners
                 are not liable for decisions made based on these results alone.
               </p>
             </div>
             <div className="pt-4 border-t border-[#e2e8f0] text-xs text-[#a0aec0] text-center">
               <p>Assessment Price: R{report.dynamicPrice} | {report.priceBreakdown}</p>
               <p className="mt-1">Report ID: {report.id} | Generated: {report.date}</p>
-              <p className="mt-1">The Oasis by FOLA | Clinical Director: Hakeem</p>
+              <p className="mt-1">LOVEBETTER by FOLA | Clinical Director: Hakeem</p>
             </div>
           </div>
         </section>

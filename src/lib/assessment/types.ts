@@ -98,6 +98,7 @@ export interface TreatmentPhase {
     description: string;
     target: string;
     price: number;
+    why?: string;
   }[];
 }
 

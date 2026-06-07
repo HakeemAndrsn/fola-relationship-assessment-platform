@@ -336,6 +336,7 @@ export function generateTreatmentPlan(
         description: "Breakthrough Session: Trauma Processing",
         target: data.onboarding.partnerAName,
         price: 2700,
+        why: `${data.onboarding.partnerAName}'s trauma indicators are elevated. Processing these experiences individually creates safety and reduces reactivity in couple sessions.`,
       });
     }
     if (traumaB > 7) {
@@ -343,6 +344,7 @@ export function generateTreatmentPlan(
         description: "Breakthrough Session: Trauma Processing",
         target: data.onboarding.partnerBName,
         price: 2700,
+        why: `${data.onboarding.partnerBName}'s trauma indicators are elevated. Individual processing prevents triggering in joint work and builds internal regulation capacity.`,
       });
     }
   }
@@ -351,6 +353,7 @@ export function generateTreatmentPlan(
       description: "Neurodivergence Awareness & Coping Strategies",
       target: "Higher-scoring partner",
       price: 2700,
+      why: "ADHD traits affect communication patterns and emotional regulation. Understanding neurodivergence helps both partners distinguish between intentional behaviour and neurological wiring.",
     });
   }
   if (phase1Sessions.length === 0) {
@@ -358,6 +361,7 @@ export function generateTreatmentPlan(
       description: "Individual Foundation Assessment",
       target: "Both Partners",
       price: 2700,
+      why: "A baseline individual session helps each partner identify their personal growth edges before joint work begins. This prevents couple sessions from becoming individual therapy.",
     });
   }
   phases.push({ phase: 1, title: "Individual Foundation", weeks: "Weeks 1-3", sessions: phase1Sessions });
@@ -370,6 +374,7 @@ export function generateTreatmentPlan(
       description: "Communication Pattern Rewiring",
       target: "Couple",
       price: 2700,
+      why: "Low communication alignment means recurring misunderstandings are eroding trust. Both partners need to learn the same framework simultaneously for it to stick.",
     });
   }
   const attachScore = scores.find((s) => s.domain === "attachment");
@@ -378,6 +383,7 @@ export function generateTreatmentPlan(
       description: "Attachment Re-patterning Workshop",
       target: "Couple",
       price: 2700,
+      why: "Attachment mismatches create predictable conflict cycles. Joint work helps each partner understand their own style while learning to meet the other's needs.",
     });
   }
   const valuesScore = scores.find((s) => s.domain === "values");
@@ -386,6 +392,7 @@ export function generateTreatmentPlan(
       description: "Core Values Negotiation & Alignment",
       target: "Couple",
       price: 2700,
+      why: "Values misalignment at this level creates existential friction. Both partners must participate to negotiate shared meaning and non-negotiables.",
     });
   }
   if (phase2Sessions.length === 0) {
@@ -393,6 +400,7 @@ export function generateTreatmentPlan(
       description: "Couples Integration Session",
       target: "Couple",
       price: 2700,
+      why: "Even with strong alignment, a structured integration session ensures both partners have a shared language and roadmap for ongoing growth.",
     });
   }
   phases.push({ phase: 2, title: "Couples Integration", weeks: "Weeks 4-6", sessions: phase2Sessions });
@@ -403,8 +411,8 @@ export function generateTreatmentPlan(
     title: "Maintenance & Growth",
     weeks: "Monthly ongoing",
     sessions: [
-      { description: "Monthly Check-in Session", target: "Couple", price: 2700 },
-      { description: "Quarterly Re-assessment", target: "Couple", price: 2700 },
+      { description: "Monthly Check-in Session", target: "Couple", price: 2700, why: "Regular check-ins catch small misalignments before they become fractures. Consistency builds relational muscle memory." },
+      { description: "Quarterly Re-assessment", target: "Couple", price: 2700, why: "Re-assessment measures progress objectively and adjusts the pathway as you evolve. What worked 3 months ago may need updating." },
     ],
   });
 

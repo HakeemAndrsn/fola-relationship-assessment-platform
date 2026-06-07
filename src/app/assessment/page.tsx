@@ -259,7 +259,7 @@ export default function AssessmentPage() {
             <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
             <div>
               <h1 className="text-lg font-bold text-[#1a365d] tracking-tight leading-none group-hover:text-[#2d4a7c] transition-colors">FOLA Relational Assessment</h1>
-              <p className="text-xs text-[#718096]">The Oasis by FOLA</p>
+              <p className="text-xs text-[#718096]">LOVEBETTER by FOLA</p>
             </div>
           </Link>
           <div className="text-right">

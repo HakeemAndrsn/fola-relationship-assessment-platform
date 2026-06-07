@@ -21,7 +21,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "FOLA Relational Assessment | The Oasis by FOLA",
+  title: "FOLA Relational Assessment | LOVEBETTER by FOLA",
   description: "Comprehensive relationship diagnostic assessment for couples. Evaluates attachment, trauma, neurodivergence, values, communication, and more.",
   icons: {
     icon: [

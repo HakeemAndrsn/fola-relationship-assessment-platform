@@ -294,7 +294,7 @@ export default function IndividualAssessmentPage() {
             <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
             <div>
               <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans group-hover:text-[#e4bf47] transition-colors">Personal Growth Assessment</p>
-              <p className="text-[10px] text-[#718096] font-sans">The Oasis by FOLA</p>
+              <p className="text-[10px] text-[#718096] font-sans">LOVEBETTER by FOLA</p>
             </div>
           </Link>
           <div className="text-right">
