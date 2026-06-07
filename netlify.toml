@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
+
+[functions.verify-payment]
+  environment = { YOCO_SECRET_KEY = "" }
+
+[functions.mailerlite]
+  environment = { MAILERLITE_API_KEY = "" }

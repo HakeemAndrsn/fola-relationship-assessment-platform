@@ -337,25 +337,8 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
       : "Breakthrough Session = R2700 | Maintenance & Expansion sessions = R2700 | Age Regression Therapy = R4000 each";
 
-  // Determine if cohort is recommended (moderate patterns, biases present)
-  const recommendCohort = biasesScore < 60 || (attachScore >= 40 && attachScore < 70);
-
-  // Treatment plan
+  // Treatment plan — strictly Phase 1, 2, 3 with Age Regression Therapy as high-ticket
   const treatmentPlan: IndividualTreatmentPhase[] = [
-    ...(recommendCohort
-      ? [{
-          phase: 0,
-          title: "DoLoveBetter Cohort",
-          weeks: "6 Weeks",
-          focus: "Pattern discovery, belief deconstruction, and relational education before clinical work",
-          sessions: [
-            { description: "DoLoveBetter Cohort — Individual", target: "6-week cohort: patterns, attachment, emotional safety, conflict, trust, secure love", price: 6000 },
-            ...(data.relationshipStatus === "in_relationship" || data.relationshipStatus === "married"
-              ? [{ description: "DoLoveBetter Cohort — Couple Add-on", target: "Partner joins the cohort journey together", price: 9000 }]
-              : []),
-          ],
-        }]
-      : []),
     {
       phase: 1,
       title: "Foundation & Stabilisation",

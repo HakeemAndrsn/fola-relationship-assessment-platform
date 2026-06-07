@@ -89,15 +89,9 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
                 setLoading(false);
               }
             } catch {
-              // If verification fails, still allow access (optimistic)
-              await fireMailerLite(
-                customerEmail || "",
-                customerName || "",
-                customerPhone || "",
-              );
-
-              sessionStorage.setItem("lb_payment_verified", "true");
-              window.location.href = "/individual-assessment?lb_paid=1";
+              setError("Payment verification failed. Please contact support.");
+              setLoading(false);
+              return;
             }
           }
         },
