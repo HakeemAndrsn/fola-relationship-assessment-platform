@@ -212,6 +212,23 @@ export default function AssessmentPage() {
             Enter your details below to begin. Your assessment report and invoice will be sent to your email.
           </p>
 
+          {/* What you're getting */}
+          <div className="bg-[#1a365d]/5 border border-[#1a365d]/10 rounded-xl p-4 text-left space-y-2">
+            <p className="text-xs font-semibold text-[#1a365d] uppercase tracking-wider font-sans">What's included</p>
+            <div className="flex items-start gap-2">
+              <span className="text-[#1a365d] mt-0.5 font-bold">✓</span>
+              <p className="text-xs text-[#4a5568] font-sans">9-dimension clinical assessment — attachment, trauma, ADHD screening, values alignment, and more</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-[#1a365d] mt-0.5 font-bold">✓</span>
+              <p className="text-xs text-[#4a5568] font-sans">Joint report with individual scores, clinical flags, and a couples treatment pathway</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-[#1a365d] mt-0.5 font-bold">✓</span>
+              <p className="text-xs text-[#4a5568] font-sans">Brown University-style clinical report delivered instantly as PDF</p>
+            </div>
+          </div>
+
           {/* Customer details form */}
           <div className="space-y-3 text-left">
             <div>
@@ -244,7 +261,11 @@ export default function AssessmentPage() {
             productDescription="LoveBETTER Couples Assessment"
             amountInCents={60000}
           />
-          <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
+          <div className="space-y-2">
+            <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
+            <p className="text-xs text-[#718096] font-sans">🔒 Your data is encrypted. Responses are never stored server-side.</p>
+            <p className="text-xs text-[#1a365d]/60 font-serif italic">You're in the right place. — The FOLA Team</p>
+          </div>
         </div>
       </div>
     );

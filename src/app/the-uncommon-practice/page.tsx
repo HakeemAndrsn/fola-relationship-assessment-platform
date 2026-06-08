@@ -6,6 +6,20 @@ export const metadata: Metadata = {
   title: "The Uncommon Practice | LOVEBETTER by FOLA",
   description:
     "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnotherapy, and the radical act of showing up for the person next to you.",
+  openGraph: {
+    title: "The Uncommon Practice | LOVEBETTER by FOLA",
+    description:
+      "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnotherapy, and the radical act of showing up for the person next to you.",
+    type: "website",
+    siteName: "LOVEBETTER by FOLA",
+    locale: "en_ZA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Uncommon Practice | LOVEBETTER by FOLA",
+    description:
+      "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnotherapy, and the radical act of showing up for the person next to you.",
+  },
 };
 
 export default function BlogIndex() {
@@ -141,8 +155,34 @@ export default function BlogIndex() {
             ))}
           </div>
 
+          {/* Assessment CTA */}
+          <div className="mt-16 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 sm:p-10 text-center">
+            <h3 className="text-2xl font-bold text-white font-serif">
+              What's your relationship pattern?
+            </h3>
+            <p className="mt-3 text-[#a0aec0] text-sm font-sans max-w-lg mx-auto">
+              Every article on this page starts with a real clinical question. The
+              assessment gives you the data — attachment style, trauma load,
+              communication wiring, and a personalised treatment pathway.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/individual-assessment"
+                className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-6 py-3 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-lg hover:shadow-[#d4af37]/20"
+              >
+                Take the Individual Assessment — R600
+              </Link>
+              <Link
+                href="/assessment"
+                className="inline-flex items-center gap-2 border border-[#d4af37]/40 text-[#d4af37] px-6 py-3 rounded-xl text-sm font-bold font-sans hover:bg-[#d4af37]/10 transition-all"
+              >
+                Take the Couples Assessment
+              </Link>
+            </div>
+          </div>
+
           {/* Newsletter CTA */}
-          <div className="mt-20 rounded-2xl border border-white/10 bg-white/5 p-8 sm:p-10 text-center">
+          <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-8 sm:p-10 text-center">
             <h3 className="text-2xl font-bold text-white font-serif">
               The LOVEBetter Letter
             </h3>

@@ -248,6 +248,23 @@ export default function IndividualAssessmentPage() {
             Enter your details below to begin. Your assessment report and invoice will be sent to your email.
           </p>
 
+          {/* What you're getting */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-left space-y-2">
+            <p className="text-xs font-semibold text-[#d4af37] uppercase tracking-wider font-sans">What's included</p>
+            <div className="flex items-start gap-2">
+              <span className="text-[#d4af37] mt-0.5">✓</span>
+              <p className="text-xs text-[#cbd5e0] font-sans">10-dimension clinical assessment — attachment, trauma, emotional regulation, self-worth, and more</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-[#d4af37] mt-0.5">✓</span>
+              <p className="text-xs text-[#cbd5e0] font-sans">Personalised report with scores, clinical flags, and a treatment pathway</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-[#d4af37] mt-0.5">✓</span>
+              <p className="text-xs text-[#cbd5e0] font-sans">Brown University-style clinical report delivered instantly as PDF</p>
+            </div>
+          </div>
+
           {/* Customer details form */}
           <div className="space-y-3 text-left">
             <div>
@@ -279,7 +296,11 @@ export default function IndividualAssessmentPage() {
             customerName={data.onboarding.name}
             productDescription="LoveBETTER Individual Assessment"
           />
-          <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
+          <div className="space-y-2">
+            <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
+            <p className="text-xs text-[#718096] font-sans">🔒 Your data is encrypted. Responses are never stored server-side.</p>
+            <p className="text-xs text-[#d4af37]/60 font-serif italic">You're in the right place. — The FOLA Team</p>
+          </div>
         </div>
       </div>
     );

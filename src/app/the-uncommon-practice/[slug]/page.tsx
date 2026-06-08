@@ -20,6 +20,19 @@ export async function generateMetadata({
   return {
     title: `${post.title} | The Uncommon Practice`,
     description: post.excerpt,
+    openGraph: {
+      title: `${post.title} | The Uncommon Practice`,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.date,
+      siteName: "LOVEBETTER by FOLA",
+      locale: "en_ZA",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | The Uncommon Practice`,
+      description: post.excerpt,
+    },
   };
 }
 
@@ -36,6 +49,7 @@ function renderContent(content: string) {
         <h2
           key={i}
           className="text-2xl font-bold text-white font-serif mt-12 mb-4"
+          id={line.slice(3).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
         >
           {line.slice(3)}
         </h2>
@@ -159,9 +173,9 @@ export default async function BlogPost({
                 {post.readTime}
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-serif leading-[1.15]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-serif leading-[1.15]">
               {post.title}
-            </h2>
+            </h1>
             <p className="mt-3 text-lg text-[#d4af37]/70 font-serif italic">
               {post.subtitle}
             </p>
@@ -193,6 +207,31 @@ export default async function BlogPost({
 
           {/* Comments */}
           <Comments />
+
+            {/* Assessment CTA */}
+            <div className="mt-16 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 text-center">
+              <h3 className="text-xl font-bold text-white font-serif">
+                What's your attachment pattern?
+              </h3>
+              <p className="mt-2 text-sm text-[#a0aec0] font-sans max-w-md mx-auto">
+                This article is based on real clinical work. The assessment gives
+                you the same framework — personalised to your relationship history.
+              </p>
+              <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/individual-assessment"
+                  className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-lg hover:shadow-[#d4af37]/20"
+                >
+                  Take the Assessment — R600
+                </Link>
+                <Link
+                  href="/assessment"
+                  className="inline-flex items-center gap-2 border border-[#d4af37]/40 text-[#d4af37] px-5 py-2.5 rounded-xl text-sm font-bold font-sans hover:bg-[#d4af37]/10 transition-all"
+                >
+                  Couples Assessment
+                </Link>
+              </div>
+            </div>
 
             {/* Free Discovery Call CTA */}
             <div className="mt-16 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 text-center">
