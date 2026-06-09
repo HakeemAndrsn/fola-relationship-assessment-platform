@@ -120,7 +120,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2">
-              <img src="/icon-32.png" alt="FOLA" className="w-8 h-8" />
+              <img src="/logo-transparent.png" alt="FOLA" className="w-10 h-10" />
               <div>
                 <p className="text-sm font-bold text-white tracking-tight font-serif leading-none">LoveBetter</p>
                 <p className="text-[9px] text-[#718096] tracking-wide font-sans mt-0.5">Relationship Growth Readiness Assessment</p>

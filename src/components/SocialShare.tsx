@@ -9,7 +9,7 @@ interface SocialShareProps {
 
 export default function SocialShare({ title, slug }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
-  const url = `https://lovebetter.netlify.app/the-uncommon-practice/${slug}`;
+  const url = `https://lovebetter.co.za/the-uncommon-practice/${slug}`;
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 

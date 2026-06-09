@@ -1102,6 +1102,176 @@ The relationship you want starts with the one you are willing to have with yours
 
 Show up. Keep showing up. Watch what happens.`,
   },
+  {
+    slug: "the-wound-is-not-that-he-left",
+    title: "The Wound Is Not That He Left",
+    subtitle: "What happens when a boy turns his father's absence into a verdict on his worth.",
+    date: "June 17, 2026",
+    readTime: "5 min read",
+    category: "Father Wound | Men's Mental Health",
+    excerpt: "The tragedy is not that your father left. The tragedy is that you have been trying to earn his approval ever since — and he is not even in the room.",
+    content: `"If only I had a dad around."
+
+You have said it. Maybe out loud. Maybe in the quiet moments when you are failing at something and you need someone to blame. Maybe when you look at other men who seem to have it figured out and wonder what manual they got that you didn't.
+
+Here is what nobody tells you: the absence is real. The pain is real. But the story you built on top of it — that you were not worth staying for, that you missed some essential instruction on how to be a man — that story is a lie your inner child made up to make sense of the silence.
+
+## The Verdict You Passed on Yourself
+
+A nine-year-old cannot process abandonment. He does not have the cognitive architecture for it. He cannot look at his father walking out the door and think, "This man has unhealed wounds from his own childhood and lacks the emotional capacity to stay." He cannot contextualise. He cannot depersonalise.
+
+So he internalises.
+
+He decides he must have done something wrong. He must not have been good enough. He must have been too much, or not enough, or the wrong kind of son. And then he spends the next thirty years trying to prove his worth to a man who is not there to witness it.
+
+This is the wound that most fatherless men carry. Not the absence itself — but the verdict they passed on themselves in the absence of any other explanation.
+
+You were not rejected because you were unworthy. You were left because he was incapable. Those are not the same thing. But your inner child has never heard that distinction.
+
+## The Performance Trap
+
+Here is what happens next. You become a machine of achievement. You build. You acquire. You prove. You climb. You tell yourself that if you just become successful enough, rich enough, respected enough, loved enough — then you will finally feel like you are enough.
+
+But the goalpost keeps moving. Because the problem was never that you hadn't achieved enough. The problem was that you were trying to earn something from someone who is not in a position to give it.
+
+Your father cannot validate you. Even if he were here. Even if he apologised. Even if he showed up tomorrow and said all the right things. The part of you that needs his approval is a child who is still waiting. And that child will not be satisfied by anything the adult world can offer.
+
+The work is not to become worthy of his love. The work is to stop needing it.
+
+## The Permission You Are Waiting For
+
+You have been waiting for permission. Permission to rest. Permission to be soft. Permission to fail. Permission to take up space. Permission to be exactly who you are without having to justify it.
+
+You have been waiting for a man who is not coming to give you something that was always yours.
+
+The permission you need was never his to give. It was never withheld by anyone but you. The moment you stop waiting for an absent father to show up and tell you that you are enough is the moment you can finally start living like you believe it.
+
+You do not need his permission to heal. You never did.
+
+Heal anyway. Not for him. For the man you are becoming. For the people who depend on you. For the boy who is still waiting — so he can finally stop.`,
+  },
+  {
+    slug: "you-cannot-love-him-healed",
+    title: "You Cannot Love Him Healed",
+    subtitle: "For the woman in a relationship with a man carrying a father wound.",
+    date: "June 18, 2026",
+    readTime: "5 min read",
+    category: "Relationships | Father Wound | Men's Mental Health",
+    excerpt: "He is not rejecting you. He is replaying a script that was written before you ever met him.",
+    content: `You love him. But loving him feels like trying to hold water.
+
+You show up. You communicate. You give him space. You try everything. And still — he pulls away. He shuts down. He picks a fight over something small. He disappears emotionally for days and comes back like nothing happened.
+
+And you wonder: what am I doing wrong?
+
+The answer is uncomfortable. You are not doing anything wrong. He is not rejecting you. He is replaying a script that was written before you ever met him.
+
+## The Script He Did Not Write
+
+When a boy grows up without a father — or with a father who was present but emotionally unavailable — he learns a set of rules about love that he never consciously chose.
+
+He learns that love is conditional. That people leave. That the safest thing is to leave first. That needing someone is dangerous because needing someone means you can be hurt.
+
+He learns that vulnerability is weakness. That emotions are a liability. That the only acceptable response to pain is silence.
+
+He learns that he is responsible for everyone else's feelings. That if someone is unhappy, it must be his fault. That he must fix everything or he is failing.
+
+And then he grows up and enters a relationship. And every single one of these rules activates automatically, below the level of conscious thought.
+
+So he tests you. Not consciously. Not maliciously. But he tests whether you will stay when he is difficult. Whether you will still be there when he pushes you away. Whether you are like everyone else who left.
+
+He is not trying to hurt you. He is trying to survive a wound he does not have words for.
+
+## What Not to Do
+
+Do not make yourself smaller to keep him comfortable. Do not walk on eggshells. Do not become his therapist. Do not accept mistreatment in the name of understanding his trauma.
+
+Understanding why someone hurts you does not make the hurt acceptable. Compassion is not a license for someone to keep wounding you while you wait for them to heal.
+
+You can hold two things at once: deep compassion for what he carries, and a firm boundary around what you will tolerate.
+
+## What He Needs to Do
+
+He needs to look at the wound. Not just feel it — look at it. Name it. Trace it back to its origin. See how it has been running his relationships since before he knew what a relationship was.
+
+He needs to stop outsourcing his healing to your patience. Your love cannot fix what he refuses to examine. Your presence cannot replace his absence from himself.
+
+He needs to sit with the discomfort of his own inner world without numbing, without distracting, without running. He needs to learn that his feelings will not kill him — even though every cell in his body is telling him they will.
+
+And he needs to choose this. Not for you. For himself. Because if he is only doing the work to keep you, the moment the relationship feels safe again, he will stop.
+
+## What You Need to Know
+
+You cannot love him healed. That is not how healing works. Healing is not something that happens to him because you love him enough. Healing is something he chooses to do, and your love makes the environment safer for it — but it does not cause it.
+
+You can support. You can hold space. You can educate yourself. You can set boundaries that protect both of you. But you cannot do the work for him.
+
+The question you have to answer is not "does he love me?" It is "is he willing to do what love requires?"
+
+If the answer is yes, there is a way through. It will not be linear. It will not be quick. But it is possible.
+
+If the answer is no — or not yet — then you have your answer too. And staying will not change it. It will only delay the grief.
+
+You deserve someone who shows up for themselves the way you show up for them. Do not settle for less because you understand why he cannot give it. Understanding is not the same as receiving.`,
+  },
+  {
+    slug: "the-father-you-needed-does-not-exist",
+    title: "The Father You Needed Does Not Exist",
+    subtitle: "What happens when you stop waiting for an apology that will never come.",
+    date: "June 19, 2026",
+    readTime: "5 min read",
+    category: "Father Wound | Inner Child | Men's Mental Health",
+    excerpt: "The work is not forgiving him. The work is accepting that the father you needed does not exist. He never did. And he never will.",
+    content: `You grew up wishing your father was different. Wishing he was present. Wishing he was gentle. Wishing he was the kind of man your friends' fathers were.
+
+You watched other families and felt a quiet ache you could not name. You told yourself it did not matter. You told yourself you were fine. You built a life on top of that ache and called it strength.
+
+And now you are an adult. And you are still angry. Still disappointed. Still waiting for an apology that will never come.
+
+## The Inheritance You Did Not Choose
+
+Here is the part nobody prepares you for: your father was also a son. He was also a boy who grew up with wounds he never healed. He passed down what he had — and what he had was broken.
+
+This is not an excuse. This is context. And context matters because without it, you stay stuck in a child's rage — waiting for a dead man to make things right.
+
+Your father did not wake up one morning and decide to fail you. He was failing long before you were born. He was failing in ways he did not have the language or the courage to examine. He was running from the same kind of pain you are now running from.
+
+The difference is that you are here, reading this, willing to look. He was not. That is not a small difference. That is everything.
+
+## The Grief You Have Been Avoiding
+
+The work is not forgiving him. The work is accepting that the father you needed does not exist. He never did. And he never will.
+
+That is the grief you have been avoiding. Not the grief of his absence — but the grief of the impossibility. The realisation that no amount of wishing, no amount of achievement, no amount of therapy will produce the father you needed. He is not hiding somewhere, waiting to be found. He was never there.
+
+Sit with that. Let it break you if it needs to. Because on the other side of that breaking is something you have not allowed yourself to feel: freedom.
+
+Freedom from waiting. Freedom from hoping. Freedom from the exhausting project of trying to earn love from someone who does not have it to give.
+
+## The Chain Breaks Here
+
+You have two choices. You can stay in the child's position — angry, waiting, blaming — and pass the same wound to your children. Or you can grieve what you did not get, accept what was, and build something different.
+
+Build the man you needed him to be. Not by becoming him. Not by being the opposite of him. But by becoming someone who breaks the chain.
+
+This means looking at your own patterns. The ways you disappear when things get hard. The ways you repeat his mistakes without meaning to. The ways you have already started passing down the same silence, the same distance, the same unavailability.
+
+It means doing the work he did not do. Feeling the feelings he could not feel. Saying the words he could not say.
+
+It means becoming the ancestor your children will speak of differently.
+
+## The Inheritance Worth Leaving
+
+Your children will not wish you were different. Not because you were perfect — but because you were willing. Willing to look. Willing to feel. Willing to break the chain instead of passing it on.
+
+That is the inheritance worth leaving. Not money. Not status. Not the things you accumulated to prove you were enough. But a lineage of men who stopped running.
+
+Your father could not give you that. He did not have it to give.
+
+But you can give it. To yourself first. And then to everyone who comes after you.
+
+That is the work. That is the healing. That is the legacy.`,
+  },
 ];
 
 function parseDate(dateStr: string): Date {

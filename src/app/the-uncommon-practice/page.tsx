@@ -22,6 +22,20 @@ export const metadata: Metadata = {
   },
 };
 
+// Sort posts newest-first by date (format: "Month DD, YYYY")
+function parseDate(dateStr: string): Date {
+  const months: Record<string, number> = {
+    January: 0, February: 1, March: 2, April: 3, May: 4, June: 5,
+    July: 6, August: 7, September: 8, October: 9, November: 10, December: 11,
+  };
+  const [month, day, year] = dateStr.split(" ");
+  return new Date(parseInt(year), months[month], parseInt(day.replace(",", "")));
+}
+
+const sortedPosts = [...blogPosts].sort((a, b) => {
+  return parseDate(b.date).getTime() - parseDate(a.date).getTime();
+});
+
 export default function BlogIndex() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d]">
@@ -29,7 +43,7 @@ export default function BlogIndex() {
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/80 border-b border-white/5">
         <div className="mx-auto max-w-6xl px-6 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
             <div>
               <h1 className="text-lg font-bold text-white tracking-tight font-serif leading-none">
                 LoveBetter
@@ -78,29 +92,29 @@ export default function BlogIndex() {
 
           {/* Featured Post */}
           <Link
-            href={`/the-uncommon-practice/${blogPosts[0].slug}`}
+            href={`/the-uncommon-practice/${sortedPosts[0].slug}`}
             className="block group mb-12"
           >
             <article className="rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 sm:p-10 hover:border-[#d4af37]/50 transition-all">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-xs font-semibold text-[#d4af37] bg-[#d4af37]/10 px-2.5 py-1 rounded-full font-sans">
-                  {blogPosts[0].category}
+                  {sortedPosts[0].category}
                 </span>
                 <span className="text-xs text-[#718096] font-sans">
-                  {blogPosts[0].date}
+                  {sortedPosts[0].date}
                 </span>
                 <span className="text-xs text-[#718096] font-sans">
-                  {blogPosts[0].readTime}
+                  {sortedPosts[0].readTime}
                 </span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-bold text-white font-serif group-hover:text-[#d4af37] transition-colors">
-                {blogPosts[0].title}
+                {sortedPosts[0].title}
               </h3>
               <p className="mt-1 text-base text-[#d4af37]/70 font-serif italic">
-                {blogPosts[0].subtitle}
+                {sortedPosts[0].subtitle}
               </p>
               <p className="mt-4 text-[#cbd5e0] font-sans leading-relaxed">
-                {blogPosts[0].excerpt}
+                {sortedPosts[0].excerpt}
               </p>
               <div className="mt-6 inline-flex items-center gap-2 text-[#d4af37] text-sm font-semibold font-sans group-hover:gap-3 transition-all">
                 Read Article
@@ -123,7 +137,7 @@ export default function BlogIndex() {
 
           {/* Post Grid */}
           <div className="grid gap-6 sm:grid-cols-2">
-            {blogPosts.slice(1).map((post) => (
+            {sortedPosts.slice(1).map((post) => (
               <Link
                 key={post.slug}
                 href={`/the-uncommon-practice/${post.slug}`}

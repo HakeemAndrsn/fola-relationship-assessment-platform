@@ -312,7 +312,7 @@ export default function IndividualAssessmentPage() {
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/90 border-b border-white/5">
         <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
             <div>
               <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans group-hover:text-[#e4bf47] transition-colors">Personal Growth Assessment</p>
               <p className="text-[10px] text-[#718096] font-sans">LOVEBETTER by FOLA</p>

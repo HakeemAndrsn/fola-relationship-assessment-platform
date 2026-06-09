@@ -112,7 +112,7 @@ export default function ReportPage() {
       <div className="print:hidden sticky top-0 z-10 bg-white border-b border-[#e2e8f0] px-4 py-3">
         <div className="mx-auto max-w-4xl flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
             <h1 className="text-lg font-bold text-[#1a365d] group-hover:text-[#2d4a7c] transition-colors">FOLA Assessment Report</h1>
           </Link>
           <div className="flex gap-2">
@@ -133,7 +133,7 @@ export default function ReportPage() {
             Confidential Clinical Document
           </div>
           <div className="flex justify-center mb-6">
-            <img src="/icon-192.png" alt="FOLA" className="w-20 h-20" />
+            <img src="/logo-transparent.png" alt="FOLA" className="w-20 h-20" />
           </div>
           <h1 className="text-4xl font-bold text-[#1a365d] tracking-tight">
             FOLA Relational Assessment

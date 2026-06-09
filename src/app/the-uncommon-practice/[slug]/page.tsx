@@ -3,7 +3,6 @@ import { blogPosts, getPostBySlug } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SocialShare from "@/components/SocialShare";
-import Comments from "@/components/Comments";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -110,7 +109,7 @@ export default async function BlogPost({
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/80 border-b border-white/5">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <img src="/icon-32.png" alt="FOLA" className="w-7 h-7" />
+            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
             <div>
               <h1 className="text-lg font-bold text-white tracking-tight font-serif leading-none group-hover:text-[#d4af37] transition-colors">
                 LoveBetter
@@ -205,8 +204,7 @@ export default async function BlogPost({
           {/* Social Share */}
           <SocialShare title={post.title} slug={post.slug} />
 
-          {/* Comments */}
-          <Comments />
+          {/* Comments removed — replaced by social shares */}
 
             {/* Assessment CTA */}
             <div className="mt-16 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 text-center">
