@@ -264,6 +264,8 @@ export default function AssessmentPage() {
           <div className="space-y-2">
             <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
             <p className="text-xs text-[#718096] font-sans">🔒 Your data is encrypted. Responses are never stored server-side.</p>
+            <p className="text-xs text-[#718096] font-sans">🛡️ 256-bit SSL encryption — same security standard as online banking</p>
+            <p className="text-xs text-[#718096] font-sans">💳 Pay with card or instant EFT — no account needed</p>
             <p className="text-xs text-[#1a365d]/60 font-serif italic">You're in the right place. — The FOLA Team</p>
           </div>
         </div>

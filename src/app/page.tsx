@@ -204,6 +204,14 @@ export default function Home() {
             </div>
 
             <p className="mt-5 text-xs text-[#4a5568] font-sans">Instant results · 100% private · Clinical-grade accuracy</p>
+
+            {/* Refund Guarantee Badge */}
+            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/20 bg-green-500/5 backdrop-blur-sm">
+              <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-xs text-green-300 font-sans">7-day money-back guarantee. If your report doesn't change how you see your relationship, you don't pay.</span>
+            </div>
           </div>
         </section>
 
@@ -285,7 +293,7 @@ export default function Home() {
                   <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
                     <p className="text-xs text-[#4a5568] font-sans">20–30 min · Instant report · PDF download</p>
                     <Link href="/individual-assessment" className="flex items-center gap-2 bg-white text-[#080e1d] px-5 py-2.5 rounded-xl text-xs font-bold font-sans hover:bg-white/90 transition-all">
-                      Begin →
+                      Start Your Assessment →
                     </Link>
                   </div>
                 </div>
@@ -336,7 +344,7 @@ export default function Home() {
                   <div className="flex items-center justify-between pt-4 border-t border-[#d4af37]/[0.15]">
                     <p className="text-xs text-[#4a5568] font-sans">30–40 min · Instant report · PDF download</p>
                     <Link href="/assessment" className="flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-xl text-xs font-bold font-sans hover:bg-[#e4bf47] transition-all">
-                      Begin →
+                      Start Your Assessment →
                     </Link>
                   </div>
                 </div>
@@ -497,10 +505,40 @@ export default function Home() {
                     ))}
                   </ul>
                   <Link href={item.href} className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold font-sans transition-all hover:opacity-90 ${item.btn}`}>
-                    Take the Assessment →
+                    Start Your Assessment →
                   </Link>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── BUNDLE OFFER ── */}
+        <section className="px-6 py-8">
+          <div className="mx-auto max-w-3xl">
+            <div className="rounded-3xl border border-[#d4af37]/25 bg-gradient-to-br from-[#d4af37]/[0.08] to-transparent p-8 text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-30 blur-3xl" style={{ background: "radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%)" }} />
+              <div className="relative">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#d4af37]/15 border border-[#d4af37]/30 text-[10px] text-[#d4af37] font-semibold uppercase tracking-wider font-sans mb-4">
+                  Best Value
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif mb-2">The Complete Growth Bundle</h2>
+                <p className="text-sm text-[#8892a4] max-w-lg mx-auto leading-relaxed font-sans mb-4">
+                  Both assessments. One price. Start with the Individual to understand your wiring, then bring your partner into the Couples assessment with a shared language.
+                </p>
+                <div className="flex items-center justify-center gap-4 mb-6">
+                  <p className="text-3xl font-bold text-white font-serif">R1,000</p>
+                  <p className="text-sm text-[#718096] font-sans line-through">R1,200</p>
+                  <span className="text-[10px] text-green-400 font-semibold font-sans px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/20">Save R200</span>
+                </div>
+                <Link href="/individual-assessment" className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-8 py-3.5 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/20">
+                  Start with Individual Assessment — R600
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+                <p className="mt-3 text-[10px] text-[#4a5568] font-sans">Buy individually for R600 each, or bundle both for R1,000</p>
+              </div>
             </div>
           </div>
         </section>

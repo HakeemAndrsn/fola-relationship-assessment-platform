@@ -368,16 +368,16 @@ export default function IndividualReportPage() {
                     />
                   </div>
                 </div>
-                {/* Clinical interpretation */}
+                {/* One-liner per dimension */}
                 <div className="mt-3 text-sm text-[#4a5568]">
                   {d.score < 45 && (
-                    <p>This dimension represents a significant area of concern. Targeted therapeutic intervention is recommended to address underlying patterns before they impact broader relational functioning.</p>
+                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> This is where the wound lives. A score this low isn't just a number — it's a signal that something here needs attention before it keeps showing up in every relationship you have. This is the place to start.</p>
                   )}
                   {d.score >= 45 && d.score < 70 && (
-                    <p>This dimension shows moderate development. While not an immediate concern, continued attention and intentional growth work can strengthen this area and prevent it from becoming a source of difficulty.</p>
+                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> You're functional here, but there's a ceiling. This dimension has room to grow — and strengthening it will unlock progress in areas you didn't expect. Think of it as the next lever to pull.</p>
                   )}
                   {d.score >= 70 && (
-                    <p>This dimension represents a strength in your relational profile. Continue nurturing this area — it provides a foundation for working through challenges in other dimensions.</p>
+                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> This is a genuine strength. You've done work here — or you're naturally aligned. Either way, this is the foundation you'll build on. Don't ignore it while focusing on what's broken.</p>
                   )}
                 </div>
               </div>
@@ -512,6 +512,23 @@ export default function IndividualReportPage() {
                 <li>What is one thing I am willing to change or work on starting today?</li>
                 <li>What support do I need to feel safe in this process?</li>
               </ol>
+            </div>
+
+            {/* Stronger CTA */}
+            <div className="rounded-lg bg-[#1a365d] text-white p-6 text-center">
+              <h3 className="text-lg font-bold mb-2">You have the data. Now get the roadmap.</h3>
+              <p className="text-sm text-[#a0aec0] mb-4 max-w-md mx-auto">
+                Your report reveals the patterns. A discovery call turns those patterns into a personalised 3-phase healing plan — starting with what matters most for your growth.
+              </p>
+              <a
+                href="https://calendly.com/folasessions/discovery-call"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-[#d4af37] text-[#1a365d] font-bold px-8 py-3 rounded-lg hover:bg-[#c49f2e] transition-colors text-sm"
+              >
+                Book Your Free Discovery Call
+              </a>
+              <p className="mt-2 text-[10px] text-[#718096]">30 minutes · No pressure · Just clarity</p>
             </div>
           </div>
         </section>

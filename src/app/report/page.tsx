@@ -380,16 +380,16 @@ export default function ReportPage() {
                     />
                   </div>
                 </div>
-                {/* Clinical interpretation */}
+                {/* One-liner per dimension */}
                 <div className="mt-3 text-sm text-[#4a5568]">
                   {s.riskLevel === "high" && (
-                    <p>This domain represents a significant area of concern. The gap between partners suggests misalignment that could be a recurring source of conflict without targeted intervention.</p>
+                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> This is where the friction lives. The gap between you here isn't just a difference — it's a pattern that keeps you stuck in the same argument. Addressing this domain first will unlock progress everywhere else.</p>
                   )}
                   {s.riskLevel === "medium" && (
-                    <p>This domain shows moderate alignment. While not an immediate concern, continued attention and open dialogue can prevent this area from becoming a source of tension.</p>
+                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> You're not in crisis here, but this domain is where small disconnects compound over time. A few intentional conversations now can prevent this from becoming a fracture point later.</p>
                   )}
                   {s.riskLevel === "low" && (
-                    <p>This domain represents a strength in your relationship. Continue nurturing this area of alignment as it provides a foundation for working through challenges in other domains.</p>
+                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> This is a foundation strength. You're aligned here — and that alignment is what will carry you through the harder work in other domains. Don't take it for granted.</p>
                   )}
                 </div>
               </div>
@@ -528,6 +528,23 @@ export default function ReportPage() {
                 <li>What is one thing I am willing to change or work on starting today?</li>
                 <li>What do I need from my partner to feel safe in this process?</li>
               </ol>
+            </div>
+
+            {/* Stronger CTA */}
+            <div className="rounded-lg bg-[#1a365d] text-white p-6 text-center">
+              <h3 className="text-lg font-bold mb-2">You have the data. Now get the roadmap.</h3>
+              <p className="text-sm text-[#a0aec0] mb-4 max-w-md mx-auto">
+                Your report reveals the patterns. A discovery call turns those patterns into a personalised 3-phase healing plan — starting with what matters most for your relationship.
+              </p>
+              <a
+                href="https://calendly.com/folasessions/discovery-call"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-[#d4af37] text-[#1a365d] font-bold px-8 py-3 rounded-lg hover:bg-[#c49f2e] transition-colors text-sm"
+              >
+                Book Your Free Discovery Call
+              </a>
+              <p className="mt-2 text-[10px] text-[#718096]">30 minutes · No pressure · Just clarity</p>
             </div>
           </div>
         </section>
