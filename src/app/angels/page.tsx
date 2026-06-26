@@ -65,25 +65,29 @@ export default function AngelsPage() {
             </p>
           </div>
 
-          {/* Divider */}
-          <div className="my-16 border-t border-white/[0.06]" />
-
-          {/* Future Angels */}
-          <div>
-            <h2 className="text-lg font-serif font-bold text-white mb-4">
-              Become a FOLA Angel
+          {/* CTA — Join Melitah */}
+          <div className="my-16 rounded-lg border border-[#d4af37]/20 bg-[#d4af37]/[0.03] p-8 sm:p-10">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-4">
+              Join Melitah.
             </h2>
-            <p className="text-sm text-[#718096] font-sans leading-relaxed">
-              FOLA Angels are the people who fund the mission before it proves itself.
-              If you&apos;d like to join Melitah in making what comes next possible,
-              reach out at{" "}
-              <a
-                href="mailto:sessionswithfola@gmail.com"
-                className="text-[#d4af37] hover:text-[#e4bf47] transition-colors"
-              >
-                sessionswithfola@gmail.com
-              </a>
-              .
+            <p className="text-sm sm:text-base text-[#a0aec0] font-sans leading-relaxed mb-6">
+              FOLA is building the largest trauma resolution practice in Africa — a flagship
+              clinic in Hazelwood, a university to train and retain practitioners, and a
+              relationship assessment platform that&apos;s already live.
+            </p>
+            <p className="text-sm sm:text-base text-[#a0aec0] font-sans leading-relaxed mb-8">
+              We&apos;re looking for angels who see what&apos;s possible before it&apos;s obvious.
+            </p>
+            <a
+              href="https://calendly.com/folasessions/fola-polyclinic-investor-call"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-lg bg-[#d4af37] px-8 py-3.5 text-sm font-bold text-[#0a0a0a] font-sans hover:bg-[#e4bf47] transition-colors"
+            >
+              Book an Investor Call →
+            </a>
+            <p className="text-xs text-[#4a5568] font-sans mt-4">
+              R50,000 minimum. No equity. No timeline. Just belief.
             </p>
           </div>
         </div>
