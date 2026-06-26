@@ -1,0 +1,90 @@
+<template id="intro-template">
+  <div data-composition-id="intro" data-width="1920" data-height="1080" data-duration="4">
+    <div class="container">
+      <div class="title-card">
+        <h1 class="title">LoveBetter</h1>
+        <p class="subtitle">by FOLA</p>
+        <p class="tagline">Clinical-grade relationship assessments</p>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="intro"] .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Inter", sans-serif;
+        background: transparent;
+      }
+
+      [data-composition-id="intro"] .title-card {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        padding: 50px 80px;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      [data-composition-id="intro"] .title {
+        font-size: 120px;
+        font-weight: 700;
+        color: #e8d5b7;
+        margin: 0;
+        line-height: 1;
+        letter-spacing: -3px;
+      }
+
+      [data-composition-id="intro"] .subtitle {
+        font-size: 36px;
+        font-weight: 400;
+        color: #c9a96e;
+        margin: 8px 0 0 0;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+      }
+
+      [data-composition-id="intro"] .tagline {
+        font-size: 24px;
+        font-weight: 300;
+        color: rgba(232, 213, 183, 0.7);
+        margin: 16px 0 0 0;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to(
+          '[data-composition-id="intro"] .title-card',
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          0.2,
+        );
+
+        tl.to(
+          '[data-composition-id="intro"] .title-card',
+          {
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.5,
+            ease: "power2.in",
+          },
+          3.2,
+        );
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["intro"] = tl;
+      })();
+    </script>
+  </div>
+</template>

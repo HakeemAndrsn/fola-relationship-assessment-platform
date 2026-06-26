@@ -1,0 +1,98 @@
+<template id="captions-template">
+  <div
+    data-composition-id="captions"
+    data-width="1920"
+    data-height="1080"
+    data-duration="16"
+  >
+    <div class="captions-container">
+      <div id="caption-box" class="caption-box">
+        <span id="caption-text" class="caption-text"></span>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="captions"] .captions-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding-bottom: 230px;
+        pointer-events: none;
+      }
+
+      [data-composition-id="captions"] .caption-box {
+        background-color: rgba(0, 0, 0, 0.75);
+        padding: 14px 36px;
+        border-radius: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 100px;
+        max-width: 85%;
+        opacity: 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      [data-composition-id="captions"] .caption-text {
+        color: #f5f0e0;
+        font-family: "Inter", sans-serif;
+        font-size: 44px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.2;
+        max-width: 1600px;
+        overflow: hidden;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const lines = [
+          { text: "FOLA Polyclinics. Trauma and hypnotherapy, grounded in Age Regression Therapy.", start: 0.5, end: 3.0 },
+          { text: "Inner child work. Father wound. Mother wound. Self. Purpose.", start: 3.5, end: 6.0 },
+          { text: "In-person sessions in Ga-Rankuwa, Tshwane. Online sessions available.", start: 6.5, end: 10.0 },
+          { text: "Book a session at fola.co.za", start: 10.5, end: 14.0 },
+          { text: "FOLA Polyclinics. Start your healing.", start: 14.5, end: 16.0 },
+        ];
+
+        const tl = gsap.timeline({ paused: true });
+        const box = document.querySelector('[data-composition-id="captions"] #caption-box');
+        const textEl = document.querySelector('[data-composition-id="captions"] #caption-text');
+
+        lines.forEach((line) => {
+          tl.set(box, { visibility: "visible" }, line.start);
+          tl.to(
+            box,
+            {
+              opacity: 1,
+              duration: 0.15,
+              ease: "power2.out",
+              onStart: () => {
+                textEl.textContent = line.text;
+              },
+            },
+            line.start,
+          );
+
+          tl.to(
+            box,
+            {
+              opacity: 0,
+              duration: 0.15,
+              ease: "power2.in",
+            },
+            line.end - 0.15,
+          );
+
+          tl.set(box, { opacity: 0, visibility: "hidden" }, line.end + 0.05);
+        });
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["captions"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,137 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Libre Baskerville",
+      "fontSize": "72px",
+      "fontWeight": "700",
+      "lineHeight": "75.6px",
+      "letterSpacing": "-1.8px",
+      "color": "#FFFFFF",
+      "sampleText": "Your relationship startswith who you are."
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Libre Baskerville",
+      "fontSize": "36px",
+      "fontWeight": "700",
+      "lineHeight": "40px",
+      "letterSpacing": "normal",
+      "color": "#FFFFFF",
+      "sampleText": "Which assessment is for you?"
+    },
+    {
+      "role": "heading-2",
+      "fontFamily": "Libre Baskerville",
+      "fontSize": "30px",
+      "fontWeight": "700",
+      "lineHeight": "36px",
+      "letterSpacing": "normal",
+      "color": "#FFFFFF",
+      "sampleText": "How it works"
+    },
+    {
+      "role": "heading-3",
+      "fontFamily": "Libre Baskerville",
+      "fontSize": "24px",
+      "fontWeight": "700",
+      "lineHeight": "32px",
+      "letterSpacing": "normal",
+      "color": "#FFFFFF",
+      "sampleText": "Personal GrowthAssessment"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Montserrat",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "lineHeight": "32.5px",
+      "letterSpacing": "normal",
+      "color": "#8892A4",
+      "sampleText": "Two clinical-grade assessments. One for the individual who w"
+    },
+    {
+      "role": "heading-3",
+      "fontFamily": "Libre Baskerville",
+      "fontSize": "16px",
+      "fontWeight": "700",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "color": "#FFFFFF",
+      "sampleText": "Choose your assessment"
+    },
+    {
+      "role": "link",
+      "fontFamily": "Montserrat",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "color": "oklch(0.145 0 0)",
+      "sampleText": "LoveBetterRelationship Growth Readiness Assessment"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32,
+      40,
+      48,
+      64
+    ],
+    "baseUnit": 4
+  },
+  "radius": [
+    "14px",
+    "16px"
+  ],
+  "shadows": [],
+  "buttons": [
+    {
+      "label": "Who are these assessments for?",
+      "background": "#000000",
+      "color": "oklch(0.145 0 0)",
+      "padding": "20px 24px",
+      "borderRadius": "0px",
+      "border": "0px solid oklch(0.922 0 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "60px"
+    },
+    {
+      "label": "Join LOVEBetter",
+      "background": "#D4AF37",
+      "color": "#1A365D",
+      "padding": "16px 32px",
+      "borderRadius": "14px",
+      "border": "0px solid oklch(0.922 0 0)",
+      "boxShadow": "none",
+      "fontSize": "14px",
+      "fontWeight": "700",
+      "height": "54px"
+    }
+  ],
+  "cards": [],
+  "nav": {
+    "label": "navigation",
+    "background": "oklab(0.166611 -0.00226317 -0.0330332 / 0.8)",
+    "color": "oklch(0.145 0 0)",
+    "padding": "0px",
+    "borderRadius": "0px",
+    "border": "",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "height": "73px"
+  }
+}

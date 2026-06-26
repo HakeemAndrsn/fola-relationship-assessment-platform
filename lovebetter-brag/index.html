@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LoveBetter by FOLA - Brag Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+        font-family: "Outfit", sans-serif;
+      }
+
+      #main-composition {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+
+      #grain-overlay-comp {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      @keyframes grain-noise {
+        0%, 100% { transform: translate(0, 0); }
+        10% { transform: translate(-5%, -5%); }
+        20% { transform: translate(-10%, 5%); }
+        30% { transform: translate(5%, -10%); }
+        40% { transform: translate(-5%, 15%); }
+        50% { transform: translate(-10%, 5%); }
+        60% { transform: translate(15%, 0); }
+        70% { transform: translate(0, 10%); }
+        80% { transform: translate(-15%, 0); }
+        90% { transform: translate(10%, 5%); }
+      }
+
+      .grain-texture {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        opacity: 0.08;
+        animation: grain-noise 0.5s steps(1) infinite;
+      }
+
+      #a-roll {
+        position: absolute;
+        border-radius: 16px;
+        object-fit: cover;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .comp-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="main-composition"
+      data-composition-id="main-video"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="16"
+    >
+      <!-- Background Layer -->
+      <div
+        id="grain-overlay-comp"
+        data-composition-id="grain-overlay"
+        data-width="1920"
+        data-height="1080"
+        data-start="0"
+        data-duration="16"
+        data-track-index="100"
+      >
+        <div class="grain-texture"></div>
+        <script>
+          const grainTl = gsap.timeline({ paused: true });
+          window.__timelines = window.__timelines || {};
+          window.__timelines["grain-overlay"] = grainTl;
+        </script>
+      </div>
+
+      <!-- A-Roll Video (muted — audio is separate) -->
+      
+
+      <!-- Compositions -->
+      <div
+        id="intro-layer"
+        class="comp-layer"
+        data-composition-id="intro"
+        data-composition-src="compositions/intro.html"
+        data-start="0"
+        data-duration="4"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="graphics-layer"
+        class="comp-layer"
+        data-composition-id="graphics"
+        data-composition-src="compositions/graphics.html"
+        data-start="0"
+        data-duration="16"
+        data-track-index="2"
+      ></div>
+
+      <div
+        id="captions-layer"
+        class="comp-layer"
+        data-composition-id="captions"
+        data-composition-src="compositions/captions.html"
+        data-start="0"
+        data-duration="16"
+        data-track-index="3"
+      ></div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        // Initial state
+        gsap.set("#a-roll", {
+          x: 960,
+          y: 540,
+          xPercent: -50,
+          yPercent: -50,
+          width: 1920 * 0.6,
+          height: 1080 * 0.6,
+        });
+
+        // 1. Intro Scale Up (0s - 2s)
+        tl.to(
+          "#a-roll",
+          {
+            x: 960,
+            width: 1920 * 0.75,
+            height: 1080 * 0.75,
+            duration: 2.0,
+            ease: "power2.inOut",
+          },
+          0,
+        );
+
+        // 2. Moment 1: 4,231 stat (2s - 5s) - Shift Left
+        tl.to(
+          "#a-roll",
+          {
+            x: 600,
+            y: 540,
+            width: 1920 * 0.65,
+            height: 1080 * 0.65,
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          2.0,
+        );
+
+        // 3. Moment 2: 3,892 stat (5.5s - 9s) - Shift Center-Bottom
+        tl.to(
+          "#a-roll",
+          {
+            x: 960,
+            y: 750,
+            width: 1920 * 0.65,
+            height: 1080 * 0.65,
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          5.5,
+        );
+
+        // 4. Moment 3: R600 vs R2,000 (9.5s - 13s) - Shift Right
+        tl.to(
+          "#a-roll",
+          {
+            x: 1320,
+            y: 540,
+            width: 1920 * 0.7,
+            height: 1080 * 0.7,
+            duration: 0.5,
+            ease: "power2.inOut",
+          },
+          9.5,
+        );
+
+        // 5. Final Reveal (14s - 16s)
+        tl.to(
+          "#a-roll",
+          {
+            x: 960,
+            y: 540,
+            width: 1920 * 1.0,
+            height: 1080 * 1.0,
+            duration: 1.0,
+            ease: "power2.inOut",
+          },
+          14,
+        );
+
+        window.__timelines["main-video"] = tl;
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+{
+  "files": [
+    {
+      "file": "1f173e5e25f3efee-s.woff2",
+      "family": "Montserrat",
+      "rawFamily": "Montserrat Thin",
+      "subfamily": "Regular",
+      "postscript": "Montserrat-Thin",
+      "weight": 100,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "48e2044251ef3125-s.woff2",
+      "family": "Montserrat",
+      "rawFamily": "Montserrat Thin",
+      "subfamily": "Regular",
+      "postscript": "Montserrat-Thin",
+      "weight": 100,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "645c88064de6876a-s.woff2",
+      "family": "Libre Baskerville",
+      "rawFamily": "Libre Baskerville",
+      "subfamily": "Regular",
+      "postscript": "LibreBaskerville-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "782fd72d8ca20ddd-s.p.woff2",
+      "family": "Libre Baskerville",
+      "rawFamily": "Libre Baskerville",
+      "subfamily": "Italic",
+      "postscript": "LibreBaskerville-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "904be59b21bd51cb-s.p.woff2",
+      "family": "Montserrat",
+      "rawFamily": "Montserrat Thin",
+      "subfamily": "Regular",
+      "postscript": "Montserrat-Thin",
+      "weight": 100,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "adb2ac03cdb7d75b-s.woff2",
+      "family": "Libre Baskerville",
+      "rawFamily": "Libre Baskerville",
+      "subfamily": "Italic",
+      "postscript": "LibreBaskerville-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "b1f344208eb4edfe-s.woff2",
+      "family": "Montserrat",
+      "rawFamily": "Montserrat Thin",
+      "subfamily": "Regular",
+      "postscript": "Montserrat-Thin",
+      "weight": 100,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "bf24a9759715e608-s.woff2",
+      "family": "Montserrat",
+      "rawFamily": "Montserrat Thin",
+      "subfamily": "Regular",
+      "postscript": "Montserrat-Thin",
+      "weight": 100,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    },
+    {
+      "file": "cccb76cee38030ea-s.p.woff2",
+      "family": "Libre Baskerville",
+      "rawFamily": "Libre Baskerville",
+      "subfamily": "Regular",
+      "postscript": "LibreBaskerville-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true
+    }
+  ],
+  "families": [
+    {
+      "family": "Libre Baskerville",
+      "weights": [
+        400
+      ],
+      "variable": true,
+      "fileCount": 4,
+      "files": [
+        "645c88064de6876a-s.woff2",
+        "782fd72d8ca20ddd-s.p.woff2",
+        "adb2ac03cdb7d75b-s.woff2",
+        "cccb76cee38030ea-s.p.woff2"
+      ]
+    },
+    {
+      "family": "Montserrat",
+      "weights": [
+        100
+      ],
+      "variable": true,
+      "fileCount": 5,
+      "files": [
+        "1f173e5e25f3efee-s.woff2",
+        "48e2044251ef3125-s.woff2",
+        "904be59b21bd51cb-s.p.woff2",
+        "b1f344208eb4edfe-s.woff2",
+        "bf24a9759715e608-s.woff2"
+      ]
+    }
+  ],
+  "unidentified": [],
+  "meta": {
+    "generatedAt": "2026-06-26T03:30:22.119Z",
+    "tool": "fontkit"
+  }
+}

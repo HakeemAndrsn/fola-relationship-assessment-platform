@@ -326,6 +326,15 @@ export default async function BlogPost({
               </Link>
             </nav>
           </div>
+          <div className="mt-6 pt-6 border-t border-white/[0.04] text-center">
+            <p className="text-[10px] text-[#4a5568] font-sans tracking-[0.05em]">
+              Made Possible By{" "}
+              <Link href="/angels" className="text-[#d4af37] hover:text-[#e4bf47] transition-colors">
+                FOLA Angels
+              </Link>
+              : Melitah Motlhale
+            </p>
+          </div>
         </div>
       </footer>
     </div>
