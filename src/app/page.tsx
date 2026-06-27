@@ -96,7 +96,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#080e1d]" style={{ backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26,54,93,0.6) 0%, transparent 70%)" }}>
+    <div className={`min-h-screen bg-[#080e1d] transition-all duration-500 ${showSticky ? "pb-20" : "pb-0"}`} style={{ backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26,54,93,0.6) 0%, transparent 70%)" }}>
 
       {/* ── STICKY CTA (warm traffic) ── */}
       <div className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ${showSticky ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}>
