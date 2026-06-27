@@ -34,28 +34,35 @@ exports.handler = async (event) => {
       };
     }
 
-    // Verify the charge with Yoco's API
+    // Charge the card token with Yoco's API
     const response = await fetch(
-      `https://payments.yoco.com/api/charges/${id}`,
+      "https://online.yoco.com/v1/charges/",
       {
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${secretKey}`,
+          "X-Auth-Secret-Key": secretKey,
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          token: id,
+          amountInCents: 60000, // R600.00
+          currency: "ZAR",
+        }),
       }
     );
 
+    const charge = await response.json();
+
     if (!response.ok) {
       return {
-        statusCode: 403,
+        statusCode: response.statusCode || 403,
         headers,
         body: JSON.stringify({
           verified: false,
-          error: "Payment not found or invalid",
+          error: charge.displayMessage || charge.message || "Payment execution failed",
         }),
       };
     }
-
-    const charge = await response.json();
 
     // Confirm the charge was actually paid
     if (charge.status !== "successful") {

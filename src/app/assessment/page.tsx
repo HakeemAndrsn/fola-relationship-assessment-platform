@@ -139,11 +139,8 @@ export default function AssessmentPage() {
   const [customerPhone, setCustomerPhone] = useState("");
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const justPaid = params.get("lb_paid") === "1";
     const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
-    if (justPaid || alreadyPaid) {
-      sessionStorage.setItem("lb_payment_verified", "true");
+    if (alreadyPaid === "true") {
       setIsPaid(true);
     }
   }, []);
@@ -260,6 +257,7 @@ export default function AssessmentPage() {
             customerName={`${data.onboarding.partnerAName || "Partner A"} & ${data.onboarding.partnerBName || "Partner B"}`}
             productDescription="LoveBETTER Couples Assessment"
             amountInCents={60000}
+            onSuccess={() => setIsPaid(true)}
           />
           <div className="space-y-2">
             <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>

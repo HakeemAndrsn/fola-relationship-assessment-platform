@@ -2,7 +2,23 @@
 
 import { useState } from "react";
 
-export default function YocoButton() {
+interface YocoButtonProps {
+  customerEmail?: string;
+  customerPhone?: string;
+  customerName?: string;
+  productDescription?: string;
+  amountInCents?: number;
+  onSuccess?: () => void;
+}
+
+export default function YocoButton({
+  customerEmail = "",
+  customerPhone = "",
+  customerName = "",
+  productDescription = "LoveBETTER Individual Assessment",
+  amountInCents = 60000,
+  onSuccess,
+}: YocoButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,10 +35,15 @@ export default function YocoButton() {
       });
 
       yoco.showPopup({
-        amountInCents: 60000, // R600.00
+        amountInCents: amountInCents,
         currency: "ZAR",
         name: "FOLA Polyclinics",
-        description: "LoveBETTER Individual Assessment",
+        description: productDescription,
+        metadata: {
+          customerEmail,
+          customerPhone,
+          customerName,
+        },
         callback: async (result) => {
           if (result.error) {
             setError(result.error.message || "Payment failed. Please try again.");
@@ -43,9 +64,13 @@ export default function YocoButton() {
 
               if (verifyData.verified) {
                 sessionStorage.setItem("lb_payment_verified", "true");
-                window.location.href = "/individual-assessment?lb_paid=1";
+                if (onSuccess) {
+                  onSuccess();
+                } else {
+                  window.location.href = window.location.pathname + "?lb_paid=1";
+                }
               } else {
-                setError("Payment verification failed. Please contact support.");
+                setError(verifyData.error || "Payment verification failed. Please contact support.");
                 setLoading(false);
               }
             } catch {
@@ -78,7 +103,7 @@ export default function YocoButton() {
             Processing...
           </span>
         ) : (
-          "Pay R600 — Unlock Assessment"
+          `Pay R${(amountInCents / 100).toFixed(0)} — Unlock Assessment`
         )}
       </button>
       {error && (

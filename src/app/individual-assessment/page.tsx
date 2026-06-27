@@ -162,13 +162,12 @@ export default function IndividualAssessmentPage() {
   const [data, setData] = useState<IndividualFormData>(DEFAULT);
   const [generating, setGenerating] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const justPaid = params.get("lb_paid") === "1";
     const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
-    if (justPaid || alreadyPaid) {
-      sessionStorage.setItem("lb_payment_verified", "true");
+    if (alreadyPaid === "true") {
       setIsPaid(true);
     }
   }, []);
@@ -195,9 +194,24 @@ export default function IndividualAssessmentPage() {
 
   const handleSubmit = async () => {
     setGenerating(true);
-    await new Promise((r) => setTimeout(r, 1800));
     const report = generateIndividualReport(data);
     sessionStorage.setItem("folaIndividualReport", JSON.stringify(report));
+    sessionStorage.setItem("folaIndividualFormData", JSON.stringify(data));
+
+    // Fire MailerLite directly
+    fetch("/.netlify/functions/mailerlite", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: customerEmail,
+        phone: customerPhone,
+        name: data.onboarding.name || "Individual Client",
+        overallScore: report.overallScore,
+        primaryGrowthEdge: report.primaryGrowthEdge?.dimension,
+      }),
+    }).catch((e) => console.warn("MailerLite function failed:", e));
+
+    await new Promise((r) => setTimeout(r, 1800));
     router.push("/individual-report");
   };
 
@@ -217,18 +231,54 @@ export default function IndividualAssessmentPage() {
   // ── Payment Gate ──
   if (!isPaid) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d] flex items-center justify-center px-6">
-        <div className="max-w-md w-full text-center space-y-6">
+      <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d] flex items-center justify-center px-6 py-12">
+        <div className="max-w-md w-full text-center space-y-6 bg-white/[0.02] border border-white/5 rounded-3xl p-8 backdrop-blur-md">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10">
             <span className="text-[#d4af37] text-sm">🔒</span>
             <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Secure Payment Required</span>
           </div>
           <h1 className="mt-4 text-3xl font-bold text-white font-serif">Unlock Your Individual Growth Assessment</h1>
           <p className="text-[#a0aec0] font-sans text-sm leading-relaxed">
-            Complete your secure payment first, then continue into your personal growth assessment.
+            Please enter your contact details below, complete the payment, and continue to your personalized assessment.
           </p>
-          <YocoButton />
-          <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
+
+          {/* Customer details form */}
+          <div className="space-y-4 text-left">
+            <div>
+              <label className="block text-xs text-[#a0aec0] font-sans mb-1.5 font-medium uppercase tracking-wider">Email address *</label>
+              <input
+                type="email"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 focus:bg-white/[0.05] transition-all"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-[#a0aec0] font-sans mb-1.5 font-medium uppercase tracking-wider">Phone number (optional)</label>
+              <input
+                type="tel"
+                value={customerPhone}
+                onChange={(e) => setCustomerPhone(e.target.value)}
+                placeholder="+27 12 345 6789"
+                className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 focus:bg-white/[0.05] transition-all"
+              />
+            </div>
+          </div>
+
+          <YocoButton
+            customerEmail={customerEmail}
+            customerPhone={customerPhone}
+            customerName={data.onboarding.name || "Individual Client"}
+            productDescription="LoveBETTER Individual Assessment"
+            amountInCents={60000}
+            onSuccess={() => setIsPaid(true)}
+          />
+          <div className="space-y-2 pt-2 border-t border-white/5">
+            <p className="text-[11px] text-[#718096] font-sans">🔒 Your data is fully encrypted. Responses are never saved server-side.</p>
+            <p className="text-[11px] text-[#718096] font-sans">💳 Secure payments processed via Yoco (Visa, Mastercard, Instant EFT)</p>
+          </div>
         </div>
       </div>
     );
