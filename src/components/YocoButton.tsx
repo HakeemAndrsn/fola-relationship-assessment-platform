@@ -121,7 +121,7 @@ function loadYocoSDK(): Promise<any> {
     }
 
     const script = document.createElement("script");
-    script.src = "https://js.yoco.com/sdk/v1/yoco-sdk.js";
+    script.src = "https://js.yoco.com/sdk/v1/yoco-sdk-web.js";
     script.async = true;
     script.onload = () => resolve((window as any).YocoSDK);
     script.onerror = () => reject(new Error("Failed to load Yoco SDK"));
