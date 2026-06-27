@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import Link from "next/link";
 import YocoButton from "@/components/YocoButton";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,6 @@ import {
   COMMUNICATION_QUESTIONS,
   VALUES_CLARITY_QUESTIONS,
   NEURODIVERGENCE_QUESTIONS,
-  PREJUDICES_BIASES_QUESTIONS,
 } from "@/lib/individual-assessment/questions";
 import type {
   IndividualFormData,
@@ -40,12 +38,11 @@ const STEPS = [
   "Communication Style",
   "Values & Vision",
   "Neurodivergence",
-  "Prejudices & Biases",
   "Change Readiness",
   "Review",
 ];
 
-const STEP_ICONS = ["✦", "♡", "◈", "◎", "◇", "♦", "◉", "◐", "▲", "◫", "◎", "◆", "✓"];
+const STEP_ICONS = ["✦", "♡", "◈", "◎", "◇", "♦", "◉", "◐", "▲", "◫", "◆", "✓"];
 
 function initSliders(qs: { id: string }[]): SliderAnswers {
   const o: SliderAnswers = {};
@@ -64,7 +61,6 @@ const DEFAULT: IndividualFormData = {
   communicationStyle: initSliders(COMMUNICATION_QUESTIONS),
   valuesClarity: initSliders(VALUES_CLARITY_QUESTIONS),
   neurodivergenceAwareness: initSliders(NEURODIVERGENCE_QUESTIONS),
-  prejudicesBiases: initSliders(PREJUDICES_BIASES_QUESTIONS),
   changeReadiness: "contemplation",
 };
 
@@ -166,8 +162,6 @@ export default function IndividualAssessmentPage() {
   const [data, setData] = useState<IndividualFormData>(DEFAULT);
   const [generating, setGenerating] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [customerPhone, setCustomerPhone] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -204,20 +198,6 @@ export default function IndividualAssessmentPage() {
     await new Promise((r) => setTimeout(r, 1800));
     const report = generateIndividualReport(data);
     sessionStorage.setItem("folaIndividualReport", JSON.stringify(report));
-
-    // Fire MailerLite directly (no Zapier)
-    fetch("/.netlify/functions/mailerlite", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: customerEmail,
-        phone: customerPhone,
-        name: data.onboarding.name,
-        overallScore: report.overallScore,
-        primaryGrowthEdge: report.primaryGrowthEdge?.dimension,
-      }),
-    }).catch((e) => console.warn("MailerLite function failed:", e));
-
     router.push("/individual-report");
   };
 
@@ -245,64 +225,10 @@ export default function IndividualAssessmentPage() {
           </div>
           <h1 className="mt-4 text-3xl font-bold text-white font-serif">Unlock Your Individual Growth Assessment</h1>
           <p className="text-[#a0aec0] font-sans text-sm leading-relaxed">
-            Enter your details below to begin. Your assessment report and invoice will be sent to your email.
+            Complete your secure payment first, then continue into your personal growth assessment.
           </p>
-
-          {/* What you're getting */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-left space-y-2">
-            <p className="text-xs font-semibold text-[#d4af37] uppercase tracking-wider font-sans">What's included</p>
-            <div className="flex items-start gap-2">
-              <span className="text-[#d4af37] mt-0.5">✓</span>
-              <p className="text-xs text-[#cbd5e0] font-sans">10-dimension clinical assessment — attachment, trauma, emotional regulation, self-worth, and more</p>
-            </div>
-            <div className="flex items-start gap-2">
-              <span className="text-[#d4af37] mt-0.5">✓</span>
-              <p className="text-xs text-[#cbd5e0] font-sans">Personalised report with scores, clinical flags, and a treatment pathway</p>
-            </div>
-            <div className="flex items-start gap-2">
-              <span className="text-[#d4af37] mt-0.5">✓</span>
-              <p className="text-xs text-[#cbd5e0] font-sans">Brown University-style clinical report delivered instantly as PDF</p>
-            </div>
-          </div>
-
-          {/* Customer details form */}
-          <div className="space-y-3 text-left">
-            <div>
-              <label className="block text-xs text-[#a0aec0] font-sans mb-1">Email address *</label>
-              <input
-                type="email"
-                value={customerEmail}
-                onChange={(e) => setCustomerEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 transition-colors"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-[#a0aec0] font-sans mb-1">Phone number (optional)</label>
-              <input
-                type="tel"
-                value={customerPhone}
-                onChange={(e) => setCustomerPhone(e.target.value)}
-                placeholder="+27 12 345 6789"
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 transition-colors"
-              />
-            </div>
-          </div>
-
-          <YocoButton
-            customerEmail={customerEmail}
-            customerPhone={customerPhone}
-            customerName={data.onboarding.name}
-            productDescription="LoveBETTER Individual Assessment"
-          />
-          <div className="space-y-2">
-            <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
-            <p className="text-xs text-[#718096] font-sans">🔒 Your data is encrypted. Responses are never stored server-side.</p>
-            <p className="text-xs text-[#718096] font-sans">🛡️ 256-bit SSL encryption — same security standard as online banking</p>
-            <p className="text-xs text-[#718096] font-sans">💳 Pay with card or instant EFT — no account needed</p>
-            <p className="text-xs text-[#d4af37]/60 font-serif italic">You're in the right place. — The FOLA Team</p>
-          </div>
+          <YocoButton />
+          <p className="text-xs text-[#718096] font-sans">You will be redirected back here after payment confirmation.</p>
         </div>
       </div>
     );
@@ -312,14 +238,11 @@ export default function IndividualAssessmentPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d]">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/90 border-b border-white/5">
-        <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
-            <div>
-              <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans group-hover:text-[#e4bf47] transition-colors">Personal Growth Assessment</p>
-              <p className="text-[10px] text-[#718096] font-sans">LOVEBETTER by FOLA</p>
-            </div>
-          </Link>
+        <div className="mx-auto max-w-3xl px-6 py-4 flex items-center justify-between">
+          <div>
+            <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</p>
+            <p className="text-[10px] text-[#718096] font-sans">The Oasis by FOLA</p>
+          </div>
           <div className="text-right">
             <p className="text-xs text-[#a0aec0] font-sans">{STEPS[step]}</p>
             <p className="text-[10px] text-[#4a5568] font-sans">Step {step + 1} of {STEPS.length}</p>
@@ -361,14 +284,14 @@ export default function IndividualAssessmentPage() {
             <div className="space-y-8">
               <div className="text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 mb-6">
-                  <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</span>
+                  <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl font-bold text-white font-serif leading-tight">
                   Know yourself completely.<br />
                   <span className="text-[#d4af37] italic">Before you love again.</span>
                 </h1>
                 <p className="mt-4 text-[#a0aec0] text-sm max-w-lg mx-auto leading-relaxed font-sans">
-                  This is a 10-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
+                  This is a 9-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
                 </p>
               </div>
               <div className="space-y-4">
@@ -402,8 +325,6 @@ export default function IndividualAssessmentPage() {
                     <option value="single">Single</option>
                     <option value="dating">Dating / Exploring</option>
                     <option value="committed">In a committed relationship</option>
-                    <option value="in_relationship">In a relationship</option>
-                    <option value="married">Married</option>
                     <option value="separated">Separated</option>
                     <option value="divorced">Divorced</option>
                   </select>
@@ -538,19 +459,8 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 10: Prejudices & Biases ── */}
+          {/* ── STEP 10: Change Readiness ── */}
           {step === 10 && (
-            <SliderSection
-              title="Prejudices & Biases"
-              description="The beliefs you hold about the opposite gender — inherited from family, culture, past relationships — shape how you see your partner before you even meet them. This section surfaces what you're projecting."
-              questions={PREJUDICES_BIASES_QUESTIONS}
-              values={data.prejudicesBiases}
-              onChange={(id, val) => updateSliders("prejudicesBiases", id, val)}
-            />
-          )}
-
-          {/* ── STEP 11: Change Readiness ── */}
-          {step === 11 && (
             <CardSelector
               title="Where are you in your readiness for change?"
               description="The Transtheoretical Model of Change identifies the stage you're actually in — not the stage you wish you were in. Honesty here is everything."
@@ -560,8 +470,8 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 12: Review ── */}
-          {step === 12 && (
+          {/* ── STEP 11: Review ── */}
+          {step === 11 && (
             <div className="space-y-8">
               <div className="text-center">
                 <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif">Your assessment is complete.</h2>
@@ -587,7 +497,7 @@ export default function IndividualAssessmentPage() {
                     </div>
                   </div>
                 ))}
-                <p className="text-[10px] text-[#4a5568] font-sans pt-2">+ 5 more dimensions in your full report</p>
+                <p className="text-[10px] text-[#4a5568] font-sans pt-2">+ 4 more dimensions in your full report</p>
               </div>
 
               {/* Summary cards */}
@@ -613,14 +523,14 @@ export default function IndividualAssessmentPage() {
                     </svg>
                     <span className="text-sm font-sans">Generating your clinical report…</span>
                   </div>
-                  <p className="text-xs text-[#718096] mt-3 font-sans">Calculating 10 dimensions across clinical frameworks…</p>
+                  <p className="text-xs text-[#718096] mt-3 font-sans">Calculating 9 dimensions across clinical frameworks…</p>
                 </div>
               ) : (
                 <button
                   onClick={handleSubmit}
                   className="w-full flex items-center justify-center gap-2 bg-[#d4af37] text-[#1a365d] py-4 rounded-xl text-base font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/25"
                 >
-                  Generate My Personal Growth Report — R600
+                  Generate My Clinical Report — R600
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>

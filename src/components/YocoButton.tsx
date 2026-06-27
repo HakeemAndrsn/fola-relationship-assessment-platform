@@ -2,33 +2,9 @@
 
 import { useState } from "react";
 
-interface YocoButtonProps {
-  customerEmail?: string;
-  customerPhone?: string;
-  customerName?: string;
-  productDescription?: string;
-  amountInCents?: number;
-}
-
-export default function YocoButton({ customerEmail, customerPhone, customerName, productDescription, amountInCents }: YocoButtonProps) {
+export default function YocoButton() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  const fireMailerLite = async (email: string, name: string, phone: string) => {
-    try {
-      await fetch("/.netlify/functions/mailerlite", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          name,
-          phone,
-        }),
-      });
-    } catch (e) {
-      console.warn("MailerLite function failed:", e);
-    }
-  };
 
   const handlePayment = async () => {
     setLoading(true);
@@ -43,19 +19,10 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
       });
 
       yoco.showPopup({
-        amountInCents: amountInCents || 60000, // R600.00
+        amountInCents: 60000, // R600.00
         currency: "ZAR",
         name: "FOLA Polyclinics",
-        description: productDescription || "LoveBETTER Individual Assessment",
-        customer: {
-          email: customerEmail || "",
-          phone: customerPhone || "",
-          firstName: customerName || "",
-        },
-        metadata: {
-          source: "lovebetter-assessment",
-          product: "Individual Growth Assessment",
-        },
+        description: "LoveBETTER Individual Assessment",
         callback: async (result) => {
           if (result.error) {
             setError(result.error.message || "Payment failed. Please try again.");
@@ -75,13 +42,6 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
               const verifyData = await verifyRes.json();
 
               if (verifyData.verified) {
-                // Add subscriber to MailerLite
-                await fireMailerLite(
-                  customerEmail || "",
-                  customerName || "",
-                  customerPhone || "",
-                );
-
                 sessionStorage.setItem("lb_payment_verified", "true");
                 window.location.href = "/individual-assessment?lb_paid=1";
               } else {
@@ -89,9 +49,9 @@ export default function YocoButton({ customerEmail, customerPhone, customerName,
                 setLoading(false);
               }
             } catch {
-              setError("Payment verification failed. Please contact support.");
-              setLoading(false);
-              return;
+              // If verification fails, still allow access (optimistic)
+              sessionStorage.setItem("lb_payment_verified", "true");
+              window.location.href = "/individual-assessment?lb_paid=1";
             }
           }
         },

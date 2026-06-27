@@ -2,7 +2,6 @@ import Link from "next/link";
 import { blogPosts, getPostBySlug } from "@/lib/blog-data";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import SocialShare from "@/components/SocialShare";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -19,19 +18,6 @@ export async function generateMetadata({
   return {
     title: `${post.title} | The Uncommon Practice`,
     description: post.excerpt,
-    openGraph: {
-      title: `${post.title} | The Uncommon Practice`,
-      description: post.excerpt,
-      type: "article",
-      publishedTime: post.date,
-      siteName: "LOVEBETTER by FOLA",
-      locale: "en_ZA",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${post.title} | The Uncommon Practice`,
-      description: post.excerpt,
-    },
   };
 }
 
@@ -48,7 +34,6 @@ function renderContent(content: string) {
         <h2
           key={i}
           className="text-2xl font-bold text-white font-serif mt-12 mb-4"
-          id={line.slice(3).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}
         >
           {line.slice(3)}
         </h2>
@@ -108,16 +93,13 @@ export default async function BlogPost({
       {/* Nav */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/80 border-b border-white/5">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
-            <div>
-              <h1 className="text-lg font-bold text-white tracking-tight font-serif leading-none group-hover:text-[#d4af37] transition-colors">
-                LoveBetter
-              </h1>
-              <p className="text-[10px] text-[#a0aec0] tracking-wide font-sans">
-                Relationship Growth Readiness Assessment
-              </p>
-            </div>
+          <Link href="/">
+            <h1 className="text-lg font-bold text-white tracking-tight font-serif">
+              LoveBetter
+            </h1>
+            <p className="text-[10px] text-[#a0aec0] tracking-wide font-sans">
+              Relationship Growth Readiness Assessment
+            </p>
           </Link>
           <nav className="hidden sm:flex items-center gap-6">
             <Link
@@ -172,9 +154,9 @@ export default async function BlogPost({
                 {post.readTime}
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-serif leading-[1.15]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white font-serif leading-[1.15]">
               {post.title}
-            </h1>
+            </h2>
             <p className="mt-3 text-lg text-[#d4af37]/70 font-serif italic">
               {post.subtitle}
             </p>
@@ -200,36 +182,6 @@ export default async function BlogPost({
 
           {/* Content */}
           <div className="prose-custom">{renderContent(post.content)}</div>
-
-          {/* Social Share */}
-          <SocialShare title={post.title} slug={post.slug} />
-
-          {/* Comments removed — replaced by social shares */}
-
-            {/* Assessment CTA */}
-            <div className="mt-16 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 text-center">
-              <h3 className="text-xl font-bold text-white font-serif">
-                What's your attachment pattern?
-              </h3>
-              <p className="mt-2 text-sm text-[#a0aec0] font-sans max-w-md mx-auto">
-                This article is based on real clinical work. The assessment gives
-                you the same framework — personalised to your relationship history.
-              </p>
-              <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-                <Link
-                  href="/individual-assessment"
-                  className="inline-flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-5 py-2.5 rounded-xl text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-lg hover:shadow-[#d4af37]/20"
-                >
-                  Take the Assessment — R600
-                </Link>
-                <Link
-                  href="/assessment"
-                  className="inline-flex items-center gap-2 border border-[#d4af37]/40 text-[#d4af37] px-5 py-2.5 rounded-xl text-sm font-bold font-sans hover:bg-[#d4af37]/10 transition-all"
-                >
-                  Couples Assessment
-                </Link>
-              </div>
-            </div>
 
             {/* Free Discovery Call CTA */}
             <div className="mt-16 rounded-2xl border border-[#d4af37]/30 bg-gradient-to-b from-[#d4af37]/10 to-transparent p-8 text-center">
@@ -305,7 +257,7 @@ export default async function BlogPost({
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-center sm:text-left">
               <p className="text-sm font-bold text-white font-serif">
-                LOVEBETTER by FOLA
+                The Oasis by FOLA
               </p>
               <p className="text-xs text-[#718096] font-sans mt-1">
                 R600 per assessment
@@ -325,15 +277,6 @@ export default async function BlogPost({
                 Take Assessment
               </Link>
             </nav>
-          </div>
-          <div className="mt-6 pt-6 border-t border-white/[0.04] text-center">
-            <p className="text-[10px] text-[#4a5568] font-sans tracking-[0.05em]">
-              Made Possible By{" "}
-              <Link href="/angels" className="text-[#d4af37] hover:text-[#e4bf47] transition-colors">
-                FOLA Angels
-              </Link>
-              : Melitah Motlhale
-            </p>
           </div>
         </div>
       </footer>
