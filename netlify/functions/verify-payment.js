@@ -1,5 +1,3 @@
-const crypto = require("crypto");
-
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -27,7 +25,6 @@ exports.handler = async (event) => {
       };
     }
 
-    // Verify the signature
     const secretKey = process.env.YOCO_SECRET_KEY;
     if (!secretKey) {
       return {
@@ -37,18 +34,38 @@ exports.handler = async (event) => {
       };
     }
 
-    const expectedSignature = crypto
-      .createHmac("sha256", secretKey)
-      .update(id)
-      .digest("hex");
+    // Verify the charge with Yoco's API
+    const response = await fetch(
+      `https://payments.yoco.com/api/charges/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+        },
+      }
+    );
 
-    const providedSignature = event.headers["x-yoco-signature"] || "";
-
-    if (expectedSignature !== providedSignature) {
+    if (!response.ok) {
       return {
         statusCode: 403,
         headers,
-        body: JSON.stringify({ verified: false, error: "Invalid signature" }),
+        body: JSON.stringify({
+          verified: false,
+          error: "Payment not found or invalid",
+        }),
+      };
+    }
+
+    const charge = await response.json();
+
+    // Confirm the charge was actually paid
+    if (charge.status !== "successful") {
+      return {
+        statusCode: 403,
+        headers,
+        body: JSON.stringify({
+          verified: false,
+          error: `Payment status: ${charge.status}`,
+        }),
       };
     }
 

@@ -49,9 +49,8 @@ export default function YocoButton() {
                 setLoading(false);
               }
             } catch {
-              // If verification fails, still allow access (optimistic)
-              sessionStorage.setItem("lb_payment_verified", "true");
-              window.location.href = "/individual-assessment?lb_paid=1";
+              setError("Payment verification failed. Please contact support.");
+              setLoading(false);
             }
           }
         },
