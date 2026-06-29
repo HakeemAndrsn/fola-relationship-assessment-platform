@@ -15,13 +15,13 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body);
-    const { id } = body;
+    const { productId, amountInCents, email, name, phone, path } = body;
 
-    if (!id) {
+    if (!amountInCents || !productId) {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ verified: false, error: "Missing payment ID" }),
+        body: JSON.stringify({ error: "Missing required checkout parameters" }),
       };
     }
 
@@ -30,48 +30,51 @@ exports.handler = async (event) => {
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ verified: false, error: "Server configuration error" }),
+        body: JSON.stringify({ error: "Server configuration error" }),
       };
     }
 
-    // Charge the card token with Yoco's API
+    // Determine request origin dynamically for redirect URLs
+    const origin = event.headers.origin || event.headers.referer ? 
+      new URL(event.headers.referer || event.headers.origin).origin : 
+      "https://lovebetter.co.za";
+
+    const basePath = path || "/individual-assessment";
+    const successUrl = `${origin}${basePath}?purchase_success=1&product_id=${productId}&email=${encodeURIComponent(email || "")}&name=${encodeURIComponent(name || "")}&phone=${encodeURIComponent(phone || "")}`;
+    const cancelUrl = `${origin}${basePath}`;
+
+    // Create a Yoco Checkout session using their latest Checkouts API
     const response = await fetch(
-      "https://online.yoco.com/v1/charges/",
+      "https://payments.yoco.com/api/checkouts",
       {
         method: "POST",
         headers: {
-          "X-Auth-Secret-Key": secretKey,
+          "Authorization": `Bearer ${secretKey}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token: id,
-          amountInCents: 60000, // R600.00
+          amount: amountInCents,
           currency: "ZAR",
+          successUrl: successUrl,
+          cancelUrl: cancelUrl,
+          metadata: {
+            productId,
+            customerName: name,
+            customerEmail: email,
+            customerPhone: phone,
+          },
         }),
       }
     );
 
-    const charge = await response.json();
+    const checkoutData = await response.json();
 
-    if (!response.ok) {
+    if (!response.ok || !checkoutData.redirectUrl) {
       return {
         statusCode: response.statusCode || 403,
         headers,
         body: JSON.stringify({
-          verified: false,
-          error: charge.displayMessage || charge.message || "Payment execution failed",
-        }),
-      };
-    }
-
-    // Confirm the charge was actually paid
-    if (charge.status !== "successful") {
-      return {
-        statusCode: 403,
-        headers,
-        body: JSON.stringify({
-          verified: false,
-          error: `Payment status: ${charge.status}`,
+          error: checkoutData.errorCode || checkoutData.message || "Checkout creation failed",
         }),
       };
     }
@@ -79,13 +82,13 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ verified: true }),
+      body: JSON.stringify({ redirectUrl: checkoutData.redirectUrl }),
     };
   } catch (err) {
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ verified: false, error: err.message }),
+      body: JSON.stringify({ error: err.message }),
     };
   }
 };

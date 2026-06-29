@@ -27,63 +27,32 @@ export default function YocoButton({
     setError("");
 
     try {
-      // Dynamically load Yoco SDK
-      const Yoco = await loadYocoSDK();
-
-      const yoco = new Yoco({
-        publicKey: process.env.NEXT_PUBLIC_YOCO_PUBLIC_KEY || "",
+      const verifyRes = await fetch("/.netlify/functions/verify-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: "lovebetter_assessment",
+          amountInCents: amountInCents,
+          email: customerEmail,
+          name: customerName,
+          phone: customerPhone,
+          path: window.location.pathname
+        }),
       });
 
-      yoco.showPopup({
-        amountInCents: amountInCents,
-        currency: "ZAR",
-        name: "FOLA Polyclinics",
-        description: productDescription,
-        metadata: {
-          customerEmail,
-          customerPhone,
-          customerName,
-        },
-        callback: async (result) => {
-          if (result.error) {
-            setError(result.error.message || "Payment failed. Please try again.");
-            setLoading(false);
-            return;
-          }
+      const verifyData = await verifyRes.json();
 
-          if (result.id) {
-            // Verify payment with our backend
-            try {
-              const verifyRes = await fetch("/.netlify/functions/verify-payment", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: result.id }),
-              });
-
-              const verifyData = await verifyRes.json();
-
-              if (verifyData.verified) {
-                sessionStorage.setItem("lb_payment_verified", "true");
-                if (onSuccess) {
-                  onSuccess();
-                } else {
-                  window.location.href = window.location.pathname + "?lb_paid=1";
-                }
-              } else {
-                setError(verifyData.error || "Payment verification failed. Please contact support.");
-                setLoading(false);
-              }
-            } catch {
-              setError("Payment verification failed. Please contact support.");
-              setLoading(false);
-            }
-          }
-        },
-      });
+      if (verifyRes.ok && verifyData.redirectUrl) {
+        // Redirect client to Yoco's hosted secure checkout screen
+        window.location.href = verifyData.redirectUrl;
+      } else {
+        setError(verifyData.error || "Failed to initiate payment. Please try again.");
+        setLoading(false);
+      }
     } catch (err) {
-      setError("Failed to load payment gateway. Please refresh and try again.");
+      setError("Payment initiation failed. Please check your connection and try again.");
       setLoading(false);
-      console.error("Yoco error:", err);
+      console.error("Yoco checkout initiation error:", err);
     }
   };
 
@@ -113,18 +82,4 @@ export default function YocoButton({
   );
 }
 
-function loadYocoSDK(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    if ((window as any).YocoSDK) {
-      resolve((window as any).YocoSDK);
-      return;
-    }
 
-    const script = document.createElement("script");
-    script.src = "https://js.yoco.com/sdk/v1/yoco-sdk-web.js";
-    script.async = true;
-    script.onload = () => resolve((window as any).YocoSDK);
-    script.onerror = () => reject(new Error("Failed to load Yoco SDK"));
-    document.head.appendChild(script);
-  });
-}

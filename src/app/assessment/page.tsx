@@ -139,9 +139,22 @@ export default function AssessmentPage() {
   const [customerPhone, setCustomerPhone] = useState("");
 
   useEffect(() => {
-    const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
-    if (alreadyPaid === "true") {
+    const params = new URLSearchParams(window.location.search);
+    const purchaseSuccess = params.get("purchase_success") === "1";
+
+    if (purchaseSuccess) {
+      sessionStorage.setItem("lb_payment_verified", "true");
       setIsPaid(true);
+      const paramEmail = params.get("email");
+      const paramPhone = params.get("phone");
+      if (paramEmail) setCustomerEmail(decodeURIComponent(paramEmail));
+      if (paramPhone) setCustomerPhone(decodeURIComponent(paramPhone));
+      window.history.replaceState({}, "", window.location.pathname);
+    } else {
+      const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
+      if (alreadyPaid === "true") {
+        setIsPaid(true);
+      }
     }
   }, []);
 
