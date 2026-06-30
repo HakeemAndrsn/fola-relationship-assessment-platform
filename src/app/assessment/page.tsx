@@ -191,6 +191,7 @@ export default function AssessmentPage() {
     sessionStorage.setItem("fola-form-data", JSON.stringify(data));
     sessionStorage.setItem("folaClientEmail", customerEmail);
     sessionStorage.setItem("folaClientPhone", customerPhone);
+    sessionStorage.removeItem("lb_payment_verified");
 
     // Fire MailerLite directly (no Zapier)
     fetch("/.netlify/functions/mailerlite", {

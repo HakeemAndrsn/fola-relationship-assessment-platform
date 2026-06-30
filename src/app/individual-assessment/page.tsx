@@ -212,6 +212,7 @@ export default function IndividualAssessmentPage() {
     sessionStorage.setItem("folaIndividualFormData", JSON.stringify(data));
     sessionStorage.setItem("folaClientEmail", customerEmail);
     sessionStorage.setItem("folaClientPhone", customerPhone);
+    sessionStorage.removeItem("lb_payment_verified");
 
     // Fire MailerLite directly
     fetch("/.netlify/functions/mailerlite", {
