@@ -23,13 +23,13 @@ import type { IndividualReport } from "@/lib/individual-assessment/types";
 
 function riskColor(level: string) {
   if (level === "strength") return "#38a169";
-  if (level === "growth") return "#d4af37";
+  if (level === "growth") return "#B8654A";
   return "#e53e3e";
 }
 
 function scoreColor(score: number) {
   if (score >= 70) return "#38a169";
-  if (score >= 45) return "#d4af37";
+  if (score >= 45) return "#B8654A";
   return "#e53e3e";
 }
 
@@ -61,7 +61,7 @@ function ScoreGauge({ score }: { score: number }) {
         />
       </svg>
       <div className="absolute text-center">
-        <span className="text-4xl font-bold text-[#1a365d]">{score}</span>
+        <span className="text-4xl font-bold text-[#121212]">{score}</span>
         <span className="block text-xs text-[#718096]">out of 100</span>
       </div>
     </div>
@@ -71,6 +71,8 @@ function ScoreGauge({ score }: { score: number }) {
 export default function IndividualReportPage() {
   const router = useRouter();
   const [report, setReport] = useState<IndividualReport | null>(null);
+  const [clientEmail, setClientEmail] = useState("");
+  const [clientPhone, setClientPhone] = useState("");
 
   useEffect(() => {
     const stored = sessionStorage.getItem("folaIndividualReport");
@@ -79,7 +81,25 @@ export default function IndividualReportPage() {
       return;
     }
     setReport(JSON.parse(stored));
+
+    // Retrieve email and phone from sessionStorage
+    const email = sessionStorage.getItem("folaClientEmail") || "";
+    const phone = sessionStorage.getItem("folaClientPhone") || "";
+    setClientEmail(email);
+    setClientPhone(phone);
   }, [router]);
+
+  const statsString = report 
+    ? `FOLA Relational Diagnostic - Client: ${report.name} | Overall Score: ${report.overallScore}/100 | Attachment: ${report.attachmentStyle.toUpperCase()} | Top Strength: ${report.topStrength.label} (${report.topStrength.score}/100) | Primary Growth Edge: ${report.primaryGrowthEdge.label} (${report.primaryGrowthEdge.score}/100) | Change Readiness: ${report.changeReadiness.toUpperCase()}`
+    : "";
+
+  const getBookingUrl = (baseEventUrl: string) => {
+    if (!report) return baseEventUrl;
+    const nameParam = encodeURIComponent(report.name || "");
+    const emailParam = encodeURIComponent(clientEmail);
+    const statsParam = encodeURIComponent(statsString);
+    return `${baseEventUrl}?name=${nameParam}&email=${emailParam}&a1=${statsParam}`;
+  };
 
   if (!report) {
     return (
@@ -111,13 +131,13 @@ export default function IndividualReportPage() {
         <div className="mx-auto max-w-4xl flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
-            <h1 className="text-lg font-bold text-[#1a365d] group-hover:text-[#2d4a7c] transition-colors">FOLA Individual Assessment Report</h1>
+            <h1 className="text-lg font-bold text-[#121212] group-hover:text-[#2d4a7c] transition-colors">FOLA Individual Assessment Report</h1>
           </Link>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => router.push("/individual-assessment")} className="text-[#4a5568]">
               New Assessment
             </Button>
-            <Button onClick={handlePrint} className="bg-[#1a365d] text-white hover:bg-[#2d4a7c]">
+            <Button onClick={handlePrint} className="bg-[#121212] text-white hover:bg-[#2d4a7c]">
               Download PDF
             </Button>
           </div>
@@ -125,15 +145,29 @@ export default function IndividualReportPage() {
       </div>
 
       <div id="report-content" className="mx-auto max-w-4xl px-6 py-8 space-y-12 print:space-y-8 print:px-12">
+        {/* Print-hidden Banner helper */}
+        <div className="print:hidden bg-[#E9E1D6]/40 border border-[#B8654A]/20 rounded-2xl p-6 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="space-y-1 text-left">
+            <h3 className="text-sm font-bold text-[#121212] uppercase tracking-wider font-sans">🔒 Secure Offline Document</h3>
+            <p className="text-xs text-[#4E4E4E] leading-relaxed max-w-xl font-sans">
+              To guarantee your clinical privacy, FOLA does not store your test results on our servers. 
+              Please click <strong>Download PDF</strong> and select <strong>"Save as PDF"</strong> in your browser's menu to save this document to your device.
+            </p>
+          </div>
+          <Button onClick={handlePrint} className="shrink-0 bg-[#121212] text-white hover:bg-[#232323] px-6 py-2.5 rounded-lg text-sm font-bold border border-border">
+            Download PDF
+          </Button>
+        </div>
+
         {/* ── COVER PAGE ── */}
-        <section className="text-center py-16 print:py-12 border-b-2 border-[#1a365d]">
-          <div className="inline-block px-6 py-2 bg-[#1a365d] text-white text-xs font-semibold tracking-widest uppercase rounded mb-6">
+        <section className="text-center py-16 print:py-12 border-b-2 border-[#121212]">
+          <div className="inline-block px-6 py-2 bg-[#121212] text-white text-xs font-semibold tracking-widest uppercase rounded mb-6">
             Confidential Clinical Document
           </div>
           <div className="flex justify-center mb-6">
             <img src="/logo-transparent.png" alt="FOLA" className="w-20 h-20" />
           </div>
-          <h1 className="text-4xl font-bold text-[#1a365d] tracking-tight">
+          <h1 className="text-4xl font-bold text-[#121212] tracking-tight">
             FOLA Individual Assessment
           </h1>
           <p className="mt-2 text-lg text-[#4a5568]">Personal Relationship Diagnostic Report</p>
@@ -151,7 +185,7 @@ export default function IndividualReportPage() {
 
         {/* ── EXECUTIVE SUMMARY ── */}
         <section className="print:break-before-page">
-          <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
             Executive Summary
           </h2>
           <div className="grid gap-8 md:grid-cols-[180px_1fr]">
@@ -174,8 +208,8 @@ export default function IndividualReportPage() {
               </div>
 
               {report.clinicalFlags.length > 0 && (
-                <div className="rounded-lg border border-[#d4af37]/40 bg-[#fffdf5] p-4">
-                  <p className="text-xs font-semibold text-[#1a365d] uppercase tracking-wider mb-2">Clinical Recommendations</p>
+                <div className="rounded-lg border border-[#B8654A]/40 bg-[#fffdf5] p-4">
+                  <p className="text-xs font-semibold text-[#121212] uppercase tracking-wider mb-2">Clinical Recommendations</p>
                   {report.clinicalFlags.map((flag, i) => (
                     <div key={i} className="mt-2 flex items-start gap-2 text-sm">
                       <span className={`mt-0.5 inline-block h-2 w-2 rounded-full shrink-0 ${flag.severity === "high" ? "bg-red-500" : "bg-yellow-500"}`} />
@@ -190,18 +224,18 @@ export default function IndividualReportPage() {
 
         {/* ── DIMENSION SCORING MATRIX ── */}
         <section className="print:break-before-page">
-          <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
             Dimension Scoring Matrix
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b-2 border-[#1a365d]">
-                  <th className="text-left py-3 px-2 text-[#1a365d] font-semibold">Dimension</th>
-                  <th className="text-center py-3 px-2 text-[#1a365d] font-semibold">Score</th>
-                  <th className="text-center py-3 px-2 text-[#1a365d] font-semibold">Status</th>
-                  <th className="text-center py-3 px-2 text-[#1a365d] font-semibold">Percentile</th>
-                  <th className="text-center py-3 px-2 text-[#1a365d] font-semibold">Clinical Weight</th>
+                <tr className="border-b-2 border-[#121212]">
+                  <th className="text-left py-3 px-2 text-[#121212] font-semibold">Dimension</th>
+                  <th className="text-center py-3 px-2 text-[#121212] font-semibold">Score</th>
+                  <th className="text-center py-3 px-2 text-[#121212] font-semibold">Status</th>
+                  <th className="text-center py-3 px-2 text-[#121212] font-semibold">Percentile</th>
+                  <th className="text-center py-3 px-2 text-[#121212] font-semibold">Clinical Weight</th>
                 </tr>
               </thead>
               <tbody>
@@ -229,14 +263,14 @@ export default function IndividualReportPage() {
           </div>
           <div className="mt-3 flex gap-4 text-xs text-[#718096]">
             <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-[#38a169]" /> Strength (70-100)</span>
-            <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-[#d4af37]" /> Growth (45-69)</span>
+            <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-[#B8654A]" /> Growth (45-69)</span>
             <span className="flex items-center gap-1"><span className="inline-block h-2 w-2 rounded-full bg-[#e53e3e]" /> Critical (&lt;45)</span>
           </div>
         </section>
 
         {/* ── VISUAL DASHBOARD ── */}
         <section className="print:break-before-page">
-          <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
             Visual Dashboard
           </h2>
 
@@ -255,8 +289,8 @@ export default function IndividualReportPage() {
                     <Radar
                       name="Your Score"
                       dataKey="score"
-                      stroke="#1a365d"
-                      fill="#1a365d"
+                      stroke="#121212"
+                      fill="#121212"
                       fillOpacity={0.2}
                       strokeWidth={2}
                     />
@@ -327,7 +361,7 @@ export default function IndividualReportPage() {
 
         {/* ── DEEP DIMENSION ANALYSIS ── */}
         <section className="print:break-before-page">
-          <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
             Deep Dimension Analysis
           </h2>
           <div className="space-y-6">
@@ -335,7 +369,7 @@ export default function IndividualReportPage() {
               <div key={d.label} className="rounded-lg border border-[#e2e8f0] p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="text-lg font-semibold text-[#1a365d]">{d.label}</h3>
+                    <h3 className="text-lg font-semibold text-[#121212]">{d.label}</h3>
                     <p className="text-xs text-[#718096] capitalize">Clinical weight: {d.clinicalWeight}</p>
                   </div>
                   <span
@@ -348,7 +382,7 @@ export default function IndividualReportPage() {
                 <div className="grid gap-4 sm:grid-cols-3 text-sm">
                   <div>
                     <p className="text-xs text-[#a0aec0] uppercase tracking-wider">Score</p>
-                    <p className="text-xl font-bold text-[#1a365d]">{d.score}<span className="text-sm font-normal text-[#718096]">/100</span></p>
+                    <p className="text-xl font-bold text-[#121212]">{d.score}<span className="text-sm font-normal text-[#718096]">/100</span></p>
                   </div>
                   <div>
                     <p className="text-xs text-[#a0aec0] uppercase tracking-wider">Status</p>
@@ -356,7 +390,7 @@ export default function IndividualReportPage() {
                   </div>
                   <div>
                     <p className="text-xs text-[#a0aec0] uppercase tracking-wider">Percentile</p>
-                    <p className="text-xl font-bold text-[#1a365d]">{d.percentile}<span className="text-sm font-normal text-[#718096]">th</span></p>
+                    <p className="text-xl font-bold text-[#121212]">{d.percentile}<span className="text-sm font-normal text-[#718096]">th</span></p>
                   </div>
                 </div>
                 {/* Score bar */}
@@ -371,13 +405,13 @@ export default function IndividualReportPage() {
                 {/* One-liner per dimension */}
                 <div className="mt-3 text-sm text-[#4a5568]">
                   {d.score < 45 && (
-                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> This is where the wound lives. A score this low isn't just a number — it's a signal that something here needs attention before it keeps showing up in every relationship you have. This is the place to start.</p>
+                    <p><span className="font-semibold text-[#121212]">What this means:</span> This is where the wound lives. A score this low isn't just a number — it's a signal that something here needs attention before it keeps showing up in every relationship you have. This is the place to start.</p>
                   )}
                   {d.score >= 45 && d.score < 70 && (
-                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> You're functional here, but there's a ceiling. This dimension has room to grow — and strengthening it will unlock progress in areas you didn't expect. Think of it as the next lever to pull.</p>
+                    <p><span className="font-semibold text-[#121212]">What this means:</span> You're functional here, but there's a ceiling. This dimension has room to grow — and strengthening it will unlock progress in areas you didn't expect. Think of it as the next lever to pull.</p>
                   )}
                   {d.score >= 70 && (
-                    <p><span className="font-semibold text-[#1a365d]">What this means:</span> This is a genuine strength. You've done work here — or you're naturally aligned. Either way, this is the foundation you'll build on. Don't ignore it while focusing on what's broken.</p>
+                    <p><span className="font-semibold text-[#121212]">What this means:</span> This is a genuine strength. You've done work here — or you're naturally aligned. Either way, this is the foundation you'll build on. Don't ignore it while focusing on what's broken.</p>
                   )}
                 </div>
               </div>
@@ -388,13 +422,13 @@ export default function IndividualReportPage() {
         {/* ── CLINICAL FLAGS ── */}
         {report.clinicalFlags.length > 0 && (
           <section className="print:break-before-page">
-            <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+            <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
               Clinical Flags & Considerations
             </h2>
             <div className="space-y-4">
               {report.clinicalFlags.map((flag, i) => (
-                <div key={i} className="rounded-lg border-l-4 p-4 bg-[#f7f8fc]" style={{ borderLeftColor: flag.severity === "high" ? "#e53e3e" : "#d4af37" }}>
-                  <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: flag.severity === "high" ? "#e53e3e" : "#d4af37" }}>
+                <div key={i} className="rounded-lg border-l-4 p-4 bg-[#f7f8fc]" style={{ borderLeftColor: flag.severity === "high" ? "#e53e3e" : "#B8654A" }}>
+                  <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: flag.severity === "high" ? "#e53e3e" : "#B8654A" }}>
                     {flag.type} — {flag.severity} severity
                   </p>
                   <p className="text-sm text-[#2d3748]">{flag.message}</p>
@@ -407,16 +441,16 @@ export default function IndividualReportPage() {
 
         {/* ── CLINICAL PATHWAY ── */}
         <section className="print:break-before-page">
-          <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
             Clinical Pathway Recommendation
           </h2>
 
           {/* Cohort — prominent offer for individuals */}
-          <div className="rounded-lg border-2 border-[#d4af37] bg-[#fffdf5] p-6 mb-8">
+          <div className="rounded-lg border-2 border-[#B8654A] bg-[#fffdf5] p-6 mb-8">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <span className="inline-block px-3 py-1 bg-[#d4af37] text-[#1a365d] text-xs font-bold uppercase tracking-wider rounded mb-3">Recommended Starting Point</span>
-                <h3 className="text-xl font-bold text-[#1a365d]">The DoLoveBetter Cohort</h3>
+                <span className="inline-block px-3 py-1 bg-[#B8654A] text-[#121212] text-xs font-bold uppercase tracking-wider rounded mb-3">Recommended Starting Point</span>
+                <h3 className="text-xl font-bold text-[#121212]">The DoLoveBetter Cohort</h3>
                 <p className="text-sm text-[#4a5568] mt-2 leading-relaxed">
                   A structured 6-week group programme that addresses the beliefs, biases, and patterns
                   that shape how you show up in relationships. Whether you're single, dating, or in a
@@ -425,13 +459,13 @@ export default function IndividualReportPage() {
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-lg border border-[#e2e8f0] bg-white p-4">
-                    <p className="text-xs font-semibold text-[#1a365d] uppercase tracking-wider">Individual</p>
-                    <p className="text-2xl font-bold text-[#1a365d] mt-1">R6,000</p>
+                    <p className="text-xs font-semibold text-[#121212] uppercase tracking-wider">Individual</p>
+                    <p className="text-2xl font-bold text-[#121212] mt-1">R6,000</p>
                     <p className="text-xs text-[#718096] mt-1">Full cohort — group learning with personal application</p>
                   </div>
                   <div className="rounded-lg border border-[#e2e8f0] bg-white p-4">
-                    <p className="text-xs font-semibold text-[#1a365d] uppercase tracking-wider">Couple</p>
-                    <p className="text-2xl font-bold text-[#1a365d] mt-1">R9,000</p>
+                    <p className="text-xs font-semibold text-[#121212] uppercase tracking-wider">Couple</p>
+                    <p className="text-2xl font-bold text-[#121212] mt-1">R9,000</p>
                     <p className="text-xs text-[#718096] mt-1">Both partners — shared language, shared transformation</p>
                   </div>
                 </div>
@@ -442,9 +476,9 @@ export default function IndividualReportPage() {
           <div className="space-y-8">
             {report.treatmentPlan.map((phase) => (
               <div key={phase.phase} className="rounded-lg border border-[#e2e8f0] overflow-hidden">
-                <div className="bg-[#1a365d] text-white px-6 py-3 flex items-center justify-between">
+                <div className="bg-[#121212] text-white px-6 py-3 flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">Phase {phase.phase}</span>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-[#B8654A]">Phase {phase.phase}</span>
                     <h3 className="text-lg font-semibold">{phase.title}</h3>
                   </div>
                   <span className="text-sm text-[#a0aec0]">{phase.weeks}</span>
@@ -456,16 +490,16 @@ export default function IndividualReportPage() {
                         <p className="text-sm font-medium text-[#2d3748]">{sess.description}</p>
                         <p className="text-xs text-[#718096]">Target: {sess.target}</p>
                       </div>
-                      <span className="text-sm font-bold text-[#1a365d]">R{sess.price.toLocaleString()}</span>
+                      <span className="text-sm font-bold text-[#121212]">R{sess.price.toLocaleString()}</span>
                     </div>
                   ))}
                 </div>
               </div>
             ))}
 
-            <div className="rounded-lg bg-[#1a365d] text-white p-6 flex items-center justify-between">
+            <div className="rounded-lg bg-[#121212] text-white p-6 flex items-center justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">Estimated Total Investment</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#B8654A]">Estimated Total Investment</p>
                 <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases (excluding cohort)</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
                   Age Regression Therapy sessions are R4,000 each for deeper trauma work. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
@@ -478,34 +512,34 @@ export default function IndividualReportPage() {
 
         {/* ── ACTION ITEMS ── */}
         <section className="print:break-before-page">
-          <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
             Action Items & Next Steps
           </h2>
           <div className="space-y-4">
             <div className="rounded-lg border border-[#e2e8f0] p-6 space-y-3">
-              <h3 className="font-semibold text-[#1a365d]">Immediate Actions</h3>
+              <h3 className="font-semibold text-[#121212]">Immediate Actions</h3>
               <div className="space-y-2 text-sm text-[#4a5568]">
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" className="mt-1 accent-[#1a365d]" readOnly />
+                  <input type="checkbox" className="mt-1 accent-[#121212]" readOnly />
                   <span>Review this report in a calm, uninterrupted setting</span>
                 </label>
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" className="mt-1 accent-[#1a365d]" readOnly />
+                  <input type="checkbox" className="mt-1 accent-[#121212]" readOnly />
                   <span>Reflect on which findings resonate with your experience</span>
                 </label>
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" className="mt-1 accent-[#1a365d]" readOnly />
+                  <input type="checkbox" className="mt-1 accent-[#121212]" readOnly />
                   <span>Book a discovery call with LOVEBETTER by FOLA</span>
                 </label>
                 <label className="flex items-start gap-3">
-                  <input type="checkbox" className="mt-1 accent-[#1a365d]" readOnly />
+                  <input type="checkbox" className="mt-1 accent-[#121212]" readOnly />
                   <span>Begin journalling about your identified growth areas</span>
                 </label>
               </div>
             </div>
 
             <div className="rounded-lg border border-[#e2e8f0] p-6 space-y-3">
-              <h3 className="font-semibold text-[#1a365d]">Pre-Session Journal Prompts</h3>
+              <h3 className="font-semibold text-[#121212]">Pre-Session Journal Prompts</h3>
               <ol className="space-y-2 text-sm text-[#4a5568] list-decimal list-inside">
                 <li>What did I learn about myself from this assessment that surprised me?</li>
                 <li>What pattern do I notice repeating in my relationships?</li>
@@ -514,47 +548,117 @@ export default function IndividualReportPage() {
               </ol>
             </div>
 
-            {/* Stronger CTA */}
-            <div className="rounded-lg bg-[#1a365d] text-white p-6 text-center">
-              <h3 className="text-lg font-bold mb-2">You have the data. Now get the roadmap.</h3>
-              <p className="text-sm text-[#a0aec0] mb-4 max-w-md mx-auto">
-                Your report reveals the patterns. A discovery call turns those patterns into a personalised 3-phase healing plan — starting with what matters most for your growth.
-              </p>
-              <a
-                href="https://calendly.com/folasessions/discovery-call"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-[#d4af37] text-[#1a365d] font-bold px-8 py-3 rounded-lg hover:bg-[#c49f2e] transition-colors text-sm"
-              >
-                Book Your Free Discovery Call
-              </a>
-              <p className="mt-2 text-[10px] text-[#718096]">30 minutes · No pressure · Just clarity</p>
+            {/* Copy Stats Block */}
+            <div className="print:hidden rounded-2xl border border-border bg-card p-6 mb-8 text-left space-y-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <h3 className="text-sm font-bold text-[#121212] uppercase tracking-wider font-sans">📋 Copy Stats for Hakeem</h3>
+                  <p className="text-xs text-card-foreground/80 leading-relaxed font-sans">
+                    FOLA does not save your records. Before booking, copy your report summary so you can share it with Hakeem during your session.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(statsString);
+                    alert("Report stats copied to clipboard!");
+                  }}
+                  className="shrink-0 text-xs bg-[#121212] text-white hover:bg-[#232323] px-4 py-2 rounded-lg font-bold border border-border font-sans transition-all"
+                >
+                  Copy Stats
+                </button>
+              </div>
+              <div className="p-3 bg-secondary/30 rounded-lg text-xs font-mono text-card-foreground/90 border border-border select-all break-words">
+                {statsString}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── CTA ── */}
-        <section className="print:break-before-page">
-          <div className="rounded-lg bg-[#1a365d] text-white p-8 text-center">
-            <h2 className="text-2xl font-bold mb-2">Ready to Transform?</h2>
-            <p className="text-[#a0aec0] mb-6 max-w-lg mx-auto">
-              Your assessment reveals the pattern. Now let FOLA help you change it.
-              Book a discovery call to discuss your personalised pathway.
+        {/* ── CALL TO ACTION: TRANSFORMATION PATHWAYS ── */}
+        <section className="print:hidden space-y-8">
+          <div className="text-center space-y-2">
+            <h2 className="text-3xl font-bold text-foreground font-serif">Your Next Relational Pathway</h2>
+            <p className="text-card-foreground/80 text-sm max-w-lg mx-auto font-sans">
+              Choose the depth that aligns with your readiness. Both paths include full analysis of your relational stats.
             </p>
-            <a
-              href="https://calendly.com/folasessions/discovery-call"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-[#d4af37] text-[#1a365d] font-bold px-8 py-3 rounded-lg hover:bg-[#c49f2e] transition-colors"
-            >
-              Book Your Discovery Call
-            </a>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Pathway A: Relational Breakthrough Session */}
+            <div className="rounded-2xl border border-[#B8654A]/30 bg-card p-8 flex flex-col justify-between hover:border-[#B8654A]/60 transition-all shadow-sm">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B8654A]/10 border border-[#B8654A]/20 text-[#B8654A] text-xs font-semibold uppercase tracking-wider font-sans">
+                  Highly Recommended
+                </div>
+                <h3 className="text-xl font-bold text-foreground font-serif">Relational Breakthrough Session</h3>
+                <p className="text-xs font-semibold text-[#B8654A] font-sans">90 Minutes · R2,800 Intensive</p>
+                <p className="text-sm text-card-foreground/80 leading-relaxed font-sans">
+                  A high-impact, private workshop with Hakeem. We will dissect your 9-dimension stats, identify your core nervous system triggers, and map out a practical roadmap to shift your attachment style.
+                </p>
+                <ul className="text-xs text-card-foreground/80 space-y-2 font-sans pt-2">
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#B8654A] font-bold">✓</span> Direct analysis of your assessment metrics
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#B8654A] font-bold">✓</span> Practical nervous-system regulation drills
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#B8654A] font-bold">✓</span> Personalised 3-phase relational recovery plan
+                  </li>
+                </ul>
+              </div>
+              <div className="pt-6">
+                <a
+                  href={getBookingUrl("https://calendly.com/folasessions/breakthrough-session")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-center w-full bg-[#121212] text-white font-bold py-3.5 rounded-xl hover:bg-[#232323] transition-colors border border-border text-sm font-sans"
+                >
+                  Book Breakthrough Session — R2,800
+                </a>
+              </div>
+            </div>
+
+            {/* Pathway B: Discovery Call */}
+            <div className="rounded-2xl border border-border bg-card p-8 flex flex-col justify-between hover:border-border/80 transition-all shadow-sm">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-card-foreground/75 text-xs font-semibold uppercase tracking-wider font-sans">
+                  Explore First
+                </div>
+                <h3 className="text-xl font-bold text-foreground font-serif">Free Discovery Call</h3>
+                <p className="text-xs text-card-foreground/60 font-sans">30 Minutes · Complimentary</p>
+                <p className="text-sm text-card-foreground/80 leading-relaxed font-sans">
+                  Not ready for a full intensive yet? Book a brief discovery call to discuss what the Breakthrough Session entails and find out if FOLA's methodology is the right fit for your relationship patterns.
+                </p>
+                <ul className="text-xs text-card-foreground/80 space-y-2 font-sans pt-2">
+                  <li className="flex items-center gap-2">
+                    <span className="text-border font-bold">✓</span> Review your top strength and growth edge
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-border font-bold">✓</span> Learn about the Age Regression protocol
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-border font-bold">✓</span> Zero pressure, zero obligation conversation
+                  </li>
+                </ul>
+              </div>
+              <div className="pt-6">
+                <a
+                  href={getBookingUrl("https://calendly.com/folasessions/discovery-call")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-center w-full bg-secondary hover:bg-secondary/80 text-foreground font-bold py-3.5 rounded-xl transition-colors text-sm border border-border font-sans"
+                >
+                  Book Discovery Call — Free
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* ── APPENDIX ── */}
         <section className="print:break-before-page">
-          <h2 className="text-2xl font-bold text-[#1a365d] border-b-2 border-[#d4af37] pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
             Appendix
           </h2>
           <div className="space-y-6 text-sm text-[#4a5568]">

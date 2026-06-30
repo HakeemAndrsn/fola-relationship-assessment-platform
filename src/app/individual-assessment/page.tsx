@@ -66,7 +66,7 @@ const DEFAULT: IndividualFormData = {
 
 // ── Reusable slider section ──
 function SliderSection({
-  title, description, questions, values, onChange, accentColor = "#d4af37",
+  title, description, questions, values, onChange, accentColor = "#B8654A",
 }: {
   title: string;
   description: string;
@@ -78,20 +78,20 @@ function SliderSection({
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif leading-tight">{title}</h2>
-        <p className="mt-3 text-[#a0aec0] text-sm max-w-xl mx-auto font-sans leading-relaxed">{description}</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-serif leading-tight">{title}</h2>
+        <p className="mt-3 text-card-foreground/80 text-sm max-w-xl mx-auto font-sans leading-relaxed">{description}</p>
       </div>
       <div className="space-y-6">
         {questions.map((q) => (
-          <div key={q.id} className="rounded-2xl border border-white/8 bg-white/[0.03] p-5 hover:border-[#d4af37]/20 transition-all">
+          <div key={q.id} className="rounded-2xl border border-border bg-card p-5 hover:border-[#B8654A]/20 transition-all">
             <div className="flex items-start justify-between mb-1">
               <div className="flex-1 pr-4">
-                <p className="text-sm font-semibold text-white font-sans">{q.label}</p>
-                {q.description && <p className="text-xs text-[#718096] mt-1 leading-relaxed font-sans">{q.description}</p>}
+                <p className="text-sm font-semibold text-foreground font-sans">{q.label}</p>
+                {q.description && <p className="text-xs text-card-foreground/60 mt-1 leading-relaxed font-sans">{q.description}</p>}
               </div>
               <div className="shrink-0 text-right">
                 <span className="text-2xl font-bold font-serif" style={{ color: accentColor }}>{values[q.id]}</span>
-                <span className="text-xs text-[#718096] font-sans">/10</span>
+                <span className="text-xs text-card-foreground/60 font-sans">/10</span>
               </div>
             </div>
             <div className="mt-4 px-1">
@@ -102,8 +102,8 @@ function SliderSection({
                 className="w-full"
               />
               <div className="flex justify-between mt-2">
-                <span className="text-[10px] text-[#4a5568] font-sans">Not at all</span>
-                <span className="text-[10px] text-[#4a5568] font-sans">Completely</span>
+                <span className="text-[10px] text-card-foreground/75 font-sans">Not at all</span>
+                <span className="text-[10px] text-card-foreground/75 font-sans">Completely</span>
               </div>
             </div>
           </div>
@@ -126,8 +126,8 @@ function CardSelector<T extends string>({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif leading-tight">{title}</h2>
-        <p className="mt-3 text-[#a0aec0] text-sm max-w-xl mx-auto font-sans leading-relaxed">{description}</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-serif leading-tight">{title}</h2>
+        <p className="mt-3 text-card-foreground/80 text-sm max-w-xl mx-auto font-sans leading-relaxed">{description}</p>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         {options.map((opt) => (
@@ -136,17 +136,17 @@ function CardSelector<T extends string>({
             onClick={() => onChange(opt.value)}
             className={`text-left p-5 rounded-2xl border transition-all duration-200 ${
               value === opt.value
-                ? "border-[#d4af37] bg-[#d4af37]/10 shadow-lg shadow-[#d4af37]/10"
-                : "border-white/8 bg-white/[0.02] hover:border-white/20"
+                ? "border-[#B8654A] bg-[#121212]/10 shadow-lg shadow-sm"
+                : "border-border bg-card hover:border-white/20"
             }`}
           >
             <div className="flex items-start gap-3">
               <div className={`mt-0.5 w-4 h-4 rounded-full border-2 shrink-0 transition-all ${
-                value === opt.value ? "border-[#d4af37] bg-[#d4af37]" : "border-white/30"
+                value === opt.value ? "border-[#B8654A] bg-[#121212]" : "border-white/30"
               }`} />
               <div>
-                <p className={`text-sm font-semibold font-sans ${value === opt.value ? "text-[#d4af37]" : "text-white"}`}>{opt.label}</p>
-                <p className="text-xs text-[#718096] mt-1 leading-relaxed font-sans">{opt.description}</p>
+                <p className={`text-sm font-semibold font-sans ${value === opt.value ? "text-[#B8654A]" : "text-foreground"}`}>{opt.label}</p>
+                <p className="text-xs text-card-foreground/60 mt-1 leading-relaxed font-sans">{opt.description}</p>
               </div>
             </div>
           </button>
@@ -210,6 +210,8 @@ export default function IndividualAssessmentPage() {
     const report = generateIndividualReport(data);
     sessionStorage.setItem("folaIndividualReport", JSON.stringify(report));
     sessionStorage.setItem("folaIndividualFormData", JSON.stringify(data));
+    sessionStorage.setItem("folaClientEmail", customerEmail);
+    sessionStorage.setItem("folaClientPhone", customerPhone);
 
     // Fire MailerLite directly
     fetch("/.netlify/functions/mailerlite", {
@@ -244,38 +246,38 @@ export default function IndividualAssessmentPage() {
   // ── Payment Gate ──
   if (!isPaid) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d] flex items-center justify-center px-6 py-12">
-        <div className="max-w-md w-full text-center space-y-6 bg-white/[0.02] border border-white/5 rounded-3xl p-8 backdrop-blur-md">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10">
-            <span className="text-[#d4af37] text-sm">🔒</span>
-            <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Secure Payment Required</span>
+      <div className="min-h-screen bg-background text-card-foreground texture-paper flex items-center justify-center px-6 py-12">
+        <div className="max-w-md w-full text-center space-y-6 bg-card border border-border rounded-3xl p-8 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#B8654A]/30 bg-[#121212]/10">
+            <span className="text-[#B8654A] text-sm">🔒</span>
+            <span className="text-[#B8654A] text-xs font-semibold tracking-wider uppercase font-sans">Secure Payment Required</span>
           </div>
-          <h1 className="mt-4 text-3xl font-bold text-white font-serif">Unlock Your Individual Growth Assessment</h1>
-          <p className="text-[#a0aec0] font-sans text-sm leading-relaxed">
+          <h1 className="mt-4 text-3xl font-bold text-foreground font-serif">Unlock Your Individual Growth Assessment</h1>
+          <p className="text-card-foreground/80 font-sans text-sm leading-relaxed">
             Please enter your contact details below, complete the payment, and continue to your personalized assessment.
           </p>
 
           {/* Customer details form */}
           <div className="space-y-4 text-left">
             <div>
-              <label className="block text-xs text-[#a0aec0] font-sans mb-1.5 font-medium uppercase tracking-wider">Email address *</label>
+              <label className="block text-xs text-card-foreground/80 font-sans mb-1.5 font-medium uppercase tracking-wider">Email address *</label>
               <input
                 type="email"
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 focus:bg-white/[0.05] transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground text-sm font-sans placeholder:text-card-foreground/75 focus:outline-none focus:border-[#B8654A]/50 focus:bg-card transition-all"
                 required
               />
             </div>
             <div>
-              <label className="block text-xs text-[#a0aec0] font-sans mb-1.5 font-medium uppercase tracking-wider">Phone number (optional)</label>
+              <label className="block text-xs text-card-foreground/80 font-sans mb-1.5 font-medium uppercase tracking-wider">Phone number (optional)</label>
               <input
                 type="tel"
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="+27 12 345 6789"
-                className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white text-sm font-sans placeholder:text-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 focus:bg-white/[0.05] transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground text-sm font-sans placeholder:text-card-foreground/75 focus:outline-none focus:border-[#B8654A]/50 focus:bg-card transition-all"
               />
             </div>
           </div>
@@ -288,9 +290,9 @@ export default function IndividualAssessmentPage() {
             amountInCents={60000}
             onSuccess={() => setIsPaid(true)}
           />
-          <div className="space-y-2 pt-2 border-t border-white/5">
-            <p className="text-[11px] text-[#718096] font-sans">🔒 Your data is fully encrypted. Responses are never saved server-side.</p>
-            <p className="text-[11px] text-[#718096] font-sans">💳 Secure payments processed via Yoco (Visa, Mastercard, Instant EFT)</p>
+          <div className="space-y-2 pt-2 border-t border-border">
+            <p className="text-[11px] text-card-foreground/60 font-sans">🔒 Your data is fully encrypted. Responses are never saved server-side.</p>
+            <p className="text-[11px] text-card-foreground/60 font-sans">💳 Secure payments processed via Yoco (Visa, Mastercard, Instant EFT)</p>
           </div>
         </div>
       </div>
@@ -298,23 +300,23 @@ export default function IndividualAssessmentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a1628] via-[#0f1f3d] to-[#1a365d]">
+    <div className="min-h-screen bg-background text-card-foreground texture-paper">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a1628]/90 border-b border-white/5">
+      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/90 border-b border-border">
         <div className="mx-auto max-w-3xl px-6 py-4 flex items-center justify-between">
           <div>
-            <p className="text-xs text-[#d4af37] font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</p>
-            <p className="text-[10px] text-[#718096] font-sans">The Oasis by FOLA</p>
+            <p className="text-xs text-[#B8654A] font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</p>
+            <p className="text-[10px] text-card-foreground/60 font-sans">LOVEBETTER by FOLA</p>
           </div>
           <div className="text-right">
-            <p className="text-xs text-[#a0aec0] font-sans">{STEPS[step]}</p>
-            <p className="text-[10px] text-[#4a5568] font-sans">Step {step + 1} of {STEPS.length}</p>
+            <p className="text-xs text-card-foreground/80 font-sans">{STEPS[step]}</p>
+            <p className="text-[10px] text-card-foreground/75 font-sans">Step {step + 1} of {STEPS.length}</p>
           </div>
         </div>
         {/* Progress bar */}
-        <div className="h-0.5 bg-white/5">
+        <div className="h-0.5 bg-card">
           <div
-            className="h-full bg-gradient-to-r from-[#d4af37] to-[#f0d060] transition-all duration-500"
+            className="h-full bg-gradient-to-r from-[#7C8673] to-[#9CA693] transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -330,10 +332,10 @@ export default function IndividualAssessmentPage() {
                 key={i}
                 className={`flex items-center justify-center w-7 h-7 rounded-full text-[10px] font-bold font-sans transition-all ${
                   i === step
-                    ? "bg-[#d4af37] text-[#1a365d] scale-110"
+                    ? "bg-[#121212] text-[#F5F2EC] hover:bg-[#232323] scale-110"
                     : i < step
-                    ? "bg-[#d4af37]/30 text-[#d4af37]"
-                    : "bg-white/5 text-[#4a5568]"
+                    ? "bg-[#121212]/30 text-[#B8654A]"
+                    : "bg-card text-card-foreground/75"
                 }`}
                 title={s}
               >
@@ -346,44 +348,44 @@ export default function IndividualAssessmentPage() {
           {step === 0 && (
             <div className="space-y-8">
               <div className="text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 mb-6">
-                  <span className="text-[#d4af37] text-xs font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#B8654A]/30 bg-[#121212]/10 mb-6">
+                  <span className="text-[#B8654A] text-xs font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</span>
                 </div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white font-serif leading-tight">
+                <h1 className="text-3xl sm:text-4xl font-bold text-foreground font-serif leading-tight">
                   Know yourself completely.<br />
-                  <span className="text-[#d4af37] italic">Before you love again.</span>
+                  <span className="text-[#B8654A] italic">Before you love again.</span>
                 </h1>
-                <p className="mt-4 text-[#a0aec0] text-sm max-w-lg mx-auto leading-relaxed font-sans">
+                <p className="mt-4 text-card-foreground/80 text-sm max-w-lg mx-auto leading-relaxed font-sans">
                   This is a 9-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
                 </p>
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#a0aec0] mb-2 tracking-wider uppercase font-sans">Your Name</label>
+                  <label className="block text-xs font-semibold text-card-foreground/80 mb-2 tracking-wider uppercase font-sans">Your Name</label>
                   <input
                     type="text"
                     value={data.onboarding.name}
                     onChange={(e) => setData((p) => ({ ...p, onboarding: { ...p.onboarding, name: e.target.value } }))}
                     placeholder="First name is fine"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm text-white placeholder-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 focus:ring-1 focus:ring-[#d4af37]/30 font-sans"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-foreground placeholder-[#4a5568] focus:outline-none focus:border-[#B8654A]/50 focus:ring-1 focus:ring-[#B8654A]/30 font-sans"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#a0aec0] mb-2 tracking-wider uppercase font-sans">Age</label>
+                  <label className="block text-xs font-semibold text-card-foreground/80 mb-2 tracking-wider uppercase font-sans">Age</label>
                   <input
                     type="number"
                     value={data.onboarding.age}
                     onChange={(e) => setData((p) => ({ ...p, onboarding: { ...p.onboarding, age: e.target.value } }))}
                     placeholder="Your age"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm text-white placeholder-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 focus:ring-1 focus:ring-[#d4af37]/30 font-sans"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-foreground placeholder-[#4a5568] focus:outline-none focus:border-[#B8654A]/50 focus:ring-1 focus:ring-[#B8654A]/30 font-sans"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#a0aec0] mb-2 tracking-wider uppercase font-sans">Relationship Status</label>
+                  <label className="block text-xs font-semibold text-card-foreground/80 mb-2 tracking-wider uppercase font-sans">Relationship Status</label>
                   <select
                     value={data.onboarding.relationshipStatus}
                     onChange={(e) => setData((p) => ({ ...p, onboarding: { ...p.onboarding, relationshipStatus: e.target.value as IndividualFormData["onboarding"]["relationshipStatus"] } }))}
-                    className="w-full rounded-xl border border-white/10 bg-[#0f1f3d] px-4 py-3.5 text-sm text-white focus:outline-none focus:border-[#d4af37]/50 font-sans"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-foreground focus:outline-none focus:border-[#B8654A]/50 font-sans"
                   >
                     <option value="single">Single</option>
                     <option value="dating">Dating / Exploring</option>
@@ -393,29 +395,29 @@ export default function IndividualAssessmentPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#a0aec0] mb-2 tracking-wider uppercase font-sans">What brings you here? (Primary goal)</label>
+                  <label className="block text-xs font-semibold text-card-foreground/80 mb-2 tracking-wider uppercase font-sans">What brings you here? (Primary goal)</label>
                   <textarea
                     value={data.onboarding.primaryGoal}
                     onChange={(e) => setData((p) => ({ ...p, onboarding: { ...p.onboarding, primaryGoal: e.target.value } }))}
                     placeholder="e.g. 'I keep attracting the same kind of partner and want to understand why...'"
                     rows={3}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-sm text-white placeholder-[#4a5568] focus:outline-none focus:border-[#d4af37]/50 focus:ring-1 focus:ring-[#d4af37]/30 font-sans resize-none"
+                    className="w-full rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-foreground placeholder-[#4a5568] focus:outline-none focus:border-[#B8654A]/50 focus:ring-1 focus:ring-[#B8654A]/30 font-sans resize-none"
                   />
                 </div>
                 <label className="flex items-start gap-3 cursor-pointer group">
                   <div
                     onClick={() => setData((p) => ({ ...p, onboarding: { ...p.onboarding, consentGiven: !p.onboarding.consentGiven } }))}
                     className={`mt-0.5 w-5 h-5 rounded border-2 shrink-0 flex items-center justify-center transition-all ${
-                      data.onboarding.consentGiven ? "bg-[#d4af37] border-[#d4af37]" : "border-white/20"
+                      data.onboarding.consentGiven ? "bg-[#121212] border-[#B8654A]" : "border-border"
                     }`}
                   >
                     {data.onboarding.consentGiven && (
-                      <svg className="w-3 h-3 text-[#1a365d]" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-3 h-3 text-foreground" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     )}
                   </div>
-                  <p className="text-xs text-[#718096] leading-relaxed font-sans">
+                  <p className="text-xs text-card-foreground/60 leading-relaxed font-sans">
                     I understand this is a clinical-grade screening tool, not a formal diagnosis. My data is private and used solely to generate my personal report. I consent to proceed.
                   </p>
                 </label>
@@ -537,22 +539,22 @@ export default function IndividualAssessmentPage() {
           {step === 11 && (
             <div className="space-y-8">
               <div className="text-center">
-                <h2 className="text-2xl sm:text-3xl font-bold text-white font-serif">Your assessment is complete.</h2>
-                <p className="mt-3 text-[#a0aec0] text-sm font-sans max-w-md mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-serif">Your assessment is complete.</h2>
+                <p className="mt-3 text-card-foreground/80 text-sm font-sans max-w-md mx-auto">
                   Here&apos;s a preview of your live scores. Generate your full clinical report below.
                 </p>
               </div>
 
               {/* Score preview */}
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 space-y-4">
-                <p className="text-xs font-semibold text-[#a0aec0] tracking-wider uppercase font-sans mb-4">Live Score Preview</p>
+              <div className="rounded-2xl border border-border bg-card p-6 space-y-4">
+                <p className="text-xs font-semibold text-card-foreground/80 tracking-wider uppercase font-sans mb-4">Live Score Preview</p>
                 {domainPreview.map((d) => (
                   <div key={d.label}>
                     <div className="flex justify-between mb-1.5">
-                      <span className="text-xs text-[#a0aec0] font-sans">{d.label}</span>
+                      <span className="text-xs text-card-foreground/80 font-sans">{d.label}</span>
                       <span className="text-xs font-bold font-sans" style={{ color: riskColor(d.score) }}>{d.score}%</span>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-card rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-700"
                         style={{ width: `${d.score}%`, backgroundColor: riskColor(d.score) }}
@@ -560,7 +562,7 @@ export default function IndividualAssessmentPage() {
                     </div>
                   </div>
                 ))}
-                <p className="text-[10px] text-[#4a5568] font-sans pt-2">+ 4 more dimensions in your full report</p>
+                <p className="text-[10px] text-card-foreground/75 font-sans pt-2">+ 4 more dimensions in your full report</p>
               </div>
 
               {/* Summary cards */}
@@ -570,28 +572,28 @@ export default function IndividualAssessmentPage() {
                   { label: "Love Language", value: { words: "Affirmation", acts: "Acts of Service", gifts: "Gifts", time: "Quality Time", touch: "Touch" }[data.loveLanguage] },
                   { label: "Readiness", value: { precontemplation: "Not Ready", contemplation: "Thinking", preparation: "Getting Ready", action: "Action" }[data.changeReadiness] },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-xl border border-[#d4af37]/20 bg-[#d4af37]/5 p-4 text-center">
-                    <p className="text-[10px] text-[#a0aec0] font-sans uppercase tracking-wider">{item.label}</p>
-                    <p className="text-sm font-bold text-[#d4af37] font-serif mt-1">{item.value}</p>
+                  <div key={item.label} className="rounded-xl border border-[#B8654A]/20 bg-[#121212]/5 p-4 text-center">
+                    <p className="text-[10px] text-card-foreground/80 font-sans uppercase tracking-wider">{item.label}</p>
+                    <p className="text-sm font-bold text-[#B8654A] font-serif mt-1">{item.value}</p>
                   </div>
                 ))}
               </div>
 
               {generating ? (
                 <div className="text-center py-8">
-                  <div className="inline-flex items-center gap-3 text-[#d4af37]">
+                  <div className="inline-flex items-center gap-3 text-[#B8654A]">
                     <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
                     <span className="text-sm font-sans">Generating your clinical report…</span>
                   </div>
-                  <p className="text-xs text-[#718096] mt-3 font-sans">Calculating 9 dimensions across clinical frameworks…</p>
+                  <p className="text-xs text-card-foreground/60 mt-3 font-sans">Calculating 9 dimensions across clinical frameworks…</p>
                 </div>
               ) : (
                 <button
                   onClick={handleSubmit}
-                  className="w-full flex items-center justify-center gap-2 bg-[#d4af37] text-[#1a365d] py-4 rounded-xl text-base font-bold font-sans hover:bg-[#e4bf47] transition-all hover:shadow-xl hover:shadow-[#d4af37]/25"
+                  className="w-full flex items-center justify-center gap-2 bg-[#121212] text-[#F5F2EC] hover:bg-[#232323] py-4 rounded-xl text-base font-bold font-sans hover:bg-[#232323] transition-all hover:shadow-xl "
                 >
                   Generate My Clinical Report — R600
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -599,7 +601,7 @@ export default function IndividualAssessmentPage() {
                   </svg>
                 </button>
               )}
-              <p className="text-center text-xs text-[#4a5568] font-sans">Instant PDF report. 100% private. Clinical-grade accuracy.</p>
+              <p className="text-center text-xs text-card-foreground/75 font-sans">Instant PDF report. 100% private. Clinical-grade accuracy.</p>
             </div>
           )}
         </div>
@@ -607,12 +609,12 @@ export default function IndividualAssessmentPage() {
 
       {/* Fixed bottom navigation */}
       {step < STEPS.length - 1 && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md bg-[#0a1628]/90 border-t border-white/5 px-6 py-4">
+        <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md bg-background/90 border-t border-border px-6 py-4">
           <div className="mx-auto max-w-2xl flex items-center justify-between gap-4">
             <button
               onClick={prev}
               disabled={step === 0}
-              className="flex items-center gap-2 text-sm text-[#718096] hover:text-white transition-colors disabled:opacity-30 font-sans"
+              className="flex items-center gap-2 text-sm text-card-foreground/60 hover:text-foreground transition-colors disabled:opacity-30 font-sans"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -620,12 +622,12 @@ export default function IndividualAssessmentPage() {
               Back
             </button>
             <div className="flex-1 text-center">
-              <span className="text-xs text-[#4a5568] font-sans">{step + 1} / {STEPS.length}</span>
+              <span className="text-xs text-card-foreground/75 font-sans">{step + 1} / {STEPS.length}</span>
             </div>
             <button
               onClick={next}
               disabled={!canProceed()}
-              className="flex items-center gap-2 bg-[#d4af37] text-[#1a365d] px-6 py-2.5 rounded-lg text-sm font-bold font-sans hover:bg-[#e4bf47] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 bg-[#121212] text-[#F5F2EC] hover:bg-[#232323] px-6 py-2.5 rounded-lg text-sm font-bold font-sans hover:bg-[#232323] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Continue
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

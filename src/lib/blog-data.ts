@@ -7,6 +7,7 @@ export interface BlogPost {
   category: string;
   excerpt: string;
   content: string;
+  image?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -18,6 +19,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     category: "Neuroscience",
     excerpt: "That argument last Tuesday wasn't about the dishes. It was about two dysregulated nervous systems trying to find safety in a room that suddenly felt dangerous.",
+    image: "/images/blog/nervous-system-relationship.jpg",
     content: `That argument last Tuesday wasn't about the dishes. It was about two dysregulated nervous systems trying to find safety in a room that suddenly felt dangerous.
 
 Let me explain.
@@ -70,6 +72,7 @@ It won't be perfect. It doesn't have to be. But you'll be doing something radica
     readTime: "14 min read",
     category: "Attachment Theory",
     excerpt: "You weren't born anxious or avoidant. You were shaped that way by the earliest relationships your brain ever encoded. And what was learned can be unlearned.",
+    image: "/images/blog/attachment-survival-strategy.jpg",
     content: `You weren't born anxious or avoidant. You were shaped that way by the earliest relationships your brain ever encoded. And what was learned can be unlearned.
 
 I say this with full conviction because the neuroscience is clear. But I also say it because I've watched it happen — in my office, in my own life, in the couples who come through FOLA and do the work.
@@ -134,6 +137,7 @@ That's not romance. That's neuroscience. And it works.`,
     readTime: "11 min read",
     category: "Communication",
     excerpt: "Every couple who walks through my door says the same thing: 'We just can't communicate.' But communication is almost never the actual problem. Regulation is.",
+    image: "/images/blog/regulation-not-communication.jpg",
     content: `Every couple who walks through my door says the same thing: "We just can't communicate." And I understand why they believe that. The fights are loud. Or silent. The conversations go in circles. Nobody feels heard.
 
 But here's what twenty years of research and my own clinical experience has taught me: **communication is almost never the actual problem. Regulation is.**
@@ -215,6 +219,7 @@ Not because they learned the right words. Because they learned to be in the righ
     readTime: "13 min read",
     category: "Neuroscience",
     excerpt: "Your boss can criticise you and you'll shrug it off by lunch. But your partner gives you a look — one look — and your entire world destabilises. Here's why.",
+    image: "/images/blog/why-partner-triggers-you.jpg",
     content: `Your boss can criticise you and you'll shrug it off by lunch. Your friend can cancel plans three times and you'll barely register it. But your partner gives you a look — one look — and your entire world destabilises.
 
 You've probably wondered if something is wrong with you. If you're too sensitive. If you chose the wrong person. If everyone else's relationship is calmer than yours.
