@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://lovebetter.co.za",
     siteName: "LOVEBETTER by FOLA",
-    images: [{ url: "https://lovebetter.co.za/og-image.svg", width: 1200, height: 630 }],
+    images: [{ url: "https://lovebetter.co.za/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "FOLA Relational Assessment | LOVEBETTER by FOLA",
     description: "Comprehensive relationship diagnostic assessment for couples. Evaluates attachment, trauma, neurodivergence, values, communication, and more.",
-    images: ["https://lovebetter.co.za/og-image.svg"],
+    images: ["https://lovebetter.co.za/og-image.png"],
   },
   icons: {
     icon: [

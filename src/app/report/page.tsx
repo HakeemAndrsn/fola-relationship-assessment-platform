@@ -702,13 +702,14 @@ export default function ReportPage() {
               <p>
                 This report is a screening instrument and does not constitute a clinical diagnosis.
                 Results are intended to inform and guide therapeutic conversations, not replace
-                professional assessment. All data is processed locally and is not stored on any server.
-                By using this tool, you acknowledge that LOVEBETTER by FOLA and its practitioners
-                are not liable for decisions made based on these results alone.
+                professional assessment. All data is processed securely in compliance with POPIA. Personal
+                details and assessment responses are encrypted in transit and are not stored permanently
+                on public web servers once your report is delivered. By using this tool, you acknowledge
+                that LOVEBETTER by FOLA and its practitioners are not liable for decisions made based on these
+                results alone.
               </p>
             </div>
             <div className="pt-4 border-t border-[#e2e8f0] text-xs text-[#a0aec0] text-center">
-              <p>Assessment Price: R{report.dynamicPrice} | {report.priceBreakdown}</p>
               <p className="mt-1">Report ID: {report.id} | Generated: {report.date}</p>
               <p className="mt-1">LOVEBETTER by FOLA | Clinical Director: Hakeem</p>
             </div>

@@ -144,6 +144,9 @@ export default function AssessmentPage() {
 
     if (purchaseSuccess) {
       sessionStorage.setItem("lb_payment_verified", "true");
+      if (params.get("product_id") === "lovebetter_bundle") {
+        sessionStorage.setItem("lb_bundle_purchased", "true");
+      }
       setIsPaid(true);
       const paramEmail = params.get("email");
       const paramPhone = params.get("phone");
@@ -152,7 +155,8 @@ export default function AssessmentPage() {
       window.history.replaceState({}, "", window.location.pathname);
     } else {
       const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
-      if (alreadyPaid === "true") {
+      const bundlePurchased = sessionStorage.getItem("lb_bundle_purchased") === "true";
+      if (alreadyPaid === "true" || bundlePurchased) {
         setIsPaid(true);
       }
     }
@@ -295,7 +299,7 @@ export default function AssessmentPage() {
           <Link href="/" className="flex items-center gap-3 group">
             <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
             <div>
-              <h1 className="text-lg font-bold text-foreground tracking-tight leading-none group-hover:text-[#2d4a7c] transition-colors">FOLA Relational Assessment</h1>
+              <h1 className="text-lg font-bold text-foreground tracking-tight leading-none group-hover:text-[#2d4a7c] transition-colors">Couples Relationship Growth Assessment</h1>
               <p className="text-xs text-card-foreground/60">LOVEBETTER by FOLA</p>
             </div>
           </Link>

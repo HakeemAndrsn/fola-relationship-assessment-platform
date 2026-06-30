@@ -3,35 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 
-// ── Animated counter ──
-function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started) setStarted(true);
-    }, { threshold: 0.5 });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [started]);
-
-  useEffect(() => {
-    if (!started) return;
-    let start = 0;
-    const increment = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else setCount(Math.floor(start));
-    }, 16);
-    return () => clearInterval(timer);
-  }, [started, target, duration]);
-
-  return <span ref={ref}>{count.toLocaleString()}</span>;
-}
-
 // ── Newsletter ──
 function NewsletterSignup({ variant = "default" }: { variant?: "default" | "inline" }) {
   const [email, setEmail] = useState("");
@@ -67,7 +38,7 @@ function NewsletterSignup({ variant = "default" }: { variant?: "default" | "inli
 const faqs = [
   { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a clinical-grade map of their relational dynamics. The Individual Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
   { q: "Is this a replacement for therapy?", a: "No — it's the ideal starting point. Our reports give you (and your therapist) a clinical-grade GPS. Most therapists say it saves 4–8 sessions of discovery work.", defaultOpen: true },
-  { q: "How long does each assessment take?", a: "The Individual Assessment takes 20–30 minutes. The Couples Assessment takes 30–40 minutes (both partners complete it together). Reports are instant." },
+  { q: "How long does each assessment take?", a: "The Individual Assessment takes 20–30 minutes. The Couples Assessment takes under 30 minutes (both partners complete it together). Reports are instant." },
   { q: "What if my results show serious issues?", a: "That's precisely why these tools exist. Clinical flags are surfaced with severity levels, clear context, and a specific treatment pathway designed around your unique profile." },
   { q: "Is my data private?", a: "Yes. Your responses are never stored server-side. The report is generated in your browser and only persists for your session. We take privacy seriously.", defaultOpen: true },
 ];
@@ -160,7 +131,7 @@ export default function Home() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
               <span className="text-[#B8654A] text-xs font-semibold tracking-wider uppercase font-sans">
-                <AnimatedCounter target={247} /> people chose how to love better this year...
+                247 people chose how to love better this year...
               </span>
             </div>
 
@@ -195,7 +166,7 @@ export default function Home() {
                 <div className="text-left">
                   <p className="text-[10px] text-[#B8654A]/80 uppercase tracking-wider font-sans">Couples</p>
                   <p className="text-base font-bold text-foreground font-serif">Relationship Growth Assessment</p>
-                  <p className="text-xs text-[#B8654A] font-sans mt-0.5">8 dimensions · R600 · 30–40 min</p>
+                  <p className="text-xs text-[#B8654A] font-sans mt-0.5">8 dimensions · R600 · under 30 min</p>
                 </div>
                 <svg className="w-5 h-5 text-[#B8654A] group-hover:translate-x-1 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -210,7 +181,7 @@ export default function Home() {
               <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-xs text-green-800 font-sans">7-day money-back guarantee. If your report doesn't change how you see your relationship, you don't pay.</span>
+              <span className="text-xs text-green-800 font-sans">7-day money-back guarantee. If your report doesn't change how you see your relationship, we refund you in full.</span>
             </div>
           </div>
         </section>
@@ -220,14 +191,14 @@ export default function Home() {
           <div className="rounded-2xl border border-border bg-card shadow-sm">
             <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border">
               {[
-                { value: 4231, suffix: "+", label: "People assessed", color: "text-foreground" },
-                { value: 3892, suffix: "", label: "Relationships transformed", color: "text-foreground" },
-                { value: 94, suffix: "%", label: "Report satisfaction", color: "text-[#B8654A]" },
-                { value: null, label: "Average rating", display: "4.9★", color: "text-foreground" },
+                { display: "4,231+", label: "People assessed", color: "text-foreground" },
+                { display: "3,892", label: "Relationships transformed", color: "text-foreground" },
+                { display: "94%", label: "Report satisfaction", color: "text-[#B8654A]" },
+                { display: "4.9★", label: "Average rating", color: "text-foreground" },
               ].map((item, i) => (
                 <div key={i} className="text-center py-7 px-4">
                   <p className={`text-3xl font-bold font-serif ${item.color}`}>
-                    {item.display ? item.display : <><AnimatedCounter target={item.value!} />{item.suffix}</>}
+                    {item.display}
                   </p>
                   <p className="mt-1.5 text-xs text-card-foreground/70 font-sans">{item.label}</p>
                 </div>
@@ -342,7 +313,7 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <p className="text-xs text-card-foreground/60 font-sans">30–40 min · Instant report · PDF download</p>
+                    <p className="text-xs text-card-foreground/60 font-sans">Under 30 min · Instant report · PDF download</p>
                     <Link href="/assessment" className="flex items-center gap-2 bg-[#121212] text-[#F5F2EC] px-5 py-2.5 rounded-xl text-xs font-bold font-sans hover:bg-[#232323] transition-all">
                       Start Your Assessment →
                     </Link>
@@ -364,7 +335,7 @@ export default function Home() {
             <div className="grid sm:grid-cols-3 gap-6">
               {[
                 { step: "01", title: "Choose your assessment", body: "Individual or couples. Complete the multi-step clinical form at your own pace — designed to be honest, not comfortable." },
-                { step: "02", title: "Answer 10 clinical dimensions", body: "From attachment wiring to trauma history to values alignment — each question is grounded in peer-reviewed research." },
+                { step: "02", title: "Answer the clinical questionnaire", body: "8 to 10 clinical dimensions—from attachment wiring to trauma history to values alignment, grounded in peer-reviewed research." },
                 { step: "03", title: "Receive your clinical report", body: "Instantly. A full Brown University-style PDF with scores, insights, clinical flags, and a personalised treatment pathway." },
               ].map((item) => (
                 <div key={item.step} className="relative rounded-2xl border border-border bg-card p-7 hover:border-border/80 transition-all shadow-sm">
@@ -531,13 +502,13 @@ export default function Home() {
                   <p className="text-sm text-card-foreground/50 font-sans line-through">R1,200</p>
                   <span className="text-[10px] text-green-700 font-semibold font-sans px-2 py-0.5 rounded-full bg-green-600/10 border border-green-600/20">Save R200</span>
                 </div>
-                <Link href="/individual-assessment" className="inline-flex items-center gap-2 bg-[#121212] text-[#F5F2EC] px-8 py-3.5 rounded-xl text-sm font-bold font-sans hover:bg-[#232323] transition-all hover:shadow-lg">
-                  Start with Individual Assessment — R600
+                <Link href="/bundle-payment" className="inline-flex items-center gap-2 bg-[#B8654A] text-[#F5F2EC] px-8 py-3.5 rounded-xl text-sm font-bold font-sans hover:bg-[#a2543c] transition-all hover:shadow-lg">
+                  Get The Complete Bundle — R1,000
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </Link>
-                <p className="mt-3 text-[10px] text-card-foreground/60 font-sans">Buy individually for R600 each, or bundle both for R1,000</p>
+                <p className="mt-3 text-[10px] text-card-foreground/60 font-sans">Pay R1,000 once, get access to both Individual and Couples assessments</p>
               </div>
             </div>
           </div>
@@ -577,11 +548,9 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
                   </button>
-                  {openFaq === i && (
-                    <div className="px-6 pb-5">
-                      <p className="text-sm text-card-foreground/80 leading-relaxed font-sans">{faq.a}</p>
-                    </div>
-                  )}
+                  <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? "max-h-[300px] opacity-100 pb-5 px-6" : "max-h-0 opacity-0 px-6"}`}>
+                    <p className="text-sm text-card-foreground/80 leading-relaxed font-sans">{faq.a}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -642,6 +611,8 @@ export default function Home() {
             <Link href="/assessment" className="hover:text-foreground transition-colors">Couples Assessment</Link>
             <Link href="/the-uncommon-practice" className="hover:text-foreground transition-colors">The Uncommon Practice</Link>
             <a href="https://calendly.com/folasessions/discovery-call" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Book a Call</a>
+            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </nav>
         </div>
         <div className="mx-auto max-w-7xl mt-6 pt-6 border-t border-border/40 text-center">

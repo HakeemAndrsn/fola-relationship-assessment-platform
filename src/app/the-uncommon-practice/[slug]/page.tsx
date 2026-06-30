@@ -326,6 +326,18 @@ export default async function BlogPost({
               >
                 Take Assessment
               </Link>
+              <Link
+                href="/privacy"
+                className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans"
+              >
+                Terms of Service
+              </Link>
             </nav>
           </div>
         </div>

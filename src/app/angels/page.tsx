@@ -95,10 +95,15 @@ export default function AngelsPage() {
 
       {/* Footer */}
       <footer className="border-t border-border px-6 py-8">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-4xl text-center space-y-2">
           <p className="text-xs text-card-foreground/50 font-sans">
-            © {new Date().getFullYear()} LoveBetter by FOLA
+            © {new Date().getFullYear()} LOVEBETTER by FOLA
           </p>
+          <div className="flex justify-center gap-4 text-xs text-card-foreground/60 font-sans">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <span className="text-border">|</span>
+            <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
+          </div>
         </div>
       </footer>
     </div>

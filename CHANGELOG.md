@@ -1,5 +1,23 @@
 # Changelog
 
+## 30 June 2026 — Favicon Upgrade + Independent Parenting Framework
+
+### Added
+- High-quality gold monogram "LB" favicon assets generated and scaled using macOS `sips` to all standard formats (ICO, Apple touch icon, and PNG sizes: 16px, 32px, 48px, 64px, 192px, 512px).
+- All-encompassing, first-principles Parenting Assessment Framework covering diverse caregiving pathways (single parents, blended, co-parenting, kinship, adoptive, grieving) and everyday stressors (mental health, financial/time poverty).
+- Local PDF compiler script `scripts/generate-parenting-framework-pdf.js` and compiled output PDF locally at `/Users/fola/parenting_assessment_framework.pdf` to preserve Netlify build credits.
+
+## 29 June 2026 — WhatsApp Social Share + Substack Integration + Premium Blog Mockups
+
+### Added
+- Integrated WhatsApp sharing into the `SocialShare` component and rendered it on all blog articles.
+- Substack subscription links (`https://theuncommonpractice.substack.com`) added to the main blog index, the newsletter sign-up CTA card, and individual article footers.
+- Premium social media static ad mockups generated and packaged locally as `/Users/fola/lovebetter_ad_mockups.zip`.
+- Dynamic SEO and Open Graph metadata mapped to blog articles for rich social media cards using individual post covers.
+
+### Changed
+- Replaced outdated "The Oasis by FOLA" references in headers/footers with "LOVEBETTER by FOLA" across the blog index, articles, and individual assessment page.
+
 ## 7 June 2026 — FAQ Trust Signals + Warm-Traffic CTA
 
 ### Added
