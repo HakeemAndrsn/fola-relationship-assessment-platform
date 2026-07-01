@@ -135,29 +135,51 @@ export default function AssessmentPage() {
   const [data, setData] = useState<AssessmentFormData>(DEFAULT_DATA);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
+  const [verifying, setVerifying] = useState(false);
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const purchaseSuccess = params.get("purchase_success") === "1";
+    const checkoutId = params.get("id");
 
-    if (purchaseSuccess) {
-      sessionStorage.setItem("lb_payment_verified", "true");
-      if (params.get("product_id") === "lovebetter_bundle") {
-        sessionStorage.setItem("lb_bundle_purchased", "true");
+    const verifyPayment = async (cid: string) => {
+      setVerifying(true);
+      try {
+        const res = await fetch("/.netlify/functions/validate-checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ checkoutId: cid }),
+        });
+        const valData = await res.json();
+        if (res.ok && valData.verified && (valData.productId === "lovebetter_couples" || valData.productId === "lovebetter_bundle")) {
+          sessionStorage.setItem("lb_couples_checkout_id", cid);
+          if (valData.productId === "lovebetter_bundle") {
+            sessionStorage.setItem("lb_bundle_checkout_id", cid);
+          }
+          setIsPaid(true);
+          if (valData.email) setCustomerEmail(valData.email);
+          if (valData.phone) setCustomerPhone(valData.phone);
+        }
+      } catch (err) {
+        console.error("Payment verification failed", err);
+      } finally {
+        setVerifying(false);
+        // Clean URL query parameters
+        window.history.replaceState({}, "", window.location.pathname);
       }
-      setIsPaid(true);
-      const paramEmail = params.get("email");
-      const paramPhone = params.get("phone");
-      if (paramEmail) setCustomerEmail(decodeURIComponent(paramEmail));
-      if (paramPhone) setCustomerPhone(decodeURIComponent(paramPhone));
-      window.history.replaceState({}, "", window.location.pathname);
+    };
+
+    if (checkoutId) {
+      verifyPayment(checkoutId);
     } else {
-      const alreadyPaid = sessionStorage.getItem("lb_payment_verified");
-      const bundlePurchased = sessionStorage.getItem("lb_bundle_purchased") === "true";
-      if (alreadyPaid === "true" || bundlePurchased) {
-        setIsPaid(true);
+      const activeCid = sessionStorage.getItem("lb_couples_checkout_id");
+      const bundleCid = sessionStorage.getItem("lb_bundle_checkout_id");
+      
+      if (activeCid) {
+        verifyPayment(activeCid);
+      } else if (bundleCid) {
+        verifyPayment(bundleCid);
       }
     }
   }, []);
@@ -214,6 +236,20 @@ export default function AssessmentPage() {
   };
 
   const progress = ((step + 1) / STEPS.length) * 100;
+
+  if (verifying) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <svg className="animate-spin h-8 w-8 text-[#B8654A] mx-auto" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <p className="text-sm text-card-foreground/80 font-sans">Verifying payment status with Yoco...</p>
+        </div>
+      </div>
+    );
+  }
 
   // ── Payment Gate ──
   if (!isPaid) {

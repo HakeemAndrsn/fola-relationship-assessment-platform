@@ -49,6 +49,12 @@
       "namedRegex": "^/assessment(?:/)?$"
     },
     {
+      "page": "/bundle-payment",
+      "regex": "^/bundle\\-payment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/bundle\\-payment(?:/)?$"
+    },
+    {
       "page": "/favicon.ico",
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},
@@ -73,10 +79,22 @@
       "namedRegex": "^/linkedin\\-callback(?:/)?$"
     },
     {
+      "page": "/privacy",
+      "regex": "^/privacy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/privacy(?:/)?$"
+    },
+    {
       "page": "/report",
       "regex": "^/report(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/report(?:/)?$"
+    },
+    {
+      "page": "/terms",
+      "regex": "^/terms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms(?:/)?$"
     },
     {
       "page": "/the-uncommon-practice",

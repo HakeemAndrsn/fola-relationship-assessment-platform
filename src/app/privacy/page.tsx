@@ -52,9 +52,28 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">5. Your Rights and Deletion Requests</h2>
+            <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">5. Lawful Basis and Data Retention</h2>
             <p>
-              Under POPIA, you have the right to access, rectify, or request the deletion of your personal information from our CRM records at any time. If you wish to delete your contact details and report record from our system, please email us directly at <a href="mailto:fola@fola.co.za" className="text-[#B8654A] underline">fola@fola.co.za</a>.
+              <strong>Lawful Basis:</strong> We process your personal information based on (a) your explicit, voluntary consent when you start the assessment and enter your details, and (b) the performance of a contract to compile and deliver the assessment report you purchased.
+            </p>
+            <p className="mt-2">
+              <strong>Retention Periods:</strong>
+            </p>
+            <ul className="list-disc list-inside space-y-1 mt-1 pl-4">
+              <li><strong>Raw Assessment Answers:</strong> Wiped immediately after the PDF report is compiled and generated. These are never stored.</li>
+              <li><strong>Contact Info & High-Level Scores:</strong> Retained for a period of three (3) years to support your clinical journey and potential regression integration sessions, unless you request earlier deletion.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">6. Information Officer & Contact</h2>
+            <p>
+              Our designated Information Officer under POPIA is:
+            </p>
+            <p className="mt-2 font-semibold">Hakeem Lesolang</p>
+            <p>Email: <a href="mailto:fola@fola.co.za" className="text-[#B8654A] underline">fola@fola.co.za</a></p>
+            <p className="mt-2">
+              Under POPIA, you have the right to access, rectify, or request the deletion of your personal information from our records at any time.
             </p>
           </section>
         </article>

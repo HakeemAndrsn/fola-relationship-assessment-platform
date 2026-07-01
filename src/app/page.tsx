@@ -38,19 +38,9 @@ function NewsletterSignup({ variant = "default" }: { variant?: "default" | "inli
 const faqs = [
   { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a clinical-grade map of their relational dynamics. The Individual Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
   { q: "Is this a replacement for therapy?", a: "No — it's the ideal starting point. Our reports give you (and your therapist) a clinical-grade GPS. Most therapists say it saves 4–8 sessions of discovery work.", defaultOpen: true },
-  { q: "How long does each assessment take?", a: "The Individual Assessment takes 20–30 minutes. The Couples Assessment takes under 30 minutes (both partners complete it together). Reports are instant." },
+  { q: "How long does each assessment take?", a: "The Individual Assessment takes 20–30 minutes. The Couples Assessment takes 30–40 minutes (both partners complete it together). Reports are instant." },
   { q: "What if my results show serious issues?", a: "That's precisely why these tools exist. Clinical flags are surfaced with severity levels, clear context, and a specific treatment pathway designed around your unique profile." },
   { q: "Is my data private?", a: "Yes. Your responses are never stored server-side. The report is generated in your browser and only persists for your session. We take privacy seriously.", defaultOpen: true },
-];
-
-const couplesTestimonials = [
-  { quote: "We were on the verge of separation. The report gave us a language to talk about what was actually broken — and a clear path to fix it.", name: "Thandiwe & Sipho", location: "Johannesburg", result: "Now 18 months stronger" },
-  { quote: "Worth every rand. Our couples therapist said it was the most useful intake tool she'd ever seen. We skipped months of guesswork.", name: "Lerato & James", location: "Durban", result: "Saved 6+ therapy sessions" },
-];
-
-const individualTestimonials = [
-  { quote: "I thought I was ready for a relationship. This assessment showed me I had one dimension completely unaddressed. I'm grateful I did this before I hurt someone else.", name: "Kamo M.", location: "Pretoria", result: "Finally doing the actual work" },
-  { quote: "The self-worth section hit me in a way three years of therapy hadn't. Not because therapy failed — because this made it concrete and measurable.", name: "Yewande A.", location: "Sandton", result: "Booked 4 sessions with Hakeem" },
 ];
 
 export default function Home() {
@@ -126,12 +116,8 @@ export default function Home() {
           <div className="relative mx-auto max-w-5xl text-center">
             {/* Live badge */}
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#B8654A]/20 bg-[#B8654A]/5 mb-10 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-              </span>
-              <span className="text-[#B8654A] text-xs font-semibold tracking-wider uppercase font-sans">
-                247 people chose how to love better this year...
+              <span className="text-[#B8654A] text-xs font-semibold tracking-[0.2em] uppercase font-sans">
+                Clinical-Grade Relational Diagnostics
               </span>
             </div>
 
@@ -166,7 +152,7 @@ export default function Home() {
                 <div className="text-left">
                   <p className="text-[10px] text-[#B8654A]/80 uppercase tracking-wider font-sans">Couples</p>
                   <p className="text-base font-bold text-foreground font-serif">Relationship Growth Assessment</p>
-                  <p className="text-xs text-[#B8654A] font-sans mt-0.5">8 dimensions · R600 · under 30 min</p>
+                  <p className="text-xs text-[#B8654A] font-sans mt-0.5">8 dimensions · R600 · 30–40 min</p>
                 </div>
                 <svg className="w-5 h-5 text-[#B8654A] group-hover:translate-x-1 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -182,27 +168,6 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span className="text-xs text-green-800 font-sans">7-day money-back guarantee. If your report doesn't change how you see your relationship, we refund you in full.</span>
-            </div>
-          </div>
-        </section>
-
-        {/* ── SOCIAL PROOF BAR ── */}
-        <section className="mx-auto max-w-7xl px-6 py-10">
-          <div className="rounded-2xl border border-border bg-card shadow-sm">
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border">
-              {[
-                { display: "4,231+", label: "People assessed", color: "text-foreground" },
-                { display: "3,892", label: "Relationships transformed", color: "text-foreground" },
-                { display: "94%", label: "Report satisfaction", color: "text-[#B8654A]" },
-                { display: "4.9★", label: "Average rating", color: "text-foreground" },
-              ].map((item, i) => (
-                <div key={i} className="text-center py-7 px-4">
-                  <p className={`text-3xl font-bold font-serif ${item.color}`}>
-                    {item.display}
-                  </p>
-                  <p className="mt-1.5 text-xs text-card-foreground/70 font-sans">{item.label}</p>
-                </div>
-              ))}
             </div>
           </div>
         </section>
@@ -313,7 +278,7 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <p className="text-xs text-card-foreground/60 font-sans">Under 30 min · Instant report · PDF download</p>
+                    <p className="text-xs text-card-foreground/60 font-sans">30–40 min · Instant report · PDF download</p>
                     <Link href="/assessment" className="flex items-center gap-2 bg-[#121212] text-[#F5F2EC] px-5 py-2.5 rounded-xl text-xs font-bold font-sans hover:bg-[#232323] transition-all">
                       Start Your Assessment →
                     </Link>
@@ -348,36 +313,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ── */}
-        <section className="px-6 py-16">
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-12">
-              <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Real results</p>
-              <h2 className="text-3xl font-bold text-foreground font-serif">What people are saying</h2>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {[...couplesTestimonials.map(t => ({...t, type: "Couples"})), ...individualTestimonials.map(t => ({...t, type: "Individual"}))].map((t, i) => (
-                <div key={i} className="rounded-2xl border border-border bg-card p-6 hover:border-border/80 transition-all flex flex-col shadow-sm">
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(5)].map((_, si) => <span key={si} className="text-[#B8654A] text-xs">★</span>)}
-                    <span className={`ml-auto text-[9px] font-semibold uppercase tracking-wider font-sans px-2 py-0.5 rounded-full ${
-                      t.type === "Couples" ? "bg-[#B8654A]/10 text-[#B8654A]" : "bg-[#7C8673]/10 text-[#7C8673]"
-                    }`}>{t.type}</span>
-                  </div>
-                  <p className="text-sm text-card-foreground/90 italic leading-relaxed font-serif flex-1">&ldquo;{t.quote}&rdquo;</p>
-                  <div className="mt-5 pt-4 border-t border-border">
-                    <p className="text-xs font-bold text-foreground font-sans">{t.name}</p>
-                    <p className="text-[10px] text-card-foreground/60 font-sans">{t.location}</p>
-                    <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-600/10 border border-green-600/20">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                      <span className="text-[9px] text-green-700 font-semibold font-sans">{t.result}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* ── PROBLEM / WHY NOW ── */}
         <section className="px-6 py-16">
