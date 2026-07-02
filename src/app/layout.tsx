@@ -3,7 +3,7 @@ import "./globals.css";
 import VisualEditsMessenger from "../visual-edits/VisualEditsMessenger";
 import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
-import { Libre_Baskerville, Montserrat } from "next/font/google";
+import { Libre_Baskerville, Montserrat, Gloock, Instrument_Serif, Instrument_Sans } from "next/font/google";
 
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -17,6 +17,27 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const gloock = Gloock({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-gloock",
+  display: "swap",
+});
+
+const iserif = Instrument_Serif({
+  weight: "400",
+  style: "italic",
+  subsets: ["latin"],
+  variable: "--font-iserif",
+  display: "swap",
+});
+
+const isans = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-isans",
   display: "swap",
 });
 
@@ -53,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${libreBaskerville.variable} ${montserrat.variable}`}>
+    <html lang="en" className={`${libreBaskerville.variable} ${montserrat.variable} ${gloock.variable} ${iserif.variable} ${isans.variable}`}>
       <body className="antialiased font-sans">
         <Script
           id="orchids-browser-logs"

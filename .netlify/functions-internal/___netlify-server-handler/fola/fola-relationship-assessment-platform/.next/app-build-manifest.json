@@ -23,22 +23,6 @@
       "static/css/ff49722567b19bb4.css",
       "static/chunks/app/layout-ceae728018d380d4.js"
     ],
-    "/angels/page": [
-      "static/chunks/webpack-45f242347b732c04.js",
-      "static/chunks/4bd1b696-9c06ccec0629f517.js",
-      "static/chunks/684-1dd03064eb49bb77.js",
-      "static/chunks/main-app-5b094d573c380890.js",
-      "static/chunks/874-ccf588d2565e428f.js",
-      "static/chunks/app/angels/page-407e983ab0fe8826.js"
-    ],
-    "/privacy/page": [
-      "static/chunks/webpack-45f242347b732c04.js",
-      "static/chunks/4bd1b696-9c06ccec0629f517.js",
-      "static/chunks/684-1dd03064eb49bb77.js",
-      "static/chunks/main-app-5b094d573c380890.js",
-      "static/chunks/874-ccf588d2565e428f.js",
-      "static/chunks/app/privacy/page-fdea210add1beebe.js"
-    ],
     "/linkedin-callback/page": [
       "static/chunks/webpack-45f242347b732c04.js",
       "static/chunks/4bd1b696-9c06ccec0629f517.js",
@@ -56,13 +40,21 @@
       "static/chunks/674-496ba77178ccaf01.js",
       "static/chunks/app/individual-report/page-81125fce7c84a49d.js"
     ],
-    "/terms/page": [
+    "/privacy/page": [
       "static/chunks/webpack-45f242347b732c04.js",
       "static/chunks/4bd1b696-9c06ccec0629f517.js",
       "static/chunks/684-1dd03064eb49bb77.js",
       "static/chunks/main-app-5b094d573c380890.js",
       "static/chunks/874-ccf588d2565e428f.js",
-      "static/chunks/app/terms/page-39a66c8cda360375.js"
+      "static/chunks/app/privacy/page-fdea210add1beebe.js"
+    ],
+    "/angels/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/app/angels/page-407e983ab0fe8826.js"
     ],
     "/page": [
       "static/chunks/webpack-45f242347b732c04.js",
@@ -82,6 +74,22 @@
       "static/chunks/674-496ba77178ccaf01.js",
       "static/chunks/app/report/page-d4f983d576d4b0a4.js"
     ],
+    "/terms/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/app/terms/page-39a66c8cda360375.js"
+    ],
+    "/the-uncommon-practice/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/874-ccf588d2565e428f.js",
+      "static/chunks/app/the-uncommon-practice/page-ea679864a774caa5.js"
+    ],
     "/assessment/layout": [
       "static/chunks/webpack-45f242347b732c04.js",
       "static/chunks/4bd1b696-9c06ccec0629f517.js",
@@ -99,30 +107,6 @@
       "static/chunks/313-4edf82cc87b945c2.js",
       "static/chunks/201-f4264d714aba1c33.js",
       "static/chunks/app/assessment/page-1d9b7458fc702d23.js"
-    ],
-    "/the-uncommon-practice/page": [
-      "static/chunks/webpack-45f242347b732c04.js",
-      "static/chunks/4bd1b696-9c06ccec0629f517.js",
-      "static/chunks/684-1dd03064eb49bb77.js",
-      "static/chunks/main-app-5b094d573c380890.js",
-      "static/chunks/874-ccf588d2565e428f.js",
-      "static/chunks/app/the-uncommon-practice/page-ea679864a774caa5.js"
-    ],
-    "/individual-assessment/layout": [
-      "static/chunks/webpack-45f242347b732c04.js",
-      "static/chunks/4bd1b696-9c06ccec0629f517.js",
-      "static/chunks/684-1dd03064eb49bb77.js",
-      "static/chunks/main-app-5b094d573c380890.js",
-      "static/chunks/app/individual-assessment/layout-bc196fdd419c2522.js"
-    ],
-    "/individual-assessment/page": [
-      "static/chunks/webpack-45f242347b732c04.js",
-      "static/chunks/4bd1b696-9c06ccec0629f517.js",
-      "static/chunks/684-1dd03064eb49bb77.js",
-      "static/chunks/main-app-5b094d573c380890.js",
-      "static/chunks/422-d3a07e50ff3c2691.js",
-      "static/chunks/313-4edf82cc87b945c2.js",
-      "static/chunks/app/individual-assessment/page-4e1b903dca32a3e3.js"
     ],
     "/the-uncommon-practice/[slug]/page": [
       "static/chunks/webpack-45f242347b732c04.js",
@@ -146,6 +130,22 @@
       "static/chunks/main-app-5b094d573c380890.js",
       "static/chunks/874-ccf588d2565e428f.js",
       "static/chunks/app/bundle-payment/page-466724a1d9bdb740.js"
+    ],
+    "/individual-assessment/layout": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/app/individual-assessment/layout-bc196fdd419c2522.js"
+    ],
+    "/individual-assessment/page": [
+      "static/chunks/webpack-45f242347b732c04.js",
+      "static/chunks/4bd1b696-9c06ccec0629f517.js",
+      "static/chunks/684-1dd03064eb49bb77.js",
+      "static/chunks/main-app-5b094d573c380890.js",
+      "static/chunks/422-d3a07e50ff3c2691.js",
+      "static/chunks/313-4edf82cc87b945c2.js",
+      "static/chunks/app/individual-assessment/page-4e1b903dca32a3e3.js"
     ]
   }
 }

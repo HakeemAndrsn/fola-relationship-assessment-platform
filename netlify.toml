@@ -9,6 +9,7 @@
 
 [functions]
   directory = "netlify/functions"
+  included_files = ["private/**"]
 
 # Secret keys are set via Netlify dashboard environment variables (not committed)
 # YOCO_SECRET_KEY and MAILERLITE_API_KEY are configured in Netlify UI

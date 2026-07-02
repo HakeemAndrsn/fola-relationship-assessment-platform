@@ -1,7 +1,7 @@
 functionsDirectory = "/Users/fola/fola-relationship-assessment-platform/netlify/functions"
 functionsDirectoryOrigin = "config"
-redirectsOrigin = "inline"
 headersOrigin = "inline"
+redirectsOrigin = "inline"
 
 [build]
 publish = "/Users/fola/fola-relationship-assessment-platform/.next"
@@ -47,6 +47,22 @@ package = "@netlify/plugin-nextjs"
 pinned_version = "5"
 
 [plugins.inputs]
+
+[[headers]]
+for = "/"
+
+[headers.values]
+Cache-Control = "public, max-age=0, must-revalidate"
+CDN-Cache-Control = "public, max-age=0, must-revalidate"
+Netlify-CDN-Cache-Control = "max-age=0, no-cache, no-store, must-revalidate"
+
+[[headers]]
+for = "/*"
+
+[headers.values]
+X-Frame-Options = "DENY"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[headers]]
 for = "/_next/static/*"
