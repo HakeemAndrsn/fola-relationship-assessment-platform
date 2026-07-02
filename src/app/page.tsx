@@ -90,6 +90,7 @@ export default function Home() {
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/the-uncommon-practice" className="text-xs text-card-foreground hover:text-foreground transition-colors font-sans tracking-wide">The Uncommon Practice</Link>
+            <Link href="/store" className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans tracking-wide">The Store</Link>
             <Link href="/individual-assessment" className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans tracking-wide">Individual Assessment</Link>
             <Link href="/assessment" className="inline-flex items-center gap-2 bg-[#121212] text-[#F5F2EC] px-5 py-2.5 rounded-lg text-xs font-bold font-sans hover:bg-[#232323] transition-all tracking-wide border border-border">
               Couples Assessment
@@ -449,6 +450,49 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── THE STORE / SWAP CARDS TEASER ── */}
+        <section className="px-6 py-16">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid md:grid-cols-12 gap-8 items-center rounded-3xl border border-border bg-card p-10 shadow-sm">
+              <div className="md:col-span-8 space-y-4 text-left">
+                <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans">Now Available in our Store</p>
+                <h2 className="text-3xl font-bold text-foreground font-serif">The Romantic Couples Deck</h2>
+                <p className="text-sm text-card-foreground/80 leading-relaxed font-sans">
+                  52 deep-question swap cards across four tiers — warm-up, mechanics, inner rooms, and future mapping. Built by Hakeem to help couples bypass small talk and map their relational dynamics honestly.
+                </p>
+                <div className="pt-2">
+                  <Link href="/store" className="inline-flex items-center gap-2 rounded-xl bg-[#B8654A]/10 border border-[#B8654A]/25 px-7 py-3.5 text-sm text-[#B8654A] font-sans font-bold hover:bg-[#B8654A]/20 transition-all">
+                    Explore the Store
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+              <div className="md:col-span-4 flex justify-center">
+                {/* Visual miniature of card 52 */}
+                <div className="w-48 bg-[#1B1917] p-5 aspect-[70/110] flex flex-col justify-between shadow-lg relative border border-[#DDD5C4]/10 rounded-sm">
+                  <div className="flex justify-end">
+                    <span className="text-[7px] uppercase tracking-wider text-[#C1795A] border border-[#C1795A]/30 px-2 py-0.5 rounded-full font-sans">
+                      04 — Going
+                    </span>
+                  </div>
+                  <div>
+                    <div className="w-8 border-t border-[#C1795A] mb-3" />
+                    <p className="font-serif italic text-xl text-[#F3EFE6] leading-tight">
+                      Why do you <span className="text-[#C1795A]">stay?</span>
+                    </p>
+                  </div>
+                  <div className="border-t border-[#8A8378]/30 pt-2 flex justify-between text-[6px] tracking-wider text-[#8A8378] font-sans">
+                    <span>Romantic Deck</span>
+                    <span>52 / 52</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── BLOG TEASER ── */}
         <section className="px-6 py-16">
           <div className="mx-auto max-w-4xl">
@@ -544,6 +588,7 @@ export default function Home() {
           <nav className="flex items-center gap-6">
             <Link href="/individual-assessment" className="hover:text-foreground transition-colors">Individual Assessment</Link>
             <Link href="/assessment" className="hover:text-foreground transition-colors">Couples Assessment</Link>
+            <Link href="/store" className="hover:text-foreground transition-colors font-semibold text-[#B8654A]">The Store</Link>
             <Link href="/the-uncommon-practice" className="hover:text-foreground transition-colors">The Uncommon Practice</Link>
             <a href="https://calendly.com/folasessions/discovery-call" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Book a Call</a>
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
