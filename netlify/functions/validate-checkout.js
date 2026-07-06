@@ -17,6 +17,7 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body);
     const { checkoutId } = body;
+    console.log("validate-checkout triggered for checkoutId:", checkoutId);
 
     if (!checkoutId) {
       return {
@@ -45,8 +46,11 @@ exports.handler = async (event) => {
     });
 
     const checkoutData = await response.json();
+    console.log("Yoco Checkouts API response status:", response.status);
+    console.log("Checkout status resolved:", checkoutData.status);
 
     if (!response.ok) {
+      console.error("Yoco API error details:", checkoutData);
       return {
         statusCode: response.statusCode || 400,
         headers,

@@ -90,6 +90,25 @@ exports.handler = async (event) => {
         metadata = yocoData.metadata || {};
         isSuccessful = yocoData.status === "successful" || yocoData.status === "captured" || yocoData.status === "approved";
         console.log("Yoco payment verification status:", yocoData.status);
+
+        const resolvedCheckoutId = yocoData.checkout_id || yocoData.checkoutId;
+        if (resolvedCheckoutId && (!metadata.customerEmail || !metadata.productId) && secretKey) {
+          console.log("Payment metadata is empty. Fetching checkout session metadata for:", resolvedCheckoutId);
+          const checkoutRes = await fetch(`https://payments.yoco.com/api/checkouts/${resolvedCheckoutId}`, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${secretKey}`,
+              "Content-Type": "application/json",
+            },
+          });
+          if (checkoutRes.ok) {
+            const checkoutSessionData = await checkoutRes.json();
+            metadata = checkoutSessionData.metadata || {};
+            console.log("Retrieved checkout metadata successfully:", metadata);
+          } else {
+            console.error("Failed to fetch checkout session metadata. Status:", checkoutRes.status);
+          }
+        }
       } else {
         console.error("Failed to verify payment with Yoco API. Status:", yocoRes.status);
       }
