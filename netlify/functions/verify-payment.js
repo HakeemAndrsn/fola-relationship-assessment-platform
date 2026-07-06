@@ -40,7 +40,7 @@ exports.handler = async (event) => {
       "https://lovebetter.co.za";
 
     const basePath = path || "/individual-assessment";
-    const successUrl = `${origin}${basePath}?purchase_success=1&product_id=${productId}&email=${encodeURIComponent(email || "")}&name=${encodeURIComponent(name || "")}&phone=${encodeURIComponent(phone || "")}`;
+    const successUrl = `${origin}${basePath}`;
     const cancelUrl = `${origin}${basePath}`;
 
     // Create a Yoco Checkout session using their latest Checkouts API

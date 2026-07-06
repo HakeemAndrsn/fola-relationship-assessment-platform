@@ -40,6 +40,7 @@ YOCO_SECRET_KEY = ""
 MAILERLITE_API_KEY = ""
 
 [functions."*"]
+included_files = ["private/**", "fola/fola-relationship-assessment-platform/.env", "fola/fola-relationship-assessment-platform/.env.production", "fola/fola-relationship-assessment-platform/.env.local", "fola/fola-relationship-assessment-platform/.env.production.local"]
 
 [[plugins]]
 origin = "default"

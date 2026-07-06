@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 /* ---------- price & product metadata ---------- */
-const PRICE_CENTS = 20000; // Founding 100 price (R200). Change to 25000 (R250) after 100 sales.
+const PRICE_CENTS = 1000; // Founding 100 price (R200). Change to 25000 (R250) after 100 sales.
 const PRODUCT_ID = "swapcards-romantic-couples-digital";
 
 /* ---------- palette (plate ID) ---------- */
@@ -394,7 +394,6 @@ export default function StorePage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const success = params.get("purchase_success") === "1";
     const cid = params.get("id");
 
     const verifySuccess = async (id: string) => {
@@ -420,7 +419,7 @@ export default function StorePage() {
       }
     };
 
-    if (success && cid) {
+    if (cid) {
       verifySuccess(cid);
     } else {
       const savedCid = sessionStorage.getItem("lb_store_checkout_id");

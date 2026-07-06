@@ -91,6 +91,12 @@
       "namedRegex": "^/report(?:/)?$"
     },
     {
+      "page": "/store",
+      "regex": "^/store(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/store(?:/)?$"
+    },
+    {
       "page": "/terms",
       "regex": "^/terms(?:/)?$",
       "routeKeys": {},
