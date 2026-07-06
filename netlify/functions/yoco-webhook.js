@@ -2,7 +2,6 @@
 // Secure server-side Yoco webhook receiver for digital product delivery via Brevo.
 // Triggered on payment.succeeded event from Yoco servers.
 
-const fetch = require("node-fetch");
 
 const PRODUCTS = {
   "swapcards-romantic-couples-digital": {

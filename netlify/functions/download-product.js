@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const fetch = require("node-fetch");
 
 exports.handler = async (event) => {
   const headers = {

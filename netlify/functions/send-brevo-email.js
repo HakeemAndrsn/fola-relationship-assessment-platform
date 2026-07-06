@@ -2,7 +2,6 @@
 // Client-side triggered Netlify function to send transactional download emails via Brevo.
 // Called from the store/delivery page when a successful purchase is verified on mount.
 
-const fetch = require("node-fetch");
 
 const PRODUCTS = {
   "swapcards-romantic-couples-digital": {

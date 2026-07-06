@@ -1,4 +1,3 @@
-const fetch = require("node-fetch"); // or use global fetch if available in Node 18+
 
 exports.handler = async (event) => {
   const headers = {
