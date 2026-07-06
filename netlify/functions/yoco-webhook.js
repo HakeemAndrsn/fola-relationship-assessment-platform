@@ -36,15 +36,16 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body);
-    console.log("Yoco Webhook received event type:", body.type || body.event);
+    const eventType = body.type || body.event;
+    console.log("Yoco Webhook received event type:", eventType);
 
     // Verify webhook payload
-    const payment = body.payload;
+    const payment = body.payload || body.context || body.data || body;
     if (!payment) {
       return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing event payload" }) };
     }
 
-    const checkoutId = payment.checkoutId || payment.checkoutSessionId;
+    const checkoutId = payment.checkoutId || payment.checkoutSessionId || (payment.metadata && payment.metadata.checkoutId);
     if (!checkoutId) {
       console.warn("No checkout ID found in webhook payload. Reading metadata directly...");
     }
