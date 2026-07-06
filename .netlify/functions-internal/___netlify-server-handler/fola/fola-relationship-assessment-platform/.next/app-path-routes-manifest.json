@@ -2,17 +2,17 @@
   "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
   "/angels/page": "/angels",
+  "/individual-report/page": "/individual-report",
+  "/page": "/",
   "/linkedin-callback/page": "/linkedin-callback",
   "/privacy/page": "/privacy",
-  "/individual-report/page": "/individual-report",
   "/report/page": "/report",
-  "/page": "/",
   "/terms/page": "/terms",
   "/the-uncommon-practice/page": "/the-uncommon-practice",
   "/the-uncommon-practice/[slug]/page": "/the-uncommon-practice/[slug]",
   "/individual-assessment/page": "/individual-assessment",
   "/assessment/page": "/assessment",
-  "/bundle-payment/page": "/bundle-payment",
   "/store/page": "/store",
-  "/store/success/page": "/store/success"
+  "/bundle-payment/page": "/bundle-payment",
+  "/store/delivery-x7k2m9/page": "/store/delivery-x7k2m9"
 }

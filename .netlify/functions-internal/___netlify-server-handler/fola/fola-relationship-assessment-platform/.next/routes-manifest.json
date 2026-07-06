@@ -97,10 +97,10 @@
       "namedRegex": "^/store(?:/)?$"
     },
     {
-      "page": "/store/success",
-      "regex": "^/store/success(?:/)?$",
+      "page": "/store/delivery-x7k2m9",
+      "regex": "^/store/delivery\\-x7k2m9(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/store/success(?:/)?$"
+      "namedRegex": "^/store/delivery\\-x7k2m9(?:/)?$"
     },
     {
       "page": "/terms",

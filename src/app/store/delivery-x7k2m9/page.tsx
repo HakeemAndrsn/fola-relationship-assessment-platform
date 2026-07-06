@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+
 
 /* ---------- Google Drive product links (Swap cards) ---------- */
 const GOOGLE_DRIVE_PDF_LINK = "https://drive.google.com/file/d/1McpGsEWIRys5e7sPcXDRcl7vwLs0OvJD/view?usp=drive_link";
@@ -36,21 +38,36 @@ const Pill = ({ children, color = C.terra }: { children: React.ReactNode; color?
   </span>
 );
 
-export default function StoreSuccessPage() {
+function DeliveryPageContent() {
+  const searchParams = useSearchParams();
+  const cid = searchParams.get("id");
+  
   const [verifying, setVerifying] = useState(true);
   const [verified, setVerified] = useState(false);
   const [error, setError] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
   const [purchasedProduct, setPurchasedProduct] = useState("");
+  const [currentUrl, setCurrentUrl] = useState("");
   
   const mailerliteFired = useRef(false);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cid = params.get("id");
+    setCurrentUrl(window.location.href);
+
+    if (!cid) {
+      // Wait slightly for hydration to complete or report missing ID
+      const timer = setTimeout(() => {
+        if (!searchParams.get("id")) {
+          setError("No checkout session found. Please make a purchase through the store.");
+          setVerifying(false);
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
 
     const verifySuccess = async (id: string) => {
+      setVerifying(true);
       try {
         const res = await fetch("/.netlify/functions/validate-checkout", {
           method: "POST",
@@ -76,7 +93,6 @@ export default function StoreSuccessPage() {
             if (!mailerliteFired.current) {
               mailerliteFired.current = true;
               
-              // Normalize names/keys for MailerLite fields
               let productLabel = "swapcards_romantic_couples";
               if (valData.productId === "swapcards-parenting-deck-digital") {
                 productLabel = "swapcards_parenting_deck";
@@ -110,13 +126,8 @@ export default function StoreSuccessPage() {
       }
     };
 
-    if (cid) {
-      verifySuccess(cid);
-    } else {
-      setError("No checkout session found. Please make a purchase through the store.");
-      setVerifying(false);
-    }
-  }, []);
+    verifySuccess(cid);
+  }, [cid, searchParams]);
 
   if (verifying) {
     return (
@@ -143,6 +154,10 @@ export default function StoreSuccessPage() {
           <p style={{ ...fontUI, color: C.ivory }} className="text-sm opacity-80 leading-relaxed">
             {error || "We could not verify your payment. Please try again or contact support."}
           </p>
+          <div className="pt-2 text-xs text-left font-mono text-[#8A8378] bg-[#1B1917]/50 p-3 overflow-x-auto rounded">
+            <p className="text-[#C1795A]">Debug Info:</p>
+            <p className="mt-1">URL: {currentUrl}</p>
+          </div>
           <div className="pt-4">
             <Link
               href="/store"
@@ -214,5 +229,23 @@ export default function StoreSuccessPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function StoreSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#1B1917] flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <svg className="animate-spin h-8 w-8 text-[#C1795A] mx-auto" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <p style={{ ...fontUI, color: "#EDE5D4" }} className="text-sm font-sans">Loading delivery page...</p>
+        </div>
+      </div>
+    }>
+      <DeliveryPageContent />
+    </Suspense>
   );
 }
