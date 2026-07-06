@@ -246,8 +246,17 @@ function FeaturedDeck({ email, setEmail, nickname, setNickname, loading, error, 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   maxLength={100}
+                  autoComplete="email"
                   className="w-full bg-[#1B1917] border border-[#8A8378]/30 px-4 py-3.5 text-[#F3EFE6] text-sm focus:outline-none focus:border-[#C6A15B] font-sans"
                 />
+                {email && email.includes("@") && (
+                  <div style={{ ...fontUI, color: C.mute }} className="text-xs text-left leading-relaxed mt-2 flex items-center gap-1.5 opacity-90 transition-opacity">
+                    <svg className="h-3.5 w-3.5 text-[#C6A15B] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" strokeWidth={2.5} />
+                    </svg>
+                    <span>Files will be delivered to: <strong className="text-[#F3EFE6] font-mono break-all">{email}</strong></span>
+                  </div>
+                )}
               </div>
 
               {error && <p className="text-sm text-red-400 font-sans">{error}</p>}
