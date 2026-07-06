@@ -291,6 +291,7 @@ export default function AssessmentPage() {
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder="you@example.com"
+                maxLength={100}
                 className="w-full px-4 py-3 rounded-lg bg-white border border-border text-foreground text-sm font-sans placeholder:text-card-foreground/80 focus:outline-none focus:border-[#B8654A]/50 transition-colors"
                 required
               />
@@ -302,6 +303,7 @@ export default function AssessmentPage() {
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="+27 12 345 6789"
+                maxLength={30}
                 className="w-full px-4 py-3 rounded-lg bg-white border border-border text-foreground text-sm font-sans placeholder:text-card-foreground/80 focus:outline-none focus:border-[#B8654A]/50 transition-colors"
               />
             </div>

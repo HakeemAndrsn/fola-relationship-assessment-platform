@@ -307,6 +307,7 @@ export default function IndividualAssessmentPage() {
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder="you@example.com"
+                maxLength={100}
                 className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground text-sm font-sans placeholder:text-card-foreground/75 focus:outline-none focus:border-[#B8654A]/50 focus:bg-card transition-all"
                 required
               />
@@ -318,6 +319,7 @@ export default function IndividualAssessmentPage() {
                 value={customerPhone}
                 onChange={(e) => setCustomerPhone(e.target.value)}
                 placeholder="+27 12 345 6789"
+                maxLength={30}
                 className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground text-sm font-sans placeholder:text-card-foreground/75 focus:outline-none focus:border-[#B8654A]/50 focus:bg-card transition-all"
               />
             </div>

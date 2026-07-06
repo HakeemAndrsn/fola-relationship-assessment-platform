@@ -21,8 +21,29 @@ export default function YocoButton({
 }: YocoButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const handlePayment = async () => {
+    if (nickname) {
+      console.warn("Bot detected via honeypot.");
+      return;
+    }
+
+    if (!customerEmail || !customerEmail.includes("@")) {
+      setError("Please enter a valid email address before proceeding.");
+      return;
+    }
+
+    if (customerEmail.length > 100) {
+      setError("Email address is too long.");
+      return;
+    }
+
+    if (customerPhone && customerPhone.length > 30) {
+      setError("Phone number is too long.");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -58,6 +79,18 @@ export default function YocoButton({
 
   return (
     <div className="space-y-4">
+      {/* Honeypot field hidden from users */}
+      <div style={{ display: "none" }} aria-hidden="true">
+        <input
+          type="text"
+          name="username_hp"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <button
         onClick={handlePayment}
         disabled={loading}

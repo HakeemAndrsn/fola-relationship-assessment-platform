@@ -302,7 +302,7 @@ const path = require("path");
     <img class="cover-img" src="${base64Cover}" alt="FOLA Inner Child Somatic Workbook Cover" />
   </div>
 
-  <!-- INTRO PAGE -->
+  <!-- INTRO PAGE 1: WELCOME & THE SOMATIC PATH -->
   <div class="page">
     <div class="header">
       <span class="header-logo">FOLA Practice</span>
@@ -311,32 +311,76 @@ const path = require("path");
     
     <div class="title-area" style="margin-top: 10mm;">
       <h1>The Physical Address of Early Memory</h1>
-      <div class="subtitle">Where Your Past Lives Today</div>
+      <div class="subtitle">Part I: Congratulations & The Somatic Path</div>
     </div>
     
     <p class="instruction-text">
-      <strong>Congratulations on taking this step.</strong> By purchasing this somatic journal and committing to this 7-day sequence, you have made a conscious decision to trace your behaviors back to their roots.
+      <strong>Congratulations on taking this step.</strong> By purchasing this somatic journal and committing to this 7-day sequence, you have made a conscious decision to trace your behaviors back to their roots. This is not a standard self-help exercise. It is an intentional gateway to understanding the silent scripts running your life, your relationships, and your business.
     </p>
     
     <p class="instruction-text">
-      Your conscious mind is a brilliant strategist—managing calendars, task lists, and explaining why you feel stuck. But your survival defenses—the sudden shut downs, the fear of being visible, the tightness in your throat when speaking up—do not live in logic. They live in your nervous system. Journaling is a core FOLA tenet because it <strong>externalizes the fog, confusion, and pain</strong>. When trapped in your head, emotional noise remains an amorphous threat. Writing forces it onto the page, allowing you to see your pain live outside your body. You can inspect it, understand it, and realize that you are the author—not the victim—of your script.
+      <strong>Why a Daily Sequence Matters:</strong> Somatic healing is non-linear, but it requires a structured container. The 7 days in this workbook are structured as a progressive sequence designed to bypass your intellectual defense systems. You cannot think your way into safety; you must feel your way there. 
     </p>
     
     <p class="instruction-text">
-      Science shows that expressive writing downregulates the amygdala (the brain's threat center) and engages the prefrontal cortex. By naming your sensations and tracing their childhood origin, you rewire your brain, teaching your nervous system that the danger is over. This is the path to healing, living freely, and winning in life.
+      This sequence is carefully paced:
+      <br>
+      • <strong>Days 1–2:</strong> You will locate the physical knot where stress registers and identify the survival "safety script" you built to protect yourself as a child.
+      <br>
+      • <strong>Day 3:</strong> You will prepare your nervous system to engage with the Step 1 guided regression audio.
+      <br>
+      • <strong>Day 4:</strong> You will transcribe and integrate the subconscious dialogue that arose during the regression.
+      <br>
+      • <strong>Days 5–6:</strong> You will audit scarcity loops in your body and map attachment response patterns in your current relationships.
+      <br>
+      • <strong>Day 7:</strong> You will anchor your shift and externalize your integration.
+    </p>
+    
+    <p class="instruction-text">
+      <strong>How to Guide Your Practice:</strong> Complete one page per day. Set aside 15 minutes of uninterrupted silence. Do not edit, filter, or intellectualize. If you do not know what to write, write about the physical sensation of not knowing. Let your body speak first.
+    </p>
+    
+    <div class="footer">
+      <span>Step 1: The Inner Child Somatic Journal</span>
+      <span>Page 2</span>
+    </div>
+  </div>
+
+  <!-- INTRO PAGE 2: THE SCIENCE & TENETS OF SOMATIC WRITING -->
+  <div class="page">
+    <div class="header">
+      <span class="header-logo">FOLA Practice</span>
+      <span>Step 1 Companion</span>
+    </div>
+    
+    <div class="title-area" style="margin-top: 10mm;">
+      <h1>The Physical Address of Early Memory</h1>
+      <div class="subtitle">Part II: The Science & Tenets of Somatic Writing</div>
+    </div>
+    
+    <p class="instruction-text">
+      Your conscious mind is a brilliant strategist—managing calendars, task lists, and explaining why you feel stuck. But your survival defenses—the sudden shut downs, the fear of being visible, the tightness in your throat when speaking up—do not live in logic. They live in your nervous system. Journaling is a core FOLA tenet because it <strong>externalizes the fog, confusion, and pain</strong>.
+    </p>
+    
+    <p class="instruction-text">
+      When trapped in your head, emotional noise remains an amorphous, overwhelming threat. Writing forces it onto the page, allowing you to see your pain live outside your body. Once the fog is externalized, you can inspect it, understand it, and realize that you are the author—not the victim—of your script. It is the first step of transitioning from a body in survival mode to a life lived on purpose.
+    </p>
+    
+    <p class="instruction-text">
+      <strong>The Science of Somatic Externalization:</strong> Modern neuroscience shows that expressive writing downregulates the amygdala (the brain's threat and survival center) and engages the prefrontal cortex (the seat of logic and integration). By naming your sensations and tracing their childhood origin, you physically rewiring your brain. You are teaching your nervous system that the danger is in the past, and that it is safe to relax in the present. This is the path to healing, living freely, and winning in life.
     </p>
     
     <div class="highlight-box" style="margin-top: 10px;">
       <p><strong>The Core Truth:</strong> You cannot think your way out of a physical defense response. To loosen the grip, you must externalize the fog and locate where the pattern first made your body feel unsafe.</p>
     </div>
     
-    <p style="font-size: 10px; color: #94a3b8; font-style: italic; margin-top: 30px;">
+    <p style="font-size: 10px; color: #94a3b8; font-style: italic; margin-top: 20px;">
       Disclaimer: FOLA is a complementary hypnotherapy and somatic coaching practice. We do not diagnose, treat, cure, or manage any medical or mental health condition. Individual results vary. If you are experiencing acute distress, contact SADAG at 0800 567 567.
     </p>
     
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 2</span>
+      <span>Page 3</span>
     </div>
   </div>
 
@@ -388,7 +432,7 @@ const path = require("path");
     
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 3</span>
+      <span>Page 4</span>
     </div>
   </div>
 
@@ -427,7 +471,7 @@ const path = require("path");
     
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 4</span>
+      <span>Page 5</span>
     </div>
   </div>
 
@@ -487,7 +531,7 @@ const path = require("path");
     
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 5</span>
+      <span>Page 6</span>
     </div>
   </div>
 
@@ -524,7 +568,7 @@ const path = require("path");
     
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 6</span>
+      <span>Page 7</span>
     </div>
   </div>
 
@@ -561,7 +605,7 @@ const path = require("path");
     
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 7</span>
+      <span>Page 8</span>
     </div>
   </div>
 
@@ -596,7 +640,7 @@ const path = require("path");
       <div class="journal-line"></div>
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 8</span>
+      <span>Page 9</span>
     </div>
   </div>
 
@@ -638,7 +682,7 @@ const path = require("path");
     
     <div class="footer">
       <span>Step 1: The Inner Child Somatic Journal</span>
-      <span>Page 9</span>
+      <span>Page 10</span>
     </div>
   </div>
 

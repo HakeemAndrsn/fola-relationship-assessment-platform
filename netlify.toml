@@ -9,7 +9,6 @@
 
 [functions]
   directory = "netlify/functions"
-  included_files = ["private/**"]
 
 # Secret keys are set via Netlify dashboard environment variables (not committed)
 # YOCO_SECRET_KEY and MAILERLITE_API_KEY are configured in Netlify UI
@@ -33,3 +32,12 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://payments.yoco.com https://js.yoco.com https://slelguoygbfzlpylpxfs.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://payments.yoco.com https://js.yoco.com; connect-src 'self' https://payments.yoco.com https://slelguoygbfzlpylpxfs.supabase.co; frame-src 'self' https://payments.yoco.com https://js.yoco.com https://drive.google.com; object-src 'none';"
+
+[[headers]]
+  for = "/store/delivery-x7k2m9"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+

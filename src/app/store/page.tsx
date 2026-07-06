@@ -148,12 +148,14 @@ function Hero() {
 interface FeaturedDeckProps {
   email: string;
   setEmail: (val: string) => void;
+  nickname: string;
+  setNickname: (val: string) => void;
   loading: boolean;
   error: string;
   onCheckout: () => void;
 }
 
-function FeaturedDeck({ email, setEmail, loading, error, onCheckout }: FeaturedDeckProps) {
+function FeaturedDeck({ email, setEmail, nickname, setNickname, loading, error, onCheckout }: FeaturedDeckProps) {
   const tiers = [
     ["01 — Warm Up", C.terra, C.ivory, C.charcoal],
     ["02 — How We Work", C.terraDeep, C.sand, C.charcoal],
@@ -227,12 +229,23 @@ function FeaturedDeck({ email, setEmail, loading, error, onCheckout }: FeaturedD
                 <label className="block text-xs uppercase tracking-[0.2em] text-[#8A8378] mb-2" style={fontUI}>
                   Email Address (For Secure Deck Delivery)
                 </label>
+                <div style={{ display: "none" }} aria-hidden="true">
+                  <input
+                    type="text"
+                    name="username_hp"
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <input
                   type="email"
                   required
                   placeholder="your.email@domain.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  maxLength={100}
                   className="w-full bg-[#1B1917] border border-[#8A8378]/30 px-4 py-3.5 text-[#F3EFE6] text-sm focus:outline-none focus:border-[#C6A15B] font-sans"
                 />
               </div>
@@ -385,6 +398,7 @@ function SuccessView({ checkoutId }: SuccessViewProps) {
 /* ---------- main page ---------- */
 export default function StorePage() {
   const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   
@@ -431,8 +445,18 @@ export default function StorePage() {
   }, []);
 
   const handleCheckout = async () => {
+    if (nickname) {
+      console.warn("Honeypot filled.");
+      return;
+    }
+
     if (!email || !email.includes("@")) {
       setError("Please enter a valid email address to deliver your files.");
+      return;
+    }
+
+    if (email.length > 100) {
+      setError("Email address is too long.");
       return;
     }
 
@@ -449,7 +473,7 @@ export default function StorePage() {
           email: email,
           name: "Store Customer",
           phone: "",
-          path: "/store/success"
+          path: "/store/delivery-x7k2m9"
         }),
       });
 
@@ -492,6 +516,8 @@ export default function StorePage() {
           <FeaturedDeck 
             email={email}
             setEmail={setEmail}
+            nickname={nickname}
+            setNickname={setNickname}
             loading={loading}
             error={error}
             onCheckout={handleCheckout}
