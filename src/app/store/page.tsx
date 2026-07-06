@@ -473,7 +473,7 @@ export default function StorePage() {
           email: email,
           name: "Store Customer",
           phone: "",
-          path: "/store/delivery-x7k2m9"
+          path: "/store/delivery-x7k2m9/"
         }),
       });
 
