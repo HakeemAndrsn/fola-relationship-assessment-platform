@@ -39,6 +39,19 @@ YOCO_SECRET_KEY = ""
 [functions.mailerlite.environment]
 MAILERLITE_API_KEY = ""
 
+[functions.send-brevo-email]
+
+[functions.send-brevo-email.environment]
+YOCO_SECRET_KEY = ""
+BREVO_API_KEY = ""
+
+[functions.yoco-webhook]
+
+[functions.yoco-webhook.environment]
+YOCO_SECRET_KEY = ""
+BREVO_API_KEY = ""
+MAILERLITE_API_KEY = ""
+
 [functions."*"]
 
 [[plugins]]

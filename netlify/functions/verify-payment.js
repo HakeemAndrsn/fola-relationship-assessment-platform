@@ -39,7 +39,10 @@ exports.handler = async (event) => {
       new URL(event.headers.referer || event.headers.origin).origin : 
       "https://lovebetter.co.za";
 
-    const basePath = path || "/individual-assessment";
+    let basePath = path || "/individual-assessment";
+    if (basePath.includes("delivery") && !basePath.endsWith("/")) {
+      basePath = basePath + "/";
+    }
     const successUrl = `${origin}${basePath}`;
     const cancelUrl = `${origin}${basePath}`;
 

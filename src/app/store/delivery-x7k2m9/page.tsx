@@ -89,6 +89,14 @@ function DeliveryPageContent() {
           
           if (valData.email) {
             setCustomerEmail(valData.email);
+            
+            // Trigger Brevo automatically to send delivery email
+            fetch("/.netlify/functions/send-brevo-email", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ checkoutId: id }),
+            }).catch(e => console.error("Brevo email send error:", e));
+
             // Trigger MailerLite automatically to send receipt/confirmation email
             if (!mailerliteFired.current) {
               mailerliteFired.current = true;

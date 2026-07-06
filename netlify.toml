@@ -18,6 +18,12 @@
 [functions.mailerlite]
   environment = { MAILERLITE_API_KEY = "" }
 
+[functions.send-brevo-email]
+  environment = { YOCO_SECRET_KEY = "", BREVO_API_KEY = "" }
+
+[functions.yoco-webhook]
+  environment = { YOCO_SECRET_KEY = "", BREVO_API_KEY = "", MAILERLITE_API_KEY = "" }
+
 # ─── Cache Control & Security Headers ─────────────────────────────────────────
 [[headers]]
   for = "/"
