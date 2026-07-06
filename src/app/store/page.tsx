@@ -449,7 +449,7 @@ export default function StorePage() {
           email: email,
           name: "Store Customer",
           phone: "",
-          path: window.location.pathname
+          path: "/store/success"
         }),
       });
 

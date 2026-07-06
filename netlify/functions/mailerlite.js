@@ -32,7 +32,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: "Invalid JSON" }) };
   }
 
-  const { email, name, phone, overallScore, primaryGrowthEdge } = payload;
+  const { email, name, phone, overallScore, primaryGrowthEdge, fields, groups } = payload;
   if (!email) {
     return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: "email is required" }) };
   }
@@ -40,8 +40,8 @@ exports.handler = async (event) => {
   try {
     const subscriberBody = {
       email,
-      fields: {},
-      groups: [ASSESSMENT_COMPLETED_GROUP_ID],
+      fields: fields || {},
+      groups: groups || [ASSESSMENT_COMPLETED_GROUP_ID],
     };
 
     if (name) subscriberBody.fields.name = name;
