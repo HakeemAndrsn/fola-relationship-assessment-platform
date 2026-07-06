@@ -55,7 +55,7 @@ exports.handler = async (event) => {
     }
 
     // Verify checkout was successful
-    if (checkoutData.status !== "successful") {
+    if (checkoutData.status !== "successful" && checkoutData.status !== "approved") {
       return {
         statusCode: 200,
         headers,

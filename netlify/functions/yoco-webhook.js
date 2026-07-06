@@ -88,7 +88,7 @@ exports.handler = async (event) => {
       if (yocoRes.ok) {
         const yocoData = await yocoRes.json();
         metadata = yocoData.metadata || {};
-        isSuccessful = yocoData.status === "successful" || yocoData.status === "captured";
+        isSuccessful = yocoData.status === "successful" || yocoData.status === "captured" || yocoData.status === "approved";
         console.log("Yoco payment verification status:", yocoData.status);
       } else {
         console.error("Failed to verify payment with Yoco API. Status:", yocoRes.status);
