@@ -1,17 +1,18 @@
 {
   "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
+  "/angels/page": "/angels",
   "/linkedin-callback/page": "/linkedin-callback",
   "/privacy/page": "/privacy",
-  "/terms/page": "/terms",
-  "/angels/page": "/angels",
-  "/page": "/",
-  "/report/page": "/report",
   "/individual-report/page": "/individual-report",
-  "/bundle-payment/page": "/bundle-payment",
+  "/report/page": "/report",
+  "/page": "/",
+  "/terms/page": "/terms",
   "/the-uncommon-practice/page": "/the-uncommon-practice",
+  "/the-uncommon-practice/[slug]/page": "/the-uncommon-practice/[slug]",
   "/individual-assessment/page": "/individual-assessment",
   "/assessment/page": "/assessment",
-  "/the-uncommon-practice/[slug]/page": "/the-uncommon-practice/[slug]",
-  "/store/page": "/store"
+  "/bundle-payment/page": "/bundle-payment",
+  "/store/page": "/store",
+  "/store/success/page": "/store/success"
 }

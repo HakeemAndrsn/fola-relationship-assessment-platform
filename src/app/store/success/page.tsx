@@ -4,9 +4,9 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 /* ---------- Google Drive product links (Swap cards) ---------- */
-// HAKEEM: Replace these with your actual Google Drive download URLs
-const GOOGLE_DRIVE_PDF_LINK = "https://drive.google.com/file/d/1Xg_placeholder_pdf/view?usp=sharing";
-const GOOGLE_DRIVE_ZIP_LINK = "https://drive.google.com/file/d/1Yg_placeholder_zip/view?usp=sharing";
+const GOOGLE_DRIVE_PDF_LINK = "https://drive.google.com/file/d/1McpGsEWIRys5e7sPcXDRcl7vwLs0OvJD/view?usp=drive_link";
+const GOOGLE_DRIVE_PARENTING_DECK = "https://drive.google.com/file/d/1MeaeyBnAKoN7wdhlebiDu4zOEb8x3Vci/view?usp=drive_link";
+const GOOGLE_DRIVE_SECOND_CHILD_EBOOK = "https://drive.google.com/file/d/1hFJl3X291e9z_iLkIJCxLfeAwELOJOKl/view?usp=drive_link";
 
 const PRODUCT_ID = "swapcards-romantic-couples-digital";
 
@@ -42,6 +42,7 @@ export default function StoreSuccessPage() {
   const [error, setError] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
+  const [purchasedProduct, setPurchasedProduct] = useState("");
   
   const mailerliteFired = useRef(false);
 
@@ -58,14 +59,31 @@ export default function StoreSuccessPage() {
         });
         const valData = await res.json();
         
-        if (res.ok && valData.verified && valData.productId === PRODUCT_ID) {
+        const validProducts = [
+          PRODUCT_ID,
+          "swapcards-parenting-deck-digital",
+          "ebook-second-child"
+        ];
+
+        if (res.ok && valData.verified && validProducts.includes(valData.productId)) {
           setVerified(true);
           setCheckoutId(id);
+          setPurchasedProduct(valData.productId);
+          
           if (valData.email) {
             setCustomerEmail(valData.email);
             // Trigger MailerLite automatically to send receipt/confirmation email
             if (!mailerliteFired.current) {
               mailerliteFired.current = true;
+              
+              // Normalize names/keys for MailerLite fields
+              let productLabel = "swapcards_romantic_couples";
+              if (valData.productId === "swapcards-parenting-deck-digital") {
+                productLabel = "swapcards_parenting_deck";
+              } else if (valData.productId === "ebook-second-child") {
+                productLabel = "ebook_second_child";
+              }
+
               fetch("/.netlify/functions/mailerlite", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -74,7 +92,7 @@ export default function StoreSuccessPage() {
                   name: valData.name || "Store Customer",
                   phone: valData.phone || "",
                   fields: {
-                    product_purchased: "swapcards_romantic_couples",
+                    product_purchased: productLabel,
                     purchase_amount: "R10"
                   }
                 }),
@@ -144,31 +162,46 @@ export default function StoreSuccessPage() {
       <div style={{ backgroundColor: C.charcoal2 }} className="p-10 max-w-2xl text-center space-y-6 border border-[#DDD5C4]/10 shadow-2xl">
         <Pill color={C.gold}>Payment Successful</Pill>
         <h2 style={{ ...fontDisplay, color: C.ivory }} className="text-4xl leading-tight">
-          Your cards are <em style={{ ...fontAccent, color: C.terra }}>ready.</em>
+          Your files are <em style={{ ...fontAccent, color: C.terra }}>ready.</em>
         </h2>
         <p style={{ ...fontUI, color: C.ivory }} className="text-sm opacity-80 max-w-md mx-auto leading-relaxed">
           Thank you for your purchase! A confirmation email has been sent to <span className="text-[#C6A15B]">{customerEmail}</span>. You can download your files directly from Google Drive below:
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-          <a
-            href={GOOGLE_DRIVE_PDF_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ ...fontUI, backgroundColor: C.terraDeep, color: C.ivory }}
-            className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center"
-          >
-            Download Deck PDF (Google Drive)
-          </a>
-          <a
-            href={GOOGLE_DRIVE_ZIP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ ...fontUI, border: `1px solid ${C.terra}`, color: C.terra }}
-            className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center"
-          >
-            Download Story ZIP (Google Drive)
-          </a>
+        <div className="flex justify-center pt-4">
+          {purchasedProduct === PRODUCT_ID && (
+            <a
+              href={GOOGLE_DRIVE_PDF_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ ...fontUI, backgroundColor: C.terraDeep, color: C.ivory }}
+              className="w-full sm:w-auto px-10 py-4 text-base font-bold tracking-wide transition-opacity hover:opacity-90 text-center rounded-sm"
+            >
+              Download Romantic Couples Deck (Google Drive)
+            </a>
+          )}
+          {purchasedProduct === "swapcards-parenting-deck-digital" && (
+            <a
+              href={GOOGLE_DRIVE_PARENTING_DECK}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ ...fontUI, backgroundColor: C.terraDeep, color: C.ivory }}
+              className="w-full sm:w-auto px-10 py-4 text-base font-bold tracking-wide transition-opacity hover:opacity-90 text-center rounded-sm"
+            >
+              Download The Parenting Deck (Google Drive)
+            </a>
+          )}
+          {purchasedProduct === "ebook-second-child" && (
+            <a
+              href={GOOGLE_DRIVE_SECOND_CHILD_EBOOK}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ ...fontUI, backgroundColor: C.terraDeep, color: C.ivory }}
+              className="w-full sm:w-auto px-10 py-4 text-base font-bold tracking-wide transition-opacity hover:opacity-90 text-center rounded-sm"
+            >
+              Download The Second Child Ebook (Google Drive)
+            </a>
+          )}
         </div>
 
         <div className="pt-6 border-t border-[#8A8378]/25 space-y-3">

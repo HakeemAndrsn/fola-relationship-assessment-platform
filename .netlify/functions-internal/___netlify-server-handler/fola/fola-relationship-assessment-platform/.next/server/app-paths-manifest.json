@@ -1,17 +1,18 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/angels/page": "app/angels/page.js",
   "/linkedin-callback/page": "app/linkedin-callback/page.js",
   "/privacy/page": "app/privacy/page.js",
-  "/terms/page": "app/terms/page.js",
-  "/angels/page": "app/angels/page.js",
-  "/page": "app/page.js",
-  "/report/page": "app/report/page.js",
   "/individual-report/page": "app/individual-report/page.js",
-  "/bundle-payment/page": "app/bundle-payment/page.js",
+  "/report/page": "app/report/page.js",
+  "/page": "app/page.js",
+  "/terms/page": "app/terms/page.js",
   "/the-uncommon-practice/page": "app/the-uncommon-practice/page.js",
+  "/the-uncommon-practice/[slug]/page": "app/the-uncommon-practice/[slug]/page.js",
   "/individual-assessment/page": "app/individual-assessment/page.js",
   "/assessment/page": "app/assessment/page.js",
-  "/the-uncommon-practice/[slug]/page": "app/the-uncommon-practice/[slug]/page.js",
-  "/store/page": "app/store/page.js"
+  "/bundle-payment/page": "app/bundle-payment/page.js",
+  "/store/page": "app/store/page.js",
+  "/store/success/page": "app/store/success/page.js"
 }
