@@ -34,6 +34,7 @@ exports.handler = async (event) => {
   }
 
   try {
+    console.log("Raw Webhook Body:", event.body);
     const body = JSON.parse(event.body);
     const eventType = body.type || body.event;
     console.log("Yoco Webhook received event type:", eventType);
@@ -45,17 +46,19 @@ exports.handler = async (event) => {
     }
 
     const checkoutId = payment.checkoutId || payment.checkoutSessionId || (payment.metadata && payment.metadata.checkoutId);
-    if (!checkoutId) {
-      console.warn("No checkout ID found in webhook payload. Reading metadata directly...");
+    const paymentId = payment.paymentId || payment.payment_id || (payment.id && payment.id.startsWith("pay_") ? payment.id : null) || payment.payment_id;
+
+    if (!checkoutId && !paymentId) {
+      console.warn("No checkoutId or paymentId found in payload. Reading metadata directly from body.");
     }
 
-    // Securely verify checkout status directly with Yoco API to prevent spoofing
+    // Securely verify transaction status directly with Yoco API to prevent spoofing
     let metadata = payment.metadata || {};
-    let isSuccessful = payment.status === "successful";
+    let isSuccessful = payment.status === "successful" || payment.status === "captured";
 
-    if (checkoutId) {
-      const secretKey = process.env.YOCO_SECRET_KEY;
-      if (secretKey) {
+    const secretKey = process.env.YOCO_SECRET_KEY;
+    if (secretKey) {
+      if (checkoutId) {
         console.log("Verifying checkout status directly with Yoco for:", checkoutId);
         const yocoRes = await fetch(`https://payments.yoco.com/api/checkouts/${checkoutId}`, {
           method: "GET",
@@ -70,13 +73,30 @@ exports.handler = async (event) => {
           isSuccessful = yocoData.status === "successful";
           console.log("Yoco checkout verification status:", yocoData.status);
         } else {
-          console.error("Failed to verify checkout with Yoco API, falling back to payload status");
+          console.error("Failed to verify checkout with Yoco API. Status:", yocoRes.status);
+        }
+      } else if (paymentId) {
+        console.log("Verifying payment status directly with Yoco for payment ID:", paymentId);
+        const yocoRes = await fetch(`https://api.yoco.com/v1/payments/${paymentId}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${secretKey}`,
+            "Content-Type": "application/json",
+          },
+        });
+        if (yocoRes.ok) {
+          const yocoData = await yocoRes.json();
+          metadata = yocoData.metadata || {};
+          isSuccessful = yocoData.status === "successful" || yocoData.status === "captured";
+          console.log("Yoco payment verification status:", yocoData.status);
+        } else {
+          console.error("Failed to verify payment with Yoco API. Status:", yocoRes.status);
         }
       }
     }
 
     if (!isSuccessful) {
-      console.log("Payment status was not successful. Status:", payment.status);
+      console.log("Payment status was not successful. Status verified:", isSuccessful);
       return { statusCode: 200, headers, body: JSON.stringify({ ok: true, message: "Ignored unsuccessful status" }) };
     }
 
