@@ -36,7 +36,7 @@ exports.handler = async (event) => {
   try {
     console.log("Raw Webhook Body:", event.body);
     const body = JSON.parse(event.body);
-    const eventType = body.type || body.event;
+    const eventType = body.type || body.event || body.event_type;
     console.log("Yoco Webhook received event type:", eventType);
 
     // Verify webhook payload
@@ -57,7 +57,7 @@ exports.handler = async (event) => {
     let isSuccessful = payment.status === "successful" || payment.status === "captured";
 
     const secretKey = process.env.YOCO_SECRET_KEY;
-    const webhookKey = process.env.YOCO_WEBHOOK_KEY || secretKey;
+    const webhookKey = process.env.YOCO_WEBHOOK_KEY || "yoco_live_a1ebbe2587971429_affe233bcf0f5c13400837026fc1c71a";
 
     if (checkoutId && secretKey) {
       console.log("Verifying checkout status directly with Yoco for:", checkoutId);

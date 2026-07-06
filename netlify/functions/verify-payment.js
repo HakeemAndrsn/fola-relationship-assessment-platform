@@ -85,7 +85,10 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ redirectUrl: checkoutData.redirectUrl }),
+      body: JSON.stringify({ 
+        redirectUrl: checkoutData.redirectUrl,
+        checkoutId: checkoutData.id
+      }),
     };
   } catch (err) {
     return {

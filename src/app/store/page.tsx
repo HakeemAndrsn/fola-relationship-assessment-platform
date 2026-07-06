@@ -489,6 +489,9 @@ export default function StorePage() {
       const verifyData = await verifyRes.json();
 
       if (verifyRes.ok && verifyData.redirectUrl) {
+        if (verifyData.checkoutId) {
+          localStorage.setItem("active_checkout_id", verifyData.checkoutId);
+        }
         window.location.href = verifyData.redirectUrl;
       } else {
         setError(verifyData.error || "Failed to initiate payment. Please try again.");

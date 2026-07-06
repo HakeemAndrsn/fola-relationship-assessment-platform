@@ -55,16 +55,7 @@ function DeliveryPageContent() {
   useEffect(() => {
     setCurrentUrl(window.location.href);
 
-    if (!cid) {
-      // Wait slightly for hydration to complete or report missing ID
-      const timer = setTimeout(() => {
-        if (!searchParams.get("id")) {
-          setError("No checkout session found. Please make a purchase through the store.");
-          setVerifying(false);
-        }
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
+    const activeCid = cid || (typeof window !== "undefined" ? localStorage.getItem("active_checkout_id") : null);
 
     const verifySuccess = async (id: string) => {
       setVerifying(true);
@@ -134,7 +125,21 @@ function DeliveryPageContent() {
       }
     };
 
-    verifySuccess(cid);
+    if (activeCid) {
+      verifySuccess(activeCid);
+    } else {
+      // Wait slightly for hydration to complete or report missing ID
+      const timer = setTimeout(() => {
+        const fallbackCid = searchParams.get("id") || (typeof window !== "undefined" ? localStorage.getItem("active_checkout_id") : null);
+        if (fallbackCid) {
+          verifySuccess(fallbackCid);
+        } else {
+          setError("No checkout session found. Please make a purchase through the store.");
+          setVerifying(false);
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
   }, [cid, searchParams]);
 
   if (verifying) {
