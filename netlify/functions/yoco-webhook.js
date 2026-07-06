@@ -54,10 +54,10 @@ exports.handler = async (event) => {
 
     // Securely verify transaction status directly with Yoco API to prevent spoofing
     let metadata = payment.metadata || {};
-    let isSuccessful = payment.status === "successful" || payment.status === "captured";
+    let isSuccessful = payment.status === "successful" || payment.status === "captured" || payment.status === "approved";
 
     const secretKey = process.env.YOCO_SECRET_KEY;
-    const webhookKey = process.env.YOCO_WEBHOOK_KEY || "yoco_live_a1ebbe2587971429_affe233bcf0f5c13400837026fc1c71a";
+    const webhookKey = process.env.YOCO_WEBHOOK_KEY || secretKey;
 
     if (checkoutId && secretKey) {
       console.log("Verifying checkout status directly with Yoco for:", checkoutId);
