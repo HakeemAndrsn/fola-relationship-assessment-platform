@@ -78,6 +78,15 @@ export default function Home() {
 
       {/* ── NAV ── */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border">
+        {/* ── BANNER STRIP ── */}
+        <div className="bg-[#A64516] text-[#FDF3E7] text-center py-2.5 px-4">
+          <Link href="/store" className="text-xs font-bold font-sans tracking-[0.1em] uppercase hover:underline flex items-center justify-center gap-1.5">
+            New — The Parenting Deck + The Second Child ebook
+            <svg className="w-3.5 h-3.5 text-[#F5C89E] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+        </div>
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2">
@@ -103,7 +112,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="pt-24">
+      <main className="pt-32">
 
         {/* ── HERO ── */}
         <section className="relative px-6 pt-16 pb-8 overflow-hidden">

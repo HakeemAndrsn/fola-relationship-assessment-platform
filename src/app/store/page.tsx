@@ -1,10 +1,74 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
-/* ---------- price & product metadata ---------- */
-const PRICE_CENTS = 20000; // Founding 100 price (R200). Change to 25000 (R250) after 100 sales.
-const PRODUCT_ID = "swapcards-romantic-couples-digital";
+/* ---------- Products Configuration and Theme System ---------- */
+const PRODUCTS_CONFIG = {
+  "swapcards-parenting-deck-digital": {
+    id: "swapcards-parenting-deck-digital",
+    name: "The Parenting Deck",
+    kind: "Swap Cards",
+    description: "52 questions to navigate the transition into parenthood, division of labour, early childhood infrastructure, and emotional connection across the generation line. Print at home or play from your phone.",
+    features: [
+      "Instant PDF download — play tonight",
+      "Covers childcare, division of labour, and intimacy",
+      "Includes NLP integration guidelines for parents",
+    ],
+    priceCents: 20000,
+    theme: {
+      bg: "#A64516",         // Burnt orange plate/band bg
+      accent: "#F5C89E",     // Peach accent
+      text: "#FDF3E7",       // Cream text
+      textMute: "#F5C89E",
+      buttonBg: "#F5C89E",
+      buttonText: "#A64516",
+    },
+    image: "/store/parenting-deck-cover.png",
+  },
+  "ebook-second-child": {
+    id: "ebook-second-child",
+    name: "The Second Child",
+    kind: "Ebook",
+    description: "A field guide to transitioning from one child to two. Navigating maternal overwhelm, sibling adjustment, and partner alignment without losing the marriage.",
+    features: [
+      "Instant PDF download — read tonight",
+      "Practical exercises for parental alignment",
+      "Written by a family-centric hypnotherapist",
+    ],
+    priceCents: 20000,
+    theme: {
+      bg: "#33383F",         // Charcoal plate/band bg
+      accent: "#E89D66",     // Peach accent
+      text: "#FDF3E7",       // Cream text
+      textMute: "#E89D66",
+      buttonBg: "#E89D66",
+      buttonText: "#33383F",
+    },
+    image: "/store/second-child-cover.png",
+  },
+  "swapcards-romantic-couples-digital": {
+    id: "swapcards-romantic-couples-digital",
+    name: "The Romantic Couples Deck",
+    kind: "Swap Cards",
+    description: "52 questions in four tiers — from playful to profound. Includes the pass rule, a consent pause before the deep tiers, aftercare, and two write-your-own cards. Print at home or play from your phone.",
+    features: [
+      "Instant PDF download — play tonight",
+      "Built by a trauma and hypnotherapy practitioner",
+      "Story-sized card images included for sharing",
+    ],
+    priceCents: 20000,
+    theme: {
+      bg: "#1B1917",         // Near-black plate/band bg
+      accent: "#C1795A",     // Coral accent
+      text: "#F3EFE6",       // Cream text
+      textMute: "#8A8378",
+      buttonBg: "#C1795A",
+      buttonText: "#1B1917",
+    },
+    image: "/store/lb-digital-box-deck.png",
+  }
+};
 
 /* ---------- palette (plate ID) ---------- */
 const C = {
@@ -23,7 +87,6 @@ const fontDisplay = { fontFamily: "var(--font-gloock), Georgia, serif" };
 const fontAccent = { fontFamily: "var(--font-iserif), Georgia, serif", fontStyle: "italic" as const };
 const fontUI = { fontFamily: "var(--font-isans), system-ui, sans-serif" };
 
-/* ---------- shared bits ---------- */
 const Pill = ({ children, color = C.terra }: { children: React.ReactNode; color?: string }) => (
   <span
     style={{ ...fontUI, color, borderColor: color }}
@@ -31,10 +94,6 @@ const Pill = ({ children, color = C.terra }: { children: React.ReactNode; color?
   >
     {children}
   </span>
-);
-
-const Rule = ({ color = C.terra }: { color?: string }) => (
-  <div style={{ borderColor: color }} className="w-12 border-t-2 mb-6" />
 );
 
 /* ---------- header ---------- */
@@ -56,7 +115,6 @@ function StoreHeader() {
       >
         <div className="mx-auto max-w-6xl px-6 h-20 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
-            {/* Heart mark — transparent background ribbon-heart */}
             <img src="/logo-heart.png" alt="LoveBetter" className="h-8 w-8" />
             <span style={{ ...fontUI, color: C.charcoal }} className="font-bold text-lg tracking-tight">
               lovebetter
@@ -81,11 +139,11 @@ function StoreHeader() {
           </div>
 
           <a
-            href="#deck"
+            href="#swapcards-parenting-deck-digital"
             style={{ ...fontUI, backgroundColor: C.charcoal, color: C.ivory }}
-            className="px-6 py-3 text-sm tracking-wide transition-opacity hover:opacity-90"
+            className="px-6 py-3 text-sm tracking-wide transition-opacity hover:opacity-90 uppercase tracking-widest text-[0.7rem] font-bold"
           >
-            Get the deck
+            Browse Collection
           </a>
         </div>
       </nav>
@@ -93,191 +151,305 @@ function StoreHeader() {
   );
 }
 
-/* ---------- hero ---------- */
-function Hero() {
+/* ---------- interactive card stack hero ---------- */
+function HeroSection() {
+  const shouldReduceMotion = useReducedMotion();
+  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
+
+  const toggleFlip = (id: string) => {
+    setFlippedCards((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const cards = [
+    {
+      id: "parenting-preview-3",
+      frontImage: "/store/parenting-card-preview-3.png",
+      backBg: "#A64516",
+      targetId: "swapcards-parenting-deck-digital",
+      label: "Parenting Preview 3",
+      initialRotation: -5,
+    },
+    {
+      id: "parenting-preview-2",
+      frontImage: "/store/parenting-card-preview-2.png",
+      backBg: "#33383F",
+      targetId: "swapcards-parenting-deck-digital",
+      label: "Parenting Preview 2",
+      initialRotation: 4,
+    },
+    {
+      id: "parenting-preview-1",
+      frontImage: "/store/parenting-card-preview-1.png",
+      backBg: "#A64516",
+      targetId: "swapcards-parenting-deck-digital",
+      label: "Parenting Preview 1",
+      initialRotation: -2,
+    },
+    {
+      id: "couples-cover",
+      frontImage: "/store/lb-digital-box-deck.png",
+      backBg: "#1B1917",
+      targetId: "swapcards-romantic-couples-digital",
+      label: "Romantic Couples Deck Cover",
+      initialRotation: 3,
+    },
+    {
+      id: "parenting-cover",
+      frontImage: "/store/parenting-deck-cover.png",
+      backBg: "#A64516",
+      targetId: "swapcards-parenting-deck-digital",
+      label: "The Parenting Deck Cover",
+      initialRotation: 1,
+      isTop: true,
+    }
+  ];
+
   return (
-    <section style={{ backgroundColor: C.ivory }}>
-      <div className="mx-auto max-w-6xl px-6 pt-24 pb-20 grid gap-16 md:grid-cols-2 md:items-center">
-        <div>
-          <Pill>The LoveBetter Store</Pill>
-          <h1 style={{ ...fontDisplay, color: C.charcoal }} className="mt-8 text-6xl md:text-7xl leading-[1.05]">
-            Questions that do what small talk{" "}
-            <em style={{ ...fontAccent, color: C.terraDeep }}>can&rsquo;t.</em>
-          </h1>
-          <p style={{ ...fontAccent, color: C.charcoal }} className="mt-6 text-2xl opacity-75">
-            Tools for couples who are done guessing.
-          </p>
+    <section style={{ backgroundColor: C.ivory }} className="relative py-16 overflow-hidden border-b border-[#DDD5C4]">
+      <div className="mx-auto max-w-6xl px-6 grid gap-12 md:grid-cols-12 md:items-center min-h-[480px]">
+        {/* Left column: Title & Anchors */}
+        <div className="md:col-span-7 space-y-6">
+          <div>
+            <span style={{ color: "#A64516" }} className="text-xs uppercase tracking-[0.25em] font-sans font-bold">
+              The Collection
+            </span>
+            <h1 style={fontDisplay} className="text-5xl md:text-7xl leading-[1.05] mt-4 text-[#1B1917]">
+              The LoveBetter <span style={{ color: "#A64516" }}>Store.</span>
+            </h1>
+            <p style={fontUI} className="mt-6 text-lg md:text-xl text-[#1B1917]/80 leading-relaxed font-sans max-w-xl">
+              Decks, books, and tools for the conversations that change households.
+            </p>
+          </div>
+
+          {/* Anchor Links */}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <a
+              href="#swapcards-parenting-deck-digital"
+              className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#A64516]/20 text-[#A64516] hover:bg-[#A64516]/5 transition-colors"
+            >
+              Parenting Deck ↓
+            </a>
+            <a
+              href="#ebook-second-child"
+              className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#33383F]/20 text-[#33383F] hover:bg-[#33383F]/5 transition-colors"
+            >
+              The Second Child ↓
+            </a>
+            <a
+              href="#swapcards-romantic-couples-digital"
+              className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#1B1917]/20 text-[#1B1917] hover:bg-[#1B1917]/5 transition-colors"
+            >
+              Couples Deck ↓
+            </a>
+          </div>
         </div>
 
-        {/* Hero card — a live rendition of card 52 */}
-        <div className="flex justify-center md:justify-end">
-          <div
-            className="relative w-72"
-            style={{ aspectRatio: "70/110", backgroundColor: C.charcoal, boxShadow: "0 32px 64px -16px rgba(27,25,23,0.5)" }}
-          >
-            <div className="absolute inset-0 flex flex-col justify-between p-7">
-              <div className="flex justify-end">
-                <Pill color={C.terra}>04 — Where We&rsquo;re Going</Pill>
-              </div>
-              <div>
-                <Rule />
-                <p style={{ ...fontDisplay, color: C.ivory }} className="text-4xl leading-tight">
-                  Why do you <em style={{ ...fontAccent, color: C.terra }}>stay?</em>
-                </p>
-              </div>
-              <div
-                style={{ borderColor: C.mute }}
-                className="border-t pt-3 flex justify-between"
-              >
-                <span style={{ ...fontUI, color: C.mute }} className="text-[0.6rem] tracking-[0.15em]">
-                  The Romantic Couples Deck
-                </span>
-                <span style={{ ...fontUI, color: C.mute }} className="text-[0.6rem] tracking-[0.15em]">
-                  52 / 52
-                </span>
-              </div>
+        {/* Right column: Card fan */}
+        <div className="md:col-span-5 flex justify-center items-center relative min-h-[380px] md:min-h-[440px]">
+          {shouldReduceMotion ? (
+            /* Reduced Motion Fallback */
+            <div className="flex -space-x-8 overflow-x-auto py-4 max-w-full justify-center">
+              {cards.map((card) => (
+                <div
+                  key={card.id}
+                  className="w-36 h-52 shrink-0 bg-[#221F1C] border border-white/10 rounded-lg shadow-xl relative group overflow-hidden"
+                  style={{ transform: `rotate(${card.initialRotation}deg)` }}
+                >
+                  <img src={card.frontImage} alt={card.label} className="w-full h-full object-cover" />
+                  <a
+                    href={`#${card.targetId}`}
+                    className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <span className="text-white text-[10px] font-sans font-bold uppercase tracking-widest border border-white px-2 py-1">
+                      View product
+                    </span>
+                  </a>
+                </div>
+              ))}
             </div>
-          </div>
+          ) : (
+            /* Draggable Card Stack */
+            <div className="relative w-60 h-[340px] md:w-64 md:h-[380px]">
+              {cards.map((card, index) => {
+                const isFlipped = !!flippedCards[card.id];
+                const isTop = card.isTop && !isFlipped;
+
+                return (
+                  <motion.div
+                    key={card.id}
+                    drag
+                    dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
+                    dragElastic={0.1}
+                    whileDrag={{ scale: 1.05, zIndex: 100, boxShadow: "0 30px 60px rgba(0,0,0,0.4)" }}
+                    style={{
+                      transformStyle: "preserve-3d",
+                      perspective: 1000,
+                      zIndex: index,
+                    }}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") toggleFlip(card.id);
+                    }}
+                    className="absolute inset-0 w-full h-full rounded-xl cursor-grab active:cursor-grabbing focus:outline-none focus:ring-2 focus:ring-[#A64516] shadow-xl"
+                  >
+                    <motion.div
+                      className="relative w-full h-full rounded-xl"
+                      style={{
+                        transformStyle: "preserve-3d",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      animate={{
+                        rotateY: isFlipped ? 180 : 0,
+                        rotateZ: isTop ? [card.initialRotation - 1, card.initialRotation + 1, card.initialRotation - 1] : card.initialRotation,
+                      }}
+                      transition={isTop && !isFlipped ? {
+                        rotateZ: {
+                          repeat: Infinity,
+                          duration: 4,
+                          ease: "easeInOut"
+                        }
+                      } : { duration: 0.4 }}
+                      onClick={() => toggleFlip(card.id)}
+                    >
+                      {/* Front face */}
+                      <div
+                        className="absolute inset-0 w-full h-full rounded-xl overflow-hidden backface-hidden bg-[#221F1C] border border-[#DDD5C4]/20"
+                        style={{ backfaceVisibility: "hidden" }}
+                      >
+                        <img
+                          src={card.frontImage}
+                          alt={card.label}
+                          className="w-full h-full object-cover select-none pointer-events-none"
+                        />
+                      </div>
+
+                      {/* Back face */}
+                      <div
+                        className="absolute inset-0 w-full h-full rounded-xl p-6 flex flex-col justify-between items-center text-center backface-hidden border border-white/10"
+                        style={{
+                          backgroundColor: card.backBg,
+                          transform: "rotateY(180deg)",
+                          backfaceVisibility: "hidden",
+                        }}
+                      >
+                        <span style={fontUI} className="text-white/40 text-[0.6rem] tracking-[0.3em] uppercase">
+                          lovebetter
+                        </span>
+                        
+                        <div className="space-y-1">
+                          <p style={fontDisplay} className="text-white text-lg leading-tight">
+                            {card.label}
+                          </p>
+                          <p className="text-white/60 text-[10px] font-sans">
+                            Digital edition
+                          </p>
+                        </div>
+
+                        <a
+                          href={`#${card.targetId}`}
+                          onClick={(e) => e.stopPropagation()}
+                          style={{ borderColor: "rgba(255,255,255,0.3)" }}
+                          className="border text-[#FDF3E7] px-3 py-1.5 rounded text-[10px] font-sans uppercase tracking-widest font-semibold hover:bg-white/10 transition-colors"
+                        >
+                          View product →
+                        </a>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------- featured product ---------- */
-interface FeaturedDeckProps {
+/* ---------- reusable product section component ---------- */
+interface ProductSectionProps {
+  product: typeof PRODUCTS_CONFIG[keyof typeof PRODUCTS_CONFIG];
   email: string;
   setEmail: (val: string) => void;
   nickname: string;
   setNickname: (val: string) => void;
-  loading: boolean;
+  loadingProduct: string | null;
   error: string;
-  onCheckout: () => void;
-  productId: string;
-  setProductId: (val: string) => void;
+  onCheckout: (productId: string) => void;
+  imageLeft: boolean;
 }
 
-function FeaturedDeck({ email, setEmail, nickname, setNickname, loading, error, onCheckout, productId, setProductId }: FeaturedDeckProps) {
-  const couplesTiers = [
-    ["01 — Warm Up", C.terra, C.ivory, C.charcoal],
-    ["02 — How We Work", C.terraDeep, C.sand, C.charcoal],
-    ["03 — The Inner Rooms", "#D9A38A", C.burgundy, C.ivory],
-    ["04 — Where We're Going", C.terra, C.charcoal, C.ivory],
-  ];
-
-  const parentingTiers = [
-    ["01 — Early Stages", C.terra, C.ivory, C.charcoal],
-    ["02 — The Infrastructure", C.terraDeep, C.sand, C.charcoal],
-    ["03 — Reconnecting", "#D9A38A", C.burgundy, C.ivory],
-    ["04 — The Vision", C.terra, C.charcoal, C.ivory],
-  ];
-
-  const tiers = productId === "swapcards-romantic-couples-digital" ? couplesTiers : parentingTiers;
-  const isCouples = productId === "swapcards-romantic-couples-digital";
-  const deckTitle = isCouples ? "The Romantic Couples" : "The Parenting";
-  const deckDescription = isCouples
-    ? "52 questions in four tiers — from playful to profound. Includes the pass rule, a consent pause before the deep tiers, aftercare, and two write-your-own cards. Print at home or play from your phone."
-    : "52 questions to navigate the transition into parenthood, division of labour, early childhood infrastructure, and emotional connection across the generation line. Print at home or play from your phone.";
-
-  const features = isCouples
-    ? [
-        "Instant PDF download — play tonight",
-        "Built by a trauma and hypnotherapy practitioner",
-        "Story-sized card images included for sharing",
-      ]
-    : [
-        "Instant PDF download — play tonight",
-        "Covers childcare, division of labour, and intimacy",
-        "Includes NLP integration guidelines for parents",
-      ];
+function ProductSection({
+  product,
+  email,
+  setEmail,
+  nickname,
+  setNickname,
+  loadingProduct,
+  error,
+  onCheckout,
+  imageLeft,
+}: ProductSectionProps) {
+  const t = product.theme;
+  const isSelectedLoading = loadingProduct === product.id;
 
   return (
-    <section id="deck" style={{ backgroundColor: C.charcoal }}>
-      <div className="mx-auto max-w-6xl px-6 py-24">
-        {/* Product selector tabs */}
-        <div className="flex gap-8 border-b border-[#DDD5C4]/10 pb-4 mb-12">
-          <button
-            onClick={() => setProductId("swapcards-romantic-couples-digital")}
-            style={{
-              ...fontUI,
-              color: isCouples ? C.gold : C.mute,
-              borderBottom: isCouples ? `2px solid ${C.gold}` : "none",
-            }}
-            className="pb-2 text-sm uppercase tracking-[0.2em] font-sans focus:outline-none transition-all"
-          >
-            Romantic Couples Deck
-          </button>
-          <button
-            onClick={() => setProductId("swapcards-parenting-deck-digital")}
-            style={{
-              ...fontUI,
-              color: !isCouples ? C.gold : C.mute,
-              borderBottom: !isCouples ? `2px solid ${C.gold}` : "none",
-            }}
-            className="pb-2 text-sm uppercase tracking-[0.2em] font-sans focus:outline-none transition-all"
-          >
-            The Parenting Deck
-          </button>
+    <section id={product.id} style={{ backgroundColor: t.bg, color: t.text }} className="w-full border-b border-[#DDD5C4]/10">
+      <div className="mx-auto max-w-6xl px-6 py-20 grid gap-12 md:grid-cols-5 md:items-center">
+        {/* Left/Right dynamic order layout */}
+        <div className={`md:col-span-2 ${imageLeft ? "md:order-1" : "md:order-2"} flex justify-center`}>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full max-w-[340px] md:max-w-none h-auto rounded-lg shadow-2xl object-cover"
+            style={{ border: `1px solid ${t.accent}15` }}
+          />
         </div>
 
-        <div className="grid gap-16 md:grid-cols-5">
-          {/* Left: tier strip */}
-          <div className="md:col-span-2 flex flex-col gap-3">
-            {tiers.map(([label, accent, bg, txt]) => (
-              <div
-                key={label}
-                style={{ backgroundColor: bg }}
-                className="p-6 flex items-center justify-between"
-              >
-                <span style={{ ...fontUI, color: accent }} className="text-[0.65rem] uppercase tracking-[0.25em]">
-                  {label}
-                </span>
-                <span style={{ ...fontAccent, color: txt }} className="text-sm opacity-70">
-                  13 cards
-                </span>
-              </div>
-            ))}
-            <p style={{ ...fontAccent, color: C.mute }} className="mt-3 text-base">
-              The colours deepen as the questions do.
-            </p>
-          </div>
+        {/* Copy/Form column */}
+        <div className={`md:col-span-3 ${imageLeft ? "md:order-2" : "md:order-1"} space-y-6`}>
+          <span
+            style={{ color: t.accent, borderColor: t.accent }}
+            className="inline-block rounded-full border px-3 py-1 text-[0.6rem] uppercase tracking-[0.2em]"
+          >
+            Available now — Digital {product.kind}
+          </span>
+          
+          <h2 style={fontDisplay} className="text-4xl md:text-5xl leading-tight">
+            {product.name}
+          </h2>
+          
+          <p style={fontUI} className="text-base md:text-lg leading-relaxed opacity-90 max-w-xl">
+            {product.description}
+          </p>
 
-          {/* Right: offer */}
-          <div className="md:col-span-3">
-            <Pill color={C.gold}>Available now — Digital deck</Pill>
-            <h2 style={{ ...fontDisplay, color: C.ivory }} className="mt-6 text-5xl leading-tight">
-              {deckTitle} <em style={{ ...fontAccent, color: C.terra }}>Deck.</em>
-            </h2>
-            <p style={{ ...fontUI, color: C.ivory }} className="mt-6 text-lg leading-relaxed opacity-85 max-w-xl">
-              {deckDescription}
-            </p>
-
-          <ul className="mt-8 space-y-3 max-w-xl">
-            {features.map((t) => (
-              <li key={t} className="flex gap-3 items-baseline">
-                <span style={{ color: C.terra }}>—</span>
-                <span style={{ ...fontUI, color: C.ivory }} className="opacity-85">{t}</span>
+          <ul className="space-y-2.5 max-w-xl">
+            {product.features.map((feat) => (
+              <li key={feat} className="flex gap-2.5 items-baseline text-sm md:text-base">
+                <span style={{ color: t.accent }}>—</span>
+                <span style={fontUI} className="opacity-90">{feat}</span>
               </li>
             ))}
           </ul>
 
-          <div style={{ backgroundColor: C.charcoal2 }} className="mt-10 p-8 max-w-xl">
-            <p style={{ ...fontUI, color: C.gold }} className="text-xs uppercase tracking-[0.3em]">
-              The Founding 100
+          <div style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }} className="p-6 md:p-8 max-w-xl rounded">
+            <p style={{ color: t.accent }} className="text-xs uppercase tracking-[0.3em] font-sans">
+              Digital Delivery
             </p>
-            <p style={{ ...fontDisplay, color: C.ivory }} className="mt-3 text-5xl">
-              R{(PRICE_CENTS / 100).toFixed(0)}{" "}
-              <span style={{ ...fontAccent, color: C.mute }} className="text-xl">
-                first 100 couples · R250 thereafter
+            <p style={fontDisplay} className="mt-3 text-4xl md:text-5xl">
+              R{(product.priceCents / 100).toFixed(0)}{" "}
+              <span style={{ color: t.accent }} className="text-xs font-sans block mt-1.5 opacity-70 tracking-normal normal-case font-normal">
+                Instant download &middot; Lifetime access
               </span>
             </p>
 
-            {/* Email form to deliver the deck */}
             <div className="mt-6 space-y-4">
               <div>
-                <label className="block text-xs uppercase tracking-[0.2em] text-[#8A8378] mb-2" style={fontUI}>
-                  Email Address (For Secure Deck Delivery)
+                <label className="block text-[10px] uppercase tracking-[0.2em] opacity-60 mb-2 font-sans">
+                  Email Address (For Secure Delivery)
                 </label>
+                {/* Honeypot */}
                 <div style={{ display: "none" }} aria-hidden="true">
                   <input
                     type="text"
@@ -296,46 +468,49 @@ function FeaturedDeck({ email, setEmail, nickname, setNickname, loading, error, 
                   onChange={(e) => setEmail(e.target.value)}
                   maxLength={100}
                   autoComplete="email"
-                  className="w-full bg-[#1B1917] border border-[#8A8378]/30 px-4 py-3.5 text-[#F3EFE6] text-sm focus:outline-none focus:border-[#C6A15B] font-sans"
+                  className="w-full bg-black/20 border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-white/20 font-sans"
+                  style={{ color: t.text }}
                 />
                 {email && email.includes("@") && (
-                  <div style={{ ...fontUI, color: C.mute }} className="text-xs text-left leading-relaxed mt-2 flex items-center gap-1.5 opacity-90 transition-opacity">
-                    <svg className="h-3.5 w-3.5 text-[#C6A15B] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" strokeWidth={2.5} />
+                  <div className="text-[11px] text-left leading-relaxed mt-2 flex items-center gap-1.5 opacity-70 transition-opacity">
+                    <svg className="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: t.accent }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <span>Files will be delivered to: <strong className="text-[#F3EFE6] font-mono break-all">{email}</strong></span>
+                    <span>Sent to: <strong className="font-mono break-all" style={{ color: t.text }}>{email}</strong></span>
                   </div>
                 )}
               </div>
 
-              {error && <p className="text-sm text-red-400 font-sans">{error}</p>}
+              {error && <p className="text-xs text-red-400 font-sans">{error}</p>}
 
-              {/* YOCO CHECKOUT — wired to site's existing Yoco flow */}
               <button
-                onClick={onCheckout}
-                disabled={loading}
-                style={{ ...fontUI, backgroundColor: C.terraDeep, color: C.ivory }}
-                className="w-full flex items-center justify-center gap-2 py-4 text-base tracking-wide transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => onCheckout(product.id)}
+                disabled={loadingProduct !== null}
+                style={{
+                  ...fontUI,
+                  backgroundColor: t.buttonBg,
+                  color: t.buttonText,
+                }}
+                className="w-full flex items-center justify-center gap-2 py-4 text-xs font-bold tracking-widest transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed uppercase rounded"
               >
-                {loading ? (
+                {isSelectedLoading ? (
                   <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" style={{ color: t.buttonText }}>
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
                     Redirecting to Yoco...
                   </span>
                 ) : (
-                  `Get the deck — R${(PRICE_CENTS / 100).toFixed(0)}`
+                  `Get the ${product.kind} — R${(product.priceCents / 100).toFixed(0)}`
                 )}
               </button>
             </div>
-            <p style={{ ...fontUI, color: C.mute }} className="mt-4 text-sm">
-              Secure checkout with Yoco · Instant download · @do.lovebetter
+            <p style={{ color: t.accent }} className="mt-4 text-[10px] opacity-70">
+              Secure checkout with Yoco &middot; PDF Download &middot; @do.lovebetter
             </p>
           </div>
         </div>
-      </div>
       </div>
     </section>
   );
@@ -353,10 +528,10 @@ function ComingSoon() {
   ];
 
   return (
-    <section style={{ backgroundColor: C.ivory }}>
-      <div className="mx-auto max-w-6xl px-6 py-24">
+    <section style={{ backgroundColor: C.ivory }} className="border-t border-[#DDD5C4]">
+      <div className="mx-auto max-w-6xl px-6 py-20">
         <Pill>On the press</Pill>
-        <h2 style={{ ...fontDisplay, color: C.charcoal }} className="mt-6 text-5xl">
+        <h2 style={{ ...fontDisplay, color: C.charcoal }} className="mt-6 text-4xl md:text-5xl">
           More is <em style={{ ...fontAccent, color: C.terraDeep }}>coming.</em>
         </h2>
 
@@ -415,35 +590,55 @@ function StoreFooter() {
 /* ---------- success screen ---------- */
 interface SuccessViewProps {
   checkoutId: string;
+  productId: string;
 }
 
-function SuccessView({ checkoutId }: SuccessViewProps) {
+function SuccessView({ checkoutId, productId }: SuccessViewProps) {
+  const isEbook = productId === "ebook-second-child";
+  const isParenting = productId === "swapcards-parenting-deck-digital";
+  
+  let accentColor = C.terra;
+  let titleNoun = "cards";
+  let productLabel = "Romantic Couples Deck";
+  
+  if (isEbook) {
+    accentColor = "#E89D66";
+    titleNoun = "ebook";
+    productLabel = "The Second Child Ebook";
+  } else if (isParenting) {
+    accentColor = "#F5C89E";
+    titleNoun = "parenting cards";
+    productLabel = "The Parenting Deck";
+  }
+
   return (
     <section style={{ backgroundColor: C.charcoal }} className="min-h-[80vh] flex items-center justify-center py-20 px-6">
-      <div style={{ backgroundColor: C.charcoal2 }} className="p-10 max-w-2xl text-center space-y-6 border border-[#DDD5C4]/10 shadow-2xl">
+      <div style={{ backgroundColor: C.charcoal2 }} className="p-10 max-w-2xl text-center space-y-6 border border-[#DDD5C4]/10 shadow-2xl rounded">
         <Pill color={C.gold}>Payment Verified</Pill>
         <h2 style={{ ...fontDisplay, color: C.ivory }} className="text-4xl leading-tight">
-          Your cards are <em style={{ ...fontAccent, color: C.terra }}>ready.</em>
+          Your {titleNoun} are <em style={{ ...fontAccent, color: accentColor }}>ready.</em>
         </h2>
         <p style={{ ...fontUI, color: C.ivory }} className="text-sm opacity-80 max-w-md mx-auto leading-relaxed">
-          Thank you for purchasing the Romantic Couples Deck. Your payment has been verified. Download your files below:
+          Thank you for purchasing {productLabel}. Your payment has been verified. Download your files below:
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
           <a
             href={`/.netlify/functions/download-product?id=${checkoutId}&file=pdf`}
-            style={{ ...fontUI, backgroundColor: C.terraDeep, color: C.ivory }}
-            className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center"
+            style={{ ...fontUI, backgroundColor: accentColor, color: C.charcoal }}
+            className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center uppercase"
           >
-            Download Deck PDF
+            Download PDF
           </a>
-          <a
-            href={`/.netlify/functions/download-product?id=${checkoutId}&file=zip`}
-            style={{ ...fontUI, border: `1px solid ${C.terra}`, color: C.terra }}
-            className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center"
-          >
-            Download Story ZIP
-          </a>
+          {!isEbook && (
+            <a
+              href={`/.netlify/functions/download-product?id=${checkoutId}&file=zip`}
+              style={{ ...fontUI, border: `1px solid ${accentColor}`, color: accentColor }}
+              className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center uppercase"
+            >
+              Download Story ZIP
+            </a>
+          )}
         </div>
 
         <p style={{ ...fontUI, color: C.mute }} className="text-xs pt-4">
@@ -454,17 +649,17 @@ function SuccessView({ checkoutId }: SuccessViewProps) {
   );
 }
 
-/* ---------- main page ---------- */
+/* ---------- main store page ---------- */
 export default function StorePage() {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
   const [error, setError] = useState("");
-  const [selectedProductId, setSelectedProductId] = useState("swapcards-romantic-couples-digital");
   
   const [purchaseSuccess, setPurchaseSuccess] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
+  const [purchasedProduct, setPurchasedProduct] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -479,11 +674,13 @@ export default function StorePage() {
           body: JSON.stringify({ checkoutId: id }),
         });
         const valData = await res.json();
-        const validProducts = ["swapcards-romantic-couples-digital", "swapcards-parenting-deck-digital"];
+        const validProducts = Object.keys(PRODUCTS_CONFIG);
         if (res.ok && valData.verified && validProducts.includes(valData.productId)) {
           setPurchaseSuccess(true);
           setCheckoutId(id);
+          setPurchasedProduct(valData.productId);
           sessionStorage.setItem("lb_store_checkout_id", id);
+          sessionStorage.setItem("lb_store_purchased_product", valData.productId);
         }
       } catch (err) {
         console.error("Verification failed", err);
@@ -498,14 +695,16 @@ export default function StorePage() {
       verifySuccess(cid);
     } else {
       const savedCid = sessionStorage.getItem("lb_store_checkout_id");
-      if (savedCid) {
+      const savedProd = sessionStorage.getItem("lb_store_purchased_product");
+      if (savedCid && savedProd) {
         setPurchaseSuccess(true);
         setCheckoutId(savedCid);
+        setPurchasedProduct(savedProd);
       }
     }
   }, []);
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (prodId: string) => {
     if (nickname) {
       console.warn("Honeypot filled.");
       return;
@@ -521,7 +720,7 @@ export default function StorePage() {
       return;
     }
 
-    setLoading(true);
+    setLoadingProduct(prodId);
     setError("");
 
     try {
@@ -529,8 +728,8 @@ export default function StorePage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          productId: selectedProductId,
-          amountInCents: PRICE_CENTS,
+          productId: prodId,
+          amountInCents: PRODUCTS_CONFIG[prodId as keyof typeof PRODUCTS_CONFIG].priceCents,
           email: email,
           name: "Store Customer",
           phone: "",
@@ -547,11 +746,11 @@ export default function StorePage() {
         window.location.href = verifyData.redirectUrl;
       } else {
         setError(verifyData.error || "Failed to initiate payment. Please try again.");
-        setLoading(false);
+        setLoadingProduct(null);
       }
     } catch (err) {
       setError("Payment initiation failed. Please try again.");
-      setLoading(false);
+      setLoadingProduct(null);
     }
   };
 
@@ -570,23 +769,51 @@ export default function StorePage() {
   }
 
   return (
-    <main>
+    <main className="bg-[#F3EFE6] min-h-screen text-slate-800">
       <StoreHeader />
       {purchaseSuccess && checkoutId ? (
-        <SuccessView checkoutId={checkoutId} />
+        <SuccessView checkoutId={checkoutId} productId={purchasedProduct} />
       ) : (
         <>
-          <Hero />
-          <FeaturedDeck 
+          <HeroSection />
+          
+          {/* Parenting Deck - Burnt Orange Plate (Image Left) */}
+          <ProductSection
+            product={PRODUCTS_CONFIG["swapcards-parenting-deck-digital"]}
             email={email}
             setEmail={setEmail}
             nickname={nickname}
             setNickname={setNickname}
-            loading={loading}
+            loadingProduct={loadingProduct}
             error={error}
             onCheckout={handleCheckout}
-            productId={selectedProductId}
-            setProductId={setSelectedProductId}
+            imageLeft={true}
+          />
+
+          {/* The Second Child - Charcoal Plate (Image Right) */}
+          <ProductSection
+            product={PRODUCTS_CONFIG["ebook-second-child"]}
+            email={email}
+            setEmail={setEmail}
+            nickname={nickname}
+            setNickname={setNickname}
+            loadingProduct={loadingProduct}
+            error={error}
+            onCheckout={handleCheckout}
+            imageLeft={false}
+          />
+
+          {/* Romantic Couples Deck - Near-black Plate (Image Left) */}
+          <ProductSection
+            product={PRODUCTS_CONFIG["swapcards-romantic-couples-digital"]}
+            email={email}
+            setEmail={setEmail}
+            nickname={nickname}
+            setNickname={setNickname}
+            loadingProduct={loadingProduct}
+            error={error}
+            onCheckout={handleCheckout}
+            imageLeft={true}
           />
         </>
       )}
