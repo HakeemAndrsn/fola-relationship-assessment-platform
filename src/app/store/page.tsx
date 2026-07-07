@@ -175,36 +175,12 @@ function HeroSection() {
 
   const cards = [
     {
-      id: "parenting-preview-3",
-      frontImage: "/store/parenting-card-preview-3.png",
-      backBg: "#A64516",
-      targetId: "swapcards-parenting-deck-digital",
-      label: "Parenting Preview 3",
-      initialRotation: -5,
-    },
-    {
-      id: "parenting-preview-2",
-      frontImage: "/store/parenting-card-preview-2.png",
-      backBg: "#33383F",
-      targetId: "swapcards-parenting-deck-digital",
-      label: "Parenting Preview 2",
-      initialRotation: 4,
-    },
-    {
-      id: "parenting-preview-1",
-      frontImage: "/store/parenting-card-preview-1.png",
-      backBg: "#A64516",
-      targetId: "swapcards-parenting-deck-digital",
-      label: "Parenting Preview 1",
-      initialRotation: -2,
-    },
-    {
       id: "couples-cover",
       frontImage: "/store/lb-digital-box-deck.png",
       backBg: "#1B1917",
       targetId: "swapcards-romantic-couples-digital",
       label: "Romantic Couples Deck Cover",
-      initialRotation: 3,
+      initialRotation: -3,
     },
     {
       id: "parenting-cover",
@@ -212,7 +188,7 @@ function HeroSection() {
       backBg: "#A64516",
       targetId: "swapcards-parenting-deck-digital",
       label: "The Parenting Deck Cover",
-      initialRotation: 1,
+      initialRotation: 3,
       isTop: true,
     }
   ];
