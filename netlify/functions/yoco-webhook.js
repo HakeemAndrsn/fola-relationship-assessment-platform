@@ -88,7 +88,7 @@ exports.handler = async (event) => {
       if (yocoRes.ok) {
         const yocoData = await yocoRes.json();
         metadata = yocoData.metadata || {};
-        isSuccessful = yocoData.status === "successful" || yocoData.status === "captured" || yocoData.status === "approved";
+        isSuccessful = yocoData.status === "successful" || yocoData.status === "captured" || yocoData.status === "approved" || yocoData.status === "completed";
         console.log("Yoco payment verification status:", yocoData.status);
 
         const resolvedCheckoutId = yocoData.checkout_id || yocoData.checkoutId;
@@ -166,11 +166,11 @@ exports.handler = async (event) => {
             <a href="${product.link}" target="_blank" class="btn">Download Your Files</a>
           </div>
 
-          <p>This download link will remain active. If you need any support or have questions, please reach out to us at fola@fola.co.za.</p>
+          <p>This download link will remain active. If you need any support or have questions, please reach out to us at decks@fola.co.za.</p>
           
           <div class="footer">
             <p>LOVEBETTER by FOLA &middot; Hazelwood, Tshwane</p>
-            <p>If you did not request this email, please contact fola@fola.co.za.</p>
+            <p>If you did not request this email, please contact decks@fola.co.za.</p>
           </div>
         </div>
       </body>
@@ -186,7 +186,8 @@ exports.handler = async (event) => {
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        sender: { name: "LOVEBETTER by FOLA", email: "delivery@lovebetter.co.za" },
+        sender: { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" },
+        replyTo: { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" },
         to: [{ email: customerEmail, name: customerName || "Customer" }],
         subject: `Your LOVEBETTER ${product.name} is ready for download`,
         htmlContent: htmlContent
@@ -224,7 +225,7 @@ exports.handler = async (event) => {
           fields: {
             name: customerName || "Store Customer",
             product_purchased: productLabel,
-            purchase_amount: "R10"
+            purchase_amount: "R200"
           }
         }),
       }).catch(e => console.error("MailerLite webhook sync error:", e));

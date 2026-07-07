@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 /* ---------- price & product metadata ---------- */
-const PRICE_CENTS = 1000; // Founding 100 price (R200). Change to 25000 (R250) after 100 sales.
+const PRICE_CENTS = 20000; // Founding 100 price (R200). Change to 25000 (R250) after 100 sales.
 const PRODUCT_ID = "swapcards-romantic-couples-digital";
 
 /* ---------- palette (plate ID) ---------- */
@@ -153,58 +153,107 @@ interface FeaturedDeckProps {
   loading: boolean;
   error: string;
   onCheckout: () => void;
+  productId: string;
+  setProductId: (val: string) => void;
 }
 
-function FeaturedDeck({ email, setEmail, nickname, setNickname, loading, error, onCheckout }: FeaturedDeckProps) {
-  const tiers = [
+function FeaturedDeck({ email, setEmail, nickname, setNickname, loading, error, onCheckout, productId, setProductId }: FeaturedDeckProps) {
+  const couplesTiers = [
     ["01 — Warm Up", C.terra, C.ivory, C.charcoal],
     ["02 — How We Work", C.terraDeep, C.sand, C.charcoal],
     ["03 — The Inner Rooms", "#D9A38A", C.burgundy, C.ivory],
     ["04 — Where We're Going", C.terra, C.charcoal, C.ivory],
   ];
 
+  const parentingTiers = [
+    ["01 — Early Stages", C.terra, C.ivory, C.charcoal],
+    ["02 — The Infrastructure", C.terraDeep, C.sand, C.charcoal],
+    ["03 — Reconnecting", "#D9A38A", C.burgundy, C.ivory],
+    ["04 — The Vision", C.terra, C.charcoal, C.ivory],
+  ];
+
+  const tiers = productId === "swapcards-romantic-couples-digital" ? couplesTiers : parentingTiers;
+  const isCouples = productId === "swapcards-romantic-couples-digital";
+  const deckTitle = isCouples ? "The Romantic Couples" : "The Parenting";
+  const deckDescription = isCouples
+    ? "52 questions in four tiers — from playful to profound. Includes the pass rule, a consent pause before the deep tiers, aftercare, and two write-your-own cards. Print at home or play from your phone."
+    : "52 questions to navigate the transition into parenthood, division of labour, early childhood infrastructure, and emotional connection across the generation line. Print at home or play from your phone.";
+
+  const features = isCouples
+    ? [
+        "Instant PDF download — play tonight",
+        "Built by a trauma and hypnotherapy practitioner",
+        "Story-sized card images included for sharing",
+      ]
+    : [
+        "Instant PDF download — play tonight",
+        "Covers childcare, division of labour, and intimacy",
+        "Includes NLP integration guidelines for parents",
+      ];
+
   return (
     <section id="deck" style={{ backgroundColor: C.charcoal }}>
-      <div className="mx-auto max-w-6xl px-6 py-24 grid gap-16 md:grid-cols-5">
-        {/* Left: tier strip */}
-        <div className="md:col-span-2 flex flex-col gap-3">
-          {tiers.map(([label, accent, bg, txt]) => (
-            <div
-              key={label}
-              style={{ backgroundColor: bg }}
-              className="p-6 flex items-center justify-between"
-            >
-              <span style={{ ...fontUI, color: accent }} className="text-[0.65rem] uppercase tracking-[0.25em]">
-                {label}
-              </span>
-              <span style={{ ...fontAccent, color: txt }} className="text-sm opacity-70">
-                13 cards
-              </span>
-            </div>
-          ))}
-          <p style={{ ...fontAccent, color: C.mute }} className="mt-3 text-base">
-            The colours deepen as the questions do.
-          </p>
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        {/* Product selector tabs */}
+        <div className="flex gap-8 border-b border-[#DDD5C4]/10 pb-4 mb-12">
+          <button
+            onClick={() => setProductId("swapcards-romantic-couples-digital")}
+            style={{
+              ...fontUI,
+              color: isCouples ? C.gold : C.mute,
+              borderBottom: isCouples ? `2px solid ${C.gold}` : "none",
+            }}
+            className="pb-2 text-sm uppercase tracking-[0.2em] font-sans focus:outline-none transition-all"
+          >
+            Romantic Couples Deck
+          </button>
+          <button
+            onClick={() => setProductId("swapcards-parenting-deck-digital")}
+            style={{
+              ...fontUI,
+              color: !isCouples ? C.gold : C.mute,
+              borderBottom: !isCouples ? `2px solid ${C.gold}` : "none",
+            }}
+            className="pb-2 text-sm uppercase tracking-[0.2em] font-sans focus:outline-none transition-all"
+          >
+            The Parenting Deck
+          </button>
         </div>
 
-        {/* Right: offer */}
-        <div className="md:col-span-3">
-          <Pill color={C.gold}>Available now — Digital deck</Pill>
-          <h2 style={{ ...fontDisplay, color: C.ivory }} className="mt-6 text-5xl leading-tight">
-            The Romantic Couples <em style={{ ...fontAccent, color: C.terra }}>Deck.</em>
-          </h2>
-          <p style={{ ...fontUI, color: C.ivory }} className="mt-6 text-lg leading-relaxed opacity-85 max-w-xl">
-            52 questions in four tiers — from playful to profound. Includes the
-            pass rule, a consent pause before the deep tiers, aftercare, and two
-            write-your-own cards. Print at home or play from your phone.
-          </p>
+        <div className="grid gap-16 md:grid-cols-5">
+          {/* Left: tier strip */}
+          <div className="md:col-span-2 flex flex-col gap-3">
+            {tiers.map(([label, accent, bg, txt]) => (
+              <div
+                key={label}
+                style={{ backgroundColor: bg }}
+                className="p-6 flex items-center justify-between"
+              >
+                <span style={{ ...fontUI, color: accent }} className="text-[0.65rem] uppercase tracking-[0.25em]">
+                  {label}
+                </span>
+                <span style={{ ...fontAccent, color: txt }} className="text-sm opacity-70">
+                  13 cards
+                </span>
+              </div>
+            ))}
+            <p style={{ ...fontAccent, color: C.mute }} className="mt-3 text-base">
+              The colours deepen as the questions do.
+            </p>
+          </div>
+
+          {/* Right: offer */}
+          <div className="md:col-span-3">
+            <Pill color={C.gold}>Available now — Digital deck</Pill>
+            <h2 style={{ ...fontDisplay, color: C.ivory }} className="mt-6 text-5xl leading-tight">
+              {deckTitle} <em style={{ ...fontAccent, color: C.terra }}>Deck.</em>
+            </h2>
+            <p style={{ ...fontUI, color: C.ivory }} className="mt-6 text-lg leading-relaxed opacity-85 max-w-xl">
+              {deckDescription}
+            </p>
 
           <ul className="mt-8 space-y-3 max-w-xl">
-            {[
-              "Instant PDF download — play tonight",
-              "Built by a trauma and hypnotherapy practitioner",
-              "Story-sized card images included for sharing",
-            ].map((t) => (
+            {features.map((t) => (
               <li key={t} className="flex gap-3 items-baseline">
                 <span style={{ color: C.terra }}>—</span>
                 <span style={{ ...fontUI, color: C.ivory }} className="opacity-85">{t}</span>
@@ -397,7 +446,7 @@ function SuccessView({ checkoutId }: SuccessViewProps) {
         </div>
 
         <p style={{ ...fontUI, color: C.mute }} className="text-xs pt-4">
-          If you experience any issues downloading your files, please contact us directly at <span style={{ color: C.gold }}>fola@fola.co.za</span>.
+          If you experience any issues downloading your files, please contact us directly at <span style={{ color: C.gold }}>decks@fola.co.za</span>.
         </p>
       </div>
     </section>
@@ -410,6 +459,7 @@ export default function StorePage() {
   const [nickname, setNickname] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedProductId, setSelectedProductId] = useState("swapcards-romantic-couples-digital");
   
   const [purchaseSuccess, setPurchaseSuccess] = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -428,7 +478,8 @@ export default function StorePage() {
           body: JSON.stringify({ checkoutId: id }),
         });
         const valData = await res.json();
-        if (res.ok && valData.verified && valData.productId === PRODUCT_ID) {
+        const validProducts = ["swapcards-romantic-couples-digital", "swapcards-parenting-deck-digital"];
+        if (res.ok && valData.verified && validProducts.includes(valData.productId)) {
           setPurchaseSuccess(true);
           setCheckoutId(id);
           sessionStorage.setItem("lb_store_checkout_id", id);
@@ -477,7 +528,7 @@ export default function StorePage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          productId: PRODUCT_ID,
+          productId: selectedProductId,
           amountInCents: PRICE_CENTS,
           email: email,
           name: "Store Customer",
@@ -533,6 +584,8 @@ export default function StorePage() {
             loading={loading}
             error={error}
             onCheckout={handleCheckout}
+            productId={selectedProductId}
+            setProductId={setSelectedProductId}
           />
         </>
       )}

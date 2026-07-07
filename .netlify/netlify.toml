@@ -1,7 +1,7 @@
 functionsDirectory = "/Users/fola/fola-relationship-assessment-platform/netlify/functions"
 functionsDirectoryOrigin = "config"
-headersOrigin = "inline"
-redirectsOrigin = "inline"
+headersOrigin = "config"
+redirectsOrigin = "config"
 
 [build]
 publish = "/Users/fola/fola-relationship-assessment-platform/.next"
@@ -23,9 +23,6 @@ functions = "/Users/fola/fola-relationship-assessment-platform/netlify/functions
 [build.processing.js]
 
 [build.services]
-
-[images]
-remote_images = ["^(?:https:\\/(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$", "^(?:http:\\/(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$"]
 
 [functions]
 
@@ -87,12 +84,6 @@ for = "/store/delivery-x7k2m9*"
 [headers.values]
 X-Robots-Tag = "noindex, nofollow"
 
-[[headers]]
-for = "/_next/static/*"
-
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
 [[redirects]]
 from = "/api/*"
 to = "/.netlify/functions/:splat"
@@ -100,36 +91,6 @@ status = 200.0
 force = false
 
 [redirects.query]
-
-[redirects.conditions]
-
-[redirects.headers]
-
-[[redirects]]
-from = "/_next/image"
-to = "/.netlify/images?url=:url&w=:width&q=:quality"
-status = 200.0
-force = false
-
-[redirects.query]
-url = ":url"
-w = ":width"
-q = ":quality"
-
-[redirects.conditions]
-
-[redirects.headers]
-
-[[redirects]]
-from = "/_ipx/*"
-to = "/.netlify/images?url=:url&w=:width&q=:quality"
-status = 200.0
-force = false
-
-[redirects.query]
-url = ":url"
-w = ":width"
-q = ":quality"
 
 [redirects.conditions]
 
