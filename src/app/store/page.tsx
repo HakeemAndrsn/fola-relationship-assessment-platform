@@ -336,6 +336,7 @@ function FeaturedDeck({ email, setEmail, nickname, setNickname, loading, error, 
           </div>
         </div>
       </div>
+      </div>
     </section>
   );
 }
