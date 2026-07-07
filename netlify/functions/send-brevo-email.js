@@ -129,7 +129,7 @@ exports.handler = async (event) => {
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        sender: { name: "LOVEBETTER by FOLA", email: "delivery@lovebetter.co.za" },
+        sender: { name: "LOVEBETTER by FOLA", email: "sessions@fola.co.za" },
         to: [{ email: customerEmail, name: customerName || "Customer" }],
         subject: `Your LOVEBETTER ${product.name} is ready for download`,
         htmlContent: htmlContent
