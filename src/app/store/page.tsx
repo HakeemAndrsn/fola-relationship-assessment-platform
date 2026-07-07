@@ -9,7 +9,10 @@ const PRODUCTS_CONFIG = {
     id: "swapcards-parenting-deck-digital",
     name: "The Parenting Deck",
     kind: "Swap Cards",
-    description: "52 questions to navigate the transition into parenthood, division of labour, early childhood infrastructure, and emotional connection across the generation line. Print at home or play from your phone.",
+    description: [
+      "52 questions to navigate the transition into parenthood, division of labour, early childhood infrastructure, and emotional connection across the generation line.",
+      "Print at home or play from your phone."
+    ],
     features: [
       "Instant PDF download — play tonight",
       "Covers childcare, division of labour, and intimacy",
@@ -20,7 +23,7 @@ const PRODUCTS_CONFIG = {
       bg: "#A64516",         // Burnt orange plate/band bg
       accent: "#F5C89E",     // Peach accent
       text: "#FDF3E7",       // Cream text
-      textMute: "#F5C89E",
+      textMute: "#FDF3E7/70",
       buttonBg: "#F5C89E",
       buttonText: "#A64516",
     },
@@ -30,18 +33,25 @@ const PRODUCTS_CONFIG = {
     id: "ebook-second-child",
     name: "The Second Child",
     kind: "Ebook",
-    description: "A field guide to transitioning from one child to two. Navigating maternal overwhelm, sibling adjustment, and partner alignment without losing the marriage.",
+    description: [
+      "How your childhood parents your children — and what the work of interrupting it looks like.",
+      "There are two children in your house. One of them you can see — you know their shoe size, their cry, their favourite cereal. The other one is you, at seven, still waiting in a kitchen that no longer exists for a sentence nobody said.",
+      "Every parent raises both children at once. Most can't tell which one is crying.",
+      "The Second Child is the companion to The Parenting Deck — and a book that stands on its own. Written by trauma and hypnotherapy practitioner Hakeem Lesolang, it answers all 52 of the deck's questions through the four engines that drive every inherited pattern: reenactment, overcorrection, the child as audience, and provision as love. The banned sentence that surfaces when you're tired. The gifts addressed to a child who isn't in the room. The rules protecting a door that closed thirty years ago. Each question gets its mechanics — how the pattern was installed, how it runs — and one practical interruption you can use this week, in a real kitchen, on a real Tuesday.",
+      "This is not a book about becoming a perfect parent. That parent doesn't exist and never has. It's about becoming an interrupting one — because the difference between the homes that build people and the homes that build patients was never the absence of wounds. It's whether the wounds are still doing the parenting.",
+      "You were somebody's child before you were anybody's parent. Start there."
+    ],
     features: [
-      "Instant PDF download — read tonight",
-      "Practical exercises for parental alignment",
-      "Written by a family-centric hypnotherapist",
+      "67 pages · Delivered instantly · PDF edition",
+      "Companion to The Parenting Deck",
+      "Practical interruptions for inherited patterns",
     ],
     priceCents: 20000,
     theme: {
       bg: "#33383F",         // Charcoal plate/band bg
       accent: "#E89D66",     // Peach accent
       text: "#FDF3E7",       // Cream text
-      textMute: "#E89D66",
+      textMute: "#FDF3E7/70",
       buttonBg: "#E89D66",
       buttonText: "#33383F",
     },
@@ -51,7 +61,10 @@ const PRODUCTS_CONFIG = {
     id: "swapcards-romantic-couples-digital",
     name: "The Romantic Couples Deck",
     kind: "Swap Cards",
-    description: "52 questions in four tiers — from playful to profound. Includes the pass rule, a consent pause before the deep tiers, aftercare, and two write-your-own cards. Print at home or play from your phone.",
+    description: [
+      "52 questions in four tiers — from playful to profound. Includes the pass rule, a consent pause before the deep tiers, aftercare, and two write-your-own cards.",
+      "Print at home or play from your phone."
+    ],
     features: [
       "Instant PDF download — play tonight",
       "Built by a trauma and hypnotherapy practitioner",
@@ -420,9 +433,21 @@ function ProductSection({
             {product.name}
           </h2>
           
-          <p style={fontUI} className="text-base md:text-lg leading-relaxed opacity-90 max-w-xl">
-            {product.description}
-          </p>
+          {/* Multi-paragraph description handler */}
+          <div style={fontUI} className="text-base md:text-lg leading-relaxed opacity-90 max-w-xl space-y-4">
+            {product.description.map((paragraph, idx) => {
+              const isSubheading = product.id === "ebook-second-child" && idx === 0;
+              return (
+                <p 
+                  key={idx} 
+                  className={isSubheading ? "text-xl md:text-2xl font-serif italic text-white font-semibold mb-6 block" : ""}
+                  style={isSubheading ? fontAccent : {}}
+                >
+                  {paragraph}
+                </p>
+              );
+            })}
+          </div>
 
           <ul className="space-y-2.5 max-w-xl">
             {product.features.map((feat) => (
