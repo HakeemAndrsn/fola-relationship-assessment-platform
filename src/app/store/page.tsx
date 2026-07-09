@@ -79,7 +79,7 @@ const PRODUCTS_CONFIG = {
     features: [
       "19 pages · Scored reflections · Instant delivery",
     ],
-    priceCents: 18000,
+    priceCents: 1000,
     theme: {
       bg: "#6A1F2C",         // Burgundy plate bg
       accent: "#EACEAA",     // Peach/gold accent
