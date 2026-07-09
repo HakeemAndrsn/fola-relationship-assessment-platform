@@ -79,7 +79,7 @@ const PRODUCTS_CONFIG = {
     features: [
       "19 pages · Scored reflections · Instant delivery",
     ],
-    priceCents: 1000,
+    priceCents: 18000,
     theme: {
       bg: "#6A1F2C",         // Burgundy plate bg
       accent: "#EACEAA",     // Peach/gold accent
@@ -88,8 +88,9 @@ const PRODUCTS_CONFIG = {
       buttonBg: "#EACEAA",
       buttonText: "#6A1F2C",
     },
-    image: "/store/quiet-load-cover.png",
+    image: "/store/The-quiet-load-mockup.png",
     previews: [
+      "/store/The-quiet-load-mockup.png",
       "/store/quiet-load-cover.png",
       "/store/quiet-load-preview-1.png",
       "/store/quiet-load-preview-2.png"
