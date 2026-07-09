@@ -3,20 +3,57 @@
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
+/* ---------- Google Drive product links (Ebooks) ---------- */
+const GOOGLE_DRIVE_PARENTING_DECK = "https://drive.google.com/file/d/1MeaeyBnAKoN7wdhlebiDu4zOEb8x3Vci/view?usp=drive_link";
+const GOOGLE_DRIVE_SECOND_CHILD_EBOOK = "https://drive.google.com/file/d/1hFJl3X291e9z_iLkIJCxLfeAwELOJOKl/view?usp=drive_link";
+const GOOGLE_DRIVE_QUIET_LOAD = "https://drive.google.com/file/d/1p1it2CEvnekZmUwDLZKFInc5TJlwLG57/view?usp=drive_link";
+
 /* ---------- Products Configuration and Theme System ---------- */
 const PRODUCTS_CONFIG = {
+  "swapcards-romantic-couples-digital": {
+    id: "swapcards-romantic-couples-digital",
+    name: "The Romantic Couples Deck",
+    kind: "Swap Cards",
+    description: [
+      "Questions that do what small talk can't.",
+      "It's a Tuesday night. The plates are cleared, the phones are down, and one card sits between you. Some questions on it are easy. Some are the ones you've been circling for years.",
+      "This deck knows some questions open doors. So it's built with exits — a pass rule, a pause before the deep water, and aftercare for what surfaces."
+    ],
+    features: [
+      "Instant PDF download — play tonight",
+      "Built by a trauma and hypnotherapy practitioner",
+      "Story-sized card images included for sharing — share a card to your story and tag @do.lovebetter",
+      "52 questions in four tiers (playful to profound)"
+    ],
+    priceCents: 20000,
+    theme: {
+      bg: "#1B1917",         // Near-black plate/band bg
+      accent: "#C1795A",     // Coral accent
+      text: "#F3EFE6",       // Cream text
+      textMute: "#8A8378",
+      buttonBg: "#C1795A",
+      buttonText: "#1B1917",
+    },
+    image: "/store/lb-digital-box-deck.png",
+    previews: [
+      "/store/lb-digital-box-deck.png",
+      "/store/LB Deck 1.png",
+      "/store/LB Deck 2.png"
+    ]
+  },
   "swapcards-parenting-deck-digital": {
     id: "swapcards-parenting-deck-digital",
     name: "The Parenting Deck",
     kind: "Swap Cards",
     description: [
-      "52 questions to navigate the transition into parenthood, division of labour, early childhood infrastructure, and emotional connection across the generation line.",
+      "A tool for a household under load.",
+      "52 questions to navigate the transition into parenthood, division of labour, the systems that keep a small human alive, and emotional connection across the generation line.",
       "Print at home or play from your phone."
     ],
     features: [
       "Instant PDF download — play tonight",
       "Covers childcare, division of labour, and intimacy",
-      "Includes NLP integration guidelines for parents",
+      "Includes guidance on how to actually use what comes up — not just ask the question and move on"
     ],
     priceCents: 20000,
     theme: {
@@ -42,15 +79,10 @@ const PRODUCTS_CONFIG = {
     description: [
       "How your childhood parents your children — and what the work of interrupting it looks like.",
       "There are two children in your house. One of them you can see — you know their shoe size, their cry, their favourite cereal. The other one is you, at seven, still waiting in a kitchen that no longer exists for a sentence nobody said.",
-      "Every parent raises both children at once. Most can't tell which one is crying.",
-      "The Second Child is the companion to The Parenting Deck — and a book that stands on its own. Written by trauma and hypnotherapy practitioner Hakeem Lesolang, it answers all 52 of the deck's questions through the four engines that drive every inherited pattern: reenactment, overcorrection, the child as audience, and provision as love. The banned sentence that surfaces when you're tired. The gifts addressed to a child who isn't in the room. The rules protecting a door that closed thirty years ago. Each question gets its mechanics — how the pattern was installed, how it runs — and one practical interruption you can use this week, in a real kitchen, on a real Tuesday.",
-      "This is not a book about becoming a perfect parent. That parent doesn't exist and never has. It's about becoming an interrupting one — because the difference between the homes that build people and the homes that build patients was never the absence of wounds. It's whether the wounds are still doing the parenting.",
       "You were somebody's child before you were anybody's parent. Start there."
     ],
     features: [
-      "67 pages · Delivered instantly · PDF edition",
-      "Companion to The Parenting Deck",
-      "Practical interruptions for inherited patterns",
+      "Companion to The Parenting Deck · Delivered instantly · PDF edition"
     ],
     priceCents: 20000,
     theme: {
@@ -64,7 +96,7 @@ const PRODUCTS_CONFIG = {
     image: "/store/second-child-cover.png",
     previews: [
       "/store/second-child-cover.png",
-      "/store/Cozy ebook Poster for parents.png",
+      "/store/second-child-sample.png",
       "/store/Cozy ebook launch for parents.png"
     ]
   },
@@ -73,11 +105,12 @@ const PRODUCTS_CONFIG = {
     name: "The Quiet Load",
     kind: "Ebook",
     description: [
-      "A field guide to what men actually carry — and what it takes to actually hold it",
-      "Men talk. Their disclosure just arrives without drama, so it gets filed by you instead of heard. The Quiet Load is a field guide to what men actually carry — five chapters, five scored inventories, and a translation layer for the words couples keep fighting over. Your total tells you where the work is. Delivered instantly."
+      "A field guide to what men actually carry — whether you're the one carrying it or the one living beside it.",
+      "Men talk. Their disclosure just arrives without drama, so it gets filed by you instead of heard. The Quiet Load is a field guide to what men actually carry — five chapters, five scored inventories, and a translation layer for the words couples keep fighting over. Your total tells you where the work is. Delivered instantly.",
+      "Most men do not have a language for their exhaustion; they only have a language for their anger. This guide is the translation layer for the silence that pools in the corners of a marriage. It is for the partner who wants to understand the quiet retreat, and for the man who is tired of being the only one holding up a wall he never asked to build."
     ],
     features: [
-      "19 pages · Scored reflections · Instant delivery",
+      "5 scored inventories · translation layer · instant delivery"
     ],
     priceCents: 18000,
     theme: {
@@ -94,35 +127,6 @@ const PRODUCTS_CONFIG = {
       "/store/quiet-load-cover.png",
       "/store/quiet-load-preview-1.png",
       "/store/quiet-load-preview-2.png"
-    ]
-  },
-  "swapcards-romantic-couples-digital": {
-    id: "swapcards-romantic-couples-digital",
-    name: "The Romantic Couples Deck",
-    kind: "Swap Cards",
-    description: [
-      "52 questions in four tiers — from playful to profound. Includes the pass rule, a consent pause before the deep tiers, aftercare, and two write-your-own cards.",
-      "Print at home or play from your phone."
-    ],
-    features: [
-      "Instant PDF download — play tonight",
-      "Built by a trauma and hypnotherapy practitioner",
-      "Story-sized card images included for sharing",
-    ],
-    priceCents: 20000,
-    theme: {
-      bg: "#1B1917",         // Near-black plate/band bg
-      accent: "#C1795A",     // Coral accent
-      text: "#F3EFE6",       // Cream text
-      textMute: "#8A8378",
-      buttonBg: "#C1795A",
-      buttonText: "#1B1917",
-    },
-    image: "/store/lb-digital-box-deck.png",
-    previews: [
-      "/store/lb-digital-box-deck.png",
-      "/store/LB Deck 1.png",
-      "/store/LB Deck 2.png"
     ]
   }
 };
@@ -161,7 +165,7 @@ function StoreHeader() {
       <div style={{ backgroundColor: C.charcoal }} className="text-center py-2.5 px-4">
         <p style={{ ...fontUI, color: C.ivory }} className="text-xs tracking-[0.18em] uppercase">
           The Founding 100 — first 100 couples get the deck at{" "}
-          <span style={{ color: C.gold }}>R200</span>
+          <span style={{ color: C.gold }}>R200</span> (reverts to R250)
         </p>
       </div>
 
@@ -196,7 +200,7 @@ function StoreHeader() {
           </div>
 
           <a
-            href="#swapcards-parenting-deck-digital"
+            href="#swapcards-romantic-couples-digital"
             style={{ ...fontUI, backgroundColor: C.charcoal, color: C.ivory }}
             className="px-6 py-3 text-sm tracking-wide transition-opacity hover:opacity-90 uppercase tracking-widest text-[0.7rem] font-bold"
           >
@@ -257,6 +261,12 @@ function HeroSection() {
           {/* Anchor Links */}
           <div className="flex flex-wrap gap-3 pt-2">
             <a
+              href="#swapcards-romantic-couples-digital"
+              className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#1B1917]/20 text-[#1B1917] hover:bg-[#1B1917]/5 transition-colors"
+            >
+              Couples Deck ↓
+            </a>
+            <a
               href="#swapcards-parenting-deck-digital"
               className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#A64516]/20 text-[#A64516] hover:bg-[#A64516]/5 transition-colors"
             >
@@ -267,12 +277,6 @@ function HeroSection() {
               className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#33383F]/20 text-[#33383F] hover:bg-[#33383F]/5 transition-colors"
             >
               The Reading Room ↓
-            </a>
-            <a
-              href="#swapcards-romantic-couples-digital"
-              className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#1B1917]/20 text-[#1B1917] hover:bg-[#1B1917]/5 transition-colors"
-            >
-              Couples Deck ↓
             </a>
           </div>
         </div>
@@ -456,7 +460,7 @@ function ProductSection({
           {/* Multi-paragraph description handler */}
           <div style={fontUI} className="text-base md:text-lg leading-relaxed opacity-90 max-w-xl space-y-4">
             {product.description.map((paragraph, idx) => {
-              const isSubheading = product.id === "ebook-second-child" && idx === 0;
+              const isSubheading = idx === 0;
               return (
                 <p 
                   key={idx} 
@@ -472,7 +476,7 @@ function ProductSection({
           <ul className="space-y-2.5 max-w-xl">
             {product.features.map((feat) => (
               <li key={feat} className="flex gap-2.5 items-baseline text-sm md:text-base">
-                <span style={{ color: t.accent }}>—</span>
+                <span style={{ color: t.accent }} className="mr-1.5">—</span>
                 <span style={fontUI} className="opacity-90">{feat}</span>
               </li>
             ))}
@@ -483,10 +487,22 @@ function ProductSection({
               Digital Delivery
             </p>
             <p style={fontDisplay} className="mt-3 text-4xl md:text-5xl">
-              R{(product.priceCents / 100).toFixed(0)}{" "}
-              <span style={{ color: t.accent }} className="text-xs font-sans block mt-1.5 opacity-70 tracking-normal normal-case font-normal">
-                Instant download &middot; Lifetime access
-              </span>
+              {product.id === "swapcards-romantic-couples-digital" ? (
+                <>
+                  <span className="line-through opacity-50 text-2xl md:text-3xl mr-3">R250</span>
+                  <span>R{(product.priceCents / 100).toFixed(0)}</span>
+                  <span style={{ color: t.accent }} className="text-xs font-sans block mt-2 opacity-90 tracking-wide font-semibold uppercase">
+                    Founding 100 pricing — reverts to R250 when they're gone
+                  </span>
+                </>
+              ) : (
+                <>
+                  R{(product.priceCents / 100).toFixed(0)}{" "}
+                  <span style={{ color: t.accent }} className="text-xs font-sans block mt-1.5 opacity-70 tracking-normal normal-case font-normal">
+                    Instant download &middot; Lifetime access
+                  </span>
+                </>
+              )}
             </p>
 
             <div className="mt-6 space-y-4">
@@ -547,6 +563,8 @@ function ProductSection({
                     Redirecting to Yoco...
                   </span>
                 ) : (
+                  product.id === "swapcards-romantic-couples-digital" ? "Play tonight — R200" :
+                  product.id === "swapcards-parenting-deck-digital" ? "Start the conversation — R200" :
                   `Get the ${product.kind} — R${(product.priceCents / 100).toFixed(0)}`
                 )}
               </button>
@@ -661,7 +679,7 @@ function BookCard({
             <div className="mt-4 space-y-3">
               <div>
                 <label className="block text-[9px] uppercase tracking-[0.15em] opacity-60 mb-1.5 font-sans">
-                  Email Address
+                  Email Address (For Secure Delivery)
                 </label>
                 {/* Honeypot */}
                 <div style={{ display: "none" }} aria-hidden="true">
@@ -727,7 +745,7 @@ function ComingSoon() {
     { name: "The Co-Parents Deck", kind: "Swap Cards", note: "For the team the children depend on." },
     { name: "The Couples Journal", kind: "Journal", note: "Where the answers go to live." },
     { name: "The LoveBetter Workbook", kind: "Workbook", note: "The assessment, worked by hand." },
-    { name: "The Quiet Load Workbook", kind: "Workbook", note: "A field guide to male vulnerability." },
+    { name: "The Quiet Load Workbook", kind: "Workbook", note: "For readers of The Quiet Load — the exercises, scripts, and 30-day practice the book points toward." },
   ];
 
   return (
@@ -976,7 +994,20 @@ export default function StorePage() {
         <>
           <HeroSection />
           
-          {/* Parenting Deck - Burnt Orange Plate (Image Left) */}
+          {/* Romantic Couples Deck - Near-black Plate (Image Left) */}
+          <ProductSection
+            product={PRODUCTS_CONFIG["swapcards-romantic-couples-digital"]}
+            email={email}
+            setEmail={setEmail}
+            nickname={nickname}
+            setNickname={setNickname}
+            loadingProduct={loadingProduct}
+            error={error}
+            onCheckout={handleCheckout}
+            imageLeft={true}
+          />
+
+          {/* Parenting Deck - Burnt Orange Plate (Image Right) */}
           <ProductSection
             product={PRODUCTS_CONFIG["swapcards-parenting-deck-digital"]}
             email={email}
@@ -986,7 +1017,7 @@ export default function StorePage() {
             loadingProduct={loadingProduct}
             error={error}
             onCheckout={handleCheckout}
-            imageLeft={true}
+            imageLeft={false}
           />
 
           {/* Reading Room Section: Second Child & The Quiet Load Side-by-Side */}
@@ -1025,19 +1056,6 @@ export default function StorePage() {
               </div>
             </div>
           </section>
-
-          {/* Romantic Couples Deck - Near-black Plate (Image Left) */}
-          <ProductSection
-            product={PRODUCTS_CONFIG["swapcards-romantic-couples-digital"]}
-            email={email}
-            setEmail={setEmail}
-            nickname={nickname}
-            setNickname={setNickname}
-            loadingProduct={loadingProduct}
-            error={error}
-            onCheckout={handleCheckout}
-            imageLeft={true}
-          />
         </>
       )}
       <ComingSoon />
