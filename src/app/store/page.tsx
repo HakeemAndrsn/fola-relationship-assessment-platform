@@ -28,6 +28,12 @@ const PRODUCTS_CONFIG = {
       buttonText: "#A64516",
     },
     image: "/store/parenting-deck-cover.png",
+    previews: [
+      "/store/parenting-deck-cover.png",
+      "/store/parenting-card-preview-1.png",
+      "/store/parenting-card-preview-2.png",
+      "/store/parenting-card-preview-3.png"
+    ]
   },
   "ebook-second-child": {
     id: "ebook-second-child",
@@ -56,6 +62,38 @@ const PRODUCTS_CONFIG = {
       buttonText: "#33383F",
     },
     image: "/store/second-child-cover.png",
+    previews: [
+      "/store/second-child-cover.png",
+      "/store/Cozy ebook Poster for parents.png",
+      "/store/Cozy ebook launch for parents.png"
+    ]
+  },
+  "quiet-load": {
+    id: "quiet-load",
+    name: "The Quiet Load",
+    kind: "Ebook",
+    description: [
+      "A field guide to what men actually carry — and what it takes to actually hold it",
+      "Men talk. Their disclosure just arrives without drama, so it gets filed by you instead of heard. The Quiet Load is a field guide to what men actually carry — five chapters, five scored inventories, and a translation layer for the words couples keep fighting over. Your total tells you where the work is. Delivered instantly."
+    ],
+    features: [
+      "19 pages · Scored reflections · Instant delivery",
+    ],
+    priceCents: 18000,
+    theme: {
+      bg: "#6A1F2C",         // Burgundy plate bg
+      accent: "#EACEAA",     // Peach/gold accent
+      text: "#F7EDDC",       // Cream text
+      textMute: "#F7EDDC/70",
+      buttonBg: "#EACEAA",
+      buttonText: "#6A1F2C",
+    },
+    image: "/store/quiet-load-cover.png",
+    previews: [
+      "/store/quiet-load-cover.png",
+      "/store/quiet-load-preview-1.png",
+      "/store/quiet-load-preview-2.png"
+    ]
   },
   "swapcards-romantic-couples-digital": {
     id: "swapcards-romantic-couples-digital",
@@ -80,6 +118,11 @@ const PRODUCTS_CONFIG = {
       buttonText: "#1B1917",
     },
     image: "/store/lb-digital-box-deck.png",
+    previews: [
+      "/store/lb-digital-box-deck.png",
+      "/store/LB Deck 1.png",
+      "/store/LB Deck 2.png"
+    ]
   }
 };
 
@@ -219,10 +262,10 @@ function HeroSection() {
               Parenting Deck ↓
             </a>
             <a
-              href="#ebook-second-child"
+              href="#reading-room"
               className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#33383F]/20 text-[#33383F] hover:bg-[#33383F]/5 transition-colors"
             >
-              The Second Child ↓
+              The Reading Room ↓
             </a>
             <a
               href="#swapcards-romantic-couples-digital"
@@ -517,6 +560,164 @@ function ProductSection({
   );
 }
 
+/* ---------- Reading Room BookCard subcomponent ---------- */
+interface BookCardProps {
+  product: typeof PRODUCTS_CONFIG[keyof typeof PRODUCTS_CONFIG] & { previews: string[] };
+  email: string;
+  setEmail: (val: string) => void;
+  nickname: string;
+  setNickname: (val: string) => void;
+  loadingProduct: string | null;
+  error: string;
+  onCheckout: (productId: string) => void;
+}
+
+function BookCard({
+  product,
+  email,
+  setEmail,
+  nickname,
+  setNickname,
+  loadingProduct,
+  error,
+  onCheckout,
+}: BookCardProps) {
+  const t = product.theme;
+  const isSelectedLoading = loadingProduct === product.id;
+  const [activeImage, setActiveImage] = useState(product.image);
+
+  return (
+    <div
+      style={{ backgroundColor: t.bg, color: t.text }}
+      className="p-6 md:p-8 rounded-xl shadow-2xl flex flex-col justify-between border border-white/10"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Image Gallery */}
+        <div className="lg:col-span-5 flex flex-col gap-4 items-center">
+          <div className="w-full max-w-[240px] h-auto aspect-[3/4] relative rounded shadow-md overflow-hidden bg-black/20 border border-white/10">
+            <img
+              src={activeImage}
+              alt={product.name}
+              className="w-full h-full object-cover select-none pointer-events-none transition-all duration-300"
+            />
+          </div>
+          
+          {/* Thumbnails Row */}
+          <div className="flex gap-2 justify-center w-full max-w-[240px]">
+            {product.previews.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveImage(img)}
+                className="w-12 h-16 rounded overflow-hidden border-2 bg-black/20 focus:outline-none transition-all cursor-pointer"
+                style={{
+                  borderColor: activeImage === img ? t.accent : "transparent",
+                  opacity: activeImage === img ? 1 : 0.6,
+                }}
+              >
+                <img src={img} alt={`Preview ${idx + 1}`} className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Column: Copy & Checkout */}
+        <div className="lg:col-span-7 space-y-4">
+          <span
+            style={{ color: t.accent, borderColor: t.accent }}
+            className="inline-block rounded-full border px-2.5 py-0.5 text-[0.55rem] uppercase tracking-[0.2em] font-sans"
+          >
+            Digital Ebook
+          </span>
+
+          <h3 style={fontDisplay} className="text-3xl font-bold leading-tight">
+            {product.name}
+          </h3>
+
+          <div style={fontUI} className="text-sm leading-relaxed opacity-95 space-y-3">
+            {product.description.map((paragraph, idx) => {
+              const isSubheading = idx === 0;
+              return (
+                <p
+                  key={idx}
+                  className={isSubheading ? "text-base font-serif italic text-white font-semibold mb-4 block" : ""}
+                  style={isSubheading ? fontAccent : {}}
+                >
+                  {paragraph}
+                </p>
+              );
+            })}
+          </div>
+
+          <div style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }} className="p-5 rounded">
+            <p style={fontDisplay} className="text-3xl">
+              R{(product.priceCents / 100).toFixed(0)}
+            </p>
+            {/* Micro-line under the price */}
+            <p style={{ color: t.accent }} className="text-[11px] font-sans mt-1 opacity-90 tracking-wide font-medium">
+              {product.features[0]}
+            </p>
+
+            <div className="mt-4 space-y-3">
+              <div>
+                <label className="block text-[9px] uppercase tracking-[0.15em] opacity-60 mb-1.5 font-sans">
+                  Email Address
+                </label>
+                {/* Honeypot */}
+                <div style={{ display: "none" }} aria-hidden="true">
+                  <input
+                    type="text"
+                    name="username_hp"
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+                <input
+                  type="email"
+                  required
+                  placeholder="your.email@domain.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  maxLength={100}
+                  autoComplete="email"
+                  className="w-full bg-black/20 border border-white/10 px-3 py-2 text-xs focus:outline-none focus:border-white/20 font-sans"
+                  style={{ color: t.text }}
+                />
+              </div>
+
+              {error && <p className="text-xs text-red-400 font-sans">{error}</p>}
+
+              <button
+                onClick={() => onCheckout(product.id)}
+                disabled={loadingProduct !== null}
+                style={{
+                  ...fontUI,
+                  backgroundColor: t.buttonBg,
+                  color: t.buttonText,
+                }}
+                className="w-full flex items-center justify-center gap-1.5 py-3 text-[10px] font-bold tracking-widest transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed uppercase rounded"
+              >
+                {isSelectedLoading ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" style={{ color: t.buttonText }}>
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Redirecting...
+                  </span>
+                ) : (
+                  `Get the Ebook — R${(product.priceCents / 100).toFixed(0)}`
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- coming soon ---------- */
 function ComingSoon() {
   const products = [
@@ -525,7 +726,7 @@ function ComingSoon() {
     { name: "The Co-Parents Deck", kind: "Swap Cards", note: "For the team the children depend on." },
     { name: "The Couples Journal", kind: "Journal", note: "Where the answers go to live." },
     { name: "The LoveBetter Workbook", kind: "Workbook", note: "The assessment, worked by hand." },
-    { name: "The Quiet Load", kind: "Ebook", note: "A field guide to male vulnerability." },
+    { name: "The Quiet Load Workbook", kind: "Workbook", note: "A field guide to male vulnerability." },
   ];
 
   return (
@@ -595,17 +796,22 @@ interface SuccessViewProps {
 }
 
 function SuccessView({ checkoutId, productId }: SuccessViewProps) {
-  const isEbook = productId === "ebook-second-child";
+  const isEbook = productId === "ebook-second-child" || productId === "quiet-load";
   const isParenting = productId === "swapcards-parenting-deck-digital";
   
   let accentColor = C.terra;
   let titleNoun = "cards";
   let productLabel = "Romantic Couples Deck";
+  let downloadUrl = `/store/delivery-x7k2m9/?id=${checkoutId}`;
   
-  if (isEbook) {
+  if (productId === "ebook-second-child") {
     accentColor = "#E89D66";
     titleNoun = "ebook";
     productLabel = "The Second Child Ebook";
+  } else if (productId === "quiet-load") {
+    accentColor = "#EACEAA";
+    titleNoun = "ebook";
+    productLabel = "The Quiet Load Ebook";
   } else if (isParenting) {
     accentColor = "#F5C89E";
     titleNoun = "parenting cards";
@@ -623,23 +829,14 @@ function SuccessView({ checkoutId, productId }: SuccessViewProps) {
           Thank you for purchasing {productLabel}. Your payment has been verified. Download your files below:
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <div className="flex justify-center pt-4">
           <a
-            href={`/.netlify/functions/download-product?id=${checkoutId}&file=pdf`}
+            href={downloadUrl}
             style={{ ...fontUI, backgroundColor: accentColor, color: C.charcoal }}
             className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center uppercase"
           >
-            Download PDF
+            Go to Download Page
           </a>
-          {!isEbook && (
-            <a
-              href={`/.netlify/functions/download-product?id=${checkoutId}&file=zip`}
-              style={{ ...fontUI, border: `1px solid ${accentColor}`, color: accentColor }}
-              className="px-8 py-4 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 text-center uppercase"
-            >
-              Download Story ZIP
-            </a>
-          )}
         </div>
 
         <p style={{ ...fontUI, color: C.mute }} className="text-xs pt-4">
@@ -734,7 +931,7 @@ export default function StorePage() {
           email: email,
           name: "Store Customer",
           phone: "",
-          path: "/store/delivery-x7k2m9/"
+          path: prodId === "quiet-load" ? "/store/delivery-x7k2m9/?product=quiet-load" : "/store/delivery-x7k2m9/"
         }),
       });
 
@@ -791,18 +988,42 @@ export default function StorePage() {
             imageLeft={true}
           />
 
-          {/* The Second Child - Charcoal Plate (Image Right) */}
-          <ProductSection
-            product={PRODUCTS_CONFIG["ebook-second-child"]}
-            email={email}
-            setEmail={setEmail}
-            nickname={nickname}
-            setNickname={setNickname}
-            loadingProduct={loadingProduct}
-            error={error}
-            onCheckout={handleCheckout}
-            imageLeft={false}
-          />
+          {/* Reading Room Section: Second Child & The Quiet Load Side-by-Side */}
+          <section id="reading-room" className="w-full border-b border-[#DDD5C4]/10 bg-[#EDE8DE]">
+            <div className="mx-auto max-w-6xl px-6 py-20">
+              <div className="text-center mb-12">
+                <span className="pill" style={{ color: "#33383F", borderColor: "#33383F" }}>
+                  The Reading Room
+                </span>
+                <h2 style={fontDisplay} className="mt-4 text-4xl md:text-5xl text-slate-900 leading-tight">
+                  Trauma-informed field guides for the home.
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <BookCard
+                  product={PRODUCTS_CONFIG["ebook-second-child"]}
+                  email={email}
+                  setEmail={setEmail}
+                  nickname={nickname}
+                  setNickname={setNickname}
+                  loadingProduct={loadingProduct}
+                  error={error}
+                  onCheckout={handleCheckout}
+                />
+                <BookCard
+                  product={PRODUCTS_CONFIG["quiet-load"]}
+                  email={email}
+                  setEmail={setEmail}
+                  nickname={nickname}
+                  setNickname={setNickname}
+                  loadingProduct={loadingProduct}
+                  error={error}
+                  onCheckout={handleCheckout}
+                />
+              </div>
+            </div>
+          </section>
 
           {/* Romantic Couples Deck - Near-black Plate (Image Left) */}
           <ProductSection

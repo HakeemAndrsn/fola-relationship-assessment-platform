@@ -9,6 +9,7 @@ import Link from "next/link";
 const GOOGLE_DRIVE_PDF_LINK = "https://drive.google.com/file/d/1McpGsEWIRys5e7sPcXDRcl7vwLs0OvJD/view?usp=drive_link";
 const GOOGLE_DRIVE_PARENTING_DECK = "https://drive.google.com/file/d/1MeaeyBnAKoN7wdhlebiDu4zOEb8x3Vci/view?usp=drive_link";
 const GOOGLE_DRIVE_SECOND_CHILD_EBOOK = "https://drive.google.com/file/d/1hFJl3X291e9z_iLkIJCxLfeAwELOJOKl/view?usp=drive_link";
+const GOOGLE_DRIVE_QUIET_LOAD = "https://drive.google.com/file/d/1p1it2CEvnekZmUwDLZKFInc5TJlwLG57/view?usp=drive_link";
 
 const PRODUCT_ID = "swapcards-romantic-couples-digital";
 
@@ -70,7 +71,8 @@ function DeliveryPageContent() {
         const validProducts = [
           PRODUCT_ID,
           "swapcards-parenting-deck-digital",
-          "ebook-second-child"
+          "ebook-second-child",
+          "quiet-load"
         ];
 
         if (res.ok && valData.verified && validProducts.includes(valData.productId)) {
@@ -97,6 +99,8 @@ function DeliveryPageContent() {
                 productLabel = "swapcards_parenting_deck";
               } else if (valData.productId === "ebook-second-child") {
                 productLabel = "ebook_second_child";
+              } else if (valData.productId === "quiet-load") {
+                productLabel = "ebook_quiet_load";
               }
 
               fetch("/.netlify/functions/mailerlite", {
@@ -190,13 +194,21 @@ function DeliveryPageContent() {
       <div style={{ backgroundColor: C.charcoal2 }} className="p-10 max-w-2xl text-center space-y-6 border border-[#DDD5C4]/10 shadow-2xl">
         <Pill color={C.gold}>Payment Successful</Pill>
         <h2 style={{ ...fontDisplay, color: C.ivory }} className="text-4xl leading-tight">
-          Your files are <em style={{ ...fontAccent, color: C.terra }}>ready.</em>
+          {purchasedProduct === "quiet-load" ? (
+            "The Quiet Load"
+          ) : (
+            <>Your files are <em style={{ ...fontAccent, color: C.terra }}>ready.</em></>
+          )}
         </h2>
         <p style={{ ...fontUI, color: C.ivory }} className="text-sm opacity-80 max-w-md mx-auto leading-relaxed">
-          Thank you for your purchase! A confirmation email has been sent to <span className="text-[#C6A15B]">{customerEmail}</span>. You can download your files directly from Google Drive below:
+          {purchasedProduct === "quiet-load" ? (
+            <>Thank you for your purchase! A confirmation email has been sent to <span className="text-[#C6A15B]">{customerEmail}</span>. Download your ebook below:</>
+          ) : (
+            <>Thank you for your purchase! A confirmation email has been sent to <span className="text-[#C6A15B]">{customerEmail}</span>. You can download your files directly from Google Drive below:</>
+          )}
         </p>
 
-        <div className="flex justify-center pt-4">
+        <div className="flex flex-col items-center justify-center gap-4 pt-4">
           {purchasedProduct === PRODUCT_ID && (
             <a
               href={GOOGLE_DRIVE_PDF_LINK}
@@ -229,6 +241,31 @@ function DeliveryPageContent() {
             >
               Download The Second Child Ebook (Google Drive)
             </a>
+          )}
+          {purchasedProduct === "quiet-load" && (
+            <div className="w-full flex flex-col items-center gap-4">
+              <a
+                href={GOOGLE_DRIVE_QUIET_LOAD}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ ...fontUI, backgroundColor: C.terraDeep, color: C.ivory }}
+                className="w-full sm:w-auto px-10 py-4 text-base font-bold tracking-wide transition-opacity hover:opacity-90 text-center rounded-sm"
+              >
+                Download The Quiet Load (Google Drive)
+              </a>
+              <p style={{ ...fontUI, color: C.mute }} className="text-sm opacity-90 leading-relaxed max-w-lg mt-2">
+                Finished the book? Bring your score to a free 30-minute discovery call —{" "}
+                <a
+                  href="https://calendly.com/folasessions/discovery-call"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline font-bold"
+                  style={{ color: C.gold }}
+                >
+                  calendly.com/folasessions/discovery-call
+                </a>
+              </p>
+            </div>
           )}
         </div>
 

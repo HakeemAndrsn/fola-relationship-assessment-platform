@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Store Prototype | LOVEBETTER by FOLA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal: #1B1917;
+      --charcoal2: #221F1C;
+      --ivory: #F3EFE6;
+      --sand: #EAE2D2;
+      --terra: #C1795A;
+      --terra-deep: #A64516;
+      --accent: #F5C89E;
+      --mute: #8A8378;
+      
+      --font-display: 'Gloock', Georgia, serif;
+      --font-accent: 'Instrument Serif', Georgia, serif;
+      --font-ui: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--ivory);
+      color: var(--charcoal);
+      font-family: var(--font-ui);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* --- pill and rule --- */
+    .pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid currentColor;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    /* --- hero layout --- */
+    .hero {
+      background-color: var(--ivory);
+      padding: 80px 24px;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-container {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 56px;
+      line-height: 1.05;
+      color: var(--charcoal);
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 72px;
+      }
+    }
+
+    .hero-title span {
+      color: var(--terra-deep);
+    }
+
+    .hero-desc {
+      font-size: 18px;
+      color: var(--charcoal);
+      opacity: 0.85;
+      margin-top: 24px;
+      max-w: 520px;
+    }
+
+    /* --- anchor buttons --- */
+    .anchors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .anchor-btn {
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--charcoal);
+      border: 1px solid rgba(27, 25, 23, 0.2);
+      padding: 12px 24px;
+      border-radius: 100px;
+      transition: all 0.2s ease;
+    }
+
+    .anchor-btn:hover {
+      background-color: rgba(27, 25, 23, 0.05);
+      border-color: var(--charcoal);
+    }
+
+    .anchor-btn.primary {
+      color: var(--terra-deep);
+      border-color: rgba(166, 69, 22, 0.2);
+    }
+
+    .anchor-btn.primary:hover {
+      background-color: rgba(166, 69, 22, 0.05);
+      border-color: var(--terra-deep);
+    }
+
+    /* --- interactive card stack viewport --- */
+    .card-stack-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 420px;
+      position: relative;
+    }
+
+    .stack-container {
+      position: relative;
+      width: 260px;
+      height: 380px;
+    }
+
+    .card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: box-shadow 0.2s, transform 0.1s ease-out;
+    }
+
+    .card:active {
+      cursor: grabbing;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 14px;
+    }
+
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-cover: cover;
+      pointer-events: none;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      padding: 28px;
+      display: flex;
+      flex-col: column;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      color: var(--ivory);
+    }
+
+    .card-back-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .card-back-btn {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--ivory);
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .card-back-btn:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    /* --- top card idle rotation animation --- */
+    @keyframes gentleIdle {
+      0%, 100% { transform: rotate(1deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    .top-idle {
+      animation: gentleIdle 5s ease-in-out infinite;
+    }
+
+    /* --- Segment 1: Swap Card Decks --- */
+    .segment-decks {
+      transition: background-color 0.5s ease, color 0.5s ease;
+      background-color: var(--terra-deep);
+      color: #FDF3E7;
+    }
+
+    /* --- general segment structure --- */
+    .segment-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    /* --- tabs component --- */
+    .tabs-bar {
+      display: flex;
+      gap: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 16px;
+      margin-bottom: 48px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      padding-bottom: 8px;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .tab-btn:focus {
+      outline: none;
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -17px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--accent);
+    }
+
+    .product-grid {
+      display: grid;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .product-grid {
+        grid-template-columns: 2fr 3fr;
+      }
+    }
+
+    .product-image-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .product-image {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+    }
+
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .product-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      line-height: 1.1;
+    }
+
+    .product-desc {
+      font-size: 16px;
+      opacity: 0.9;
+      max-width: 580px;
+    }
+
+    .product-desc p {
+      margin-bottom: 16px;
+    }
+
+    .product-desc p.subheading {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 24px;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .feature-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 12px;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    .feature-list li span.bullet {
+      color: var(--accent);
+    }
+
+    /* --- checkout block --- */
+    .checkout-box {
+      background-color: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 32px;
+      border-radius: 4px;
+      max-width: 480px;
+      margin-top: 16px;
+    }
+
+    .checkout-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.7;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .price-text {
+      font-family: var(--font-display);
+      font-size: 44px;
+      margin-bottom: 24px;
+      line-height: 1;
+    }
+
+    .price-sub {
+      display: block;
+      font-size: 12px;
+      font-family: var(--font-ui);
+      opacity: 0.7;
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .email-input {
+      background-color: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 16px;
+      color: inherit;
+      font-family: inherit;
+      font-size: 14px;
+      border-radius: 4px;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .email-input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background-color: var(--accent);
+      color: var(--charcoal);
+      border: none;
+      padding: 16px;
+      font-family: var(--font-ui);
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .checkout-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* --- Segment 2: Ebooks --- */
+    .segment-ebooks {
+      background-color: #33383F;
+      color: #FDF3E7;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    /* --- Segment 3: Coming Soon --- */
+    .segment-press {
+      background-color: var(--ivory);
+      color: var(--charcoal);
+    }
+
+    .press-grid {
+      display: grid;
+      gap: 1px;
+      background-color: #DDD5C4;
+      margin-top: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .press-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .press-card {
+      background-color: var(--ivory);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .press-card-kind {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--terra-deep);
+      font-weight: 600;
+    }
+
+    .press-card-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--charcoal);
+    }
+
+    .press-card-desc {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--charcoal);
+      opacity: 0.75;
+    }
+
+    /* --- responsive adjustments --- */
+    @media (max-width: 767px) {
+      .product-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+      .product-image {
+        max-width: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-container">
+      <div>
+        <span class="pill" style="color: var(--terra-deep); border-color: rgba(166, 69, 22, 0.2);">The Collection</span>
+        <h1 class="hero-title" style="margin-top: 16px;">The LoveBetter <span>Store.</span></h1>
+        <p class="hero-desc">Decks, books, and tools for the conversations that change households.</p>
+        
+        <div class="anchors">
+          <a href="#swapcards-parenting-deck-digital" class="anchor-btn primary">Parenting Deck ↓</a>
+          <a href="#ebook-second-child" class="anchor-btn">The Second Child ↓</a>
+          <a href="#swapcards-romantic-couples-digital" class="anchor-btn">Couples Deck ↓</a>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE CARD FAN -->
+      <div class="card-stack-area">
+        <div class="stack-container" id="stack">
+          
+          <!-- Card 1: Couples Deck Cover -->
+          <div class="card" id="card-couples" style="transform: rotate(-3deg); z-index: 1;">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <img src="/store/parenting-deck-cover.png" alt="Romantic Couples Deck">
+              </div>
+              <div class="card-face card-back" style="background-color: var(--charcoal);">
+                <span class="pill" style="font-size: 8px;">lovebetter</span>
+                <div style="margin: 20px 0;">
+                  <p class="card-back-title">The Romantic Couples Deck</p>
+                  <p style="font-size: 11px; opacity: 0.6; margin-top: 6px;">52 cards &bull; Four tiers</p>
+                </div>
+                <a href="#swapcards-romantic-couples-digital" class="card-back-btn">View Product &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Parenting Deck Cover (Top) -->
+          <div class="card top-idle" id="card-parenting" style="transform: rotate(3deg); z-index: 2;">
+            <div class="card-inner">
+              <div class="card-face card-front">
+                <img src="/store/parenting-deck-cover.png" alt="The Parenting Deck">
+              </div>
+              <div class="card-face card-back" style="background-color: var(--terra-deep);">
+                <span class="pill" style="font-size: 8px;">lovebetter</span>
+                <div style="margin: 20px 0;">
+                  <p class="card-back-title">The Parenting Deck</p>
+                  <p style="font-size: 11px; opacity: 0.6; margin-top: 6px;">52 cards &bull; Infrastructure & Intimacy</p>
+                </div>
+                <a href="#swapcards-parenting-deck-digital" class="card-back-btn">View Product &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGMENT 1: SWAP CARD DECKS -->
+  <section class="segment-decks" id="decks-segment">
+    <div class="segment-container">
+      
+      <!-- Category Tabs -->
+      <div class="tabs-bar">
+        <button class="tab-btn active" id="tab-parenting" onclick="switchDeckTab('parenting')">The Parenting Deck</button>
+        <button class="tab-btn" id="tab-couples" onclick="switchDeckTab('couples')">Romantic Couples Deck</button>
+      </div>
+
+      <!-- Active Content Container -->
+      <div class="product-grid" id="decks-content">
+        <!-- Content dynamically injected by JS below -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEGMENT 2: EBOOKS -->
+  <section class="segment-ebooks" id="ebook-second-child">
+    <div class="segment-container">
+      
+      <div class="tabs-bar">
+        <button class="tab-btn active" style="color: var(--accent);">Ebooks</button>
+      </div>
+
+      <div class="product-grid">
+        <!-- Image column -->
+        <div class="product-image-container md:order-2">
+          <img src="/store/second-child-cover.png" alt="The Second Child Ebook" class="product-image">
+        </div>
+
+        <!-- Details column -->
+        <div class="product-details md:order-1">
+          <span class="pill" style="color: var(--accent); border-color: rgba(232, 157, 102, 0.2);">Available Now</span>
+          <h2 class="product-title">The Second Child</h2>
+          
+          <div class="product-desc">
+            <p class="subheading">How your childhood parents your children — and what the work of interrupting it looks like.</p>
+            <p>There are two children in your house. One of them you can see — you know their shoe size, their cry, their favourite cereal. The other one is you, at seven, still waiting in a kitchen that no longer exists for a sentence nobody said.</p>
+            <p>Every parent raises both children at once. Most can't tell which one is crying.</p>
+            <p><em>The Second Child</em> is the companion to The Parenting Deck — and a book that stands on its own. Written by trauma and hypnotherapy practitioner Hakeem Lesolang, it answers all 52 of the deck's questions through the four engines that drive every inherited pattern: reenactment, overcorrection, the child as audience, and provision as love. The banned sentence that surfaces when you're tired. The gifts addressed to a child who isn't in the room. The rules protecting a door that closed thirty years ago. Each question gets its mechanics — how the pattern was installed, how it runs — and one practical interruption you can use this week, in a real kitchen, on a real Tuesday.</p>
+            <p>This is not a book about becoming a perfect parent. That parent doesn't exist and never has. It's about becoming an interrupting one — because the difference between the homes that build people and the homes that build patients was never the absence of wounds. It's whether the wounds are still doing the parenting.</p>
+            <p>You were somebody's child before you were anybody's parent. Start there.</p>
+          </div>
+
+          <ul class="feature-list">
+            <li><span class="bullet">—</span> 67 pages &bull; Delivered instantly &bull; PDF edition</li>
+            <li><span class="bullet">—</span> Companion to The Parenting Deck</li>
+            <li><span class="bullet">—</span> Practical interruptions for inherited patterns</li>
+          </ul>
+
+          <div class="checkout-box">
+            <span class="checkout-label">Secure Checkout</span>
+            <div class="price-text" style="color: #FDF3E7;">
+              R200 <span class="price-sub" style="color: var(--accent);">Instant PDF download</span>
+            </div>
+            
+            <div class="form-group">
+              <label class="checkout-label">Email Address (For Secure Delivery)</label>
+              <input type="email" placeholder="your.email@domain.com" class="email-input">
+            </div>
+            <button class="checkout-btn" style="background-color: var(--accent); color: #33383F;" onclick="simulatePurchase('The Second Child Ebook')">
+              Get the Ebook — R200
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEGMENT 3: COMING SOON -->
+  <section class="segment-press">
+    <div class="segment-container">
+      <span class="pill" style="color: var(--terra-deep); border-color: rgba(166, 69, 22, 0.2);">On the Press</span>
+      <h2 style="font-family: var(--font-display); font-size: 40px; margin-top: 16px;">More is <span style="font-family: var(--font-accent); font-style: italic; color: var(--terra-deep);">coming.</span></h2>
+      
+      <div class="press-grid">
+        <div class="press-card">
+          <span class="press-card-kind">Swap Cards</span>
+          <p class="press-card-title">The Friends Deck</p>
+          <p class="press-card-desc">For the friendships that raised you.</p>
+        </div>
+        <div class="press-card">
+          <span class="press-card-kind">Swap Cards</span>
+          <p class="press-card-title">The Parent–Child Deck</p>
+          <p class="press-card-desc">Questions across the generation line.</p>
+        </div>
+        <div class="press-card">
+          <span class="press-card-kind">Swap Cards</span>
+          <p class="press-card-title">The Co-Parents' Deck</p>
+          <p class="press-card-desc">For the team the children depend on.</p>
+        </div>
+        <div class="press-card">
+          <span class="press-card-kind">Journal</span>
+          <p class="press-card-title">The Couple's Journal</p>
+          <p class="press-card-desc">Where the answers go to live.</p>
+        </div>
+        <div class="press-card">
+          <span class="press-card-kind">Workbook</span>
+          <p class="press-card-title">The Lovebetter Workbook</p>
+          <p class="press-card-desc">The assessment, worked by hand.</p>
+        </div>
+        <div class="press-card">
+          <span class="press-card-kind">Workbook</span>
+          <p class="press-card-title">The Quiet Load Workbook</p>
+          <p class="press-card-desc">A field guide to male vulnerability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE MOCKUP JAVASCRIPT -->
+  <script>
+    // Products configuration details matching theme tokens
+    const DECKS_PRODUCTS = {
+      parenting: {
+        id: "swapcards-parenting-deck-digital",
+        name: "The Parenting Deck",
+        description: "<p>52 questions to navigate the transition into parenthood, division of labour, early childhood infrastructure, and emotional connection across the generation line.</p><p>Print at home or play from your phone.</p>",
+        features: [
+          "Instant PDF download — play tonight",
+          "Covers childcare, division of labour, and intimacy",
+          "Includes NLP integration guidelines for parents"
+        ],
+        priceCents: 20000,
+        image: "/store/parenting-deck-cover.png",
+        theme: {
+          bg: "#A64516",
+          accent: "#F5C89E",
+          text: "#FDF3E7",
+          buttonBg: "#F5C89E",
+          buttonText: "#A64516"
+        }
+      },
+      couples: {
+        id: "swapcards-romantic-couples-digital",
+        name: "The Romantic Couples Deck",
+        description: "<p>52 questions in four tiers — from playful to profound. Includes the pass rule, a consent pause before the deep tiers, aftercare, and two write-your-own cards.</p><p>Print at home or play from your phone.</p>",
+        features: [
+          "Instant PDF download — play tonight",
+          "Built by a trauma and hypnotherapy practitioner",
+          "Story-sized card images included for sharing"
+        ],
+        priceCents: 20000,
+        image: "/store/lb-digital-box-deck.png",
+        theme: {
+          bg: "#1B1917",
+          accent: "#C1795A",
+          text: "#F3EFE6",
+          buttonBg: "#C1795A",
+          buttonText: "#1B1917"
+        }
+      }
+    };
+
+    // Render the active deck content in Segment 1
+    function renderActiveDeck(deckKey) {
+      const p = DECKS_PRODUCTS[deckKey];
+      const t = p.theme;
+      const segment = document.getElementById("decks-segment");
+      const container = document.getElementById("decks-content");
+
+      // Dynamic theme switch on the container background
+      segment.style.backgroundColor = t.bg;
+      segment.style.color = t.text;
+
+      // Compile dynamic list items
+      const featuresHtml = p.features.map(f => `
+        <li>
+          <span class="bullet" style="color: ${t.accent}">—</span>
+          <span>${f}</span>
+        </li>
+      `).join('');
+
+      // Inject details
+      container.innerHTML = `
+        <!-- Left: Image -->
+        <div class="product-image-container">
+          <img src="${p.image}" alt="${p.name}" class="product-image" style="border: 1px solid ${t.accent}15">
+        </div>
+
+        <!-- Right: Details -->
+        <div class="product-details">
+          <span class="pill" style="color: ${t.accent}; border-color: ${t.accent}">Available Now &bull; Digital Deck</span>
+          <h2 class="product-title">${p.name}</h2>
+          <div class="product-desc">${p.description}</div>
+          
+          <ul class="feature-list">
+            ${featuresHtml}
+          </ul>
+
+          <div class="checkout-box" style="background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+            <span class="checkout-label">Secure Checkout</span>
+            <div class="price-text" style="color: ${t.text}">
+              R200 <span class="price-sub" style="color: ${t.accent}">Instant PDF download &middot; Lifetime access</span>
+            </div>
+            
+            <div class="form-group">
+              <label class="checkout-label">Email Address (For Secure Delivery)</label>
+              <input type="email" placeholder="your.email@domain.com" class="email-input" id="email-${p.id}">
+            </div>
+            <button class="checkout-btn" style="background-color: ${t.buttonBg}; color: ${t.buttonText};" onclick="simulatePurchase('${p.name}')">
+              Get the Deck — R200
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Switch between deck tabs
+    function switchDeckTab(deckKey) {
+      document.getElementById("tab-parenting").classList.remove("active");
+      document.getElementById("tab-couples").classList.remove("active");
+      
+      document.getElementById(`tab-${deckKey}`).classList.add("active");
+      renderActiveDeck(deckKey);
+    }
+
+    // Initial render of Segment 1
+    renderActiveDeck("parenting");
+
+    // Simulate purchase interaction
+    function simulatePurchase(productName) {
+      alert(`[Prototype Interaction]\n\nInitiating secure Yoco payment flow for:\n"${productName}"\n\nPrice: R200\nStatus: Endpoint validated successfully.`);
+    }
+
+    // --- MOCK DRAGGABLE / FLIPPABLE CARD ANIMATION ENGINE ---
+    const cardsList = document.querySelectorAll('.card');
+    
+    cardsList.forEach(card => {
+      let isDragging = false;
+      let startX, startY, currentX = 0, currentY = 0;
+      let rotX = 0, rotY = 0;
+      let initialRotation = card.id === 'card-couples' ? -3 : 3;
+
+      // Handle card flip on click/tap
+      card.addEventListener('click', (e) => {
+        // If we dragged, don't flip
+        if (Math.abs(currentX) > 10 || Math.abs(currentY) > 10) return;
+        
+        card.classList.toggle('flipped');
+        
+        // Disable top idle animation once clicked/flipped
+        card.classList.remove('top-idle');
+      });
+
+      // Pointer event listeners for custom drag simulation
+      card.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        card.style.transition = 'none';
+        card.style.zIndex = '50';
+        startX = e.clientX - currentX;
+        startY = e.clientY - currentY;
+        card.setPointerCapture(e.pointerId);
+      });
+
+      card.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        currentX = e.clientX - startX;
+        currentY = e.clientY - startY;
+
+        // Apply scale & rotation transform while dragging
+        card.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.05) rotate(${initialRotation + (currentX / 20)}deg)`;
+      });
+
+      card.addEventListener('pointerup', (e) => {
+        isDragging = false;
+        card.releasePointerCapture(e.pointerId);
+        
+        // Return to original stack position with spring transition
+        card.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        card.style.transform = `translate(0px, 0px) scale(1) rotate(${initialRotation}deg)`;
+        
+        // Restore dynamic zIndex hierarchy
+        setTimeout(() => {
+          card.style.zIndex = card.id === 'card-couples' ? '1' : '2';
+        }, 300);
+
+        currentX = 0;
+        currentY = 0;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -15,6 +15,10 @@ const PRODUCTS = {
   "ebook-second-child": {
     name: "The Second Child Ebook",
     link: "https://drive.google.com/file/d/1hFJl3X291e9z_iLkIJCxLfeAwELOJOKl/view?usp=drive_link",
+  },
+  "quiet-load": {
+    name: "The Quiet Load Ebook",
+    link: "https://drive.google.com/file/d/1p1it2CEvnekZmUwDLZKFInc5TJlwLG57/view?usp=drive_link",
   }
 };
 

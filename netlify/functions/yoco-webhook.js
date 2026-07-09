@@ -15,6 +15,10 @@ const PRODUCTS = {
   "ebook-second-child": {
     name: "The Second Child Ebook",
     link: "https://drive.google.com/file/d/1hFJl3X291e9z_iLkIJCxLfeAwELOJOKl/view?usp=drive_link",
+  },
+  "quiet-load": {
+    name: "The Quiet Load Ebook",
+    link: "https://drive.google.com/file/d/1p1it2CEvnekZmUwDLZKFInc5TJlwLG57/view?usp=drive_link",
   }
 };
 
@@ -207,10 +211,14 @@ exports.handler = async (event) => {
     if (mlApiKey) {
       console.log("Syncing purchaser list to MailerLite for email:", customerEmail);
       let productLabel = "swapcards_romantic_couples";
+      let purchaseAmount = "R200";
       if (productId === "swapcards-parenting-deck-digital") {
         productLabel = "swapcards_parenting_deck";
       } else if (productId === "ebook-second-child") {
         productLabel = "ebook_second_child";
+      } else if (productId === "quiet-load") {
+        productLabel = "ebook_quiet_load";
+        purchaseAmount = "R180";
       }
 
       fetch(`https://connect.mailerlite.com/api/subscribers`, {
@@ -225,7 +233,7 @@ exports.handler = async (event) => {
           fields: {
             name: customerName || "Store Customer",
             product_purchased: productLabel,
-            purchase_amount: "R200"
+            purchase_amount: purchaseAmount
           }
         }),
       }).catch(e => console.error("MailerLite webhook sync error:", e));

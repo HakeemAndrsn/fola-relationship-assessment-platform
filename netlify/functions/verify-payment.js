@@ -40,8 +40,13 @@ exports.handler = async (event) => {
       "https://lovebetter.co.za";
 
     let basePath = path || "/individual-assessment";
-    if (basePath.includes("delivery") && !basePath.endsWith("/")) {
-      basePath = basePath + "/";
+    if (basePath.includes("delivery")) {
+      const [cleanPath, query] = basePath.split("?");
+      let finalPath = cleanPath;
+      if (!finalPath.endsWith("/")) {
+        finalPath = finalPath + "/";
+      }
+      basePath = query ? `${finalPath}?${query}` : finalPath;
     }
     const successUrl = `${origin}${basePath}`;
     const cancelUrl = `${origin}${basePath}`;
