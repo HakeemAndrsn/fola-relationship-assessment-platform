@@ -66,6 +66,11 @@ export default function YocoButton({
       const verifyData = await verifyRes.json();
 
       if (verifyRes.ok && verifyData.redirectUrl) {
+        // Persist the checkout id before leaving the page, in case Yoco's
+        // redirect back drops the "id" query param (mirrors the store flow's fallback)
+        if (verifyData.checkoutId) {
+          localStorage.setItem("active_checkout_id", verifyData.checkoutId);
+        }
         // Redirect client to Yoco's hosted secure checkout screen
         window.location.href = verifyData.redirectUrl;
       } else {

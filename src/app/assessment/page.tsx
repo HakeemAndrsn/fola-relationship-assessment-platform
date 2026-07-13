@@ -141,7 +141,9 @@ export default function AssessmentPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const checkoutId = params.get("id");
+    // Fall back to the id stashed in localStorage before the Yoco redirect,
+    // in case the "id" query param gets dropped on the way back
+    const checkoutId = params.get("id") || localStorage.getItem("active_checkout_id");
 
     const verifyPayment = async (cid: string) => {
       setVerifying(true);
