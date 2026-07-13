@@ -90,13 +90,13 @@ export default function ReportPage() {
     setClientPhone(phone);
   }, [router]);
 
-  const statsString = report 
-    ? `FOLA Couples Relational Diagnostic - Partners: ${report.partnerAName} & ${report.partnerBName} | Overall Alignment: ${report.overallScore}/100 | Top Strength: ${report.topStrength.label} (${report.topStrength.alignmentPercent}% alignment) | Primary Growth Edge: ${report.primaryGrowthEdge.label} (${report.primaryGrowthEdge.alignmentPercent}% alignment)`
+  const statsString = report
+    ? `FOLA Couples Relational Diagnostic - Partners: ${report.couple.partnerA} & ${report.couple.partnerB} | Overall Alignment: ${report.overallScore}/100 | Top Strength: ${report.primaryStrength.label} (${report.primaryStrength.alignmentPercent}% alignment) | Primary Growth Edge: ${report.criticalFracture.label} (${report.criticalFracture.alignmentPercent}% alignment)`
     : "";
 
   const getBookingUrl = (baseEventUrl: string) => {
     if (!report) return baseEventUrl;
-    const nameParam = encodeURIComponent(`${report.partnerAName} & ${report.partnerBName}`);
+    const nameParam = encodeURIComponent(`${report.couple.partnerA} & ${report.couple.partnerB}`);
     const emailParam = encodeURIComponent(clientEmail);
     const statsParam = encodeURIComponent(statsString);
     return `${baseEventUrl}?name=${nameParam}&email=${emailParam}&a1=${statsParam}`;

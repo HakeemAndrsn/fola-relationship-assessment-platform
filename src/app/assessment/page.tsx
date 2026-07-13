@@ -240,7 +240,7 @@ export default function AssessmentPage() {
         phone: customerPhone,
         name: `${data.onboarding.partnerAName} & ${data.onboarding.partnerBName}`,
         overallScore: report.overallScore,
-        primaryGrowthEdge: report.primaryGrowthEdge?.dimension,
+        primaryGrowthEdge: report.criticalFracture?.domain,
       }),
     }).catch((e) => console.warn("MailerLite function failed:", e));
 
@@ -327,7 +327,7 @@ export default function AssessmentPage() {
             customerName={`${data.onboarding.partnerAName || "Partner A"} & ${data.onboarding.partnerBName || "Partner B"}`}
             productDescription="LoveBETTER Couples Assessment"
             productId="lovebetter_couples"
-            amountInCents={60000}
+            amountInCents={1000}
             onSuccess={() => setIsPaid(true)}
           />
           <div className="space-y-2">
