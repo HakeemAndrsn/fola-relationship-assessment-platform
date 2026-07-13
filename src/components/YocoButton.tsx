@@ -7,6 +7,7 @@ interface YocoButtonProps {
   customerPhone?: string;
   customerName?: string;
   productDescription?: string;
+  productId?: string;
   amountInCents?: number;
   onSuccess?: () => void;
 }
@@ -16,6 +17,7 @@ export default function YocoButton({
   customerPhone = "",
   customerName = "",
   productDescription = "LoveBETTER Individual Assessment",
+  productId = "lovebetter_assessment",
   amountInCents = 60000,
   onSuccess,
 }: YocoButtonProps) {
@@ -52,7 +54,7 @@ export default function YocoButton({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          productId: "lovebetter_assessment",
+          productId,
           amountInCents: amountInCents,
           email: customerEmail,
           name: customerName,

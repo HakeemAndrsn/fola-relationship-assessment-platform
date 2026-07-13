@@ -314,6 +314,7 @@ export default function AssessmentPage() {
             customerPhone={customerPhone}
             customerName={`${data.onboarding.partnerAName || "Partner A"} & ${data.onboarding.partnerBName || "Partner B"}`}
             productDescription="LoveBETTER Couples Assessment"
+            productId="lovebetter_couples"
             amountInCents={60000}
             onSuccess={() => setIsPaid(true)}
           />
