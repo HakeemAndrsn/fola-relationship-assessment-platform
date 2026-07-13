@@ -213,6 +213,16 @@ export default function IndividualAssessmentPage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!isPaid) return;
+    // Once unlocked, block the back button so it can't step back into
+    // Yoco's checkout page (there's nothing legitimate to go "back" to)
+    const blockBack = () => window.history.pushState(null, "", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", blockBack);
+    return () => window.removeEventListener("popstate", blockBack);
+  }, [isPaid]);
+
   const updateSliders = useCallback(
     (field: keyof IndividualFormData, id: string, val: number) => {
       setData((prev) => ({

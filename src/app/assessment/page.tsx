@@ -177,7 +177,7 @@ export default function AssessmentPage() {
     } else {
       const activeCid = sessionStorage.getItem("lb_couples_checkout_id");
       const bundleCid = sessionStorage.getItem("lb_bundle_checkout_id");
-      
+
       if (activeCid) {
         verifyPayment(activeCid);
       } else if (bundleCid) {
@@ -185,6 +185,16 @@ export default function AssessmentPage() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (!isPaid) return;
+    // Once unlocked, block the back button so it can't step back into
+    // Yoco's checkout page (there's nothing legitimate to go "back" to)
+    const blockBack = () => window.history.pushState(null, "", window.location.href);
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", blockBack);
+    return () => window.removeEventListener("popstate", blockBack);
+  }, [isPaid]);
 
   const pA = data.onboarding.partnerAName || "Partner A";
   const pB = data.onboarding.partnerBName || "Partner B";
