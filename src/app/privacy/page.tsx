@@ -71,7 +71,7 @@ export default function PrivacyPolicy() {
               Our designated Information Officer under POPIA is:
             </p>
             <p className="mt-2 font-semibold">Hakeem Lesolang</p>
-            <p>Email: <a href="mailto:fola@fola.co.za" className="text-[#B8654A] underline">fola@fola.co.za</a></p>
+            <p>Email: <a href="mailto:admin@fola.co.za" className="text-[#B8654A] underline">admin@fola.co.za</a></p>
             <p className="mt-2">
               Under POPIA, you have the right to access, rectify, or request the deletion of your personal information from our records at any time.
             </p>
