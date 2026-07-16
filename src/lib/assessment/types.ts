@@ -84,7 +84,7 @@ export interface DomainScore {
 }
 
 export interface ClinicalFlag {
-  type: "trauma" | "adhd" | "values" | "readiness";
+  type: "trauma" | "adhd" | "values" | "readiness" | "prejudices";
   severity: "high" | "medium" | "low";
   message: string;
   recommendation: string;

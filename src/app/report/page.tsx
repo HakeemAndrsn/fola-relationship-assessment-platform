@@ -76,6 +76,7 @@ export default function ReportPage() {
   const [clientEmail, setClientEmail] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [downloading, setDownloading] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<"sending" | "sent" | "failed" | null>(null);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("fola-report");
@@ -91,6 +92,30 @@ export default function ReportPage() {
     setClientEmail(email);
     setClientPhone(phone);
   }, [router]);
+
+  useEffect(() => {
+    const key = "fola_report_email_status";
+    const readStatus = () => {
+      const status = sessionStorage.getItem(key);
+      if (status === "sending" || status === "sent" || status === "failed") {
+        setEmailStatus(status);
+        return status;
+      }
+      return null;
+    };
+    if (!readStatus()) return;
+    // Poll briefly for the async email send (fired before this page loaded)
+    // to resolve from "sending" to a final status
+    const interval = setInterval(() => {
+      const status = readStatus();
+      if (status !== "sending") clearInterval(interval);
+    }, 500);
+    const timeout = setTimeout(() => clearInterval(interval), 10000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const statsString = report
     ? `FOLA Couples Relational Diagnostic - Partners: ${report.couple.partnerA} & ${report.couple.partnerB} | Overall Alignment: ${report.overallScore}/100 | Top Strength: ${report.primaryStrength.label} (${report.primaryStrength.alignmentPercent}% alignment) | Primary Growth Edge: ${report.criticalFracture.label} (${report.criticalFracture.alignmentPercent}% alignment)`
@@ -165,8 +190,17 @@ export default function ReportPage() {
             <h3 className="text-sm font-bold text-[#121212] uppercase tracking-wider font-sans">🔒 Secure Offline Document</h3>
             <p className="text-xs text-[#4E4E4E] leading-relaxed max-w-xl font-sans">
               To guarantee your clinical privacy, FOLA does not store your test results on our servers.
-              Click <strong>Download PDF</strong> to save this document directly to your device. A copy has also been emailed to you.
+              Click <strong>Download PDF</strong> to save this document directly to your device.
             </p>
+            {emailStatus === "sending" && (
+              <p className="text-xs text-[#4E4E4E] font-sans">⏳ Emailing a copy to {clientEmail || "your inbox"}…</p>
+            )}
+            {emailStatus === "sent" && (
+              <p className="text-xs text-green-700 font-sans">✓ A copy has also been emailed to {clientEmail || "you"}.</p>
+            )}
+            {emailStatus === "failed" && (
+              <p className="text-xs text-[#B8654A] font-sans">⚠ We couldn't confirm your report email sent — please download the PDF above to be safe.</p>
+            )}
           </div>
           <Button onClick={handleDownloadPdf} disabled={downloading} className="shrink-0 bg-[#121212] text-white hover:bg-[#232323] px-6 py-2.5 rounded-lg text-sm font-bold border border-border">
             {downloading ? "Generating…" : "Download PDF"}

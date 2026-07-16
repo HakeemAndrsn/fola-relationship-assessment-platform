@@ -75,6 +75,7 @@ export default function IndividualReportPage() {
   const [clientEmail, setClientEmail] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [downloading, setDownloading] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<"sending" | "sent" | "failed" | null>(null);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("folaIndividualReport");
@@ -90,6 +91,30 @@ export default function IndividualReportPage() {
     setClientEmail(email);
     setClientPhone(phone);
   }, [router]);
+
+  useEffect(() => {
+    const key = "fola_individual_report_email_status";
+    const readStatus = () => {
+      const status = sessionStorage.getItem(key);
+      if (status === "sending" || status === "sent" || status === "failed") {
+        setEmailStatus(status);
+        return status;
+      }
+      return null;
+    };
+    if (!readStatus()) return;
+    // Poll briefly for the async email send (fired before this page loaded)
+    // to resolve from "sending" to a final status
+    const interval = setInterval(() => {
+      const status = readStatus();
+      if (status !== "sending") clearInterval(interval);
+    }, 500);
+    const timeout = setTimeout(() => clearInterval(interval), 10000);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, []);
 
   const statsString = report 
     ? `FOLA Relational Diagnostic - Client: ${report.name} | Overall Score: ${report.overallScore}/100 | Attachment: ${report.attachmentStyle.toUpperCase()} | Top Strength: ${report.topStrength.label} (${report.topStrength.score}/100) | Primary Growth Edge: ${report.primaryGrowthEdge.label} (${report.primaryGrowthEdge.score}/100) | Change Readiness: ${report.changeReadiness.toUpperCase()}`
@@ -163,8 +188,17 @@ export default function IndividualReportPage() {
             <h3 className="text-sm font-bold text-[#121212] uppercase tracking-wider font-sans">🔒 Secure Offline Document</h3>
             <p className="text-xs text-[#4E4E4E] leading-relaxed max-w-xl font-sans">
               To guarantee your clinical privacy, FOLA does not store your test results on our servers.
-              Click <strong>Download PDF</strong> to save this document directly to your device. A copy has also been emailed to you.
+              Click <strong>Download PDF</strong> to save this document directly to your device.
             </p>
+            {emailStatus === "sending" && (
+              <p className="text-xs text-[#4E4E4E] font-sans">⏳ Emailing a copy to {clientEmail || "your inbox"}…</p>
+            )}
+            {emailStatus === "sent" && (
+              <p className="text-xs text-green-700 font-sans">✓ A copy has also been emailed to {clientEmail || "you"}.</p>
+            )}
+            {emailStatus === "failed" && (
+              <p className="text-xs text-[#B8654A] font-sans">⚠ We couldn't confirm your report email sent — please download the PDF above to be safe.</p>
+            )}
           </div>
           <Button onClick={handleDownloadPdf} disabled={downloading} className="shrink-0 bg-[#121212] text-white hover:bg-[#232323] px-6 py-2.5 rounded-lg text-sm font-bold border border-border">
             {downloading ? "Generating…" : "Download PDF"}
@@ -605,7 +639,7 @@ export default function IndividualReportPage() {
                 <h3 className="text-xl font-bold text-foreground font-serif">Relational Breakthrough Session</h3>
                 <p className="text-xs font-semibold text-[#B8654A] font-sans">90 Minutes · R2,800 Intensive</p>
                 <p className="text-sm text-card-foreground/80 leading-relaxed font-sans">
-                  A high-impact, private workshop with Hakeem. We will dissect your 9-dimension stats, identify your core nervous system triggers, and map out a practical roadmap to shift your attachment style.
+                  A high-impact, private workshop with Hakeem. We will dissect your 10-dimension stats, identify your core nervous system triggers, and map out a practical roadmap to shift your attachment style.
                 </p>
                 <ul className="text-xs text-card-foreground/80 space-y-2 font-sans pt-2">
                   <li className="flex items-center gap-2">

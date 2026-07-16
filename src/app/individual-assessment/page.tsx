@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { generateIndividualReport } from "@/lib/individual-assessment/scoring";
 import {
   ATTACHMENT_OPTIONS,
@@ -18,6 +20,7 @@ import {
   COMMUNICATION_QUESTIONS,
   VALUES_CLARITY_QUESTIONS,
   NEURODIVERGENCE_QUESTIONS,
+  PREJUDICES_BIASES_QUESTIONS,
 } from "@/lib/individual-assessment/questions";
 import type {
   IndividualFormData,
@@ -38,11 +41,12 @@ const STEPS = [
   "Communication Style",
   "Values & Vision",
   "Neurodivergence",
+  "Prejudices & Biases",
   "Change Readiness",
   "Review",
 ];
 
-const STEP_ICONS = ["✦", "♡", "◈", "◎", "◇", "♦", "◉", "◐", "▲", "◫", "◆", "✓"];
+const STEP_ICONS = ["✦", "♡", "◈", "◎", "◇", "♦", "◉", "◐", "▲", "◫", "❖", "◆", "✓"];
 
 function initSliders(qs: { id: string }[]): SliderAnswers {
   const o: SliderAnswers = {};
@@ -61,6 +65,7 @@ const DEFAULT: IndividualFormData = {
   communicationStyle: initSliders(COMMUNICATION_QUESTIONS),
   valuesClarity: initSliders(VALUES_CLARITY_QUESTIONS),
   neurodivergenceAwareness: initSliders(NEURODIVERGENCE_QUESTIONS),
+  prejudicesBiases: initSliders(PREJUDICES_BIASES_QUESTIONS),
   changeReadiness: "contemplation",
 };
 
@@ -100,6 +105,7 @@ function SliderSection({
                 value={[values[q.id]]}
                 onValueChange={([v]) => onChange(q.id, v)}
                 className="w-full"
+                aria-label={q.label}
               />
               <div className="flex justify-between mt-2">
                 <span className="text-[10px] text-card-foreground/75 font-sans">Not at all</span>
@@ -134,6 +140,7 @@ function CardSelector<T extends string>({
           <button
             key={opt.value}
             onClick={() => onChange(opt.value)}
+            aria-pressed={value === opt.value}
             className={`text-left p-5 rounded-2xl border transition-all duration-200 ${
               value === opt.value
                 ? "border-[#B8654A] bg-[#121212]/10 shadow-lg shadow-sm"
@@ -156,10 +163,30 @@ function CardSelector<T extends string>({
   );
 }
 
+const DRAFT_DATA_KEY = "lb_individual_draft_data";
+const DRAFT_STEP_KEY = "lb_individual_draft_step";
+
+function loadDraftData(): IndividualFormData {
+  if (typeof window === "undefined") return DEFAULT;
+  try {
+    const saved = sessionStorage.getItem(DRAFT_DATA_KEY);
+    return saved ? { ...DEFAULT, ...JSON.parse(saved) } : DEFAULT;
+  } catch {
+    return DEFAULT;
+  }
+}
+
+function loadDraftStep(): number {
+  if (typeof window === "undefined") return 0;
+  const saved = sessionStorage.getItem(DRAFT_STEP_KEY);
+  const parsed = saved ? parseInt(saved, 10) : 0;
+  return Number.isFinite(parsed) && parsed >= 0 && parsed < STEPS.length ? parsed : 0;
+}
+
 export default function IndividualAssessmentPage() {
   const router = useRouter();
-  const [step, setStep] = useState(0);
-  const [data, setData] = useState<IndividualFormData>(DEFAULT);
+  const [step, setStep] = useState(loadDraftStep);
+  const [data, setData] = useState<IndividualFormData>(loadDraftData);
   const [generating, setGenerating] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -223,6 +250,13 @@ export default function IndividualAssessmentPage() {
     return () => window.removeEventListener("popstate", blockBack);
   }, [isPaid]);
 
+  // Autosave in-progress answers so a refresh, crash, or accidental
+  // navigation mid-assessment doesn't cost a paying client their progress
+  useEffect(() => {
+    sessionStorage.setItem(DRAFT_DATA_KEY, JSON.stringify(data));
+    sessionStorage.setItem(DRAFT_STEP_KEY, String(step));
+  }, [data, step]);
+
   const updateSliders = useCallback(
     (field: keyof IndividualFormData, id: string, val: number) => {
       setData((prev) => ({
@@ -251,6 +285,9 @@ export default function IndividualAssessmentPage() {
     sessionStorage.setItem("folaClientEmail", customerEmail);
     sessionStorage.setItem("folaClientPhone", customerPhone);
     sessionStorage.removeItem("lb_payment_verified");
+    // Draft is no longer needed once a report has been generated
+    sessionStorage.removeItem(DRAFT_DATA_KEY);
+    sessionStorage.removeItem(DRAFT_STEP_KEY);
 
     // Fire MailerLite directly
     fetch("/.netlify/functions/mailerlite", {
@@ -266,8 +303,12 @@ export default function IndividualAssessmentPage() {
     }).catch((e) => console.warn("MailerLite function failed:", e));
 
     // Email a full copy of the report via Brevo immediately, independent of
-    // whether the /individual-report page renders or the on-page PDF download works
+    // whether the /individual-report page renders or the on-page PDF download works.
+    // Status is written to sessionStorage so /individual-report can surface it, but
+    // the request itself fires before navigation so it isn't dependent on that
+    // page loading successfully.
     if (customerEmail) {
+      sessionStorage.setItem("fola_individual_report_email_status", "sending");
       fetch("/.netlify/functions/send-assessment-report-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -276,7 +317,14 @@ export default function IndividualAssessmentPage() {
           email: customerEmail,
           report,
         }),
-      }).catch((e) => console.warn("Report email function failed:", e));
+      })
+        .then((res) => sessionStorage.setItem("fola_individual_report_email_status", res.ok ? "sent" : "failed"))
+        .catch((e) => {
+          console.warn("Report email function failed:", e);
+          sessionStorage.setItem("fola_individual_report_email_status", "failed");
+        });
+    } else {
+      sessionStorage.removeItem("fola_individual_report_email_status");
     }
 
     await new Promise((r) => setTimeout(r, 1800));
@@ -425,7 +473,7 @@ export default function IndividualAssessmentPage() {
                   <span className="text-[#B8654A] italic">Before you love again.</span>
                 </h1>
                 <p className="mt-4 text-card-foreground/80 text-sm max-w-lg mx-auto leading-relaxed font-sans">
-                  This is a 9-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
+                  This is a 10-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
                 </p>
               </div>
               <div className="space-y-4">
@@ -473,23 +521,17 @@ export default function IndividualAssessmentPage() {
                     className="w-full rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-foreground placeholder-[#4a5568] focus:outline-none focus:border-[#B8654A]/50 focus:ring-1 focus:ring-[#B8654A]/30 font-sans resize-none"
                   />
                 </div>
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <div
-                    onClick={() => setData((p) => ({ ...p, onboarding: { ...p.onboarding, consentGiven: !p.onboarding.consentGiven } }))}
-                    className={`mt-0.5 w-5 h-5 rounded border-2 shrink-0 flex items-center justify-center transition-all ${
-                      data.onboarding.consentGiven ? "bg-[#121212] border-[#B8654A]" : "border-border"
-                    }`}
-                  >
-                    {data.onboarding.consentGiven && (
-                      <svg className="w-3 h-3 text-foreground" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    )}
-                  </div>
-                  <p className="text-xs text-card-foreground/60 leading-relaxed font-sans">
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="individual-consent"
+                    checked={data.onboarding.consentGiven}
+                    onCheckedChange={(v) => setData((p) => ({ ...p, onboarding: { ...p.onboarding, consentGiven: !!v } }))}
+                    className="mt-0.5"
+                  />
+                  <Label htmlFor="individual-consent" className="text-xs text-card-foreground/60 leading-relaxed font-sans font-normal cursor-pointer">
                     I understand this is a clinical-grade screening tool, not a formal diagnosis. My data is private and used solely to generate my personal report. I consent to proceed.
-                  </p>
-                </label>
+                  </Label>
+                </div>
               </div>
             </div>
           )}
@@ -593,8 +635,19 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 10: Change Readiness ── */}
+          {/* ── STEP 10: Prejudices & Biases ── */}
           {step === 10 && (
+            <SliderSection
+              title="Prejudices & Biases"
+              description="Unexamined beliefs about the opposite gender shape your relationships more than you may realise. Honest self-assessment here unlocks real change."
+              questions={PREJUDICES_BIASES_QUESTIONS}
+              values={data.prejudicesBiases}
+              onChange={(id, val) => updateSliders("prejudicesBiases", id, val)}
+            />
+          )}
+
+          {/* ── STEP 11: Change Readiness ── */}
+          {step === 11 && (
             <CardSelector
               title="Where are you in your readiness for change?"
               description="The Transtheoretical Model of Change identifies the stage you're actually in — not the stage you wish you were in. Honesty here is everything."
@@ -604,8 +657,8 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 11: Review ── */}
-          {step === 11 && (
+          {/* ── STEP 12: Review ── */}
+          {step === 12 && (
             <div className="space-y-8">
               <div className="text-center">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-serif">Your assessment is complete.</h2>
@@ -631,7 +684,7 @@ export default function IndividualAssessmentPage() {
                     </div>
                   </div>
                 ))}
-                <p className="text-[10px] text-card-foreground/75 font-sans pt-2">+ 4 more dimensions in your full report</p>
+                <p className="text-[10px] text-card-foreground/75 font-sans pt-2">+ 5 more dimensions in your full report</p>
               </div>
 
               {/* Summary cards */}
@@ -657,7 +710,7 @@ export default function IndividualAssessmentPage() {
                     </svg>
                     <span className="text-sm font-sans">Generating your clinical report…</span>
                   </div>
-                  <p className="text-xs text-card-foreground/60 mt-3 font-sans">Calculating 9 dimensions across clinical frameworks…</p>
+                  <p className="text-xs text-card-foreground/60 mt-3 font-sans">Calculating 10 dimensions across clinical frameworks…</p>
                 </div>
               ) : (
                 <button

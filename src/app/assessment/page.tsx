@@ -107,6 +107,7 @@ function SliderDomainSection({
                 value={[partnerAValues[q.id]]}
                 onValueChange={([v]) => onChangeA(q.id, v)}
                 className="mt-2"
+                aria-label={`${q.label} — ${partnerAName || "Partner A"}`}
               />
             </div>
             <div>
@@ -120,6 +121,7 @@ function SliderDomainSection({
                 value={[partnerBValues[q.id]]}
                 onValueChange={([v]) => onChangeB(q.id, v)}
                 className="mt-2"
+                aria-label={`${q.label} — ${partnerBName || "Partner B"}`}
               />
             </div>
           </CardContent>
@@ -129,10 +131,30 @@ function SliderDomainSection({
   );
 }
 
+const DRAFT_DATA_KEY = "lb_couples_draft_data";
+const DRAFT_STEP_KEY = "lb_couples_draft_step";
+
+function loadDraftData(): AssessmentFormData {
+  if (typeof window === "undefined") return DEFAULT_DATA;
+  try {
+    const saved = sessionStorage.getItem(DRAFT_DATA_KEY);
+    return saved ? { ...DEFAULT_DATA, ...JSON.parse(saved) } : DEFAULT_DATA;
+  } catch {
+    return DEFAULT_DATA;
+  }
+}
+
+function loadDraftStep(): number {
+  if (typeof window === "undefined") return 0;
+  const saved = sessionStorage.getItem(DRAFT_STEP_KEY);
+  const parsed = saved ? parseInt(saved, 10) : 0;
+  return Number.isFinite(parsed) && parsed >= 0 && parsed < STEPS.length ? parsed : 0;
+}
+
 export default function AssessmentPage() {
   const router = useRouter();
-  const [step, setStep] = useState(0);
-  const [data, setData] = useState<AssessmentFormData>(DEFAULT_DATA);
+  const [step, setStep] = useState(loadDraftStep);
+  const [data, setData] = useState<AssessmentFormData>(loadDraftData);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -196,6 +218,13 @@ export default function AssessmentPage() {
     return () => window.removeEventListener("popstate", blockBack);
   }, [isPaid]);
 
+  // Autosave in-progress answers so a refresh, crash, or accidental
+  // navigation mid-assessment doesn't cost a paying couple their progress
+  useEffect(() => {
+    sessionStorage.setItem(DRAFT_DATA_KEY, JSON.stringify(data));
+    sessionStorage.setItem(DRAFT_STEP_KEY, String(step));
+  }, [data, step]);
+
   const pA = data.onboarding.partnerAName || "Partner A";
   const pB = data.onboarding.partnerBName || "Partner B";
 
@@ -230,6 +259,9 @@ export default function AssessmentPage() {
     sessionStorage.setItem("folaClientEmail", customerEmail);
     sessionStorage.setItem("folaClientPhone", customerPhone);
     sessionStorage.removeItem("lb_payment_verified");
+    // Draft is no longer needed once a report has been generated
+    sessionStorage.removeItem(DRAFT_DATA_KEY);
+    sessionStorage.removeItem(DRAFT_STEP_KEY);
 
     // Fire MailerLite directly (no Zapier)
     fetch("/.netlify/functions/mailerlite", {
@@ -245,8 +277,12 @@ export default function AssessmentPage() {
     }).catch((e) => console.warn("MailerLite function failed:", e));
 
     // Email a full copy of the report via Brevo immediately, independent of
-    // whether the /report page renders or the on-page PDF download works
+    // whether the /report page renders or the on-page PDF download works.
+    // Status is written to sessionStorage so /report can surface it, but the
+    // request itself fires before navigation so it isn't dependent on that
+    // page loading successfully.
     if (customerEmail) {
+      sessionStorage.setItem("fola_report_email_status", "sending");
       fetch("/.netlify/functions/send-assessment-report-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -255,7 +291,14 @@ export default function AssessmentPage() {
           email: customerEmail,
           report,
         }),
-      }).catch((e) => console.warn("Report email function failed:", e));
+      })
+        .then((res) => sessionStorage.setItem("fola_report_email_status", res.ok ? "sent" : "failed"))
+        .catch((e) => {
+          console.warn("Report email function failed:", e);
+          sessionStorage.setItem("fola_report_email_status", "failed");
+        });
+    } else {
+      sessionStorage.removeItem("fola_report_email_status");
     }
 
     router.push("/report");
