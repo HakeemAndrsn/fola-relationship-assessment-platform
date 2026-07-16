@@ -21,6 +21,7 @@ import {
 } from "recharts";
 import { Button } from "@/components/ui/button";
 import type { AssessmentReport } from "@/lib/assessment/types";
+import { downloadElementAsPdf } from "@/lib/downloadReportPdf";
 
 function riskColor(level: string) {
   if (level === "low") return "#38a169";
@@ -74,6 +75,7 @@ export default function ReportPage() {
   const [report, setReport] = useState<AssessmentReport | null>(null);
   const [clientEmail, setClientEmail] = useState("");
   const [clientPhone, setClientPhone] = useState("");
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("fola-report");
@@ -122,8 +124,18 @@ export default function ReportPage() {
     fill: alignColor(s.alignmentPercent),
   }));
 
-  const handlePrint = () => {
-    window.print();
+  const handleDownloadPdf = async () => {
+    if (!report || downloading) return;
+    setDownloading(true);
+    try {
+      const filename = `FOLA-Couples-Assessment-${report.couple.partnerA}-${report.couple.partnerB}.pdf`.replace(/\s+/g, "-");
+      await downloadElementAsPdf("report-content", filename);
+    } catch (err) {
+      console.error("PDF download failed", err);
+      alert("Could not generate the PDF. Please try again.");
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
@@ -139,8 +151,8 @@ export default function ReportPage() {
             <Button variant="outline" onClick={() => router.push("/assessment")} className="text-[#4a5568]">
               New Assessment
             </Button>
-            <Button onClick={handlePrint} className="bg-[#121212] text-white hover:bg-[#2d4a7c]">
-              Download PDF
+            <Button onClick={handleDownloadPdf} disabled={downloading} className="bg-[#121212] text-white hover:bg-[#2d4a7c]">
+              {downloading ? "Generating…" : "Download PDF"}
             </Button>
           </div>
         </div>
@@ -152,12 +164,12 @@ export default function ReportPage() {
           <div className="space-y-1 text-left">
             <h3 className="text-sm font-bold text-[#121212] uppercase tracking-wider font-sans">🔒 Secure Offline Document</h3>
             <p className="text-xs text-[#4E4E4E] leading-relaxed max-w-xl font-sans">
-              To guarantee your clinical privacy, FOLA does not store your test results on our servers. 
-              Please click <strong>Download PDF</strong> and select <strong>"Save as PDF"</strong> in your browser's menu to save this document to your device.
+              To guarantee your clinical privacy, FOLA does not store your test results on our servers.
+              Click <strong>Download PDF</strong> to save this document directly to your device. A copy has also been emailed to you.
             </p>
           </div>
-          <Button onClick={handlePrint} className="shrink-0 bg-[#121212] text-white hover:bg-[#232323] px-6 py-2.5 rounded-lg text-sm font-bold border border-border">
-            Download PDF
+          <Button onClick={handleDownloadPdf} disabled={downloading} className="shrink-0 bg-[#121212] text-white hover:bg-[#232323] px-6 py-2.5 rounded-lg text-sm font-bold border border-border">
+            {downloading ? "Generating…" : "Download PDF"}
           </Button>
         </div>
 
