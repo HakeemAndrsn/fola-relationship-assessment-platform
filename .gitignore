@@ -42,4 +42,7 @@ next-env.d.ts
 
 # Secrets
 service-account-key.json
+.env
 .env.local
+.env*.local
+!.env.example

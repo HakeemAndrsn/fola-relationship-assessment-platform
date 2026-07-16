@@ -22,6 +22,15 @@ const PRODUCTS = {
   }
 };
 
+function escapeHtml(str) {
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -162,8 +171,8 @@ exports.handler = async (event) => {
       <body>
         <div class="container">
           <h1>Your files are ready.</h1>
-          <p>Hello ${customerName || "there"},</p>
-          <p>Thank you for purchasing <strong>${product.name}</strong> from LOVEBETTER by FOLA. Your payment was successfully confirmed.</p>
+          <p>Hello ${escapeHtml(customerName) || "there"},</p>
+          <p>Thank you for purchasing <strong>${escapeHtml(product.name)}</strong> from LOVEBETTER by FOLA. Your payment was successfully confirmed.</p>
           <p>You can access and download your purchase directly from Google Drive using the button below:</p>
           
           <div class="button-container">

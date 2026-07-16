@@ -33,8 +33,8 @@ exports.handler = async (event) => {
   }
 
   const { email, name, phone, overallScore, primaryGrowthEdge, fields, groups } = payload;
-  if (!email) {
-    return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: "email is required" }) };
+  if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: "A valid email is required" }) };
   }
 
   try {

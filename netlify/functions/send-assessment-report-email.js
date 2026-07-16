@@ -201,6 +201,10 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing reportType, email, or report" }) };
     }
 
+    if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "A valid email is required" }) };
+    }
+
     if (reportType !== "couples" && reportType !== "individual") {
       return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid reportType" }) };
     }
