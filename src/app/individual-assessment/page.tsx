@@ -265,6 +265,20 @@ export default function IndividualAssessmentPage() {
       }),
     }).catch((e) => console.warn("MailerLite function failed:", e));
 
+    // Email a full copy of the report via Brevo immediately, independent of
+    // whether the /individual-report page renders or the on-page PDF download works
+    if (customerEmail) {
+      fetch("/.netlify/functions/send-assessment-report-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          reportType: "individual",
+          email: customerEmail,
+          report,
+        }),
+      }).catch((e) => console.warn("Report email function failed:", e));
+    }
+
     await new Promise((r) => setTimeout(r, 1800));
     router.push("/individual-report");
   };

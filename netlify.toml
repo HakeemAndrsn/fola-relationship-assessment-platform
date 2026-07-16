@@ -21,6 +21,9 @@
 [functions.send-brevo-email]
   environment = { YOCO_SECRET_KEY = "", BREVO_API_KEY = "" }
 
+[functions.send-assessment-report-email]
+  environment = { BREVO_API_KEY = "" }
+
 [functions.yoco-webhook]
   environment = { YOCO_SECRET_KEY = "", YOCO_WEBHOOK_KEY = "", BREVO_API_KEY = "", MAILERLITE_API_KEY = "" }
 

@@ -244,6 +244,20 @@ export default function AssessmentPage() {
       }),
     }).catch((e) => console.warn("MailerLite function failed:", e));
 
+    // Email a full copy of the report via Brevo immediately, independent of
+    // whether the /report page renders or the on-page PDF download works
+    if (customerEmail) {
+      fetch("/.netlify/functions/send-assessment-report-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          reportType: "couples",
+          email: customerEmail,
+          report,
+        }),
+      }).catch((e) => console.warn("Report email function failed:", e));
+    }
+
     router.push("/report");
   };
 
