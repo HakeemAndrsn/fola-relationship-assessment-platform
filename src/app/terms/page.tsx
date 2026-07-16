@@ -33,7 +33,7 @@ export default function TermsOfService() {
               We stand behind the quality of our diagnostics. All assessment purchases are covered by our <strong>7-day money-back guarantee</strong>:
             </p>
             <p className="mt-2">
-              If the generated report does not change how you see your relationship or provide actionable self-awareness, you can request a full refund by emailing us at <a href="mailto:fola@fola.co.za" className="text-[#B8654A] underline">fola@fola.co.za</a> within 7 days of your purchase. Once verified, we will refund your paid amount of R600 to your bank account.
+              If the generated report does not change how you see your relationship or provide actionable self-awareness, you can request a full refund by emailing us at <a href="mailto:admin@fola.co.za" className="text-[#B8654A] underline">admin@fola.co.za</a> within 7 days of your purchase. Once verified, we will refund your paid amount of R600 to your bank account.
             </p>
           </section>
 

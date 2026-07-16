@@ -123,7 +123,7 @@ exports.handler = async (event) => {
             <a href="${product.link}" target="_blank" class="btn">Download Your Files</a>
           </div>
 
-          <p>This download link will remain active. If you need any support, please contact us at decks@fola.co.za.</p>
+          <p>This download link will remain active. If you need any support, please contact us at admin@fola.co.za.</p>
           
           <div class="footer">
             <p>LOVEBETTER by FOLA &middot; Hazelwood, Tshwane</p>
@@ -142,8 +142,10 @@ exports.handler = async (event) => {
         "content-type": "application/json"
       },
       body: JSON.stringify({
+        // sender must stay the Brevo-verified address or delivery silently fails;
+        // replyTo can safely point to the monitored inbox
         sender: { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" },
-        replyTo: { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" },
+        replyTo: { name: "LOVEBETTER by FOLA", email: "admin@fola.co.za" },
         to: [{ email: customerEmail, name: customerName || "Customer" }],
         subject: `Your LOVEBETTER ${product.name} is ready for download`,
         htmlContent: htmlContent

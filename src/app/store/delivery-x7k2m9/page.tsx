@@ -274,7 +274,7 @@ function DeliveryPageContent() {
             Direct download links will also remain available in your email inbox receipt.
           </p>
           <p style={{ ...fontUI, color: C.mute }} className="text-xs">
-            Need support? Contact us at <span style={{ color: C.gold }}>decks@fola.co.za</span>
+            Need support? Contact us at <span style={{ color: C.gold }}>admin@fola.co.za</span>
           </p>
         </div>
       </div>

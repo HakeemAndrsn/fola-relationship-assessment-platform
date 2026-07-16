@@ -5,7 +5,10 @@
 // owner so a durable record exists even if the client never receives it.
 
 const OWNER_EMAIL = "hakeemandrsn@gmail.com";
+// sender must stay the Brevo-verified address or delivery silently fails;
+// replyTo can safely point to the monitored inbox
 const SENDER = { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" };
+const REPLY_TO = { name: "LOVEBETTER by FOLA", email: "admin@fola.co.za" };
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -232,7 +235,7 @@ exports.handler = async (event) => {
       },
       body: JSON.stringify({
         sender: SENDER,
-        replyTo: SENDER,
+        replyTo: REPLY_TO,
         to: [{ email }],
         bcc: [{ email: OWNER_EMAIL }],
         subject: `Your FOLA ${isCouples ? "Couples" : "Individual"} Assessment Report — ${subjectName}`,

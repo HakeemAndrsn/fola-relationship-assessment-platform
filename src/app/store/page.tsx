@@ -859,7 +859,7 @@ function SuccessView({ checkoutId, productId }: SuccessViewProps) {
         </div>
 
         <p style={{ ...fontUI, color: C.mute }} className="text-xs pt-4">
-          If you experience any issues downloading your files, please contact us directly at <span style={{ color: C.gold }}>decks@fola.co.za</span>.
+          If you experience any issues downloading your files, please contact us directly at <span style={{ color: C.gold }}>admin@fola.co.za</span>.
         </p>
       </div>
     </section>

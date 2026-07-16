@@ -9,7 +9,6 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@babel/parser": "^7.28.5",
         "@headlessui/react": "^2.2.9",
         "@heroicons/react": "^2.2.0",
         "@hookform/resolvers": "^5.1.1",
@@ -57,7 +56,6 @@
         "embla-carousel-auto-scroll": "^8.6.0",
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-react": "^8.6.0",
-        "estree-walker": "2.0.2",
         "framer-motion": "^12.23.24",
         "googleapis": "^173.0.0",
         "html2canvas": "^1.4.1",
