@@ -18,6 +18,9 @@
 [functions.mailerlite]
   environment = { MAILERLITE_API_KEY = "" }
 
+[functions.patterns-subscribe]
+  environment = { MAILERLITE_API_KEY = "", ML_GROUP_INWARD_BLADE = "", ML_GROUP_STORM_MAKER = "", ML_GROUP_STORY_SPINNER = "" }
+
 [functions.send-brevo-email]
   environment = { YOCO_SECRET_KEY = "", BREVO_API_KEY = "" }
 

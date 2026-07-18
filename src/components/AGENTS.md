@@ -7,6 +7,10 @@ React components used across LoveBETTER pages. Includes both generic UI componen
 ## Ownership
 
 - `ui/` — shadcn/ui primitives (button, card, dialog, etc.)
+- `patterns/` — The Pattern Assessment (`/patterns`) screens and atoms. Intentionally
+  does NOT use `ui/` shadcn primitives — they carry the site's Bone/Terracotta theme
+  tokens, and this quiz is locked to its own "Deep Teal & Copper" palette (literal hex
+  utility classes, see `src/components/patterns/ui.tsx`). Keep it that way.
 - Root `components/` — feature components (assessment forms, report views, payment buttons, CTAs)
 
 ## Key Constraints
@@ -18,4 +22,6 @@ React components used across LoveBETTER pages. Includes both generic UI componen
 
 ## Child DOX Index
 
-No child AGENTS.md files yet.
+| Path | Scope | Owner |
+|------|-------|-------|
+| `patterns/` | Pattern Assessment screens (Door/Primer/Inventory/Gate/Mirror) | Agent |
