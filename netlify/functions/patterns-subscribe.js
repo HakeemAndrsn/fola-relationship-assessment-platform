@@ -22,9 +22,20 @@ const hits = new Map();
 function isRateLimited(ip) {
   const now = Date.now();
   const timestamps = (hits.get(ip) || []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+
+  if (timestamps.length >= RATE_LIMIT_MAX) {
+    hits.set(ip, timestamps);
+    return true;
+  }
+
   timestamps.push(now);
   hits.set(ip, timestamps);
-  return timestamps.length > RATE_LIMIT_MAX;
+
+  // Best-effort cap so a burst of unique IPs can't grow this map forever
+  // within a warm instance.
+  if (hits.size > 1000) hits.clear();
+
+  return false;
 }
 
 function isValidEmail(email) {
@@ -76,7 +87,10 @@ exports.handler = async (event) => {
   }
 
   const groupEnvVar = FAMILY_GROUP_ENV[family];
-  const groupId = groupEnvVar && process.env[groupEnvVar];
+  if (!groupEnvVar) {
+    return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: "Invalid family" }) };
+  }
+  const groupId = process.env[groupEnvVar];
   if (!groupId) {
     console.error(`No MailerLite group ID configured for family "${family}" (expected env var ${groupEnvVar})`);
     return { statusCode: 500, headers, body: JSON.stringify({ ok: false, error: "Server configuration error" }) };

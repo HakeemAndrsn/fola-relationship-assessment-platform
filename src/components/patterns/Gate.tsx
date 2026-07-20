@@ -9,6 +9,7 @@ export function Gate({ onSubmit }: { onSubmit: (name: string, email: string) => 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
+  const [pending, setPending] = useState(false);
 
   const nameError = touched && !name.trim() ? "First name is required." : null;
   const emailError = touched && !EMAIL_RE.test(email) ? "Enter a valid email address." : null;
@@ -16,7 +17,8 @@ export function Gate({ onSubmit }: { onSubmit: (name: string, email: string) => 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setTouched(true);
-    if (!name.trim() || !EMAIL_RE.test(email)) return;
+    if (pending || !name.trim() || !EMAIL_RE.test(email)) return;
+    setPending(true);
     onSubmit(name.trim(), email.trim());
   }
 
@@ -75,7 +77,9 @@ export function Gate({ onSubmit }: { onSubmit: (name: string, email: string) => 
         </div>
 
         <div className="mt-1 flex flex-col items-start gap-2">
-          <PrimaryButton type="submit">Show me my patterns →</PrimaryButton>
+          <PrimaryButton type="submit" disabled={pending}>
+            {pending ? "Loading your patterns…" : "Show me my patterns →"}
+          </PrimaryButton>
           <p className="text-[12px] text-[#8FB5A6]">Free. No spam. Unsubscribe anytime.</p>
         </div>
       </form>

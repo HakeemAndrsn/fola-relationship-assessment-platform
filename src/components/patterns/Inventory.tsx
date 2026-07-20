@@ -26,6 +26,7 @@ export function Inventory({ item, index, total, currentAnswer, reducedMotion, on
 
   function handleSelect(value: number) {
     setSelected(value);
+    if (timerRef.current) clearTimeout(timerRef.current);
     if (reducedMotion) {
       onAdvance(value);
       return;
