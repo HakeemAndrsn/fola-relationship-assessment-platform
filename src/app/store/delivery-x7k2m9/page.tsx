@@ -95,12 +95,14 @@ function DeliveryPageContent() {
               mailerliteFired.current = true;
               
               let productLabel = "swapcards_romantic_couples";
+              let purchaseAmount = "R200";
               if (valData.productId === "swapcards-parenting-deck-digital") {
                 productLabel = "swapcards_parenting_deck";
               } else if (valData.productId === "ebook-second-child") {
                 productLabel = "ebook_second_child";
               } else if (valData.productId === "quiet-load") {
                 productLabel = "ebook_quiet_load";
+                purchaseAmount = "R180";
               }
 
               fetch("/.netlify/functions/mailerlite", {
@@ -112,7 +114,7 @@ function DeliveryPageContent() {
                   phone: valData.phone || "",
                   fields: {
                     product_purchased: productLabel,
-                    purchase_amount: "R10"
+                    purchase_amount: purchaseAmount
                   }
                 }),
               }).catch(e => console.error("MailerLite subscribe error:", e));

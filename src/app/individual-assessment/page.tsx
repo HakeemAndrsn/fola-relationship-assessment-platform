@@ -372,6 +372,23 @@ export default function IndividualAssessmentPage() {
             Please enter your contact details below, complete the payment, and continue to your personalized assessment.
           </p>
 
+          {/* What you're getting */}
+          <div className="bg-[#E9E1D6]/30 border border-border rounded-xl p-4 text-left space-y-2">
+            <p className="text-xs font-semibold text-foreground uppercase tracking-wider font-sans">What's included</p>
+            <div className="flex items-start gap-2">
+              <span className="text-foreground mt-0.5 font-bold">✓</span>
+              <p className="text-xs text-card-foreground/75 font-sans">10-dimension clinical assessment — attachment, trauma, ADHD screening, values alignment, and more</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-foreground mt-0.5 font-bold">✓</span>
+              <p className="text-xs text-card-foreground/75 font-sans">Personalized report with clinical flags and a growth pathway</p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-foreground mt-0.5 font-bold">✓</span>
+              <p className="text-xs text-card-foreground/75 font-sans">Brown University-style clinical report delivered instantly as PDF</p>
+            </div>
+          </div>
+
           {/* Customer details form */}
           <div className="space-y-4 text-left">
             <div>
@@ -410,6 +427,7 @@ export default function IndividualAssessmentPage() {
           <div className="space-y-2 pt-2 border-t border-border">
             <p className="text-[11px] text-card-foreground/60 font-sans">🔒 Your data is fully encrypted. Responses are never saved server-side.</p>
             <p className="text-[11px] text-card-foreground/60 font-sans">💳 Secure payments processed via Yoco (Visa, Mastercard, Instant EFT)</p>
+            <p className="text-[11px] text-foreground/60 font-serif italic">You're in the right place. — The FOLA Team</p>
           </div>
         </div>
       </div>

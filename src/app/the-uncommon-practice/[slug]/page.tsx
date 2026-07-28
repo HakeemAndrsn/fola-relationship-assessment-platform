@@ -51,6 +51,15 @@ export async function generateMetadata({
   };
 }
 
+function slugifyHeading(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
 function renderContent(content: string) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
@@ -60,12 +69,14 @@ function renderContent(content: string) {
     const line = lines[i];
 
     if (line.startsWith("## ")) {
+      const headingText = line.slice(3);
       elements.push(
         <h2
           key={i}
+          id={slugifyHeading(headingText)}
           className="text-2xl font-bold text-foreground font-serif mt-12 mb-4"
         >
-          {line.slice(3)}
+          {headingText}
         </h2>
       );
     } else if (line.trim() === "") {
@@ -124,9 +135,9 @@ export default async function BlogPost({
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
           <Link href="/">
-            <h1 className="text-lg font-bold text-foreground tracking-tight font-serif">
+            <p className="text-lg font-bold text-foreground tracking-tight font-serif">
               LoveBetter
-            </h1>
+            </p>
             <p className="text-[10px] text-card-foreground/75 tracking-wide font-sans">
               Relationship Growth Readiness Assessment
             </p>
@@ -184,9 +195,9 @@ export default async function BlogPost({
                 {post.readTime}
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground font-serif leading-[1.15]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground font-serif leading-[1.15]">
               {post.title}
-            </h2>
+            </h1>
             <p className="mt-3 text-lg text-[#B8654A]/80 font-serif italic">
               {post.subtitle}
             </p>

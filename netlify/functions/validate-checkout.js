@@ -52,7 +52,7 @@ exports.handler = async (event) => {
     if (!response.ok) {
       console.error("Yoco API error details:", checkoutData);
       return {
-        statusCode: response.statusCode || 400,
+        statusCode: response.status || 400,
         headers,
         body: JSON.stringify({ error: "Failed to retrieve checkout from Yoco" }),
       };

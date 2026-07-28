@@ -139,8 +139,8 @@ export default function ReportPage() {
 
   const radarData = report.domainScores.map((s) => ({
     domain: s.label.replace(/\(.*\)/, "").trim(),
-    [report.couple.partnerA]: s.partnerAScore,
-    [report.couple.partnerB]: s.partnerBScore,
+    partnerA: s.partnerAScore,
+    partnerB: s.partnerBScore,
   }));
 
   const barData = report.domainScores.map((s) => ({
@@ -340,7 +340,7 @@ export default function ReportPage() {
                     <PolarRadiusAxis angle={90} domain={[0, 10]} tick={{ fontSize: 10, fill: "#a0aec0" }} />
                     <Radar
                       name={report.couple.partnerA}
-                      dataKey={report.couple.partnerA}
+                      dataKey="partnerA"
                       stroke="#121212"
                       fill="#121212"
                       fillOpacity={0.2}
@@ -348,7 +348,7 @@ export default function ReportPage() {
                     />
                     <Radar
                       name={report.couple.partnerB}
-                      dataKey={report.couple.partnerB}
+                      dataKey="partnerB"
                       stroke="#B8654A"
                       fill="#B8654A"
                       fillOpacity={0.2}
@@ -564,7 +564,7 @@ export default function ReportPage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#B8654A]">Estimated Total Investment</p>
                 <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases (excluding cohort)</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
-                  Age Regression Therapy sessions are R4,000 each for deeper trauma work. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
+                  Breakthrough &amp; Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
                 </p>
               </div>
               <span className="text-3xl font-bold">R{report.totalInvestment.toLocaleString()}</span>

@@ -135,7 +135,7 @@ exports.handler = async (event) => {
 
     if (!response.ok || !checkoutData.redirectUrl) {
       return {
-        statusCode: response.statusCode || 403,
+        statusCode: response.status || 403,
         headers,
         body: JSON.stringify({
           error: checkoutData.errorCode || checkoutData.message || "Checkout creation failed",

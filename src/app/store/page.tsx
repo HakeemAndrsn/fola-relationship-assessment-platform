@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 
 /* ---------- Google Drive product links (Ebooks) ---------- */
 const GOOGLE_DRIVE_PARENTING_DECK = "https://drive.google.com/file/d/1MeaeyBnAKoN7wdhlebiDu4zOEb8x3Vci/view?usp=drive_link";
@@ -175,12 +176,12 @@ function StoreHeader() {
         className="sticky top-0 z-50 border-b"
       >
         <div className="mx-auto max-w-6xl px-6 h-20 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2.5">
+          <Link href="/" className="flex items-center gap-2.5">
             <img src="/logo-heart.png" alt="LoveBetter" className="h-8 w-8" />
             <span style={{ ...fontUI, color: C.charcoal }} className="font-bold text-lg tracking-tight">
               lovebetter
             </span>
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center gap-10">
             {[
