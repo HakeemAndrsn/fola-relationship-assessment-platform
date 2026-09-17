@@ -569,7 +569,7 @@ export default function Home() {
             <img src="/logo-transparent.png" alt="FOLA" className="w-6 h-6" />
             <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · All assessments R600</span>
           </div>
-          <nav className="flex items-center gap-6" style={fontUI}>
+          <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6" style={fontUI}>
             <Link href="/individual-assessment" className="hover:text-[#1B1917] transition-colors">Individual Assessment</Link>
             <Link href="/assessment" className="hover:text-[#1B1917] transition-colors">Couples Assessment</Link>
             <Link href="/store" className="hover:opacity-80 transition-colors font-bold" style={{ color: C.terraDeep }}>The Store</Link>
