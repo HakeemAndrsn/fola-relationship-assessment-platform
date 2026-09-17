@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import YocoButton from "@/components/YocoButton";
+import { trackPurchaseOnce } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -184,6 +185,10 @@ export default function AssessmentPage() {
           setIsPaid(true);
           if (valData.email) setCustomerEmail(valData.email);
           if (valData.phone) setCustomerPhone(valData.phone);
+          trackPurchaseOnce(cid, {
+            value: (valData.amount ?? 60000) / 100,
+            items: [{ item_id: valData.productId, item_name: "Couples Assessment" }],
+          });
         }
       } catch (err) {
         console.error("Payment verification failed", err);

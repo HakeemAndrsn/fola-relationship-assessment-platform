@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ErrorReporter from "@/components/ErrorReporter";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Libre_Baskerville, Montserrat, Gloock, Instrument_Serif, Instrument_Sans } from "next/font/google";
 
 const libreBaskerville = Libre_Baskerville({
@@ -77,6 +78,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${libreBaskerville.variable} ${montserrat.variable} ${gloock.variable} ${iserif.variable} ${isans.variable}`}>
       <body className="antialiased font-sans">
+        <GoogleAnalytics />
         <ErrorReporter />
         {children}
       </body>
