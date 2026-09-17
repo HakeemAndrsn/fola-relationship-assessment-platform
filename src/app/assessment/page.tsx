@@ -339,7 +339,7 @@ export default function AssessmentPage() {
             <p className="text-xs font-semibold text-foreground uppercase tracking-wider font-sans">What's included</p>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
-              <p className="text-xs text-card-foreground/75 font-sans">9-dimension clinical assessment — attachment, trauma, ADHD screening, values alignment, and more</p>
+              <p className="text-xs text-card-foreground/75 font-sans">8-dimension clinical assessment — attachment, trauma, ADHD screening, values alignment, and more</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
@@ -384,7 +384,7 @@ export default function AssessmentPage() {
             customerName={`${data.onboarding.partnerAName || "Partner A"} & ${data.onboarding.partnerBName || "Partner B"}`}
             productDescription="LoveBETTER Couples Assessment"
             productId="lovebetter_couples"
-            amountInCents={1000}
+            amountInCents={60000}
             onSuccess={() => setIsPaid(true)}
           />
           <div className="space-y-2">
