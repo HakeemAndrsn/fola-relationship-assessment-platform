@@ -100,6 +100,8 @@ export default function AngelsPage() {
             © {new Date().getFullYear()} LOVEBETTER by FOLA
           </p>
           <div className="flex justify-center gap-4 text-xs text-card-foreground/60 font-sans">
+            <Link href="/partners" className="hover:text-foreground transition-colors">For Professionals</Link>
+            <span className="text-border">|</span>
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
             <span className="text-border">|</span>
             <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>

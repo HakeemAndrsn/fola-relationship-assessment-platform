@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE_URL}/store`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE_URL}/the-uncommon-practice`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/partners`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/angels`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE_URL}/terms`, changeFrequency: "yearly", priority: 0.3 },

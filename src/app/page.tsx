@@ -323,6 +323,43 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── CLINICAL FRAMEWORKS ── */}
+        <section className="px-6 py-16 bg-[#B8654A]/[0.03]">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center mb-12">
+              <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Not Guesswork</p>
+              <h2 className="text-3xl font-bold text-foreground font-serif">Grounded in the frameworks clinicians already trust</h2>
+              <p className="mt-3 text-card-foreground/80 text-sm max-w-2xl mx-auto font-sans leading-relaxed">
+                FOLA isn&apos;t a personality quiz wearing a lab coat. Every dimension we score maps to a named, peer-reviewed clinical framework — the same ones used in couples and individual therapy rooms.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-6">
+              {[
+                {
+                  name: "Attachment Theory",
+                  body: "Bowlby and Ainsworth's research on how early bonds shape adult relational patterns. We score attachment style directly, and weight its influence across every other domain.",
+                },
+                {
+                  name: "The Gottman Method",
+                  body: "Four decades of Dr. John Gottman's research on what predicts relationship success and failure — including the physiological and communication markers we flag as clinical risk indicators.",
+                },
+                {
+                  name: "Emotionally Focused Therapy (EFT)",
+                  body: "Sue Johnson's framework for de-escalating conflict cycles by identifying the attachment fears underneath them — the lens behind our critical fracture point analysis.",
+                },
+              ].map((item) => (
+                <div key={item.name} className="rounded-2xl border border-border bg-card p-7 shadow-sm">
+                  <h3 className="text-base font-bold text-foreground font-serif mb-2">{item.name}</h3>
+                  <p className="text-xs text-card-foreground/80 leading-relaxed font-sans">{item.body}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-center text-xs text-card-foreground/60 font-sans max-w-2xl mx-auto">
+              We also draw on ACE (Adverse Childhood Experiences) research for trauma scoring and current neurodivergence literature for our ADHD screening domain. Full citations are included in every clinical report.
+            </p>
+          </div>
+        </section>
+
 
         {/* ── PROBLEM / WHY NOW ── */}
         <section className="px-6 py-16">
@@ -600,6 +637,7 @@ export default function Home() {
             <Link href="/store" className="hover:text-foreground transition-colors font-semibold text-[#B8654A]">The Store</Link>
             <Link href="/the-uncommon-practice" className="hover:text-foreground transition-colors">The Uncommon Practice</Link>
             <a href="https://calendly.com/folasessions/discovery-call" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Book a Call</a>
+            <Link href="/partners" className="hover:text-foreground transition-colors">For Professionals</Link>
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </nav>

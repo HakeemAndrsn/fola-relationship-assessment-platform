@@ -267,6 +267,12 @@ export default function BlogIndex() {
                 Take Assessment
               </Link>
               <Link
+                href="/partners"
+                className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans"
+              >
+                For Professionals
+              </Link>
+              <Link
                 href="/privacy"
                 className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans"
               >
