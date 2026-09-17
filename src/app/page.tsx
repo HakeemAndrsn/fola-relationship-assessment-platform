@@ -2,6 +2,24 @@
 
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+
+// ── Scroll-reveal wrapper: fade + slide up once a section enters view ──
+function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const shouldReduceMotion = useReducedMotion();
+  if (shouldReduceMotion) return <div className={className}>{children}</div>;
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 // ── Newsletter ──
 function NewsletterSignup({ variant = "default" }: { variant?: "default" | "inline" }) {
@@ -49,6 +67,12 @@ export default function Home() {
     return idx >= 0 ? idx : null;
   });
   const [showSticky, setShowSticky] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const glowYCenter = useTransform(heroScroll, [0, 1], [0, shouldReduceMotion ? 0 : 90]);
+  const glowYLeft = useTransform(heroScroll, [0, 1], [0, shouldReduceMotion ? 0 : -50]);
+  const glowYRight = useTransform(heroScroll, [0, 1], [0, shouldReduceMotion ? 0 : -140]);
 
   useEffect(() => {
     const handleScroll = () => setShowSticky(window.scrollY > 600);
@@ -115,12 +139,12 @@ export default function Home() {
       <main className="pt-32">
 
         {/* ── HERO ── */}
-        <section className="relative px-6 pt-16 pb-8 overflow-hidden">
-          {/* Ambient glow */}
+        <section ref={heroRef} className="relative px-6 pt-16 pb-8 overflow-hidden">
+          {/* Ambient glow — drifts at a different rate than scroll for a subtle parallax effect */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(184,101,74,0.08) 0%, transparent 70%)" }} />
-            <div className="absolute top-20 left-1/4 w-[400px] h-[400px] rounded-full opacity-60" style={{ background: "radial-gradient(ellipse, rgba(124,134,115,0.08) 0%, transparent 70%)" }} />
-            <div className="absolute top-20 right-1/4 w-[400px] h-[400px] rounded-full opacity-60" style={{ background: "radial-gradient(ellipse, rgba(124,134,115,0.08) 0%, transparent 70%)" }} />
+            <motion.div style={{ y: glowYCenter, background: "radial-gradient(ellipse, rgba(184,101,74,0.08) 0%, transparent 70%)" }} className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full" />
+            <motion.div style={{ y: glowYLeft, background: "radial-gradient(ellipse, rgba(124,134,115,0.08) 0%, transparent 70%)" }} className="absolute top-20 left-1/4 w-[400px] h-[400px] rounded-full opacity-60" />
+            <motion.div style={{ y: glowYRight, background: "radial-gradient(ellipse, rgba(124,134,115,0.08) 0%, transparent 70%)" }} className="absolute top-20 right-1/4 w-[400px] h-[400px] rounded-full opacity-60" />
           </div>
 
           <div className="relative mx-auto max-w-5xl text-center">
@@ -184,7 +208,7 @@ export default function Home() {
 
         {/* ── DUAL ASSESSMENT SHOWCASE ── */}
         <section className="px-6 py-16">
-          <div className="mx-auto max-w-7xl">
+          <Reveal className="mx-auto max-w-7xl">
             <div className="text-center mb-14">
               <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Two Paths. One Practice.</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-serif">Which assessment is for you?</h2>
@@ -297,12 +321,12 @@ export default function Home() {
               </div>
 
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── HOW IT WORKS ── */}
         <section id="how-it-works" className="px-6 py-16">
-          <div className="mx-auto max-w-4xl">
+          <Reveal className="mx-auto max-w-4xl">
             <div className="text-center mb-12">
               <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Simple. Rigorous. Instant.</p>
               <h2 className="text-3xl font-bold text-foreground font-serif">How it works</h2>
@@ -320,12 +344,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── CLINICAL FRAMEWORKS ── */}
         <section className="px-6 py-16 bg-[#B8654A]/[0.03]">
-          <div className="mx-auto max-w-4xl">
+          <Reveal className="mx-auto max-w-4xl">
             <div className="text-center mb-12">
               <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Not Guesswork</p>
               <h2 className="text-3xl font-bold text-foreground font-serif">Grounded in the frameworks clinicians already trust</h2>
@@ -357,43 +381,54 @@ export default function Home() {
             <p className="mt-8 text-center text-xs text-card-foreground/60 font-sans max-w-2xl mx-auto">
               We also draw on ACE (Adverse Childhood Experiences) research for trauma scoring and current neurodivergence literature for our ADHD screening domain. Full citations are included in every clinical report.
             </p>
-          </div>
+          </Reveal>
         </section>
 
 
         {/* ── PROBLEM / WHY NOW ── */}
-        <section className="px-6 py-16">
-          <div className="mx-auto max-w-4xl">
-            <div className="rounded-3xl border border-border bg-secondary/80 p-10 text-center relative overflow-hidden">
-              <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-4">The cost of waiting</p>
-              <h2 className="text-3xl font-bold text-foreground font-serif mb-4">
-                Most couples wait <span className="text-[#B8654A]">6 years</span> before getting help.
-              </h2>
-              <p className="text-card-foreground/80 text-sm max-w-2xl mx-auto leading-relaxed font-sans mb-8">
-                By then, resentment has calcified. Patterns have cemented. And you&apos;re spending R1,500–R2,000 per therapy session just figuring out <em>what</em> the problem is.
-                Our assessments do that work in 30 minutes — so you can walk into any session already knowing.
-              </p>
-              <div className="grid sm:grid-cols-3 gap-4">
-                {[
-                  { icon: "M12 8v4m0 4h.01", text: "Same argument, different day. You're stuck in the loop." },
-                  { icon: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636", text: "Disconnected but can't explain why." },
-                  { icon: "M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5", text: "You keep choosing the wrong person." },
-                ].map((item, i) => (
-                  <div key={i} className="rounded-xl border border-border bg-card p-5 shadow-sm">
-                    <svg className="w-5 h-5 text-[#B8654A] mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
-                    </svg>
-                    <p className="text-xs text-card-foreground/80 font-sans leading-relaxed">{item.text}</p>
-                  </div>
-                ))}
+        <section className="px-6 py-20 bg-[#121212] text-[#F5F2EC]">
+          <Reveal className="mx-auto max-w-4xl text-center">
+            <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-4">The cost of waiting</p>
+            <h2 className="text-3xl sm:text-4xl font-bold font-serif mb-6 leading-tight">
+              Most couples wait <span className="italic" style={{ color: "#B8654A" }}>6 years</span> before getting help.
+            </h2>
+            <p className="text-[#F5F2EC]/75 text-sm max-w-2xl mx-auto leading-relaxed font-sans mb-10">
+              By then, resentment has calcified. Patterns have cemented. And you&apos;re spending R1,500–R2,000 per therapy session just figuring out <em>what</em> the problem is.
+              Our assessments do that work in 30 minutes — so you can walk into any session already knowing.
+            </p>
+
+            {/* Bold stat blocks */}
+            <div className="grid sm:grid-cols-2 gap-4 mb-10">
+              <div className="rounded-2xl bg-[#B8654A] p-8 text-left">
+                <p className="text-5xl font-bold font-serif text-white leading-none">6 yrs</p>
+                <p className="text-xs text-white/80 font-sans mt-2 uppercase tracking-wider">Average wait before couples seek help</p>
+              </div>
+              <div className="rounded-2xl bg-[#7C8673] p-8 text-left">
+                <p className="text-5xl font-bold font-serif text-white leading-none">R1.5–2k</p>
+                <p className="text-xs text-white/80 font-sans mt-2 uppercase tracking-wider">Per session, just to figure out what&apos;s wrong</p>
               </div>
             </div>
-          </div>
+
+            <div className="grid sm:grid-cols-3 gap-4">
+              {[
+                { icon: "M12 8v4m0 4h.01", text: "Same argument, different day. You're stuck in the loop." },
+                { icon: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636", text: "Disconnected but can't explain why." },
+                { icon: "M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5", text: "You keep choosing the wrong person." },
+              ].map((item, i) => (
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5">
+                  <svg className="w-5 h-5 text-[#B8654A] mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                  </svg>
+                  <p className="text-xs text-[#F5F2EC]/80 font-sans leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </section>
 
         {/* ── WHAT'S IN THE REPORT ── */}
         <section className="px-6 py-16">
-          <div className="mx-auto max-w-4xl">
+          <Reveal className="mx-auto max-w-4xl">
             <div className="text-center mb-12">
               <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Clinical depth. Real answers.</p>
               <h2 className="text-3xl font-bold text-foreground font-serif">What&apos;s inside your report</h2>
@@ -418,12 +453,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── PRICING ── */}
         <section className="px-6 py-16">
-          <div className="mx-auto max-w-3xl">
+          <Reveal className="mx-auto max-w-3xl">
             <div className="text-center mb-10">
               <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Transparent pricing</p>
               <h2 className="text-3xl font-bold text-foreground font-serif">Simple. Worth it.</h2>
@@ -463,12 +498,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── BUNDLE OFFER ── */}
         <section className="px-6 py-8">
-          <div className="mx-auto max-w-3xl">
+          <Reveal className="mx-auto max-w-3xl">
             <div className="rounded-3xl border border-[#B8654A]/20 bg-gradient-to-br from-[#B8654A]/[0.06] to-transparent p-8 text-center relative overflow-hidden shadow-sm">
               <div className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-30 blur-3xl" style={{ background: "radial-gradient(circle, rgba(184,101,74,0.1) 0%, transparent 70%)" }} />
               <div className="relative">
@@ -493,12 +528,12 @@ export default function Home() {
                 <p className="mt-3 text-[10px] text-card-foreground/60 font-sans">Pay R1,000 once, get access to both Individual and Couples assessments</p>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── THE STORE / SWAP CARDS TEASER ── */}
         <section className="px-6 py-16">
-          <div className="mx-auto max-w-4xl">
+          <Reveal className="mx-auto max-w-4xl">
             <div className="grid md:grid-cols-12 gap-8 items-center rounded-3xl border border-border bg-card p-10 shadow-sm">
               <div className="md:col-span-8 space-y-4 text-left">
                 <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans">Now Available in our Store</p>
@@ -536,12 +571,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── BLOG TEASER ── */}
         <section className="px-6 py-16">
-          <div className="mx-auto max-w-4xl">
+          <Reveal className="mx-auto max-w-4xl">
             <div className="rounded-3xl border border-border bg-card p-10 text-center shadow-sm">
               <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Knowledge first</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-serif mb-3">The Uncommon Practice</h2>
@@ -555,12 +590,12 @@ export default function Home() {
                 </svg>
               </Link>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── FAQ ── */}
         <section className="px-6 py-16">
-          <div className="mx-auto max-w-2xl">
+          <Reveal className="mx-auto max-w-2xl">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-foreground font-serif">Questions</h2>
             </div>
@@ -579,12 +614,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── NEWSLETTER ── */}
         <section className="px-6 py-16">
-          <div className="mx-auto max-w-xl text-center">
+          <Reveal className="mx-auto max-w-xl text-center">
             <div className="rounded-3xl border border-border bg-card p-10 shadow-sm">
               <p className="text-[10px] text-[#B8654A] uppercase tracking-[0.25em] font-sans mb-3">Free · Valuable · Honest</p>
               <h2 className="text-2xl font-bold text-foreground font-serif mb-2">The LOVEBetter Newsletter</h2>
@@ -593,31 +628,34 @@ export default function Home() {
               </p>
               <NewsletterSignup />
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* ── FINAL CTA ── */}
-        <section className="px-6 pb-20 pt-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground font-serif mb-4">
+        <section className="px-6 py-20 bg-[#121212] text-[#F5F2EC] overflow-hidden relative">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full opacity-40" style={{ background: "radial-gradient(ellipse, rgba(184,101,74,0.15) 0%, transparent 70%)" }} />
+          </div>
+          <Reveal className="relative mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl sm:text-5xl font-bold font-serif mb-4 leading-tight">
               The most important relationship<br />
-              <span className="text-[#B8654A] italic">is the one with yourself.</span>
+              <span className="italic" style={{ color: "#B8654A" }}>is the one with yourself.</span>
             </h2>
-            <p className="text-sm text-card-foreground/80 font-sans max-w-lg mx-auto mb-8 leading-relaxed">
+            <p className="text-sm text-[#F5F2EC]/75 font-sans max-w-lg mx-auto mb-10 leading-relaxed">
               Start there. Then build the relationship you actually deserve.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/individual-assessment" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-7 py-4 text-sm font-bold text-foreground font-sans hover:bg-secondary/40 transition-all shadow-sm">
+              <Link href="/individual-assessment" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-7 py-4 text-sm font-bold text-[#F5F2EC] font-sans hover:bg-white/10 transition-all">
                 Individual Assessment — R600
               </Link>
-              <Link href="/assessment" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#121212] text-[#F5F2EC] px-7 py-4 rounded-xl text-sm font-bold font-sans hover:bg-[#232323] transition-all hover:shadow-xl">
+              <Link href="/assessment" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-[#B8654A] text-white px-7 py-4 rounded-xl text-sm font-bold font-sans hover:bg-[#a2543c] transition-all hover:shadow-xl">
                 Couples Assessment — R600
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
             </div>
-          </div>
+          </Reveal>
         </section>
 
       </main>
