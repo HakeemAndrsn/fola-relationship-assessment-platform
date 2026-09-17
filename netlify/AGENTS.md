@@ -13,6 +13,10 @@ Netlify Functions for server-side operations — payment verification, webhooks,
 
 - `verify-payment` — Yoco payment verification endpoint
 - Webhook handlers for payment and assessment completion events
+- `mailerlite` — generic subscriber upsert used by payment/assessment flows
+- `patterns-subscribe` — upserts a `/patterns` lead into MailerLite, mapping the
+  visitor's family (Inward Blade / Storm Maker / Story Spinner) to its group ID via
+  `ML_GROUP_*` env vars so the matching nurture automation triggers on group-join
 
 ## Key Constraints
 
