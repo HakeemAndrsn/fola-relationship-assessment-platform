@@ -38,7 +38,7 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc list-inside space-y-2 mt-2 pl-4">
               <li><strong>Raw Responses:</strong> Your individual question answers exist only in your browser session while you complete the assessment. They are <strong>never</strong> transmitted to or stored on our servers, and are cleared when your session ends.</li>
-              <li><strong>Report Records:</strong> To deliver your report and invoice, a summary containing your scores, clinical flags, and contact details is automatically emailed to you via our transactional email provider (Brevo). Your contact details and high-level scores are also retained in our CRM (MailerLite) to support delivery and any follow-up you request.</li>
+              <li><strong>Report Records:</strong> To deliver your report and invoice, a summary containing your scores, clinical flags, and contact details is automatically emailed to you via our transactional email provider (Brevo). A copy of this same email is retained at our clinical practice's business inbox as our durable record of the service provided to you. Your contact details and high-level scores are also retained in our CRM (MailerLite) to support delivery and any follow-up you request.</li>
             </ul>
           </section>
 

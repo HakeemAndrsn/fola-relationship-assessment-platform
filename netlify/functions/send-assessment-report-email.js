@@ -4,7 +4,7 @@
 // /individual-report page renders successfully. Always BCCs the practice
 // owner so a durable record exists even if the client never receives it.
 
-const OWNER_EMAIL = "hakeemandrsn@gmail.com";
+const OWNER_EMAIL = "admin@fola.co.za";
 // sender must stay the Brevo-verified address or delivery silently fails;
 // replyTo can safely point to the monitored inbox
 const SENDER = { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" };
