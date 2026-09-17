@@ -176,7 +176,7 @@ function StoreHeader() {
       >
         <div className="mx-auto max-w-6xl px-6 h-20 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
-            <img src="/logo-heart.png" alt="LoveBetter" className="h-8 w-8" />
+            <img src="/logo-transparent.png" alt="LoveBetter" className="h-8 w-8" />
             <span style={{ ...fontUI, color: C.charcoal }} className="font-bold text-lg tracking-tight">
               lovebetter
             </span>
@@ -790,7 +790,7 @@ function StoreFooter() {
     <footer style={{ backgroundColor: C.charcoal }}>
       <div className="mx-auto max-w-6xl px-6 py-14 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div className="flex items-center gap-2.5">
-          <img src="/logo-heart.png" alt="LoveBetter" className="h-7 w-7" />
+          <img src="/logo-transparent.png" alt="LoveBetter" className="h-7 w-7" />
           <span style={{ ...fontUI, color: C.ivory }} className="font-bold tracking-tight">lovebetter</span>
         </div>
         <p style={{ ...fontAccent, color: C.mute }}>

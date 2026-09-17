@@ -123,13 +123,16 @@ export default async function BlogPost({
       {/* Nav */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
-          <Link href="/">
-            <h1 className="text-lg font-bold text-foreground tracking-tight font-serif">
-              LoveBetter
-            </h1>
-            <p className="text-[10px] text-card-foreground/75 tracking-wide font-sans">
-              Relationship Growth Readiness Assessment
-            </p>
+          <Link href="/" className="flex items-center gap-3">
+            <img src="/logo-transparent.png" alt="FOLA" className="w-9 h-9 rounded" />
+            <div>
+              <h1 className="text-lg font-bold text-foreground tracking-tight font-serif">
+                LoveBetter
+              </h1>
+              <p className="text-[10px] text-card-foreground/75 tracking-wide font-sans">
+                Relationship Growth Readiness Assessment
+              </p>
+            </div>
           </Link>
           <nav className="hidden sm:flex items-center gap-6">
             <Link

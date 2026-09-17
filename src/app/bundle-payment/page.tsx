@@ -79,6 +79,7 @@ export default function BundlePaymentPage() {
     return (
       <div className="min-h-screen bg-background text-card-foreground texture-paper flex items-center justify-center px-6 py-12" style={{ backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(184, 101, 74, 0.1) 0%, rgba(124, 134, 115, 0.05) 50%, transparent 70%)" }}>
         <div className="max-w-md w-full text-center space-y-6 bg-card border border-border rounded-3xl p-8 shadow-xl backdrop-blur-md">
+          <img src="/logo-transparent.png" alt="FOLA" className="w-10 h-10 rounded mx-auto" />
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-600/30 bg-green-600/10">
             <span className="text-green-700 text-sm">✓</span>
             <span className="text-green-700 text-xs font-semibold tracking-wider uppercase font-sans">Payment Confirmed</span>
@@ -110,6 +111,7 @@ export default function BundlePaymentPage() {
   return (
     <div className="min-h-screen bg-background text-card-foreground texture-paper flex items-center justify-center px-6 py-12" style={{ backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(184, 101, 74, 0.1) 0%, rgba(124, 134, 115, 0.05) 50%, transparent 70%)" }}>
       <div className="max-w-md w-full text-center space-y-6 bg-card border border-border rounded-3xl p-8 shadow-xl backdrop-blur-md">
+        <img src="/logo-transparent.png" alt="FOLA" className="w-10 h-10 rounded mx-auto" />
         <Link href="/" className="text-xs text-[#B8654A] uppercase tracking-[0.2em] hover:opacity-80 transition-opacity inline-block mb-2">
           &larr; Back to Home
         </Link>

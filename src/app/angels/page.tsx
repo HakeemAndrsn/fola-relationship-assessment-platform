@@ -7,9 +7,7 @@ export default function AngelsPage() {
       <header className="border-b border-border px-6 py-4 bg-background/80 backdrop-blur-md sticky top-0 z-50">
         <div className="mx-auto max-w-4xl flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded bg-[#B8654A]/10 border border-[#B8654A]/20 flex items-center justify-center">
-              <span className="text-[#B8654A] text-xs font-bold font-serif">F</span>
-            </div>
+            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7 rounded" />
             <span className="text-sm font-bold font-serif text-foreground">LoveBetter</span>
           </Link>
           <Link

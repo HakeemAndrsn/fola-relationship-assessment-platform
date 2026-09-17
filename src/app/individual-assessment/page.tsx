@@ -421,9 +421,12 @@ export default function IndividualAssessmentPage() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/90 border-b border-border">
         <div className="mx-auto max-w-3xl px-6 py-4 flex items-center justify-between">
-          <div>
-            <p className="text-xs text-[#B8654A] font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</p>
-            <p className="text-[10px] text-card-foreground/60 font-sans">LOVEBETTER by FOLA</p>
+          <div className="flex items-center gap-3">
+            <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7 rounded" />
+            <div>
+              <p className="text-xs text-[#B8654A] font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</p>
+              <p className="text-[10px] text-card-foreground/60 font-sans">LOVEBETTER by FOLA</p>
+            </div>
           </div>
           <div className="text-right">
             <p className="text-xs text-card-foreground/80 font-sans">{STEPS[step]}</p>

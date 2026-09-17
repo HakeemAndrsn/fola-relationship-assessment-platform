@@ -5,6 +5,7 @@ export default function PrivacyPolicy() {
     <div className="min-h-screen bg-background text-foreground font-sans py-16 px-6 sm:px-12">
       <div className="max-w-3xl mx-auto">
         <header className="mb-12 border-b border-border pb-6">
+          <img src="/logo-transparent.png" alt="FOLA" className="w-8 h-8 rounded mb-3" />
           <Link href="/" className="text-xs text-[#B8654A] uppercase tracking-[0.2em] hover:opacity-80 transition-opacity">
             &larr; Back to LoveBetter
           </Link>

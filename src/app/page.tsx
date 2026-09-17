@@ -626,9 +626,7 @@ export default function Home() {
       <footer className="border-t border-border px-6 py-10">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-card-foreground/75 font-sans">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded bg-[#B8654A]/10 border border-[#B8654A]/20 flex items-center justify-center">
-              <span className="text-[#B8654A] text-[10px] font-bold font-serif">F</span>
-            </div>
+            <img src="/logo-transparent.png" alt="FOLA" className="w-6 h-6 rounded" />
             <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · All assessments R600</span>
           </div>
           <nav className="flex items-center gap-6">
