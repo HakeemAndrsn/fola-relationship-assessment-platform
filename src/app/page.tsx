@@ -420,18 +420,28 @@ export default function Home() {
             </div>
 
             <div className="grid sm:grid-cols-3 gap-4">
-              {[
-                { icon: "M12 8v4m0 4h.01", text: "Same argument, different day. You're stuck in the loop." },
-                { icon: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636", text: "Disconnected but can't explain why." },
-                { icon: "M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5", text: "You keep choosing the wrong person." },
-              ].map((item, i) => (
-                <div key={i} className="rounded-xl border-2 border-white/15 bg-white/[0.04] p-5">
-                  <svg className="w-5 h-5 mx-auto mb-3" style={{ color: CORAL }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
-                  </svg>
-                  <p className="text-xs text-white/80 font-sans leading-relaxed">{item.text}</p>
-                </div>
-              ))}
+              <div className="rounded-xl border-2 border-white/15 bg-white/[0.04] p-5">
+                <svg className="w-6 h-6 mx-auto mb-3" style={{ color: CORAL }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h5M20 20v-5h-5" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 9a8 8 0 0114-4.5M19.5 15a8 8 0 01-14 4.5" />
+                </svg>
+                <p className="text-xs text-white/80 font-sans leading-relaxed">Same argument, different day. You&apos;re stuck in the loop.</p>
+              </div>
+              <div className="rounded-xl border-2 border-white/15 bg-white/[0.04] p-5">
+                <svg className="w-6 h-6 mx-auto mb-3" style={{ color: CORAL }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
+                  <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none" />
+                  <path strokeLinecap="round" d="M8.5 14.5 Q12 17 15.5 14.5" />
+                </svg>
+                <p className="text-xs text-white/80 font-sans leading-relaxed">Disconnected but can&apos;t explain why.</p>
+              </div>
+              <div className="rounded-xl border-2 border-white/15 bg-white/[0.04] p-5">
+                <svg className="w-6 h-6 mx-auto mb-3" style={{ color: CORAL }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L4 10l5-5M4 10h11a4 4 0 010 8h-1" />
+                </svg>
+                <p className="text-xs text-white/80 font-sans leading-relaxed">You keep choosing the wrong person.</p>
+              </div>
             </div>
           </Reveal>
         </section>
