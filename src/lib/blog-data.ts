@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     category: "Self-Worth",
     excerpt: "You keep telling yourself that you will come back to your own life when everybody else is settled. But there is always another person to carry, another problem to solve, another month that needs your money.",
-    image: "/images/blog/self-postponement-uncommon-practice.png",
+    image: "/images/blog/nervous-system-relationship.jpg",
     content: `You have the appointment saved in your phone. The book is on your bedside table. The gym shoes are by the door. The conversation you need to have with yourself has been waiting so long it has become furniture.
 
 Then somebody needs something.
