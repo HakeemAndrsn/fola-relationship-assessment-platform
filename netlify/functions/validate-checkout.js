@@ -1,4 +1,19 @@
 
+const crypto = require("crypto");
+
+const REPORT_TOKEN_TTL_SECONDS = 4 * 60 * 60;
+const ASSESSMENT_PRODUCTS = new Set(["lovebetter_assessment", "lovebetter_couples", "lovebetter_bundle"]);
+
+function base64url(input) {
+  return Buffer.from(input).toString("base64url");
+}
+
+function createReportToken(payload, secret) {
+  const encoded = base64url(JSON.stringify(payload));
+  const signature = crypto.createHmac("sha256", secret).update(encoded).digest("base64url");
+  return `${encoded}.${signature}`;
+}
+
 exports.handler = async (event) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -67,8 +82,32 @@ exports.handler = async (event) => {
       };
     }
 
-    // Return the payment details from metadata to unlock the app securely
+    // Return payment details and a short-lived, signed token that authorizes
+    // exactly one paid assessment identity to request its report email.
     const { productId, customerEmail, customerPhone, customerName } = checkoutData.metadata || {};
+    const reportTokenSecret = process.env.REPORT_TOKEN_SECRET;
+    if (!reportTokenSecret) {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: "Report delivery is not configured" }),
+      };
+    }
+    if (!ASSESSMENT_PRODUCTS.has(productId) || !customerEmail) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: "Checkout is not eligible for assessment delivery" }),
+      };
+    }
+    const now = Math.floor(Date.now() / 1000);
+    const reportToken = createReportToken({
+      checkoutId,
+      productId,
+      email: String(customerEmail).trim().toLowerCase(),
+      iat: now,
+      exp: now + REPORT_TOKEN_TTL_SECONDS,
+    }, reportTokenSecret);
 
     return {
       statusCode: 200,
@@ -80,6 +119,7 @@ exports.handler = async (event) => {
         phone: customerPhone,
         name: customerName,
         amount: checkoutData.amount,
+        reportToken,
       }),
     };
   } catch (err) {

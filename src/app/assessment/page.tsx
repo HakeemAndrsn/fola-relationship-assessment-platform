@@ -179,6 +179,7 @@ export default function AssessmentPage() {
         const valData = await res.json();
         if (res.ok && valData.verified && (valData.productId === "lovebetter_couples" || valData.productId === "lovebetter_bundle")) {
           sessionStorage.setItem("lb_couples_checkout_id", cid);
+          sessionStorage.setItem("lb_report_token", valData.reportToken || "");
           if (valData.productId === "lovebetter_bundle") {
             sessionStorage.setItem("lb_bundle_checkout_id", cid);
           }
@@ -258,6 +259,7 @@ export default function AssessmentPage() {
   const handleSubmit = () => {
     setIsGenerating(true);
     const report = generateReport(data);
+    const reportToken = sessionStorage.getItem("lb_report_token") || "";
     // Store in sessionStorage for the report page
     sessionStorage.setItem("fola-report", JSON.stringify(report));
     sessionStorage.setItem("fola-form-data", JSON.stringify(data));
@@ -295,6 +297,7 @@ export default function AssessmentPage() {
           reportType: "couples",
           email: customerEmail,
           report,
+          reportToken,
         }),
       })
         .then((res) => sessionStorage.setItem("fola_report_email_status", res.ok ? "sent" : "failed"))

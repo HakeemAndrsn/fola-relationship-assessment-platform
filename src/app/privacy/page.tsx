@@ -10,14 +10,14 @@ export default function PrivacyPolicy() {
             &larr; Back to LoveBetter
           </Link>
           <h1 className="text-3xl sm:text-4xl font-bold font-serif mt-4 text-[#080e1d]">Privacy Policy</h1>
-          <p className="text-xs text-card-foreground/60 mt-2">Last Updated: June 30, 2026 | POPIA Compliance</p>
+          <p className="text-xs text-card-foreground/60 mt-2">Last Updated: September 19, 2026 | POPIA Transparency</p>
         </header>
 
         <article className="space-y-6 text-sm text-card-foreground/80 leading-relaxed">
           <section>
             <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">1. Commitment to Privacy</h2>
             <p>
-              At LOVEBETTER by FOLA, we process highly sensitive information, including what South African law defines as "Special Personal Information" under the Protection of Personal Information Act (POPIA). This includes mental health patterns, childhood trauma indicators, relationship friction points, and neurodivergence screening results. We are dedicated to ensuring the absolute security and privacy of this data.
+              At LOVEBETTER by FOLA, we process highly sensitive information, including what South African law defines as "Special Personal Information" under the Protection of Personal Information Act (POPIA). This includes mental health patterns, childhood trauma indicators, relationship friction points, and neurodivergence screening results. We protect this information through data minimisation, secure transport, access controls, and clear disclosure of where your information goes.
             </p>
           </section>
 
@@ -34,11 +34,14 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">3. How We Process and Store Your Data</h2>
             <p>
-              Your personalized PDF report is generated locally in your own browser, not on our servers. To maintain strict compliance and protect your privacy:
+              Your personalised on-screen report and downloadable PDF are generated locally in your browser. To deliver the service safely and keep a recoverable practice record:
             </p>
             <ul className="list-disc list-inside space-y-2 mt-2 pl-4">
-              <li><strong>Raw Responses:</strong> Your individual question answers exist only in your browser session while you complete the assessment. They are <strong>never</strong> transmitted to or stored on our servers, and are cleared when your session ends.</li>
-              <li><strong>Report Records:</strong> To deliver your report and invoice, a summary containing your scores, clinical flags, and contact details is automatically emailed to you via our transactional email provider (Brevo). A copy of this same email is retained at our clinical practice's business inbox as our durable record of the service provided to you. Your contact details and high-level scores are also retained in our CRM (MailerLite) to support delivery and any follow-up you request.</li>
+              <li><strong>Raw Responses:</strong> Your individual question answers remain in your browser session while you complete the assessment. We do not keep the raw questionnaire as a database record. The browser uses those answers to calculate your report.</li>
+              <li><strong>Report Delivery:</strong> When you generate your report, its results, including scores and any clinical flags or recommended pathway, are securely transmitted to our transactional email provider, Brevo, so a copy can be sent to the email address linked to your paid assessment.</li>
+              <li><strong>Practice Record:</strong> The same report email is copied to <strong>admin@fola.co.za</strong> and retained in our access-controlled practice inbox as the durable record of the service provided to you. It is not published or shared for advertising.</li>
+              <li><strong>CRM Record:</strong> Your contact details and high-level scores are retained in MailerLite to support delivery and follow-up. MailerLite does not receive your raw questionnaire answers or full report through this assessment flow.</li>
+              <li><strong>Delivery Security:</strong> Report email requests require short-lived authorisation tied to the verified Yoco purchase and purchaser email. This prevents an unrelated person from using our service to send a report.</li>
             </ul>
           </section>
 
@@ -61,8 +64,9 @@ export default function PrivacyPolicy() {
               <strong>Retention Periods:</strong>
             </p>
             <ul className="list-disc list-inside space-y-1 mt-1 pl-4">
-              <li><strong>Raw Assessment Answers:</strong> Wiped immediately after the PDF report is compiled and generated. These are never stored.</li>
-              <li><strong>Contact Info & High-Level Scores:</strong> Retained for a period of three (3) years to support your clinical journey and potential regression integration sessions, unless you request earlier deletion.</li>
+              <li><strong>Raw Assessment Answers:</strong> Kept only in the active browser session and not retained in a FOLA assessment database. Closing the session removes that browser-session copy.</li>
+              <li><strong>Emailed Report & Practice Record:</strong> Retained in the client&apos;s chosen mailbox and our access-controlled practice inbox for up to three (3) years, unless a longer period is required by law or you request earlier deletion where the law permits.</li>
+              <li><strong>Contact Info & High-Level Scores:</strong> Retained in our CRM for up to three (3) years to support delivery and any follow-up you request, unless you request earlier deletion.</li>
             </ul>
           </section>
 

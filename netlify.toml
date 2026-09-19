@@ -15,6 +15,9 @@
 [functions.verify-payment]
   environment = { YOCO_SECRET_KEY = "" }
 
+[functions.validate-checkout]
+  environment = { YOCO_SECRET_KEY = "", REPORT_TOKEN_SECRET = "" }
+
 [functions.mailerlite]
   environment = { MAILERLITE_API_KEY = "" }
 
@@ -22,7 +25,7 @@
   environment = { YOCO_SECRET_KEY = "", BREVO_API_KEY = "" }
 
 [functions.send-assessment-report-email]
-  environment = { BREVO_API_KEY = "" }
+  environment = { BREVO_API_KEY = "", REPORT_TOKEN_SECRET = "" }
 
 [functions.report-client-error]
   environment = { BREVO_API_KEY = "" }

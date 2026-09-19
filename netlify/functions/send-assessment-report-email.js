@@ -4,7 +4,31 @@
 // /individual-report page renders successfully. Always BCCs the practice
 // owner so a durable record exists even if the client never receives it.
 
+const crypto = require("crypto");
+
 const OWNER_EMAIL = "admin@fola.co.za";
+const ALLOWED_PRODUCTS_BY_REPORT_TYPE = {
+  individual: new Set(["lovebetter_assessment", "lovebetter_bundle"]),
+  couples: new Set(["lovebetter_couples", "lovebetter_bundle"]),
+};
+
+function parseAndVerifyReportToken(token, secret) {
+  if (!token || !secret) return null;
+  const [encoded, signature] = String(token).split(".");
+  if (!encoded || !signature) return null;
+  const expected = crypto.createHmac("sha256", secret).update(encoded).digest("base64url");
+  const a = Buffer.from(signature);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return null;
+  try {
+    const payload = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8"));
+    const now = Math.floor(Date.now() / 1000);
+    if (!payload.exp || payload.exp < now || !payload.email || !payload.productId || !payload.checkoutId) return null;
+    return payload;
+  } catch {
+    return null;
+  }
+}
 // sender must stay the Brevo-verified address or delivery silently fails;
 // replyTo can safely point to the monitored inbox
 const SENDER = { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" };
@@ -198,10 +222,10 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body);
-    const { reportType, email, report } = body;
+    const { reportType, email, report, reportToken } = body;
 
-    if (!reportType || !email || !report) {
-      return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing reportType, email, or report" }) };
+    if (!reportType || !email || !report || !reportToken) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing report delivery details" }) };
     }
 
     if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -210,6 +234,13 @@ exports.handler = async (event) => {
 
     if (reportType !== "couples" && reportType !== "individual") {
       return { statusCode: 400, headers, body: JSON.stringify({ error: "Invalid reportType" }) };
+    }
+
+    const tokenPayload = parseAndVerifyReportToken(reportToken, process.env.REPORT_TOKEN_SECRET);
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const allowedProducts = ALLOWED_PRODUCTS_BY_REPORT_TYPE[reportType];
+    if (!tokenPayload || tokenPayload.email !== normalizedEmail || !allowedProducts.has(tokenPayload.productId)) {
+      return { statusCode: 403, headers, body: JSON.stringify({ error: "Report delivery authorization is invalid or expired" }) };
     }
 
     const brevoApiKey = process.env.BREVO_API_KEY;

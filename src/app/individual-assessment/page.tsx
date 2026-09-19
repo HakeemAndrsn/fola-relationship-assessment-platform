@@ -211,6 +211,7 @@ export default function IndividualAssessmentPage() {
         const valData = await res.json();
         if (res.ok && valData.verified && (valData.productId === "lovebetter_assessment" || valData.productId === "lovebetter_bundle")) {
           sessionStorage.setItem("lb_checkout_id", cid);
+          sessionStorage.setItem("lb_report_token", valData.reportToken || "");
           if (valData.productId === "lovebetter_bundle") {
             sessionStorage.setItem("lb_bundle_checkout_id", cid);
           }
@@ -285,6 +286,7 @@ export default function IndividualAssessmentPage() {
   const handleSubmit = async () => {
     setGenerating(true);
     const report = generateIndividualReport(data);
+    const reportToken = sessionStorage.getItem("lb_report_token") || "";
     sessionStorage.setItem("folaIndividualReport", JSON.stringify(report));
     sessionStorage.setItem("folaIndividualFormData", JSON.stringify(data));
     sessionStorage.setItem("folaClientEmail", customerEmail);
@@ -321,6 +323,7 @@ export default function IndividualAssessmentPage() {
           reportType: "individual",
           email: customerEmail,
           report,
+          reportToken,
         }),
       })
         .then((res) => sessionStorage.setItem("fola_individual_report_email_status", res.ok ? "sent" : "failed"))
