@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { trackPurchaseOnce } from "@/lib/analytics";
 
 
 /* ---------- Google Drive product links (Swap cards) ---------- */
@@ -79,7 +80,11 @@ function DeliveryPageContent() {
           setVerified(true);
           setCheckoutId(id);
           setPurchasedProduct(valData.productId);
-          
+          trackPurchaseOnce(id, {
+            value: typeof valData.amount === "number" ? valData.amount / 100 : undefined,
+            items: [{ item_id: valData.productId }],
+          });
+
           if (valData.email) {
             setCustomerEmail(valData.email);
             
@@ -112,7 +117,7 @@ function DeliveryPageContent() {
                   phone: valData.phone || "",
                   fields: {
                     product_purchased: productLabel,
-                    purchase_amount: "R10"
+                    purchase_amount: typeof valData.amount === "number" ? `R${(valData.amount / 100).toFixed(0)}` : ""
                   }
                 }),
               }).catch(e => console.error("MailerLite subscribe error:", e));

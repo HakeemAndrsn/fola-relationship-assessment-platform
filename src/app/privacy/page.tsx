@@ -34,11 +34,11 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">3. How We Process and Store Your Data</h2>
             <p>
-              We run a secure server-side architecture to generate your personalized PDF report. To maintain strict compliance and protect your privacy:
+              Your personalized PDF report is generated locally in your own browser, not on our servers. To maintain strict compliance and protect your privacy:
             </p>
             <ul className="list-disc list-inside space-y-2 mt-2 pl-4">
-              <li><strong>Raw Responses:</strong> Your individual question answers are encrypted in transit and are **never** stored permanently on public web servers. Once your PDF report is compiled, generated, and delivered to your inbox, the raw questionnaire responses are wiped from our active web servers.</li>
-              <li><strong>Report Records:</strong> We retain only the final generated Report ID, your contact details (for delivery and billing verification), and your high-level scores in our secure CRM system (MailerLite/Airtable).</li>
+              <li><strong>Raw Responses:</strong> Your individual question answers exist only in your browser session while you complete the assessment. They are <strong>never</strong> transmitted to or stored on our servers, and are cleared when your session ends.</li>
+              <li><strong>Report Records:</strong> To deliver your report and invoice, a summary containing your scores, clinical flags, and contact details is automatically emailed to you via our transactional email provider (Brevo). A copy of this same email is retained at our clinical practice's business inbox as our durable record of the service provided to you. Your contact details and high-level scores are also retained in our CRM (MailerLite) to support delivery and any follow-up you request.</li>
             </ul>
           </section>
 

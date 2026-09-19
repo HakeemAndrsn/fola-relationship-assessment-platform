@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import YocoButton from "@/components/YocoButton";
+import { trackPurchaseOnce } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -184,6 +185,10 @@ export default function AssessmentPage() {
           setIsPaid(true);
           if (valData.email) setCustomerEmail(valData.email);
           if (valData.phone) setCustomerPhone(valData.phone);
+          trackPurchaseOnce(cid, {
+            value: (valData.amount ?? 60000) / 100,
+            items: [{ item_id: valData.productId, item_name: "Couples Assessment" }],
+          });
         }
       } catch (err) {
         console.error("Payment verification failed", err);
@@ -339,7 +344,7 @@ export default function AssessmentPage() {
             <p className="text-xs font-semibold text-foreground uppercase tracking-wider font-sans">What's included</p>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
-              <p className="text-xs text-card-foreground/75 font-sans">9-dimension clinical assessment — attachment, trauma, ADHD screening, values alignment, and more</p>
+              <p className="text-xs text-card-foreground/75 font-sans">8-dimension clinical assessment — attachment, trauma, ADHD screening, values alignment, and more</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
@@ -384,7 +389,7 @@ export default function AssessmentPage() {
             customerName={`${data.onboarding.partnerAName || "Partner A"} & ${data.onboarding.partnerBName || "Partner B"}`}
             productDescription="LoveBETTER Couples Assessment"
             productId="lovebetter_couples"
-            amountInCents={1000}
+            amountInCents={60000}
             onSuccess={() => setIsPaid(true)}
           />
           <div className="space-y-2">

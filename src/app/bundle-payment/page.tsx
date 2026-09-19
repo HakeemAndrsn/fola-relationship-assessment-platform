@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import YocoButton from "@/components/YocoButton";
+import { trackPurchaseOnce } from "@/lib/analytics";
 
 export default function BundlePaymentPage() {
   const [customerEmail, setCustomerEmail] = useState("");
@@ -31,6 +32,10 @@ export default function BundlePaymentPage() {
           setIsPaid(true);
           if (valData.email) setCustomerEmail(valData.email);
           if (valData.phone) setCustomerPhone(valData.phone);
+          trackPurchaseOnce(cid, {
+            value: (valData.amount ?? 100000) / 100,
+            items: [{ item_id: valData.productId, item_name: "Bundle (Individual + Couples)" }],
+          });
         }
       } catch (err) {
         console.error("Payment verification failed", err);

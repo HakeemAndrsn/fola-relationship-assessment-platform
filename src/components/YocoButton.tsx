@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 interface YocoButtonProps {
   customerEmail?: string;
@@ -71,6 +72,11 @@ export default function YocoButton({
         if (verifyData.checkoutId) {
           localStorage.setItem("active_checkout_id", verifyData.checkoutId);
         }
+        trackEvent("begin_checkout", {
+          currency: "ZAR",
+          value: amountInCents / 100,
+          items: [{ item_id: productId, item_name: productDescription, price: amountInCents / 100 }],
+        });
         // Redirect client to Yoco's hosted secure checkout screen
         window.location.href = verifyData.redirectUrl;
       } else {

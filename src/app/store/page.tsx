@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { trackEvent, trackPurchaseOnce } from "@/lib/analytics";
 
 /* ---------- Google Drive product links (Ebooks) ---------- */
 const GOOGLE_DRIVE_PARENTING_DECK = "https://drive.google.com/file/d/1MeaeyBnAKoN7wdhlebiDu4zOEb8x3Vci/view?usp=drive_link";
@@ -898,6 +899,10 @@ export default function StorePage() {
           setPurchasedProduct(valData.productId);
           sessionStorage.setItem("lb_store_checkout_id", id);
           sessionStorage.setItem("lb_store_purchased_product", valData.productId);
+          trackPurchaseOnce(id, {
+            value: (valData.amount ?? PRODUCTS_CONFIG[valData.productId as keyof typeof PRODUCTS_CONFIG]?.priceCents ?? 0) / 100,
+            items: [{ item_id: valData.productId }],
+          });
         }
       } catch (err) {
         console.error("Verification failed", err);
@@ -960,6 +965,11 @@ export default function StorePage() {
         if (verifyData.checkoutId) {
           localStorage.setItem("active_checkout_id", verifyData.checkoutId);
         }
+        trackEvent("begin_checkout", {
+          currency: "ZAR",
+          value: PRODUCTS_CONFIG[prodId as keyof typeof PRODUCTS_CONFIG].priceCents / 100,
+          items: [{ item_id: prodId }],
+        });
         window.location.href = verifyData.redirectUrl;
       } else {
         setError(verifyData.error || "Failed to initiate payment. Please try again.");
