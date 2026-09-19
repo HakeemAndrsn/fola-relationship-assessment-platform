@@ -6,9 +6,9 @@
 // test/discount pricing (set client-side) keeps working without needing a
 // matching server deploy every time.
 const MIN_PRICE_CENTS = {
-  lovebetter_assessment: 1000,
-  lovebetter_couples: 1000,
-  lovebetter_bundle: 1000,
+  lovebetter_assessment: 60000,
+  lovebetter_couples: 60000,
+  lovebetter_bundle: 100000,
   "swapcards-romantic-couples-digital": 20000,
   "swapcards-parenting-deck-digital": 20000,
   "ebook-second-child": 20000,
