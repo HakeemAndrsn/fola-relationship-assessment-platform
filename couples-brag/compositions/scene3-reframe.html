@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Gloock";
+          src: url("assets/fonts/Gloock-Regular.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Sans";
+          src: url("assets/fonts/InstrumentSans-Regular.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Sans";
+          src: url("assets/fonts/InstrumentSans-SemiBold.ttf") format("truetype");
+          font-weight: 600;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Sans";
+          src: url("assets/fonts/InstrumentSans-Bold.ttf") format("truetype");
+          font-weight: 700;
+          font-style: normal;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #f3efe6;
+          overflow: hidden;
+          font-family: "Instrument Sans", sans-serif;
+        }
+
+        .s3-center {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 1500px;
+          text-align: center;
+        }
+
+        .s3-kicker {
+          display: inline-block;
+          color: #6b4e18;
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 700;
+          font-size: 26px;
+          letter-spacing: 0.16em;
+          margin-bottom: 26px;
+        }
+
+        .s3-headline {
+          display: block;
+          color: #1b1917;
+          font-family: "Gloock", serif;
+          font-weight: 400;
+          font-size: 78px;
+          line-height: 1.16;
+          letter-spacing: -0.01em;
+          margin-bottom: 30px;
+        }
+
+        .s3-subhead {
+          display: block;
+          color: #5b564c;
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 400;
+          font-size: 32px;
+          line-height: 1.4;
+          max-width: 1150px;
+          margin: 0 auto 52px;
+        }
+
+        .s3-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 18px;
+          background: #b4531f;
+          border-radius: 100px;
+          padding: 22px 40px;
+          box-shadow: 0 24px 48px rgba(180, 83, 31, 0.28);
+        }
+
+        .s3-badge-kicker {
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 700;
+          font-size: 20px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #f5f2ec;
+          border-right: 1px solid rgba(245, 242, 236, 0.4);
+          padding-right: 18px;
+        }
+
+        .s3-badge-detail {
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 600;
+          font-size: 24px;
+          color: #f5f2ec;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scene3-reframe" data-width="1920" data-height="1080">
+        <div class="s3-center">
+          <span id="s3-kicker" class="s3-kicker">CLINICAL-GRADE, NOT GUESSWORK</span>
+          <span id="s3-headline" class="s3-headline">A real report, not a personality quiz.</span>
+          <span id="s3-subhead" class="s3-subhead"
+            >Every dimension maps to a named, peer-reviewed clinical framework.</span
+          >
+          <div id="s3-badge" class="s3-badge">
+            <span class="s3-badge-kicker">Couples</span>
+            <span class="s3-badge-detail">8 dimensions &middot; R600 &middot; 30&ndash;40 min</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          gsap.set("#s3-kicker", { opacity: 0, y: 16 });
+          gsap.set("#s3-headline", { opacity: 0, y: 26 });
+          gsap.set("#s3-subhead", { opacity: 0, y: 22 });
+          gsap.set("#s3-badge", { opacity: 0, y: 34, scale: 0.95 });
+
+          tl.to("#s3-kicker", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.1);
+          tl.to("#s3-headline", { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.32);
+          tl.to("#s3-subhead", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.72);
+          // Badge settles last — anchors what we're about to see (Scene 4)
+          tl.to("#s3-badge", { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.15);
+
+          window.__timelines["scene3-reframe"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

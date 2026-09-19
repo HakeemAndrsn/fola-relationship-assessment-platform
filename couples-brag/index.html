@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LOVEBETTER by FOLA — Couples Assessment Sales Film</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #1b1917;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="root" data-width="1920" data-height="1080" data-duration="41">
+      <!-- Scene 1 — The Fracture (Hook) — 0-4s -->
+      <div
+        id="el-scene1"
+        data-composition-id="scene1-hook"
+        data-composition-src="compositions/scene1-hook.html"
+        data-start="0"
+        data-duration="4"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 2 — The Agitation (Cost of Silence) — 4-11s -->
+      <div
+        id="el-scene2"
+        data-composition-id="scene2-agitation"
+        data-composition-src="compositions/scene2-agitation.html"
+        data-start="4"
+        data-duration="7"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 3 — The Reframe (Not a Personality Quiz) — 11-16s -->
+      <div
+        id="el-scene3"
+        data-composition-id="scene3-reframe"
+        data-composition-src="compositions/scene3-reframe.html"
+        data-start="11"
+        data-duration="5"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 4 — The Process (Proof — dual-slider UI) — 16-22s -->
+      <div
+        id="el-scene4"
+        data-composition-id="scene4-process"
+        data-composition-src="compositions/scene4-process.html"
+        data-start="16"
+        data-duration="6"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 5 — The Reveal (Primary Strength vs Critical Fracture) — 22-30s -->
+      <div
+        id="el-scene5"
+        data-composition-id="scene5-reveal"
+        data-composition-src="compositions/scene5-reveal.html"
+        data-start="22"
+        data-duration="8"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 6 — Reframe the Investment — 30-35s -->
+      <div
+        id="el-scene6"
+        data-composition-id="scene6-investment"
+        data-composition-src="compositions/scene6-investment.html"
+        data-start="30"
+        data-duration="5"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 7 — The Close (CTA) — 35-41s -->
+      <div
+        id="el-scene7"
+        data-composition-id="scene7-close"
+        data-composition-src="compositions/scene7-close.html"
+        data-start="35"
+        data-duration="6"
+        data-track-index="1"
+      ></div>
+
+      <!-- ===================== AUDIO (root — survives scene cuts) ===================== -->
+
+      <!-- Continuous cinematic score bed: tense (0-11s) -> warm lift (11-22s) -> swell (22-30s) -> resolve/near-silence (30-41s) -->
+      <audio
+        id="score-bed"
+        src="assets/audio/score-bed.mp3"
+        data-start="0"
+        data-duration="41"
+        data-track-index="10"
+        data-volume="1.0"
+      ></audio>
+
+      <!-- Scene 2: stat-card landing thuds -->
+      <audio
+        id="sfx-card1"
+        src="assets/audio/impact-bass-1.mp3"
+        data-start="5.6"
+        data-duration="2.1"
+        data-track-index="11"
+        data-volume="0.75"
+      ></audio>
+      <audio
+        id="sfx-card2"
+        src="assets/audio/impact-bass-1.mp3"
+        data-start="7.1"
+        data-duration="2.1"
+        data-track-index="12"
+        data-volume="0.8"
+      ></audio>
+
+      <!-- Scene 4: live slider-drag UI ticks -->
+      <audio
+        id="sfx-tick1"
+        src="assets/audio/click-soft.mp3"
+        data-start="17.9"
+        data-duration="0.37"
+        data-track-index="11"
+        data-volume="0.4"
+      ></audio>
+      <audio
+        id="sfx-tick2"
+        src="assets/audio/click-soft.mp3"
+        data-start="18.4"
+        data-duration="0.37"
+        data-track-index="11"
+        data-volume="0.42"
+      ></audio>
+      <audio
+        id="sfx-tick3"
+        src="assets/audio/click-soft.mp3"
+        data-start="18.9"
+        data-duration="0.37"
+        data-track-index="11"
+        data-volume="0.44"
+      ></audio>
+      <audio
+        id="sfx-tick4"
+        src="assets/audio/click-soft.mp3"
+        data-start="19.4"
+        data-duration="0.37"
+        data-track-index="11"
+        data-volume="0.46"
+      ></audio>
+
+      <!-- Scene 5: rising swell crests exactly on the Critical Fracture card landing, then one hard impact hit — the loudest sound in the piece -->
+      <audio
+        id="sfx-riser"
+        src="assets/audio/riser-trim.mp3"
+        data-start="21.8"
+        data-duration="4.03"
+        data-track-index="17"
+        data-volume="0.65"
+      ></audio>
+      <audio
+        id="sfx-fracture-hit"
+        src="assets/audio/impact-bass-2.mp3"
+        data-start="25.8"
+        data-duration="2.6"
+        data-track-index="18"
+        data-volume="1.0"
+      ></audio>
+
+      <script>
+        // Root timeline is near-empty — all animation lives in the scene sub-compositions.
+        window.__timelines["root"] = gsap.timeline({ paused: true });
+      </script>
+    </div>
+  </body>
+</html>

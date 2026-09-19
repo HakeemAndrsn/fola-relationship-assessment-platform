@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Gloock";
+          src: url("assets/fonts/Gloock-Regular.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Sans";
+          src: url("assets/fonts/InstrumentSans-Regular.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Sans";
+          src: url("assets/fonts/InstrumentSans-SemiBold.ttf") format("truetype");
+          font-weight: 600;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Sans";
+          src: url("assets/fonts/InstrumentSans-Bold.ttf") format("truetype");
+          font-weight: 700;
+          font-style: normal;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #f5f2ec;
+          overflow: hidden;
+          font-family: "Instrument Sans", sans-serif;
+        }
+
+        .s5-kicker {
+          position: absolute;
+          left: 50%;
+          top: 46px;
+          background: #121212;
+          border-radius: 6px;
+          padding: 10px 22px;
+        }
+        .s5-kicker-text {
+          color: #f5f2ec;
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 700;
+          font-size: 16px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+
+        .s5-title {
+          position: absolute;
+          left: 50%;
+          top: 100px;
+          width: 1400px;
+          text-align: center;
+          font-family: "Gloock", serif;
+          font-weight: 400;
+          font-size: 52px;
+          color: #121212;
+        }
+
+        .s5-legend {
+          position: absolute;
+          left: 100px;
+          top: 205px;
+          display: flex;
+          gap: 34px;
+        }
+        .s5-legend-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 600;
+          font-size: 20px;
+          color: #1b1917;
+        }
+        .s5-legend-swatch {
+          width: 22px;
+          height: 6px;
+          border-radius: 4px;
+        }
+
+        .s5-radar-wrap {
+          position: absolute;
+          left: 60px;
+          top: 250px;
+          width: 780px;
+          height: 780px;
+        }
+
+        .s5-cards {
+          position: absolute;
+          left: 990px;
+          top: 268px;
+          width: 850px;
+        }
+
+        .s5-card {
+          width: 850px;
+          height: 300px;
+          border-radius: 20px;
+          border-width: 2px;
+          border-style: solid;
+          padding: 40px 46px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .s5-card-strength {
+          background: #f0fdf4;
+          border-color: #bbf7d0;
+          margin-bottom: 40px;
+        }
+        .s5-card-fracture {
+          background: #fef2f2;
+          border-color: #fecaca;
+        }
+        .s5-card-kicker {
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 700;
+          font-size: 22px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          margin-bottom: 16px;
+        }
+        .s5-card-strength .s5-card-kicker {
+          color: #15803d;
+        }
+        .s5-card-fracture .s5-card-kicker {
+          color: #b91c1c;
+        }
+        .s5-card-label {
+          font-family: "Gloock", serif;
+          font-weight: 400;
+          font-size: 48px;
+          color: #1b1917;
+          margin-bottom: 14px;
+        }
+        .s5-card-pct {
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 700;
+          font-size: 30px;
+        }
+        .s5-card-strength .s5-card-pct {
+          color: #166534;
+        }
+        .s5-card-fracture .s5-card-pct {
+          color: #991b1b;
+        }
+
+        .s5-radar-grid {
+          fill: none;
+          stroke: #d9cfbd;
+          stroke-width: 1.5;
+        }
+        .s5-radar-axis {
+          stroke: #d9cfbd;
+          stroke-width: 1.5;
+        }
+        .s5-radar-label {
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 600;
+          font-size: 19px;
+          fill: #5b564c;
+          text-anchor: middle;
+        }
+        .s5-radar-a {
+          fill: rgba(193, 121, 90, 0.16);
+          stroke: #c1795a;
+          stroke-width: 4;
+        }
+        .s5-radar-b {
+          fill: rgba(27, 25, 23, 0.1);
+          stroke: #1b1917;
+          stroke-width: 4;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scene5-reveal" data-width="1920" data-height="1080">
+        <div class="s5-kicker"><span class="s5-kicker-text">Confidential Clinical Document</span></div>
+        <div class="s5-title">FOLA Relational Assessment Report</div>
+
+        <div class="s5-legend">
+          <div class="s5-legend-item">
+            <div class="s5-legend-swatch" style="background: #c1795a"></div>
+            Partner A
+          </div>
+          <div class="s5-legend-item">
+            <div class="s5-legend-swatch" style="background: #1b1917"></div>
+            Partner B
+          </div>
+        </div>
+
+        <div class="s5-radar-wrap">
+          <svg width="780" height="780" viewBox="0 0 760 760">
+            <path class="s5-radar-grid" d="M 380.0 330.0 L 415.4 344.6 L 430.0 380.0 L 415.4 415.4 L 380.0 430.0 L 344.6 415.4 L 330.0 380.0 L 344.6 344.6 Z" />
+            <path class="s5-radar-grid" d="M 380.0 280.0 L 450.7 309.3 L 480.0 380.0 L 450.7 450.7 L 380.0 480.0 L 309.3 450.7 L 280.0 380.0 L 309.3 309.3 Z" />
+            <path class="s5-radar-grid" d="M 380.0 230.0 L 486.1 273.9 L 530.0 380.0 L 486.1 486.1 L 380.0 530.0 L 273.9 486.1 L 230.0 380.0 L 273.9 273.9 Z" />
+            <path class="s5-radar-grid" d="M 380.0 180.0 L 521.4 238.6 L 580.0 380.0 L 521.4 521.4 L 380.0 580.0 L 238.6 521.4 L 180.0 380.0 L 238.6 238.6 Z" />
+
+            <line class="s5-radar-axis" x1="380" y1="380" x2="380.0" y2="180.0" />
+            <line class="s5-radar-axis" x1="380" y1="380" x2="521.4" y2="238.6" />
+            <line class="s5-radar-axis" x1="380" y1="380" x2="580.0" y2="380.0" />
+            <line class="s5-radar-axis" x1="380" y1="380" x2="521.4" y2="521.4" />
+            <line class="s5-radar-axis" x1="380" y1="380" x2="380.0" y2="580.0" />
+            <line class="s5-radar-axis" x1="380" y1="380" x2="238.6" y2="521.4" />
+            <line class="s5-radar-axis" x1="380" y1="380" x2="180.0" y2="380.0" />
+            <line class="s5-radar-axis" x1="380" y1="380" x2="238.6" y2="238.6" />
+
+            <path id="s5-radar-a" class="s5-radar-a" d="M 380.0 220.0 L 464.9 295.1 L 530.0 380.0 L 493.1 493.1 L 380.0 500.0 L 337.6 422.4 L 240.0 380.0 L 259.8 259.8 Z" />
+            <path id="s5-radar-b" class="s5-radar-b" d="M 380.0 210.0 L 486.1 273.9 L 540.0 380.0 L 422.4 422.4 L 380.0 520.0 L 266.9 493.1 L 260.0 380.0 L 266.9 266.9 Z" />
+
+            <text class="s5-radar-label" x="380.0" y="90">Attachment</text>
+            <text class="s5-radar-label" x="380.0" y="112">Style</text>
+            <text class="s5-radar-label" x="600" y="192">Trauma</text>
+            <text class="s5-radar-label" x="600" y="214">Inventory</text>
+            <text class="s5-radar-label" x="670" y="376">ADHD</text>
+            <text class="s5-radar-label" x="670" y="398">Screening</text>
+            <text class="s5-radar-label" x="600" y="560">Values</text>
+            <text class="s5-radar-label" x="600" y="582">Alignment</text>
+            <text class="s5-radar-label" x="380.0" y="662">Change</text>
+            <text class="s5-radar-label" x="380.0" y="684">Readiness</text>
+            <text class="s5-radar-label" x="160" y="560">Communi-</text>
+            <text class="s5-radar-label" x="160" y="582">cation</text>
+            <text class="s5-radar-label" x="94" y="376">Future</text>
+            <text class="s5-radar-label" x="94" y="398">Vision</text>
+            <text class="s5-radar-label" x="160" y="192">Prejudices</text>
+            <text class="s5-radar-label" x="160" y="214">&amp; Biases</text>
+          </svg>
+        </div>
+
+        <div class="s5-cards">
+          <div id="s5-card-strength" class="s5-card s5-card-strength">
+            <span class="s5-card-kicker">Primary Strength</span>
+            <span class="s5-card-label">Attachment Style</span>
+            <span class="s5-card-pct">91% alignment</span>
+          </div>
+          <div id="s5-card-fracture" class="s5-card s5-card-fracture">
+            <span class="s5-card-kicker">Critical Fracture Point</span>
+            <span class="s5-card-label">Values Alignment</span>
+            <span class="s5-card-pct">42% alignment</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          gsap.set("#root", { opacity: 0 });
+          gsap.set(".s5-kicker, .s5-title", { xPercent: -50, opacity: 0, y: -16 });
+          gsap.set(".s5-legend", { opacity: 0, y: -16 });
+
+          var pathA = document.getElementById("s5-radar-a");
+          var pathB = document.getElementById("s5-radar-b");
+          var lenA = pathA.getTotalLength();
+          var lenB = pathB.getTotalLength();
+          gsap.set(pathA, { strokeDasharray: lenA, strokeDashoffset: lenA, fillOpacity: 0 });
+          gsap.set(pathB, { strokeDasharray: lenB, strokeDashoffset: lenB, fillOpacity: 0 });
+
+          gsap.set(["#s5-card-strength", "#s5-card-fracture"], { opacity: 0, y: 48, scale: 0.94 });
+
+          // Scene fades in cleanly on the cut from Scene 4
+          tl.to("#root", { opacity: 1, duration: 0.25, ease: "power1.out" }, 0);
+          tl.to(".s5-kicker", { xPercent: -50, opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.05);
+          tl.to(".s5-title", { xPercent: -50, opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.15);
+          tl.to(".s5-legend", { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 0.3);
+
+          // 1. Radar draws in (0.3 - 1.5s) — both partner lines, terracotta then charcoal
+          tl.to(pathA, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.3);
+          tl.to(pathA, { fillOpacity: 1, duration: 0.35, ease: "power1.out" }, 1.0);
+          tl.to(pathB, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 0.45);
+          tl.to(pathB, { fillOpacity: 1, duration: 0.35, ease: "power1.out" }, 1.15);
+
+          // 2. Hold on the drawn radar (1.5 - 1.7s)
+
+          // 3. Green "Primary Strength" card lands first (1.7s)
+          tl.to(
+            "#s5-card-strength",
+            { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.6)" },
+            1.7,
+          );
+
+          // 4. A beat later, the red "Critical Fracture" card lands — the loudest visual moment,
+          //    the spring-settle completes exactly at local 3.80s (global 25.8s), matched to the
+          //    score's rising swell crest + hard impact hit.
+          tl.to(
+            "#s5-card-fracture",
+            { opacity: 1, y: 0, scale: 1, duration: 0.46, ease: "back.out(1.7)" },
+            3.34,
+          );
+
+          // 5. A single settle "gut-punch" pulse on the fracture card at the impact
+          tl.fromTo(
+            "#s5-card-fracture",
+            { scale: 1 },
+            { scale: 1.035, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 },
+            3.8,
+          );
+
+          window.__timelines["scene5-reveal"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

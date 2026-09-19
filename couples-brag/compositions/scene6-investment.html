@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Gloock";
+          src: url("assets/fonts/Gloock-Regular.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Sans";
+          src: url("assets/fonts/InstrumentSans-Regular.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: "Instrument Serif";
+          src: url("assets/fonts/InstrumentSerif-Italic.ttf") format("truetype");
+          font-weight: 400;
+          font-style: italic;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #1b1917;
+          overflow: hidden;
+          font-family: "Instrument Sans", sans-serif;
+        }
+
+        .s6-divider {
+          position: absolute;
+          left: 50%;
+          top: 328px;
+          transform: translate(-50%, 0);
+          width: 64px;
+          height: 3px;
+          background: #c1795a;
+          border-radius: 2px;
+        }
+
+        .s6-center {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) translateY(20px);
+          width: 1520px;
+          text-align: center;
+        }
+
+        .s6-headline {
+          display: block;
+          font-family: "Gloock", serif;
+          font-weight: 400;
+          font-size: 72px;
+          line-height: 1.24;
+          color: #f3efe6;
+          margin-bottom: 34px;
+        }
+
+        .s6-headline em {
+          font-family: "Instrument Serif", serif;
+          font-style: italic;
+          color: #c1795a;
+        }
+
+        .s6-subhead {
+          display: block;
+          font-family: "Instrument Sans", sans-serif;
+          font-weight: 400;
+          font-size: 30px;
+          color: #b8ab9d;
+          letter-spacing: 0.01em;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scene6-investment" data-width="1920" data-height="1080">
+        <div class="s6-divider"></div>
+        <div class="s6-center">
+          <span id="s6-headline" class="s6-headline"
+            >R600 for clarity.<br />Or years of <em>R1,500 sessions</em> spent guessing.</span
+          >
+          <span id="s6-subhead" class="s6-subhead">A personalised 3-phase pathway. Priced. Planned. Yours.</span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+
+          gsap.set(".s6-divider", { opacity: 0, scaleX: 0 });
+          gsap.set("#s6-headline", { opacity: 0, y: 26 });
+          gsap.set("#s6-subhead", { opacity: 0, y: 18 });
+
+          tl.to(".s6-divider", { opacity: 1, scaleX: 1, duration: 0.4, ease: "power2.out" }, 0);
+          tl.to("#s6-headline", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
+          tl.to("#s6-subhead", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.6);
+
+          // A single confident, still hold for the rest of the scene — no further motion.
+
+          window.__timelines["scene6-investment"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

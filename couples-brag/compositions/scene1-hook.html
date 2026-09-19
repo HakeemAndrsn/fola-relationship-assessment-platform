@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Gloock";
+          src: url("assets/fonts/Gloock-Regular.ttf") format("truetype");
+          font-weight: 400;
+          font-style: normal;
+        }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #1b1917;
+          overflow: hidden;
+          font-family: "Gloock", serif;
+        }
+
+        .s1-vignette {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.55) 100%);
+          pointer-events: none;
+        }
+
+        .s1-crack-wrap {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 1100px;
+          height: 260px;
+          transform: translate(-50%, -50%) translateY(-70px);
+        }
+
+        .s1-crack-path {
+          fill: none;
+          stroke: #b4531f;
+          stroke-width: 2.5;
+          stroke-linecap: round;
+          opacity: 0.85;
+        }
+
+        .s1-headline-wrap {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) translateY(40px);
+          width: 1400px;
+          text-align: center;
+        }
+
+        .s1-headline {
+          display: block;
+          color: #f3efe6;
+          font-family: "Gloock", serif;
+          font-weight: 400;
+          font-size: 92px;
+          line-height: 1.14;
+          letter-spacing: -0.01em;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scene1-hook" data-width="1920" data-height="1080">
+        <div class="s1-crack-wrap">
+          <svg width="1100" height="260" viewBox="0 0 1100 260">
+            <path
+              id="s1-crack"
+              class="s1-crack-path"
+              d="M 40 40 L 210 95 L 330 55 L 460 140 L 560 90 L 690 160 L 790 100 L 920 175 L 1060 120"
+            />
+          </svg>
+        </div>
+
+        <div class="s1-headline-wrap">
+          <span id="s1-headline" class="s1-headline">Every relationship has one fracture point.</span>
+        </div>
+
+        <div class="s1-vignette"></div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var path = document.getElementById("s1-crack");
+          var len = path.getTotalLength();
+
+          gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+          gsap.set("#s1-headline", { opacity: 0, scale: 0.92 });
+
+          // 1. Crack line draws in first (0 - 0.6s)
+          tl.to(path, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 0);
+
+          // 2. Headline slams in on top of the fresh crack (0.5s - 1.05s)
+          tl.to(
+            "#s1-headline",
+            { opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.6)" },
+            0.5,
+          );
+
+          // 3. A slow, subtle breathing hold on the crack line (audio-reactive-lite, deterministic)
+          tl.to(path, { opacity: 0.6, duration: 1.1, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.3);
+
+          window.__timelines["scene1-hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
