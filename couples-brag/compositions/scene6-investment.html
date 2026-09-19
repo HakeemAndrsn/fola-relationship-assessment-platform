@@ -77,16 +77,34 @@
           color: #b8ab9d;
           letter-spacing: 0.01em;
         }
+
+        .s6-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+
+        .hf-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.02;
+          pointer-events: none;
+          z-index: 20;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
       </style>
 
       <div id="root" data-composition-id="scene6-investment" data-width="1920" data-height="1080">
-        <div class="s6-divider"></div>
-        <div class="s6-center">
-          <span id="s6-headline" class="s6-headline"
-            >R600 for clarity.<br />Or years of <em>R1,500 sessions</em> spent guessing.</span
-          >
-          <span id="s6-subhead" class="s6-subhead">A personalised 3-phase pathway. Priced. Planned. Yours.</span>
+        <div class="s6-cam" data-layout-allow-overflow="true">
+          <div class="s6-divider"></div>
+          <div class="s6-center">
+            <span id="s6-headline" class="s6-headline"
+              >R600 for clarity.<br />Or years of <em>R1,500 sessions</em> spent guessing.</span
+            >
+            <span id="s6-subhead" class="s6-subhead">A personalised 3-phase pathway. Priced. Planned. Yours.</span>
+          </div>
         </div>
+        <div class="hf-grain"></div>
       </div>
 
       <script>
@@ -101,7 +119,10 @@
           tl.to("#s6-headline", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
           tl.to("#s6-subhead", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.6);
 
-          // A single confident, still hold for the rest of the scene — no further motion.
+          // A single confident, still hold for the rest of the scene — text/copy motion
+          // stops here. Only a very subtle whole-frame Ken Burns creep continues under
+          // the hold, for cinematic breathing without competing with the headline.
+          tl.fromTo(".s6-cam", { scale: 1 }, { scale: 1.02, duration: 5, ease: "none" }, 0);
 
           window.__timelines["scene6-investment"] = tl;
         })();

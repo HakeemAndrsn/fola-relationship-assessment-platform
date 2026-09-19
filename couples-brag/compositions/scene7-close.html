@@ -101,25 +101,43 @@
           letter-spacing: 0.1em;
           color: #6b4e18;
         }
+
+        .s7-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+
+        .hf-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.02;
+          pointer-events: none;
+          z-index: 20;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
       </style>
 
       <div id="root" data-composition-id="scene7-close" data-width="1920" data-height="1080">
-        <div class="s7-center">
-          <img id="s7-logo" class="s7-logo" src="assets/images/logo-transparent.png" alt="FOLA" />
+        <div class="s7-cam" data-layout-allow-overflow="true">
+          <div class="s7-center">
+            <img id="s7-logo" class="s7-logo" src="assets/images/logo-transparent.png" alt="FOLA" />
 
-          <div id="s7-cta" class="s7-cta">
-            <span class="s7-cta-text">Couples Assessment &mdash; R600</span>
-            <span class="s7-cta-arrow">&rarr;</span>
+            <div id="s7-cta" class="s7-cta">
+              <span class="s7-cta-text">Couples Assessment &mdash; R600</span>
+              <span class="s7-cta-arrow">&rarr;</span>
+            </div>
+
+            <span id="s7-dualpath" class="s7-dualpath"
+              >Book Breakthrough Session &mdash; R2,800<span class="sep">&middot;</span>or<span class="sep"
+                >&middot;</span
+              >Book Discovery Call &mdash; Free</span
+            >
+
+            <span id="s7-domain" class="s7-domain">lovebetter.co.za</span>
           </div>
-
-          <span id="s7-dualpath" class="s7-dualpath"
-            >Book Breakthrough Session &mdash; R2,800<span class="sep">&middot;</span>or<span class="sep"
-              >&middot;</span
-            >Book Discovery Call &mdash; Free</span
-          >
-
-          <span id="s7-domain" class="s7-domain">lovebetter.co.za</span>
         </div>
+        <div class="hf-grain"></div>
       </div>
 
       <script>
@@ -135,6 +153,11 @@
           tl.to("#s7-cta", { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.28);
           tl.to("#s7-dualpath", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.72);
           tl.to("#s7-domain", { opacity: 1, duration: 0.4, ease: "power1.out" }, 1.0);
+
+          // A very subtle Ken Burns creep, resolved well before the hold — finishes by
+          // 3.4s so the frame is fully, genuinely still for the last ~2.5s+ with nothing
+          // competing with the CTA, per the brief.
+          tl.fromTo(".s7-cam", { scale: 1 }, { scale: 1.014, duration: 3.4, ease: "power1.out" }, 0);
 
           // Everything holds fully still for the remaining ~2.5s+ — nothing competes with the CTA.
 

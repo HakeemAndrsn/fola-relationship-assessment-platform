@@ -28,6 +28,22 @@
           pointer-events: none;
         }
 
+        .s1-bg-cam,
+        .s1-fg-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+
+        .hf-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.02;
+          pointer-events: none;
+          z-index: 20;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
         .s1-crack-wrap {
           position: absolute;
           left: 50%;
@@ -66,21 +82,26 @@
       </style>
 
       <div id="root" data-composition-id="scene1-hook" data-width="1920" data-height="1080">
-        <div class="s1-crack-wrap">
-          <svg width="1100" height="260" viewBox="0 0 1100 260">
-            <path
-              id="s1-crack"
-              class="s1-crack-path"
-              d="M 40 40 L 210 95 L 330 55 L 460 140 L 560 90 L 690 160 L 790 100 L 920 175 L 1060 120"
-            />
-          </svg>
+        <div class="s1-bg-cam" data-layout-allow-overflow="true">
+          <div class="s1-crack-wrap">
+            <svg width="1100" height="260" viewBox="0 0 1100 260">
+              <path
+                id="s1-crack"
+                class="s1-crack-path"
+                d="M 40 40 L 210 95 L 330 55 L 460 140 L 560 90 L 690 160 L 790 100 L 920 175 L 1060 120"
+              />
+            </svg>
+          </div>
         </div>
 
-        <div class="s1-headline-wrap">
-          <span id="s1-headline" class="s1-headline">Every relationship has one fracture point.</span>
+        <div class="s1-fg-cam" data-layout-allow-overflow="true">
+          <div class="s1-headline-wrap">
+            <span id="s1-headline" class="s1-headline">Every relationship has one fracture point.</span>
+          </div>
         </div>
 
         <div class="s1-vignette"></div>
+        <div class="hf-grain"></div>
       </div>
 
       <script>
@@ -104,6 +125,11 @@
 
           // 3. A slow, subtle breathing hold on the crack line (audio-reactive-lite, deterministic)
           tl.to(path, { opacity: 0.6, duration: 1.1, ease: "sine.inOut", repeat: 1, yoyo: true }, 1.3);
+
+          // 4. Subtle camera motion (Ken Burns): background crack drifts in slightly
+          //    faster than the foreground headline, for a gentle parallax read.
+          tl.fromTo(".s1-bg-cam", { scale: 1 }, { scale: 1.05, duration: 4, ease: "none" }, 0);
+          tl.fromTo(".s1-fg-cam", { scale: 1 }, { scale: 1.018, duration: 4, ease: "none" }, 0);
 
           window.__timelines["scene1-hook"] = tl;
         })();

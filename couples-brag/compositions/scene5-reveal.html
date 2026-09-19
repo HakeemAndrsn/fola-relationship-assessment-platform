@@ -184,9 +184,39 @@
           stroke: #1b1917;
           stroke-width: 4;
         }
+
+        .s5-bg-cam,
+        .s5-fg-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+
+        .s5-fracture-glow {
+          position: absolute;
+          left: 990px;
+          top: 268px;
+          width: 850px;
+          height: 340px;
+          transform: translateY(320px);
+          border-radius: 28px;
+          background: radial-gradient(ellipse at center, rgba(229, 62, 62, 0.55) 0%, rgba(229, 62, 62, 0) 72%);
+          pointer-events: none;
+          opacity: 0;
+        }
+
+        .hf-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.02;
+          pointer-events: none;
+          z-index: 20;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
       </style>
 
       <div id="root" data-composition-id="scene5-reveal" data-width="1920" data-height="1080">
+        <div class="s5-bg-cam" data-layout-allow-overflow="true">
         <div class="s5-kicker"><span class="s5-kicker-text">Confidential Clinical Document</span></div>
         <div class="s5-title">FOLA Relational Assessment Report</div>
 
@@ -238,19 +268,24 @@
             <text class="s5-radar-label" x="160" y="214">&amp; Biases</text>
           </svg>
         </div>
+        </div>
 
-        <div class="s5-cards">
-          <div id="s5-card-strength" class="s5-card s5-card-strength">
-            <span class="s5-card-kicker">Primary Strength</span>
-            <span class="s5-card-label">Attachment Style</span>
-            <span class="s5-card-pct">91% alignment</span>
-          </div>
-          <div id="s5-card-fracture" class="s5-card s5-card-fracture">
-            <span class="s5-card-kicker">Critical Fracture Point</span>
-            <span class="s5-card-label">Values Alignment</span>
-            <span class="s5-card-pct">42% alignment</span>
+        <div class="s5-fg-cam" data-layout-allow-overflow="true">
+          <div id="s5-fracture-glow" class="s5-fracture-glow"></div>
+          <div class="s5-cards">
+            <div id="s5-card-strength" class="s5-card s5-card-strength">
+              <span class="s5-card-kicker">Primary Strength</span>
+              <span class="s5-card-label">Attachment Style</span>
+              <span class="s5-card-pct">91% alignment</span>
+            </div>
+            <div id="s5-card-fracture" class="s5-card s5-card-fracture">
+              <span class="s5-card-kicker">Critical Fracture Point</span>
+              <span class="s5-card-label">Values Alignment</span>
+              <span class="s5-card-pct">42% alignment</span>
+            </div>
           </div>
         </div>
+        <div class="hf-grain"></div>
       </div>
 
       <script>
@@ -269,6 +304,7 @@
           gsap.set(pathB, { strokeDasharray: lenB, strokeDashoffset: lenB, fillOpacity: 0 });
 
           gsap.set(["#s5-card-strength", "#s5-card-fracture"], { opacity: 0, y: 48, scale: 0.94 });
+          gsap.set("#s5-fracture-glow", { opacity: 0, scale: 0.92 });
 
           // Scene fades in cleanly on the cut from Scene 4
           tl.to("#root", { opacity: 1, duration: 0.25, ease: "power1.out" }, 0);
@@ -300,13 +336,30 @@
             3.34,
           );
 
-          // 5. A single settle "gut-punch" pulse on the fracture card at the impact
+          // 5. A single settle "gut-punch" pulse on the fracture card at the impact —
+          //    this is the single most important emotional beat in the video, so it
+          //    gets a touch more drama than the strength card: a restrained red glow
+          //    pulse plus a slightly stronger scale-punch, both landing exactly on the
+          //    score's rising-swell crest + hard impact hit at local 3.8s (global 25.8s).
           tl.fromTo(
             "#s5-card-fracture",
             { scale: 1 },
-            { scale: 1.035, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 },
+            { scale: 1.05, duration: 0.16, ease: "power2.out", yoyo: true, repeat: 1 },
             3.8,
           );
+          tl.fromTo(
+            "#s5-fracture-glow",
+            { opacity: 0, scale: 0.92 },
+            { opacity: 1, scale: 1.06, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1 },
+            3.8,
+          );
+          // Glow fully clears so it never lingers as a distracting wash under the hold
+          tl.to("#s5-fracture-glow", { opacity: 0, duration: 0.5, ease: "power1.out" }, 4.3);
+
+          // Subtle camera drift across the full 8s hold — radar/legend (background)
+          // creeps slower than the strength/fracture cards (foreground).
+          tl.fromTo(".s5-bg-cam", { scale: 1 }, { scale: 1.022, duration: 8, ease: "none" }, 0);
+          tl.fromTo(".s5-fg-cam", { scale: 1 }, { scale: 1.035, duration: 8, ease: "none" }, 0);
 
           window.__timelines["scene5-reveal"] = tl;
         })();
