@@ -279,6 +279,12 @@ function HeroSection() {
             >
               The Reading Room ↓
             </a>
+            <a
+              href="#complete-growth-bundle"
+              className="px-4 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-wider border border-[#B4531F]/20 text-[#B4531F] hover:bg-[#B4531F]/5 transition-colors"
+            >
+              Growth Bundle ↓
+            </a>
           </div>
         </div>
 
@@ -738,6 +744,117 @@ function BookCard({
   );
 }
 
+/* ---------- Complete Growth Bundle (both assessments) ---------- */
+/* Checkout runs through the existing /bundle-payment page (productId "lovebetter_bundle", R1,000 floor enforced server-side). */
+function BundleSection() {
+  const t = { bg: C.charcoal2, accent: C.gold, text: C.ivory };
+  const includes = [
+    { label: "Individual", name: "Personal Growth Assessment", note: "10 dimensions of your relational self", price: "R600" },
+    { label: "Couples", name: "Relationship Growth Assessment", note: "8 clinical domains, both partners", price: "R600" },
+  ];
+
+  return (
+    <section id="complete-growth-bundle" style={{ backgroundColor: t.bg, color: t.text }} className="w-full border-b border-[#DDD5C4]/10">
+      <div className="mx-auto max-w-6xl px-6 py-20 grid gap-12 md:grid-cols-5 md:items-center">
+        {/* Visual: the two assessments, stacked like cards */}
+        <div className="md:col-span-2 md:order-1 flex justify-center">
+          <div className="relative w-full max-w-[340px] aspect-[4/5]">
+            {includes.map((item, idx) => (
+              <div
+                key={item.name}
+                className="absolute w-[78%] h-[78%] rounded-lg shadow-2xl p-6 flex flex-col justify-between"
+                style={{
+                  backgroundColor: idx === 0 ? C.ivory : C.terraDeep,
+                  color: idx === 0 ? C.charcoal : C.ivory,
+                  border: `1px solid ${t.accent}30`,
+                  top: idx === 0 ? 0 : "22%",
+                  left: idx === 0 ? 0 : "22%",
+                  transform: `rotate(${idx === 0 ? -3 : 3}deg)`,
+                }}
+              >
+                <span style={fontUI} className="text-[0.6rem] uppercase tracking-[0.3em] opacity-70">
+                  lovebetter &middot; {item.label}
+                </span>
+                <p style={fontDisplay} className="text-2xl md:text-3xl leading-tight">
+                  {item.name}
+                </p>
+                <span style={fontAccent} className="text-sm opacity-80">
+                  {item.note}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Copy/CTA column */}
+        <div className="md:col-span-3 md:order-2 space-y-6">
+          <span
+            style={{ color: t.accent, borderColor: t.accent }}
+            className="inline-block rounded-full border px-3 py-1 text-[0.6rem] uppercase tracking-[0.2em]"
+          >
+            Available now — Both assessments
+          </span>
+
+          <h2 style={fontDisplay} className="text-4xl md:text-5xl leading-tight">
+            The Complete Growth Bundle
+          </h2>
+
+          <div style={fontUI} className="text-base md:text-lg leading-relaxed opacity-90 max-w-xl space-y-4">
+            <p style={fontAccent} className="text-xl md:text-2xl font-serif italic text-white font-semibold mb-6 block">
+              Both assessments together: know yourself, then know the two of you.
+            </p>
+            <p>
+              Start with the Personal Growth Assessment and see your own wiring clearly. Then sit down together for the Relationship Growth Assessment and see what happens between you.
+            </p>
+          </div>
+
+          <ul className="space-y-2.5 max-w-xl">
+            {includes.map((item) => (
+              <li key={item.name} className="flex gap-2.5 items-baseline text-sm md:text-base">
+                <span style={{ color: t.accent }} className="mr-1.5">—</span>
+                <span style={fontUI} className="opacity-90">
+                  {item.name} ({item.label.toLowerCase()}) &middot; {item.price} on its own
+                </span>
+              </li>
+            ))}
+            <li className="flex gap-2.5 items-baseline text-sm md:text-base">
+              <span style={{ color: t.accent }} className="mr-1.5">—</span>
+              <span style={fontUI} className="opacity-90">Full branded report for each, emailed to you</span>
+            </li>
+            <li className="flex gap-2.5 items-baseline text-sm md:text-base">
+              <span style={{ color: t.accent }} className="mr-1.5">—</span>
+              <span style={fontUI} className="opacity-90">Built by a trauma and hypnotherapy practitioner</span>
+            </li>
+          </ul>
+
+          <div style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }} className="p-6 md:p-8 max-w-xl rounded">
+            <p style={{ color: t.accent }} className="text-xs uppercase tracking-[0.3em] font-sans">
+              Both assessments
+            </p>
+            <p style={fontDisplay} className="mt-3 text-4xl md:text-5xl">
+              R1,000
+              <span style={{ color: t.accent }} className="text-xs font-sans block mt-1.5 opacity-70 tracking-normal normal-case font-normal">
+                R1,200 if bought separately &middot; Instant access to both
+              </span>
+            </p>
+
+            <a
+              href="/bundle-payment"
+              style={{ ...fontUI, backgroundColor: t.accent, color: t.bg }}
+              className="mt-6 w-full flex items-center justify-center gap-2 py-4 text-xs font-bold tracking-widest transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 uppercase rounded"
+            >
+              Get the Bundle — R1,000
+            </a>
+            <p style={{ color: t.accent }} className="mt-4 text-[10px] opacity-70">
+              Secure checkout with Yoco &middot; Both assessments unlocked &middot; @do.lovebetter
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- coming soon ---------- */
 function ComingSoon() {
   const products = [
@@ -1066,6 +1183,9 @@ export default function StorePage() {
               </div>
             </div>
           </section>
+
+          {/* Complete Growth Bundle - both assessments, checkout via /bundle-payment */}
+          <BundleSection />
         </>
       )}
       <ComingSoon />
