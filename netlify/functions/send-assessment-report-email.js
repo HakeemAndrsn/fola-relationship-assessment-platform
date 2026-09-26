@@ -158,10 +158,10 @@ function buildIndividualEmail(report) {
   return `
     <!DOCTYPE html>
     <html>
-    <head><meta charset="utf-8"><title>FOLA Individual Growth Assessment Report</title></head>
+    <head><meta charset="utf-8"><title>FOLA Personal Growth Assessment Report</title></head>
     <body style="margin:0;padding:24px;background:#f7f8fc;font-family:Helvetica,Arial,sans-serif;color:#2d3748;">
       <div style="max-width:640px;margin:0 auto;background:#fff;padding:32px;border:1px solid #e2e8f0;">
-        <h1 style="color:#121212;font-size:22px;margin-bottom:4px;">FOLA Individual Growth Assessment</h1>
+        <h1 style="color:#121212;font-size:22px;margin-bottom:4px;">FOLA Personal Growth Assessment</h1>
         <p style="color:#718096;font-size:13px;margin-top:0;">Report ID: ${escapeHtml(report.id)} · ${escapeHtml(report.date)}</p>
         <p style="font-size:14px;">Client: <strong>${escapeHtml(report.name)}</strong></p>
         <p style="font-size:16px;"><strong>Overall Score: ${escapeHtml(report.overallScore)}/100</strong></p>
