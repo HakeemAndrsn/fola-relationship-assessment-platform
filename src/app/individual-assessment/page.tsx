@@ -375,7 +375,7 @@ export default function IndividualAssessmentPage() {
             <span className="text-[#B8654A] text-sm">🔒</span>
             <span className="text-[#B8654A] text-xs font-semibold tracking-wider uppercase font-sans">Secure Payment Required</span>
           </div>
-          <h1 className="mt-4 text-3xl font-bold text-foreground font-serif">Unlock Your Individual Growth Assessment</h1>
+          <h1 className="mt-4 text-3xl font-bold text-foreground font-serif">Unlock Your Personal Growth Assessment</h1>
           <p className="text-card-foreground/80 font-sans text-sm leading-relaxed">
             Please enter your contact details below, complete the payment, and continue to your personalized assessment.
           </p>
@@ -432,7 +432,7 @@ export default function IndividualAssessmentPage() {
           <div className="flex items-center gap-3">
             <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7 rounded" />
             <div>
-              <p className="text-xs text-[#B8654A] font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</p>
+              <p className="text-xs text-[#B8654A] font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</p>
               <p className="text-[10px] text-card-foreground/60 font-sans">LOVEBETTER by FOLA</p>
             </div>
           </div>
@@ -477,7 +477,7 @@ export default function IndividualAssessmentPage() {
             <div className="space-y-8">
               <div className="text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#B8654A]/30 bg-[#121212]/10 mb-6">
-                  <span className="text-[#B8654A] text-xs font-semibold tracking-wider uppercase font-sans">Individual Growth Assessment</span>
+                  <span className="text-[#B8654A] text-xs font-semibold tracking-wider uppercase font-sans">Personal Growth Assessment</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl font-bold text-foreground font-serif leading-tight">
                   Know yourself completely.<br />
