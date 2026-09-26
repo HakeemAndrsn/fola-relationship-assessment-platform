@@ -218,8 +218,16 @@ function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
   const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
 
-  const toggleFlip = (id: string) => {
+  const toggleFlip = (id: string, targetId?: string) => {
     setFlippedCards((prev) => ({ ...prev, [id]: !prev[id] }));
+    if (targetId && PRODUCTS_CONFIG[targetId as keyof typeof PRODUCTS_CONFIG]) {
+      const p = PRODUCTS_CONFIG[targetId as keyof typeof PRODUCTS_CONFIG];
+      trackEvent("view_item", {
+        currency: "ZAR",
+        value: p.priceCents / 100,
+        items: [{ item_id: p.id, item_name: p.name }],
+      });
+    }
   };
 
   const cards = [
@@ -332,7 +340,7 @@ function HeroSection() {
                     }}
                     tabIndex={0}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") toggleFlip(card.id);
+                      if (e.key === "Enter") toggleFlip(card.id, card.targetId);
                     }}
                     className="absolute inset-0 w-full h-full rounded-xl cursor-grab active:cursor-grabbing focus:outline-none focus:ring-2 focus:ring-[#A64516] shadow-xl"
                   >
@@ -354,7 +362,7 @@ function HeroSection() {
                           ease: "easeInOut"
                         }
                       } : { duration: 0.4 }}
-                      onClick={() => toggleFlip(card.id)}
+                      onClick={() => toggleFlip(card.id, card.targetId)}
                     >
                       {/* Front face */}
                       <div
@@ -986,6 +994,17 @@ function SuccessView({ checkoutId, productId }: SuccessViewProps) {
 
 /* ---------- main store page ---------- */
 export default function StorePage() {
+  useEffect(() => {
+    trackEvent("view_item_list", {
+      item_list_name: "LoveBetter Store",
+      items: Object.values(PRODUCTS_CONFIG).map((p) => ({
+        item_id: p.id,
+        item_name: p.name,
+        price: p.priceCents / 100,
+      })),
+    });
+  }, []);
+
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [loadingProduct, setLoadingProduct] = useState<string | null>(null);
