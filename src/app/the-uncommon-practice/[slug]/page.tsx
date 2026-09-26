@@ -237,6 +237,37 @@ export default async function BlogPost({
           {/* Social Share */}
           <SocialShare title={post.title} slug={post.slug} />
 
+          {/* Product CTA (per-article, set in blog-data) */}
+          {post.cta && (
+            <div className="mt-16 rounded-2xl border border-[#B8654A]/30 bg-card p-8 text-center shadow-sm">
+              <h3 className="text-xl font-bold text-foreground font-serif">
+                {post.cta.heading}
+              </h3>
+              <p className="mt-2 text-sm text-card-foreground/80 font-sans max-w-md mx-auto">
+                {post.cta.text}
+              </p>
+              <Link
+                href={post.cta.href}
+                className="mt-6 inline-flex items-center gap-2 bg-[#B8654A] text-white px-6 py-3 rounded-xl text-sm font-bold font-sans hover:bg-[#B8654A]/90 transition-all hover:shadow-md"
+              >
+                {post.cta.label}
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </Link>
+            </div>
+          )}
+
           {/* Free Discovery Call CTA */}
           <div className="mt-16 rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
             <h3 className="text-xl font-bold text-foreground font-serif">
@@ -317,6 +348,12 @@ export default async function BlogPost({
               </p>
             </div>
             <nav className="flex items-center gap-6">
+              <Link
+                href="/store"
+                className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans"
+              >
+                The Store
+              </Link>
               <Link
                 href="/the-uncommon-practice"
                 className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans"
