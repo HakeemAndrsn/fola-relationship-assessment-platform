@@ -93,7 +93,32 @@ function treatmentPlanHtml(plan) {
   `;
 }
 
-function buildCouplesEmail(report) {
+
+function bookingBlockHtml(name, email) {
+  const params = [];
+  if (name) params.push("name=" + encodeURIComponent(name));
+  if (email) params.push("email=" + encodeURIComponent(email));
+  const suffix = params.length ? "?" + params.join("&") : "";
+  const breakthroughUrl = "https://calendly.com/folasessions/breakthrough-session" + suffix;
+  const discoveryUrl = "https://calendly.com/folasessions/discovery-call" + suffix;
+  return `
+        <h2 style="color:#121212;font-size:18px;border-bottom:2px solid #B8654A;padding-bottom:6px;">Your Next Step</h2>
+        <p style="font-size:14px;line-height:1.6;">Your report shows where you stand. The next step is working on it with Hakeem - either in a focused intensive, or in a free conversation first.</p>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;margin:8px 0 4px;">
+          <tr>
+            <td style="padding:6px 6px 6px 0;width:50%;">
+              <a href="${breakthroughUrl}" style="display:block;background:#121212;color:#ffffff;text-decoration:none;text-align:center;padding:12px 8px;font-size:13px;font-weight:bold;border-radius:6px;">Book a Breakthrough Session - R2,800</a>
+            </td>
+            <td style="padding:6px 0 6px 6px;width:50%;">
+              <a href="${discoveryUrl}" style="display:block;background:#B8654A;color:#ffffff;text-decoration:none;text-align:center;padding:12px 8px;font-size:13px;font-weight:bold;border-radius:6px;">Book a Free Discovery Call</a>
+            </td>
+          </tr>
+        </table>
+        <p style="font-size:12px;color:#718096;">The Breakthrough Session is a 90-minute one-to-one intensive built around your results. The discovery call is 30 minutes, free, and carries no obligation.</p>
+  `;
+}
+
+function buildCouplesEmail(report, email) {
   const partnerA = report.couple?.partnerA || "Partner A";
   const partnerB = report.couple?.partnerB || "Partner B";
   const domainRows = (report.domainScores || [])
@@ -143,6 +168,8 @@ function buildCouplesEmail(report) {
           <p style="margin:6px 0 0;font-size:22px;font-weight:bold;">R${Number(report.totalInvestment || 0).toLocaleString()}</p>
         </div>
 
+        ${bookingBlockHtml(report.couple?.partnerA, email)}
+
         <p style="font-size:11px;color:#a0aec0;margin-top:24px;">This report is a screening instrument and does not constitute a clinical diagnosis. LOVEBETTER by FOLA · Clinical Director: Hakeem.</p>
       </div>
     </body>
@@ -150,7 +177,7 @@ function buildCouplesEmail(report) {
   `;
 }
 
-function buildIndividualEmail(report) {
+function buildIndividualEmail(report, email) {
   const domainRows = (report.dimensionScores || [])
     .map((s) => domainRow(s.label, report.name, `${s.score}/100`, null, null, s.percentile, s.riskLevel))
     .join("");
@@ -197,6 +224,8 @@ function buildIndividualEmail(report) {
           <p style="margin:0;font-size:12px;color:#B8654A;text-transform:uppercase;letter-spacing:0.05em;">Estimated Total Investment</p>
           <p style="margin:6px 0 0;font-size:22px;font-weight:bold;">R${Number(report.totalInvestment || 0).toLocaleString()}</p>
         </div>
+
+        ${bookingBlockHtml(report.name, email)}
 
         <p style="font-size:11px;color:#a0aec0;margin-top:24px;">This report is a screening instrument and does not constitute a clinical diagnosis. LOVEBETTER by FOLA · Clinical Director: Hakeem.</p>
       </div>
@@ -249,7 +278,7 @@ exports.handler = async (event) => {
     }
 
     const isCouples = reportType === "couples";
-    const htmlContent = isCouples ? buildCouplesEmail(report) : buildIndividualEmail(report);
+    const htmlContent = isCouples ? buildCouplesEmail(report, normalizedEmail) : buildIndividualEmail(report, normalizedEmail);
     const stripControlChars = (s) => String(s ?? "").replace(/[\r\n]+/g, " ");
     const subjectName = stripControlChars(
       isCouples

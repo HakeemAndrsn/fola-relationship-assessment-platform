@@ -8,6 +8,12 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   image?: string;
+  cta?: {
+    href: string;
+    label: string;
+    heading: string;
+    text: string;
+  };
 }
 
 export const blogPosts: BlogPost[] = [
@@ -20,6 +26,12 @@ export const blogPosts: BlogPost[] = [
     category: "Self-Worth",
     excerpt: "You keep telling yourself that you will come back to your own life when everybody else is settled. But there is always another person to carry, another problem to solve, another month that needs your money.",
     image: "/images/blog/nervous-system-relationship.jpg",
+    cta: {
+      href: "/individual-assessment",
+      label: "Start Your Personal Growth Assessment",
+      heading: "Find out where you actually stand.",
+      text: "The Personal Growth Assessment takes 20-30 minutes and gives you an instant report on the dimensions that shape how you love - your attachment pattern, your change readiness, and the one place to start first. R600 once-off.",
+    },
     content: `You have the appointment saved in your phone. The book is on your bedside table. The gym shoes are by the door. The conversation you need to have with yourself has been waiting so long it has become furniture.
 
 Then somebody needs something.

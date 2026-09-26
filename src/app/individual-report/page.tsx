@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { trackEvent } from "@/lib/analytics";
 import {
   Radar,
   RadarChart,
@@ -83,7 +84,12 @@ export default function IndividualReportPage() {
       router.push("/individual-assessment");
       return;
     }
-    setReport(JSON.parse(stored));
+    const parsed = JSON.parse(stored);
+    setReport(parsed);
+    trackEvent("generate_report", {
+      report_type: "individual",
+      overall_score: parsed?.overallScore,
+    });
 
     // Retrieve email and phone from sessionStorage
     const email = sessionStorage.getItem("folaClientEmail") || "";
@@ -658,6 +664,7 @@ export default function IndividualReportPage() {
                   href={getBookingUrl("https://calendly.com/folasessions/breakthrough-session")}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent("book_call_click", { call_type: "breakthrough_session", report_type: "individual", value: 2800, currency: "ZAR" })}
                   className="block text-center w-full bg-[#121212] text-white font-bold py-3.5 rounded-xl hover:bg-[#232323] transition-colors border border-border text-sm font-sans"
                 >
                   Book Breakthrough Session — R2,800
@@ -693,6 +700,7 @@ export default function IndividualReportPage() {
                   href={getBookingUrl("https://calendly.com/folasessions/discovery-call")}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent("book_call_click", { call_type: "discovery_call", report_type: "individual" })}
                   className="block text-center w-full bg-secondary hover:bg-secondary/80 text-foreground font-bold py-3.5 rounded-xl transition-colors text-sm border border-border font-sans"
                 >
                   Book Discovery Call — Free
