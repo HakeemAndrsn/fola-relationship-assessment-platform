@@ -20,7 +20,7 @@ import {
   Cell,
 } from "recharts";
 import { Button } from "@/components/ui/button";
-import type { IndividualReport } from "@/lib/individual-assessment/types";
+import type { IndividualReport } from "@/lib/personal-growth-assessment/types";
 import { downloadElementAsPdf } from "@/lib/downloadReportPdf";
 
 function riskColor(level: string) {
@@ -81,7 +81,7 @@ export default function IndividualReportPage() {
   useEffect(() => {
     const stored = sessionStorage.getItem("folaIndividualReport");
     if (!stored) {
-      router.push("/individual-assessment");
+      router.push("/personal-growth-assessment");
       return;
     }
     const parsed = JSON.parse(stored);
@@ -174,10 +174,10 @@ export default function IndividualReportPage() {
         <div className="mx-auto max-w-4xl flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             <img src="/logo-transparent.png" alt="FOLA" className="w-7 h-7" />
-            <h1 className="text-lg font-bold text-[#121212] group-hover:text-[#2d4a7c] transition-colors">FOLA Individual Assessment Report</h1>
+            <h1 className="text-lg font-bold text-[#121212] group-hover:text-[#2d4a7c] transition-colors">FOLA Personal Growth Assessment Report</h1>
           </Link>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => router.push("/individual-assessment")} className="text-[#4a5568]">
+            <Button variant="outline" onClick={() => router.push("/personal-growth-assessment")} className="text-[#4a5568]">
               New Assessment
             </Button>
             <Button onClick={handleDownloadPdf} disabled={downloading} className="bg-[#121212] text-white hover:bg-[#2d4a7c]">
@@ -220,7 +220,7 @@ export default function IndividualReportPage() {
             <img src="/logo-transparent.png" alt="FOLA" className="w-20 h-20" />
           </div>
           <h1 className="text-4xl font-bold text-[#121212] tracking-tight">
-            FOLA Individual Assessment
+            FOLA Personal Growth Assessment
           </h1>
           <p className="mt-2 text-lg text-[#4a5568]">Personal Relationship Diagnostic Report</p>
           <div className="mt-8 space-y-1 text-sm text-[#718096]">
@@ -746,7 +746,7 @@ export default function IndividualReportPage() {
               </p>
             </div>
             <div className="pt-4 border-t border-[#e2e8f0] text-xs text-[#a0aec0] text-center">
-              <p>Assessment Price: R600 | Individual Assessment</p>
+              <p>Assessment Price: R600 | Personal Growth Assessment</p>
               <p className="mt-1">Report ID: {report.id} | Generated: {report.date}</p>
               <p className="mt-1">LOVEBETTER by FOLA | Clinical Director: Hakeem</p>
             </div>
@@ -756,3 +756,4 @@ export default function IndividualReportPage() {
     </div>
   );
 }
+
