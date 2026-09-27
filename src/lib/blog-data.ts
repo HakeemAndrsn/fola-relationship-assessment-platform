@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "You keep telling yourself that you will come back to your own life when everybody else is settled. But there is always another person to carry, another problem to solve, another month that needs your money.",
     image: "/images/blog/nervous-system-relationship.jpg",
     cta: {
-      href: "/individual-assessment",
+      href: "/personal-growth-assessment",
       label: "Start Your Personal Growth Assessment",
       heading: "Find out where you actually stand.",
       text: "The Personal Growth Assessment takes 20-30 minutes and gives you an instant report on the dimensions that shape how you love - your attachment pattern, your change readiness, and the one place to start first. R600 once-off.",
@@ -1309,3 +1309,4 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 export function getAllSlugs(): string[] {
   return blogPosts.map((post) => post.slug);
 }
+

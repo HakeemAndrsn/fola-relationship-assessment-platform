@@ -96,10 +96,10 @@ export default function BundlePaymentPage() {
 
           <div className="space-y-3 pt-2">
             <Link
-              href="/individual-assessment"
+              href="/personal-growth-assessment"
               className="block w-full rounded-xl bg-[#121212] text-white px-6 py-3.5 text-sm font-bold hover:bg-[#232323] transition-colors"
             >
-              Start Individual Assessment
+              Start Personal Growth Assessment
             </Link>
             <Link
               href="/assessment"
@@ -126,7 +126,7 @@ export default function BundlePaymentPage() {
         </div>
         <h1 className="text-3xl font-bold text-foreground font-serif leading-tight">The Complete Growth Bundle</h1>
         <p className="text-card-foreground/80 font-sans text-sm leading-relaxed">
-          Unlock both the <strong>Individual Assessment</strong> (to understand your core wiring) and the <strong>Couples Assessment</strong> (to align with your partner).
+          Unlock both the <strong>Personal Growth Assessment</strong> (to understand your core wiring) and the <strong>Couples Assessment</strong> (to align with your partner).
         </p>
 
         <div className="bg-[#B8654A]/5 border border-[#B8654A]/10 rounded-2xl p-4 text-left">
@@ -195,3 +195,4 @@ export default function BundlePaymentPage() {
     </div>
   );
 }
+
