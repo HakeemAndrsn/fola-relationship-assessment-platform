@@ -98,9 +98,9 @@ function NewsletterSignup() {
 
 // ── FAQ ──
 const faqs = [
-  { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a clinical-grade map of their relational dynamics. The Individual Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
+  { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a clinical-grade map of their relational dynamics. The Personal Growth Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
   { q: "Is this a replacement for therapy?", a: "No — it's the ideal starting point. Our reports give you (and your therapist) a clinical-grade GPS. Most therapists say it saves 4–8 sessions of discovery work.", defaultOpen: true },
-  { q: "How long does each assessment take?", a: "The Individual Assessment takes 20–30 minutes. The Couples Assessment takes 30–40 minutes (both partners complete it together). Reports are instant." },
+  { q: "How long does each assessment take?", a: "The Personal Growth Assessment takes 20–30 minutes. The Couples Assessment takes 30–40 minutes (both partners complete it together). Reports are instant." },
   { q: "What if my results show serious issues?", a: "That's precisely why these tools exist. Clinical flags are surfaced with severity levels, clear context, and a specific treatment pathway designed around your unique profile." },
   { q: "Is my data private?", a: "Yes. Your responses are never stored server-side. The report is generated in your browser and only persists for your session. We take privacy seriously.", defaultOpen: true },
 ];
@@ -160,7 +160,7 @@ export default function Home() {
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/the-uncommon-practice" style={{ ...fontUI, color: C.charcoal }} className="text-xs opacity-80 hover:opacity-100 transition-opacity tracking-wide">The Uncommon Practice</Link>
             <Link href="/store" style={{ ...fontUI, color: C.charcoal }} className="text-xs opacity-80 hover:opacity-100 transition-opacity tracking-wide">The Store</Link>
-            <Link href="/individual-assessment" style={{ ...fontUI, color: C.charcoal }} className="text-xs opacity-80 hover:opacity-100 transition-opacity tracking-wide">Individual Assessment</Link>
+            <Link href="/personal-growth-assessment" style={{ ...fontUI, color: C.charcoal }} className="text-xs opacity-80 hover:opacity-100 transition-opacity tracking-wide">Personal Growth Assessment</Link>
             <Link href="/assessment" style={{ ...fontUI, backgroundColor: C.charcoal, color: C.ivory }} className="px-5 py-2.5 text-xs font-bold uppercase tracking-widest">
               Couples Assessment
             </Link>
@@ -201,7 +201,7 @@ export default function Home() {
             {/* Dual CTA */}
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/individual-assessment"
+                href="/personal-growth-assessment"
                 className="group w-full sm:w-auto flex items-center justify-between sm:justify-start gap-4 border border-[#1B1917]/15 bg-white hover:border-[#1B1917] px-6 py-5 transition-all"
               >
                 <div className="text-left">
@@ -287,7 +287,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-[#1B1917]/10">
                   <p style={fontUI} className="text-xs text-[#1B1917]/60">20–30 min · Instant report · PDF download</p>
-                  <Link href="/individual-assessment" style={{ ...fontUI, backgroundColor: C.charcoal, color: C.ivory }} className="px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
+                  <Link href="/personal-growth-assessment" style={{ ...fontUI, backgroundColor: C.charcoal, color: C.ivory }} className="px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
                     Start →
                   </Link>
                 </div>
@@ -550,8 +550,8 @@ export default function Home() {
               Start there. Then build the relationship you actually deserve.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/individual-assessment" style={fontUI} className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/25 bg-white/5 px-7 py-4 text-sm font-bold text-white hover:bg-white/10 transition-all">
-                Individual Assessment — R600
+              <Link href="/personal-growth-assessment" style={fontUI} className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/25 bg-white/5 px-7 py-4 text-sm font-bold text-white hover:bg-white/10 transition-all">
+                Personal Growth Assessment — R600
               </Link>
               <Link href="/assessment" style={{ ...fontUI, backgroundColor: C.terraDeep }} className="w-full sm:w-auto flex items-center justify-center gap-2 text-white px-7 py-4 text-sm font-bold hover:opacity-90 transition-all">
                 Couples Assessment — R600 →
@@ -570,7 +570,7 @@ export default function Home() {
             <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · All assessments R600</span>
           </div>
           <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6" style={fontUI}>
-            <Link href="/individual-assessment" className="hover:text-[#1B1917] transition-colors">Individual Assessment</Link>
+            <Link href="/personal-growth-assessment" className="hover:text-[#1B1917] transition-colors">Personal Growth Assessment</Link>
             <Link href="/assessment" className="hover:text-[#1B1917] transition-colors">Couples Assessment</Link>
             <Link href="/store" className="hover:opacity-80 transition-colors font-bold" style={{ color: C.terraDeep }}>The Store</Link>
             <Link href="/the-uncommon-practice" className="hover:text-[#1B1917] transition-colors">The Uncommon Practice</Link>
@@ -594,3 +594,4 @@ export default function Home() {
     </div>
   );
 }
+
