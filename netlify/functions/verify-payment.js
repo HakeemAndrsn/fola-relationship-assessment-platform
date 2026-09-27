@@ -95,7 +95,7 @@ exports.handler = async (event) => {
     // Determine request origin for redirect URLs, restricted to domains we control
     const origin = resolveOrigin(event);
 
-    let basePath = typeof path === "string" && path.startsWith("/") && !path.startsWith("//") ? path : "/individual-assessment";
+    let basePath = typeof path === "string" && path.startsWith("/") && !path.startsWith("//") ? path : "/personal-growth-assessment";
     if (basePath.includes("delivery")) {
       const [cleanPath, query] = basePath.split("?");
       let finalPath = cleanPath;
@@ -159,3 +159,4 @@ exports.handler = async (event) => {
     };
   }
 };
+
