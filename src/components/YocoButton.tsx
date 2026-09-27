@@ -17,7 +17,7 @@ export default function YocoButton({
   customerEmail = "",
   customerPhone = "",
   customerName = "",
-  productDescription = "LoveBETTER Individual Assessment",
+  productDescription = "LoveBETTER Personal Growth Assessment",
   productId = "lovebetter_assessment",
   amountInCents = 60000,
   onSuccess,
@@ -127,5 +127,6 @@ export default function YocoButton({
     </div>
   );
 }
+
 
 
