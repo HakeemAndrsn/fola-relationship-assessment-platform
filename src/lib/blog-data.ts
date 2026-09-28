@@ -18,6 +18,92 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "who-is-accountable-for-ai-companion-chatbots",
+    title: "The law has started asking chatbots the question I ask every practitioner: who is accountable here?",
+    subtitle: "What California’s new law asks of chatbot makers, and what the rest of us should ask now.",
+    date: "September 28, 2026",
+    readTime: "5 min read",
+    category: "AI & Mental Health",
+    excerpt: "California has just drawn the first serious legal line around AI companion chatbots. Governor Gavin Newsom signed Senator Steve Padilla's bill into law this past week: from…",
+    content: `California has just drawn the first serious legal line around AI companion chatbots. Governor Gavin Newsom signed Senator Steve Padilla's bill into law this past week: from January, companion chatbots operating in that state must remind minors they are talking to a machine, must be built so they do not deliver self-harm content, must refer a person who expresses suicidal thoughts to real help, and can be sued by the families of minors harmed when those duties are breached. On the same day, Newsom vetoed the broader LEAD Act, which would have barred children from chatbots offering anything resembling therapy without professional supervision, after heavy lobbying from AI industry groups. Bereaved parents campaigned hard for the stronger bill. The narrower one is what survived.
+
+I follow this closely for two reasons. The first is obvious: I am a practitioner, and anything that presents itself as emotional support to vulnerable people is my territory whether it has a pulse or not. The second is less obvious: what California does this year tends to become what other jurisdictions debate next year. South Africa has no equivalent law. Nothing. So the questions California just made legal, we still have to make personal.
+
+Let me concede the honest points first, because this debate is full of people pretending it is simple. A chatbot is available at 2am when no practice is. It never tires, never judges, never checks its watch. For someone who spends her days holding space for everyone else, a patient screen can be the first place she does not have to perform. I do not dismiss that comfort. Comfort matters. And the companies are not cartoon villains: OpenAI has publicly admitted its model was made 'too agreeable', rolled that back, and added break reminders and distress recognition. These are admissions that the problem was real, dressed as improvements.
+
+But look at what the new law actually had to forbid. Disclosure, so that a reasonable person is not misled into thinking they are speaking with a human. Protocols, so the machine does not encourage self-harm. A duty to point a suffering user towards help. And a right to sue, because without consequences, duties are decoration. Every one of those requirements describes something an accountable human practitioner carries as basic professional obligation. I carry them before I see a single client. The machine needed a governor, a senate, litigation and a lobby war to approach the floor of my profession's ordinary duties. That is not an argument that the technology is useless. It is an argument about what it is.
+
+Here is the part I most want people to sit with, especially in South Africa where there is no law to sit with it for us. The vetoed bill tried to say that a chatbot should not present itself as therapy to a child unless a professional is supervising. The industry called that a ban in disguise, and it died. The signed bill asks far less: mostly, that the machine confesses it is a machine and does not actively make things worse. That is now the ceiling of protection in the most regulated market in the world. Everywhere else, including here, the ceiling is lower. The honest summary is this: the room is still unregulated, and the most vulnerable person in the room is the user.
+
+So until our own lawmakers catch up, the due diligence is ours. If an app, an employer's wellness platform, or a wellness brand offers you AI emotional support, I would ask the questions the California legislature asked. Does it tell me, plainly and repeatedly, that it is not a person? What exactly happens if I type that I am not safe, and has anyone tested that route outside a marketing demo? Who designed its safeguards, and what are their clinical qualifications? What happens to the most painful things I disclose, and can they be sold, leaked or subpoenaed? And if it goes wrong at the worst possible moment, who carries responsibility? If the honest answers are vague, the product is not support. It is a mirror with good manners.
+
+I would also ask a quieter question, the one I ask in my own room. What is this conversation replacing? Used well, these tools can help someone find words for a feeling before a first session, or keep a journal between sessions. Used as the relationship itself, they offer endless agreement where a person sometimes needs a careful, boundaried question from someone whose duty runs towards them and nowhere else. Good care is not a machine agreeing with the last thing you typed. It is a relationship with skill, limits and accountability, and accountability is precisely the thing the law is still struggling to bolt onto the machine.
+
+California has started asking the right question. It is the question every person should ask of anything that claims to care for their inner world: who is accountable here? Until the answer has a name, a qualification and a duty that survives a bad day, treat the comfort as comfort, and nothing more.
+
+If you are in immediate danger or worried you may hurt yourself, contact local emergency services or a trusted person now; do not rely on this article or a chatbot for urgent care.
+
+This is a commentary, not clinical advice or a claim about any individual client. News links are starting points, not endorsements of every claim in the source stories.
+
+Source: https://pro.stateaffairs.com/ca/disruption/newsom-vetoes-bill-restricting-youth-access-to-ai-chatbots`,
+  },
+  {
+    slug: "wellness-tools-for-a-body-nobody-checked",
+    title: "Your wellness budget is buying tools for a body nobody checked",
+    subtitle: "We keep buying wellness tools while overlooking the body expected to use them.",
+    date: "September 28, 2026",
+    readTime: "5 min read",
+    category: "Workplace Wellbeing",
+    excerpt: "Here is a set of numbers worth sitting with. Employers worldwide spent an estimated 53.3 billion US dollars on workplace wellness in 2024, according to the Global Wellness…",
+    content: `Here is a set of numbers worth sitting with. Employers worldwide spent an estimated 53.3 billion US dollars on workplace wellness in 2024, according to the Global Wellness Institute. In 2014, a quarter of American employees strongly agreed their organisation cared about their wellbeing; by May this year that had fallen to one in five, and Gallup's daily-stress figure climbed over the same period from 40 to 50 percent. More money, more programmes, worse outcomes. Writing in CEOWORLD magazine this weekend, advisor Alessandra Edwards names the gap precisely: we have spent a decade investing in wellbeing, and almost nothing on biology. An Oxford Wellbeing Research Centre analysis of more than 46,000 UK workers found that people who did the standard offerings, resilience training, mindfulness apps, were no better off than those who did nothing at all.
+
+Edwards draws a distinction I wish every executive committee in this country had to write out by hand: capability versus capacity. Capability is the toolkit, the judgment and skill a leader has built over a career. Capacity is whether the body carrying that toolkit can actually deploy it today, and again tomorrow. Organisations spend fortunes on capability. Capacity they outsource to the individual, with a meditation app and a fruit basket as the support structure.
+
+I want to take her argument one layer deeper, from the room I work in. Because before you even get to blood sugar and hormonal shifts, there is a more basic biological fact: a person whose nervous system has been running on alert for years cannot absorb a wellness tool. She cannot meditate her way out of a threat state her body considers accurate. I work with professional women who have read the books, done the apps, attended the resilience workshop, and can describe their own patterns with painful clarity, and who still lie awake at 3am with their heart pounding as if something is chasing them. Nothing is chasing them. That is the point. The alarm system itself has been left on so long it has become the default setting. No app reaches that. It was never designed to.
+
+Let me be honest about the tools, because I use regulation practices in my own work and I am not against them. Breathing exercises, mindfulness, movement, sleep hygiene: all of these are genuinely useful, in the right order. Edwards says she addresses the underlying biology first and introduces the tools once it is stable. My clinical version of that sentence is this: regulation first, then performance. A breathing exercise taught to a settled nervous system is a skill. The same exercise taught to a depleted one is a homework assignment from a system that does not understand why she is tired. The Oxford data is what the wrong order looks like at scale, 46,000 people being handed tools for a state nobody assessed.
+
+There is a particularly South African layer to this, and it falls hardest on women. The professional woman in Tshwane or Joburg who is 'coping' is often running a second and third shift the wellness survey never asks about: the household, the children, the family members her salary quietly carries, the commute, the vigilance that is simply the cost of moving through this country as a woman. Her capacity is not a personal failure of self-care. It is a biological budget being spent by three employers, only one of which pays her. When her company then reports that the wellness programme has low engagement, the insult is complete: her depletion, rebranded as her disinterest.
+
+So what would it look like to take capacity seriously? Edwards offers boards three moves, and they translate cleanly. Fix the biology before layering on the tools: give people access to individual, qualified, confidential assessment of where their system actually is, sleep, stress physiology, hormonal health, nervous-system state, before prescribing anything generic. Plan for capacity the way you plan for capability: before the brutal financial year or the big transformation, ask not only whether the team has the skills but whether the bodies carrying those skills can sustain the effort, and build recovery into the plan the way serious sports teams do. And audit every line item: for each wellness spend, name the specific problem it solves and for whom. 'Stress management for everyone' is not an answer. It is the absence of one.
+
+I would add a fourth, from the consulting room. Make it safe to be honest early. The woman who is running empty has usually known it for a long time before anyone at work does, and she has usually said nothing, because in most organisations the honest sentence 'I am not coping' still reads as a career decision. The cheapest capacity intervention ever devised is a culture where a person can raise her hand at 70 percent empty instead of collapsing at zero. That costs no budget. It only costs the performance of caring less than actually caring.
+
+53.3 billion dollars bought a lot of apps. The next decade's returns will come from a less glamorous investment: checking the body before handing it tools, and treating the human capacity of the people who run the business as seriously as their job descriptions. Your best performer is not a brain with a laptop. She is a biology with a mortgage on her attention. Invest accordingly.
+
+This is a commentary, not clinical advice or a claim about any individual client. News links are starting points, not endorsements of every statistic in the source stories.
+
+Source: https://ceoworld.biz/2026/09/27/weve-spent-a-decade-investing-in-wellbeing-we-havent-invested-in-biology/`,
+  },
+  {
+    slug: "when-truth-gets-too-expensive",
+    title: "When the truth gets too expensive, people start ordering the comforting version",
+    subtitle: "In strained relationships, even a small truth can come with a cost.",
+    date: "September 28, 2026",
+    readTime: "5 min read",
+    category: "Relationships",
+    excerpt: "A study published in The Journal of Social Psychology this month asked 672 Polish adults in long-term relationships an uncomfortable question: would you rather your partner…",
+    content: `A study published in The Journal of Social Psychology this month asked 672 Polish adults in long-term relationships an uncomfortable question: would you rather your partner lied to you, or told you the truth? The finding that matters is not that people preferred kind lies to selfish ones; most of us could have guessed that. It is this: the less satisfied people were in their relationship, the more they preferred to be lied to, and the more they experienced blatant truth as harmful. Read that slowly. In struggling relationships, honesty itself has become something people cannot afford.
+
+The researchers, Sebastian Wnęk and Katarzyna Cantarero, frame it through what is called the Theory of Resilience and Relational Load: supportive, validating interactions build up emotional reserves, and couples draw on those reserves when life applies pressure. A relationship with healthy reserves can metabolise a hard truth. A relationship running on empty experiences the same truth as one more threat arriving at a house already under siege. So the partners start asking, in a hundred small ways, for the softened version. Do not tell me what the evening cost. Do not tell me what you actually think. Tell me the version I can survive.
+
+Here is the reversal I want to offer, because the easy reading of this study is that some people are simply too fragile for honesty. In my work I almost never meet that person. What I meet are women, mostly, who can handle any truth in any boardroom in the country, who negotiate, manage, absorb and deliver under pressure all day, and who come home to the one place where a straight sentence has become dangerous. The problem is not her capacity for truth. The problem is what truth costs in that specific house: the week of silence, the punishing mood, the argument that runs until 2am and resolves nothing, the way an honest answer gets stored and used later. People do not start preferring lies because they are weak. They start preferring lies because, in that relationship, the truth has been priced out of reach.
+
+And that preference is one of the most useful diagnostic signals a couple can get, if they know how to read it. The researchers are careful to note their data cannot prove cause and effect, so let me be careful too. But clinically, the direction of travel is familiar. First, honesty becomes expensive. Then the couple quietly renegotiates: less truth, more peace, or what gets called peace. Then both people begin managing each other instead of knowing each other. She stops asking about the money. He stops asking about her day, because the answer might need something from him. They call the arrangement maturity, or choosing your battles, or just how long relationships are. What it actually is, is a slow trade of intimacy for quiet, and the exchange rate gets worse every year.
+
+I want to be honest about the other side, because kindness and honesty genuinely do pull against each other sometimes, and the study confirms that most people judge a lie told to protect a partner less harshly than one told to protect the liar. There is a real difference between 'I told her the dinner was lovely because she needed the win' and 'I told her I was working late.' A relationship with no gentle fictions at all would be a hostile place. The line is not between couples who never soften anything and couples who do. The line is between softening chosen from strength, in a house where the truth is still available, and softening chosen from fear, in a house where it is not. Only one of those is a strategy. The other is a symptom.
+
+Notice also what the preference does to the person holding it. The woman who no longer wants to know is not at peace. She is paying for the not-knowing with vigilance, because some part of her nervous system keeps track of every topic that has been quietly closed, every question she has stopped asking, every conversation she now steers around like furniture in the dark. That is exhausting in a way that is hard to name. It is also why, when the truth finally arrives, as it usually does, people say the shock was not the fact itself but the discovery of how long they had been managing around it.
+
+So here is a practice, and it is quieter than 'communicate better.' This week, notice what you ask your partner to hide from you. Not the big betrayals; the small daily exemptions. The topics where you have silently agreed to accept the brochure version. Then ask yourself the harder question: what do I believe would happen if the honest version arrived? If the answer is a fight, a freeze-out, or a punishment, the issue to work on is not the content of any single truth. It is the cost of truth itself in your relationship, and that is exactly the kind of pattern that responds to skilled help, because it is a learned economy, and learned economies can be renegotiated. The goal is not brutal honesty everywhere. It is a house where the truth can visit without breaking anything.
+
+Start by making one small truth cheap again. Offer it gently, receive it without an invoice attached, and watch what the relationship does with it. Couples do not rebuild honesty with a grand confession. They rebuild it the way they lost it: one ordinary Tuesday at a time.
+
+This is a commentary, not clinical advice or a claim about any individual client. News links are starting points, not endorsements of every claim in the source stories.
+
+Source: https://www.psypost.org/people-in-strained-relationships-show-somewhat-higher-preference-for-hearing-lies/`,
+  },
+  {
     slug: "you-are-practising-being-last",
     title: "You Are Not Waiting for the Right Time. You Are Practising Being Last.",
     subtitle: "Responsibility can become the most respectable form of self-abandonment.",
