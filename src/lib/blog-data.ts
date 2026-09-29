@@ -8,6 +8,7 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   image?: string;
+  imageAlt?: string;
   cta?: {
     href: string;
     label: string;
@@ -25,6 +26,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     category: "AI & Mental Health",
     excerpt: "California has just drawn the first serious legal line around AI companion chatbots. Governor Gavin Newsom signed Senator Steve Padilla's bill into law this past week: from…",
+    image: "/images/blog/ai-companion-accountability-pexels-katrin-bolovtsova.jpg",
+    imageAlt: "Black woman looking at her phone at home, photographed by KATRIN BOLOVTSOVA for Pexels.",
     content: `California has just drawn the first serious legal line around AI companion chatbots. Governor Gavin Newsom signed Senator Steve Padilla's bill into law this past week: from January, companion chatbots operating in that state must remind minors they are talking to a machine, must be built so they do not deliver self-harm content, must refer a person who expresses suicidal thoughts to real help, and can be sued by the families of minors harmed when those duties are breached. On the same day, Newsom vetoed the broader LEAD Act, which would have barred children from chatbots offering anything resembling therapy without professional supervision, after heavy lobbying from AI industry groups. Bereaved parents campaigned hard for the stronger bill. The narrower one is what survived.
 
 I follow this closely for two reasons. The first is obvious: I am a practitioner, and anything that presents itself as emotional support to vulnerable people is my territory whether it has a pulse or not. The second is less obvious: what California does this year tends to become what other jurisdictions debate next year. South Africa has no equivalent law. Nothing. So the questions California just made legal, we still have to make personal.
@@ -55,6 +58,8 @@ Source: https://pro.stateaffairs.com/ca/disruption/newsom-vetoes-bill-restrictin
     readTime: "5 min read",
     category: "Workplace Wellbeing",
     excerpt: "Here is a set of numbers worth sitting with. Employers worldwide spent an estimated 53.3 billion US dollars on workplace wellness in 2024, according to the Global Wellness…",
+    image: "/images/blog/workplace-wellness-capacity-pexels-ono-kosuki.jpg",
+    imageAlt: "Black professional looking away from her laptop, photographed by Ono Kosuki for Pexels.",
     content: `Here is a set of numbers worth sitting with. Employers worldwide spent an estimated 53.3 billion US dollars on workplace wellness in 2024, according to the Global Wellness Institute. In 2014, a quarter of American employees strongly agreed their organisation cared about their wellbeing; by May this year that had fallen to one in five, and Gallup's daily-stress figure climbed over the same period from 40 to 50 percent. More money, more programmes, worse outcomes. Writing in CEOWORLD magazine this weekend, advisor Alessandra Edwards names the gap precisely: we have spent a decade investing in wellbeing, and almost nothing on biology. An Oxford Wellbeing Research Centre analysis of more than 46,000 UK workers found that people who did the standard offerings, resilience training, mindfulness apps, were no better off than those who did nothing at all.
 
 Edwards draws a distinction I wish every executive committee in this country had to write out by hand: capability versus capacity. Capability is the toolkit, the judgment and skill a leader has built over a career. Capacity is whether the body carrying that toolkit can actually deploy it today, and again tomorrow. Organisations spend fortunes on capability. Capacity they outsource to the individual, with a meditation app and a fruit basket as the support structure.
@@ -83,6 +88,8 @@ Source: https://ceoworld.biz/2026/09/27/weve-spent-a-decade-investing-in-wellbei
     readTime: "5 min read",
     category: "Relationships",
     excerpt: "A study published in The Journal of Social Psychology this month asked 672 Polish adults in long-term relationships an uncomfortable question: would you rather your partner…",
+    image: "/images/blog/truth-and-silence-pexels-alex-green.jpg",
+    imageAlt: "Black couple sitting apart on a bed in daylight, photographed by Alex Green for Pexels.",
     content: `A study published in The Journal of Social Psychology this month asked 672 Polish adults in long-term relationships an uncomfortable question: would you rather your partner lied to you, or told you the truth? The finding that matters is not that people preferred kind lies to selfish ones; most of us could have guessed that. It is this: the less satisfied people were in their relationship, the more they preferred to be lied to, and the more they experienced blatant truth as harmful. Read that slowly. In struggling relationships, honesty itself has become something people cannot afford.
 
 The researchers, Sebastian Wnęk and Katarzyna Cantarero, frame it through what is called the Theory of Resilience and Relational Load: supportive, validating interactions build up emotional reserves, and couples draw on those reserves when life applies pressure. A relationship with healthy reserves can metabolise a hard truth. A relationship running on empty experiences the same truth as one more threat arriving at a house already under siege. So the partners start asking, in a hundred small ways, for the softened version. Do not tell me what the evening cost. Do not tell me what you actually think. Tell me the version I can survive.

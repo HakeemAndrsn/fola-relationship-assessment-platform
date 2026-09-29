@@ -108,7 +108,7 @@ export default function BlogIndex() {
                 <div className="relative aspect-[16/10] md:aspect-video lg:aspect-square w-full h-full min-h-[250px] overflow-hidden border-b md:border-b-0 md:border-r border-border">
                   <img
                     src={blogPosts[0].image || "/logo-transparent.png"}
-                    alt={blogPosts[0].title}
+                    alt={blogPosts[0].imageAlt || blogPosts[0].title}
                     className="object-cover w-full h-full group-hover:scale-[1.03] transition-transform duration-500"
                   />
                 </div>
@@ -167,7 +167,7 @@ export default function BlogIndex() {
                   <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border">
                     <img
                       src={post.image || "/logo-transparent.png"}
-                      alt={post.title}
+                      alt={post.imageAlt || post.title}
                       className="object-cover w-full h-full group-hover:scale-[1.03] transition-transform duration-500"
                     />
                   </div>
