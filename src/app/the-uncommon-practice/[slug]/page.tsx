@@ -36,7 +36,7 @@ export async function generateMetadata({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: post.imageAlt || post.title,
         }
       ],
       publishedTime: post.date,
@@ -225,7 +225,7 @@ export default async function BlogPost({
             <div className="mb-12 rounded-2xl overflow-hidden border border-border relative aspect-[16/9] w-full shadow-sm">
               <img
                 src={post.image}
-                alt={post.title}
+                alt={post.imageAlt || post.title}
                 className="object-cover w-full h-full"
               />
             </div>
