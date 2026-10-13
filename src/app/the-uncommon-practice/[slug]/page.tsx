@@ -20,11 +20,13 @@ export async function generateMetadata({
   const title = `${post.title} | The Uncommon Practice | LoveBetter`;
   const description = post.excerpt;
   const url = `https://lovebetter.co.za/the-uncommon-practice/${post.slug}`;
-  const imageUrl = post.image ? `https://lovebetter.co.za${post.image}` : "https://lovebetter.co.za/logo-transparent.png";
+  const socialImage = post.ogImage || post.image;
+  const imageUrl = socialImage ? `https://lovebetter.co.za${socialImage}` : "https://lovebetter.co.za/logo-transparent.png";
 
   return {
     title,
     description,
+    ...(post.slug === "mental-healthcare-hospital-queues-south-africa" ? { alternates: { canonical: url } } : {}),
     openGraph: {
       title,
       description,
@@ -113,6 +115,8 @@ export default async function BlogPost({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const BrandHeading = post.slug === "mental-healthcare-hospital-queues-south-africa" ? "div" : "h1";
+  const ArticleHeading = post.slug === "mental-healthcare-hospital-queues-south-africa" ? "h1" : "h2";
   const currentIndex = blogPosts.findIndex((p) => p.slug === slug);
   const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
   const nextPost =
@@ -126,9 +130,9 @@ export default async function BlogPost({
           <Link href="/" className="flex items-center gap-3">
             <img src="/logo-transparent.png" alt="FOLA" className="w-9 h-9 rounded" />
             <div>
-              <h1 className="text-lg font-bold text-foreground tracking-tight font-serif">
+              <BrandHeading className="text-lg font-bold text-foreground tracking-tight font-serif">
                 LoveBetter
-              </h1>
+              </BrandHeading>
               <p className="text-[10px] text-card-foreground/75 tracking-wide font-sans">
                 Relationship Growth Readiness Assessment
               </p>
@@ -187,9 +191,9 @@ export default async function BlogPost({
                 {post.readTime}
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground font-serif leading-[1.15]">
+            <ArticleHeading className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground font-serif leading-[1.15]">
               {post.title}
-            </h2>
+            </ArticleHeading>
             <p className="mt-3 text-lg text-[#B8654A]/80 font-serif italic">
               {post.subtitle}
             </p>
@@ -222,20 +226,27 @@ export default async function BlogPost({
 
           {/* Header Image */}
           {post.image && (
-            <div className="mb-12 rounded-2xl overflow-hidden border border-border relative aspect-[16/9] w-full shadow-sm">
+            <figure className="mb-12">
+            <div className="rounded-2xl overflow-hidden border border-border relative aspect-[16/9] w-full shadow-sm">
               <img
                 src={post.image}
                 alt={post.imageAlt || post.title}
                 className="object-cover w-full h-full"
               />
             </div>
+            {post.imageCaption && (
+              <figcaption className="mt-3 text-sm leading-relaxed text-card-foreground/70 font-sans">{post.imageCaption}</figcaption>
+            )}
+            </figure>
           )}
 
           {/* Content */}
           <div className="prose-custom">{renderContent(post.content)}</div>
 
           {/* Social Share */}
-          <SocialShare title={post.title} slug={post.slug} />
+          <div className={post.slug === "mental-healthcare-hospital-queues-south-africa" ? "[&>div>div]:flex-wrap" : undefined}>
+            <SocialShare title={post.title} slug={post.slug} />
+          </div>
 
           {/* Product CTA (per-article, set in blog-data) */}
           {post.cta && (
@@ -347,7 +358,7 @@ export default async function BlogPost({
                 R600 per assessment
               </p>
             </div>
-            <nav className="flex items-center gap-6">
+            <nav className={post.slug === "mental-healthcare-hospital-queues-south-africa" ? "flex flex-wrap justify-center items-center gap-x-6 gap-y-3" : "flex items-center gap-6"}>
               <Link
                 href="/store"
                 className="text-xs text-card-foreground/80 hover:text-foreground transition-colors font-sans"
