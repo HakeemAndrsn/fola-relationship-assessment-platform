@@ -39,11 +39,13 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 - **Domain**: lovebetter.co.za
 - **Stack**: Next.js (App Router), Tailwind CSS, shadcn/ui, Netlify Functions, Yoco SDK
 - **Purpose**: R600 clinical relationship assessments (individual & couples) → Discovery Call → high-ticket close
-- **Status**: Live. Ship as-is, focus on selling, not building.
+- **Status**: Live. Ship as-is, focus on selling, not building — except the free `/patterns` lead-gen quiz (added July 2026 at Hakeem's explicit request), which is a deliberate new top-of-funnel asset, not a violation of the freeze.
 
 ## Key Constraints
 
-- **No free assessments** — R600 only
+- **No free access to the clinical assessments** — `/assessment` and `/individual-assessment` stay R600-only, payment-gated.
+  `/patterns` is a separate, intentionally free lead-gen quiz (36-item pattern/guard assessment → MailerLite → discovery call)
+  and must never link to or from the paid assessments.
 - **All URLs use lovebetter.co.za** — never lovebetter.netlify.app
 - **Brand**: "LoveBetter" or "LOVEBETTER by FOLA" — never "The Oasis by FOLA"
 - **Payment**: Yoco (primary, live keys), PayFast (fallback)

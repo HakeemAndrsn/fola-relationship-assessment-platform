@@ -28,6 +28,31 @@ The platform measures highly sensitive indices (Attachment style, trauma/ACE scr
 
 ---
 
+### 3. The Pattern Assessment (`/patterns`)
+
+A free, standalone lead-generation quiz — distinct from the paid `/assessment` and
+`/individual-assessment` flows, which it never links to or from. Visitors answer 36
+items (3 per "guard," 12 guards across 3 "families"), leave their name and email, and
+land on a results screen with their top 3 guards and a discovery-call CTA. Submissions
+are upserted into MailerLite via the `patterns-subscribe` Netlify Function, which tags
+the subscriber into one of three group-specific nurture automations (built separately
+in MailerLite, not in this codebase).
+
+**Setup required in the MailerLite dashboard before launch:**
+1. Create three groups (one per family) and copy each group's ID:
+   - Inward Blade
+   - Storm Maker
+   - Story Spinner
+2. Create these custom subscriber fields: `name`, `family`, `guard_1`, `guard_1_score`,
+   `guard_2`, `guard_2_score`, `guard_3`, `guard_3_score`.
+3. In Netlify's dashboard, set the environment variables:
+   - `MAILERLITE_API_KEY` (shared with the existing `mailerlite` function)
+   - `ML_GROUP_INWARD_BLADE`, `ML_GROUP_STORM_MAKER`, `ML_GROUP_STORY_SPINNER` — the
+     three group IDs from step 1
+4. Build the nurture automations in MailerLite, each triggered on "joins group."
+
+---
+
 ## Local Development & Setup
 
 ### Requirements
