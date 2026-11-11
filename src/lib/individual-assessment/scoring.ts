@@ -284,7 +284,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       type: "trauma",
       severity: "high",
       message: "Trauma indicators are significantly elevated",
-      recommendation: "Individual trauma-informed therapy (EMDR, somatic experiencing, or clinical hypnotherapy) is recommended before intensive relational work.",
+      recommendation: "Individual trauma-informed therapy (EMDR, somatic experiencing, or hypnotherapy) with a registered professional is recommended before intensive relational work.",
     });
   }
   if (attachScore < 40) {

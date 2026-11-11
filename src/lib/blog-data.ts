@@ -442,7 +442,7 @@ That's not romance. That's neuroscience. And it works.`,
     image: "/images/blog/regulation-not-communication.jpg",
     content: `Every couple who walks through my door says the same thing: "We just can't communicate." And I understand why they believe that. The fights are loud. Or silent. The conversations go in circles. Nobody feels heard.
 
-But here's what twenty years of research and my own clinical experience has taught me: **communication is almost never the actual problem. Regulation is.**
+But here's what twenty years of research and my own practice experience have taught me: **communication is almost never the actual problem. Regulation is.**
 
 ## The Communication Industrial Complex
 
@@ -494,7 +494,7 @@ These work not because of the words, but because of the *state* from which they'
 
 ## The Hypnotherapy Piece
 
-In my clinical work, I use hypnotherapy to help individuals and couples access the subconscious patterning that drives their communication breakdowns. Because here's the truth: most of your conflict patterns were encoded before you had language. They live in the implicit memory system — the body, the felt sense, the automatic reactions that fire before thought.
+In my work, I use hypnotherapy to help individuals and couples access the subconscious patterning that drives their communication breakdowns. Because here's the truth: most of your conflict patterns were encoded before you had language. They live in the implicit memory system — the body, the felt sense, the automatic reactions that fire before thought.
 
 You can't think your way out of implicit memory. You have to *feel* your way out. Trance states allow access to these pre-verbal encodings in a way that talk therapy alone often cannot reach. We can identify the original scene — the first time your brain learned that a raised voice meant danger, or that silence meant abandonment — and offer the nervous system a corrective experience.
 
@@ -888,7 +888,7 @@ The masters of relationships turn toward their partner's bids 86% of the time. T
 
 ## Seven Micro-Practices Backed by Neuroscience
 
-Based on the research and my own clinical experience, here are seven daily practices that, taken together, fundamentally rewire the neurological substrate of your relationship:
+Based on the research and my own practice experience, here are seven daily practices that, taken together, fundamentally rewire the neurological substrate of your relationship:
 
 **1. The Six-Second Kiss (goodbye and hello).** Every departure and every reunion. Not optional. This single practice, maintained consistently, keeps the oxytocin baseline elevated and signals to both partners' nervous systems: "This bond is active and valued."
 

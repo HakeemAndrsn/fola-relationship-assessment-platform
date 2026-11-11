@@ -98,11 +98,11 @@ function NewsletterSignup() {
 
 // ── FAQ ──
 const faqs = [
-  { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a clinical-grade map of their relational dynamics. The Personal Growth Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
-  { q: "Is this a replacement for therapy?", a: "No — it's the ideal starting point. Our reports give you (and your therapist) a clinical-grade GPS. Most therapists say it saves 4–8 sessions of discovery work.", defaultOpen: true },
+  { q: "Who are these assessments for?", a: "The Couples Assessment is for partners who want a detailed map of their relational dynamics. The Personal Growth Assessment is for anyone — single, dating, separated, or in a relationship — who wants deep self-knowledge before or during love." },
+  { q: "Is this a replacement for therapy?", a: "No. It is a self-reflection tool, not a psychological test or a diagnosis. Many people use their report as a starting point, for conversations with each other or with a practitioner or therapist.", defaultOpen: true },
   { q: "How long does each assessment take?", a: "The Personal Growth Assessment takes 20–30 minutes. The Couples Assessment takes 30–40 minutes (both partners complete it together). Reports are instant." },
-  { q: "What if my results show serious issues?", a: "That's precisely why these tools exist. Clinical flags are surfaced with severity levels, clear context, and a specific treatment pathway designed around your unique profile." },
-  { q: "Is my data private?", a: "Yes. Your responses are never stored server-side. The report is generated in your browser and only persists for your session. We take privacy seriously.", defaultOpen: true },
+  { q: "What if my results show serious issues?", a: "Your report highlights areas to watch, with clear context and suggested next steps, including when to seek support from a registered professional." },
+  { q: "Is my data private?", a: "Yes. Your answers are scored in your browser and only persist for your session. A copy of your report is emailed to you through our email provider, Brevo. We take privacy seriously.", defaultOpen: true },
 ];
 
 export default function Home() {
@@ -186,7 +186,7 @@ export default function Home() {
 
           <div className="relative mx-auto max-w-5xl text-center">
             <span style={{ ...fontUI, color: C.terraDeep }} className="text-xs uppercase tracking-[0.25em] font-bold">
-              Clinical-Grade Relational Diagnostics
+              Research-Informed Relationship Assessments
             </span>
 
             <h1 style={fontDisplay} className="mt-5 text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-[#1B1917]">
@@ -195,7 +195,7 @@ export default function Home() {
             </h1>
 
             <p style={fontUI} className="mt-7 text-lg sm:text-xl text-[#1B1917]/75 max-w-2xl mx-auto leading-relaxed">
-              Two clinical-grade assessments. One for the individual who wants to understand their relational wiring. One for the couple who&apos;s done guessing.
+              Two research-informed assessments. One for the individual who wants to understand their relational wiring. One for the couple who&apos;s done guessing.
             </p>
 
             {/* Dual CTA */}
@@ -229,7 +229,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <p style={fontUI} className="mt-5 text-xs text-[#1B1917]/60">Instant results · 100% private · Clinical-grade accuracy</p>
+            <p style={fontUI} className="mt-5 text-xs text-[#1B1917]/60">Instant results · 100% private · Self-reflection, not diagnosis</p>
 
             <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 border border-green-700/20 bg-green-700/5">
               <svg className="w-4 h-4 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -262,7 +262,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p style={fontUI} className="text-sm text-[#1B1917]/75 leading-relaxed mb-6">
-                  For the person who knows something isn&apos;t working in their love life but can&apos;t quite name it. 10 dimensions of your relational self — clinically mapped, personally interpreted.
+                  For the person who knows something isn&apos;t working in their love life but can&apos;t quite name it. 10 dimensions of your relational self — carefully mapped, personally interpreted.
                 </p>
                 <div className="space-y-2 mb-6">
                   {[
@@ -306,7 +306,7 @@ export default function Home() {
                   </div>
                 </div>
                 <p style={fontUI} className="text-sm text-[#1B1917]/75 leading-relaxed mb-6">
-                  For couples who are done guessing what&apos;s wrong. A clinical-grade X-ray of both partners across 8 clinical domains — revealing hidden mismatches and a precise 3-phase healing pathway.
+                  For couples who are done guessing what&apos;s wrong. A detailed map of both partners across 8 domains, showing hidden mismatches and a 3-phase growth pathway.
                 </p>
                 <div className="space-y-2 mb-6">
                   {[
@@ -358,9 +358,9 @@ export default function Home() {
             </div>
             <div className="grid sm:grid-cols-3 gap-6">
               {[
-                { step: "01", title: "Choose your assessment", body: "Individual or couples. Complete the multi-step clinical form at your own pace — designed to be honest, not comfortable." },
-                { step: "02", title: "Answer the clinical questionnaire", body: "8 to 10 clinical dimensions—from attachment wiring to trauma history to values alignment, grounded in peer-reviewed research." },
-                { step: "03", title: "Receive your clinical report", body: "Instantly. A full Brown University-style PDF with scores, insights, clinical flags, and a personalised treatment pathway." },
+                { step: "01", title: "Choose your assessment", body: "Individual or couples. Complete the multi-step questionnaire at your own pace — designed to be honest, not comfortable." },
+                { step: "02", title: "Answer the questionnaire", body: "8 to 10 dimensions, from attachment wiring to childhood experiences to values alignment, informed by peer-reviewed research." },
+                { step: "03", title: "Receive your report", body: "Instantly. A detailed PDF with scores, insights, areas to watch, and a personalised growth pathway." },
               ].map((item) => (
                 <div key={item.step} className="border border-[#1B1917]/10 bg-white p-7">
                   <p style={{ ...fontDisplay, color: `${C.terra}50` }} className="text-4xl mb-4">{item.step}</p>
@@ -429,7 +429,7 @@ export default function Home() {
               <span style={{ ...fontUI, color: C.terraDeep }} className="text-xs uppercase tracking-[0.25em] font-bold">Not Guesswork</span>
               <h2 style={fontDisplay} className="mt-3 text-3xl sm:text-4xl text-[#1B1917]">A real report, not a personality quiz</h2>
               <p style={fontUI} className="mt-3 text-[#1B1917]/75 text-sm max-w-2xl mx-auto leading-relaxed">
-                Every dimension we score maps to a named, peer-reviewed clinical framework — the same ones used in couples and individual therapy rooms.
+                Every dimension we score draws on a named, peer-reviewed framework, such as attachment theory and the Gottman research.
               </p>
             </div>
 
@@ -569,6 +569,7 @@ export default function Home() {
             <img src="/logo-transparent.png" alt="FOLA" className="w-6 h-6" />
             <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · All assessments R600</span>
           </div>
+          <p className="sm:order-last w-full text-[11px] leading-relaxed text-[#1B1917]/60" style={fontUI}>LoveBetter assessments are self-reflection tools, not psychological tests or diagnoses, and not a substitute for professional care. LoveBetter is run by FOLA Polyclinics (Pty) Ltd. Hakeem Lesolang is a trauma and hypnotherapy practitioner; he is not a psychologist and is not registered with the HPCSA. In crisis, call SADAG on 0800 567 567.</p>
           <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6" style={fontUI}>
             <Link href="/personal-growth-assessment" className="hover:text-[#1B1917] transition-colors">Personal Growth Assessment</Link>
             <Link href="/assessment" className="hover:text-[#1B1917] transition-colors">Couples Assessment</Link>

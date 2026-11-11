@@ -27,11 +27,11 @@ export default function PartnersPage() {
 
           {/* Title */}
           <h1 className="text-4xl sm:text-5xl font-serif font-bold text-foreground leading-tight mb-6">
-            A screening tool that gives you session one back.
+            A self-report tool that gives you session one back.
           </h1>
           <p className="text-base sm:text-lg text-card-foreground/80 font-sans leading-relaxed mb-14 max-w-2xl">
             FOLA isn&apos;t a replacement for the work you do. It&apos;s the intake layer underneath it —
-            a clinical screening instrument your clients complete before they ever sit across from you,
+            a structured self-report your clients complete before they ever sit across from you,
             so the first session starts with data instead of discovery.
           </p>
 
@@ -42,7 +42,7 @@ export default function PartnersPage() {
               {[
                 {
                   title: "Pre-intake triage",
-                  body: "Send a client the assessment before their first session. They arrive with a scored profile across 8–10 clinical dimensions instead of a blank intake form.",
+                  body: "Send a client the assessment before their first session. They arrive with a scored profile across 8–10 dimensions instead of a blank intake form.",
                 },
                 {
                   title: "Referral pathway",
@@ -54,7 +54,7 @@ export default function PartnersPage() {
                 },
                 {
                   title: "A second data point, not a diagnosis",
-                  body: "The report is explicitly framed as a screening instrument, not a clinical diagnosis — it's built to sit alongside your assessment, never to replace it.",
+                  body: "The report is explicitly framed as a self-reflection tool, not a psychological test or a diagnosis — it's built to sit alongside your assessment, never to replace it.",
                 },
               ].map((item) => (
                 <div key={item.title} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
@@ -69,12 +69,12 @@ export default function PartnersPage() {
           <section className="mb-16">
             <h2 className="text-2xl font-serif font-bold text-foreground mb-3">Built on the frameworks you already use</h2>
             <p className="text-sm text-card-foreground/80 font-sans leading-relaxed mb-6 max-w-2xl">
-              Every dimension FOLA scores maps to a named, peer-reviewed clinical framework — nothing proprietary or unexplainable hiding underneath the report.
+              Every dimension FOLA scores maps to a named, peer-reviewed framework — nothing proprietary or unexplainable hiding underneath the report.
             </p>
             <div className="space-y-4">
               {[
                 { name: "Attachment Theory (Bowlby & Ainsworth)", body: "Attachment style is scored directly and weighted across every other domain." },
-                { name: "The Gottman Method", body: "Gottman's research on relationship success/failure predictors informs our clinical risk flags." },
+                { name: "The Gottman Method", body: "Gottman's research on relationship success/failure predictors informs our risk flags." },
                 { name: "Emotionally Focused Therapy (EFT — Sue Johnson)", body: "The lens behind our critical fracture point and conflict-cycle analysis." },
                 { name: "ACE (Adverse Childhood Experiences) research", body: "Underpins the trauma inventory domain." },
               ].map((item) => (
@@ -85,7 +85,7 @@ export default function PartnersPage() {
               ))}
             </div>
             <p className="text-xs text-card-foreground/60 font-sans mt-6">
-              Full citations are included in every clinical report generated on the platform.
+              Full citations are included in every report generated on the platform.
             </p>
           </section>
 

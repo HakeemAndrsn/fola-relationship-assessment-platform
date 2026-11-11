@@ -30,6 +30,7 @@ All Next.js App Router pages, layouts, and route handlers for LoveBETTER.
 - Report routes use sessionStorage for assessment data
 - Blog posts use MDX or data files from `src/lib/`
 - No free assessment access — payment verification required
+- User-facing copy follows the root scope-wording rule: self-reflection tool, not clinical, diagnostic, screening or treatment language; reports carry the not-a-psychologist / not-HPCSA disclaimer
 
 ## Child DOX Index
 

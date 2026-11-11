@@ -123,7 +123,7 @@ export default function IndividualReportPage() {
   }, []);
 
   const statsString = report 
-    ? `FOLA Relational Diagnostic - Client: ${report.name} | Overall Score: ${report.overallScore}/100 | Attachment: ${report.attachmentStyle.toUpperCase()} | Top Strength: ${report.topStrength.label} (${report.topStrength.score}/100) | Primary Growth Edge: ${report.primaryGrowthEdge.label} (${report.primaryGrowthEdge.score}/100) | Change Readiness: ${report.changeReadiness.toUpperCase()}`
+    ? `FOLA Relationship Report - Client: ${report.name} | Overall Score: ${report.overallScore}/100 | Attachment: ${report.attachmentStyle.toUpperCase()} | Top Strength: ${report.topStrength.label} (${report.topStrength.score}/100) | Primary Growth Edge: ${report.primaryGrowthEdge.label} (${report.primaryGrowthEdge.score}/100) | Change Readiness: ${report.changeReadiness.toUpperCase()}`
     : "";
 
   const getBookingUrl = (baseEventUrl: string) => {
@@ -193,7 +193,7 @@ export default function IndividualReportPage() {
           <div className="space-y-1 text-left">
             <h3 className="text-sm font-bold text-[#121212] uppercase tracking-wider font-sans">🔒 Secure Offline Document</h3>
             <p className="text-xs text-[#4E4E4E] leading-relaxed max-w-xl font-sans">
-              To guarantee your clinical privacy, FOLA does not store your test results on our servers.
+              To protect your privacy, FOLA does not keep your results in a database. A copy is emailed to you through Brevo.
               Click <strong>Download PDF</strong> to save this document directly to your device.
             </p>
             {emailStatus === "sending" && (
@@ -214,7 +214,7 @@ export default function IndividualReportPage() {
         {/* ── COVER PAGE ── */}
         <section className="text-center py-16 print:py-12 border-b-2 border-[#121212]">
           <div className="inline-block px-6 py-2 bg-[#121212] text-white text-xs font-semibold tracking-widest uppercase rounded mb-6">
-            Confidential Clinical Document
+            Confidential Document
           </div>
           <div className="flex justify-center mb-6">
             <img src="/logo-transparent.png" alt="FOLA" className="w-20 h-20" />
@@ -222,7 +222,7 @@ export default function IndividualReportPage() {
           <h1 className="text-4xl font-bold text-[#121212] tracking-tight">
             FOLA Personal Growth Assessment
           </h1>
-          <p className="mt-2 text-lg text-[#4a5568]">Personal Relationship Diagnostic Report</p>
+          <p className="mt-2 text-lg text-[#4a5568]">Personal Relationship Self-Reflection Report</p>
           <div className="mt-8 space-y-1 text-sm text-[#718096]">
             <p><span className="font-medium text-[#2d3748]">Client:</span> {report.name}</p>
             <p><span className="font-medium text-[#2d3748]">Assessment Date:</span> {report.date}</p>
@@ -230,7 +230,7 @@ export default function IndividualReportPage() {
           </div>
           <div className="mt-8 pt-6 border-t border-[#e2e8f0]">
             <p className="text-xs text-[#a0aec0]">
-              Prepared for: LOVEBETTER by FOLA | Clinical Director: Hakeem
+              Prepared by: LOVEBETTER by FOLA | Hakeem Lesolang, trauma and hypnotherapy practitioner
             </p>
           </div>
         </section>
@@ -261,7 +261,7 @@ export default function IndividualReportPage() {
 
               {report.clinicalFlags.length > 0 && (
                 <div className="rounded-lg border border-[#B8654A]/40 bg-[#fffdf5] p-4">
-                  <p className="text-xs font-semibold text-[#121212] uppercase tracking-wider mb-2">Clinical Recommendations</p>
+                  <p className="text-xs font-semibold text-[#121212] uppercase tracking-wider mb-2">Areas to Watch</p>
                   {report.clinicalFlags.map((flag, i) => (
                     <div key={i} className="mt-2 flex items-start gap-2 text-sm">
                       <span className={`mt-0.5 inline-block h-2 w-2 rounded-full shrink-0 ${flag.severity === "high" ? "bg-red-500" : "bg-yellow-500"}`} />
@@ -287,7 +287,7 @@ export default function IndividualReportPage() {
                   <th className="text-center py-3 px-2 text-[#121212] font-semibold">Score</th>
                   <th className="text-center py-3 px-2 text-[#121212] font-semibold">Status</th>
                   <th className="text-center py-3 px-2 text-[#121212] font-semibold">Percentile</th>
-                  <th className="text-center py-3 px-2 text-[#121212] font-semibold">Clinical Weight</th>
+                  <th className="text-center py-3 px-2 text-[#121212] font-semibold">Weight</th>
                 </tr>
               </thead>
               <tbody>
@@ -380,7 +380,7 @@ export default function IndividualReportPage() {
           {/* Clinical Risk Matrix */}
           <div className="mt-8">
             <h3 className="text-sm font-semibold text-[#2d3748] mb-4 uppercase tracking-wider">
-              Clinical Risk Matrix
+              Risk Matrix
             </h3>
             <div className="grid gap-3 sm:grid-cols-3">
               {(["critical", "growth", "strength"] as const).map((level) => {
@@ -475,7 +475,7 @@ export default function IndividualReportPage() {
         {report.clinicalFlags.length > 0 && (
           <section className="print:break-before-page">
             <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
-              Clinical Flags & Considerations
+              Areas to Watch
             </h2>
             <div className="space-y-4">
               {report.clinicalFlags.map((flag, i) => (
@@ -494,7 +494,7 @@ export default function IndividualReportPage() {
         {/* ── CLINICAL PATHWAY ── */}
         <section className="print:break-before-page">
           <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
-            Clinical Pathway Recommendation
+            Suggested Pathway
           </h2>
 
           {/* Cohort — prominent offer for individuals */}
@@ -738,9 +738,9 @@ export default function IndividualReportPage() {
             <div>
               <h3 className="font-semibold text-[#2d3748] mb-2">Disclaimers</h3>
               <p>
-                This report is a screening instrument and does not constitute a clinical diagnosis.
+                This report is a self-reflection tool. It is not a psychological test and does not constitute a diagnosis. It was prepared by a trauma and hypnotherapy practitioner who is not a psychologist and is not registered with the HPCSA.
                 Results are intended to inform and guide therapeutic conversations, not replace
-                professional assessment. All data is processed locally and is not stored on any server.
+                professional assessment. Your answers are scored on your device; a copy of your report is emailed to you through our email provider, Brevo.
                 By using this tool, you acknowledge that LOVEBETTER by FOLA and its practitioners
                 are not liable for decisions made based on these results alone.
               </p>
@@ -748,7 +748,7 @@ export default function IndividualReportPage() {
             <div className="pt-4 border-t border-[#e2e8f0] text-xs text-[#a0aec0] text-center">
               <p>Assessment Price: R600 | Personal Growth Assessment</p>
               <p className="mt-1">Report ID: {report.id} | Generated: {report.date}</p>
-              <p className="mt-1">LOVEBETTER by FOLA | Clinical Director: Hakeem</p>
+              <p className="mt-1">LOVEBETTER by FOLA | Hakeem Lesolang, trauma and hypnotherapy practitioner</p>
             </div>
           </div>
         </section>

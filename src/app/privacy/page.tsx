@@ -23,11 +23,11 @@ export default function PrivacyPolicy() {
 
           <section>
             <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">2. Information We Collect</h2>
-            <p>To deliver our relationship readiness diagnostic services, we collect:</p>
+            <p>To deliver our relationship readiness assessment services, we collect:</p>
             <ul className="list-disc list-inside space-y-2 mt-2 pl-4">
               <li><strong>Contact Information:</strong> Your name, email address, and phone number.</li>
               <li><strong>Payment Data:</strong> Payment details processed securely through our payment provider, Yoco. We do not store or see your raw credit card numbers.</li>
-              <li><strong>Assessment Responses:</strong> Your answers to the questions across our clinical-grade relationship dimensions.</li>
+              <li><strong>Assessment Responses:</strong> Your answers to the questions across our relationship dimensions.</li>
             </ul>
           </section>
 
@@ -38,7 +38,7 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc list-inside space-y-2 mt-2 pl-4">
               <li><strong>Raw Responses:</strong> Your individual question answers remain in your browser session while you complete the assessment. We do not keep the raw questionnaire as a database record. The browser uses those answers to calculate your report.</li>
-              <li><strong>Report Delivery:</strong> When you generate your report, its results, including scores and any clinical flags or recommended pathway, are securely transmitted to our transactional email provider, Brevo, so a copy can be sent to the email address linked to your paid assessment.</li>
+              <li><strong>Report Delivery:</strong> When you generate your report, its results, including scores and any areas to watch or suggested pathway, are securely transmitted to our transactional email provider, Brevo, so a copy can be sent to the email address linked to your paid assessment.</li>
               <li><strong>Practice Record:</strong> The same report email is copied to <strong>admin@fola.co.za</strong> and retained in our access-controlled practice inbox as the durable record of the service provided to you. It is not published or shared for advertising.</li>
               <li><strong>CRM Record:</strong> Your contact details and high-level scores are retained in MailerLite to support delivery and follow-up. MailerLite does not receive your raw questionnaire answers or full report through this assessment flow.</li>
               <li><strong>Delivery Security:</strong> Report email requests require short-lived authorisation tied to the verified Yoco purchase and purchaser email. This prevents an unrelated person from using our service to send a report.</li>
@@ -49,7 +49,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">4. Purpose of Processing</h2>
             <p>We process your data strictly to:</p>
             <ul className="list-disc list-inside space-y-2 mt-2 pl-4">
-              <li>Generate and email your custom relationship diagnostic report and invoice.</li>
+              <li>Generate and email your custom relationship report and invoice.</li>
               <li>Verify payment completion via Yoco.</li>
               <li>Coordinate bookings for follow-up Breakthrough or Integration Sessions.</li>
             </ul>
