@@ -3099,7 +3099,7 @@ Abandonment is the correct word for it. Not absent. Not busy. Not trying his bes
 
 When a man can no longer provide — or never learned to — he does not just feel like he has failed at a task. He feels like he has failed at being a person.
 
-Age Regression Therapy, as I apply it, does not begin with the presenting wound. It begins earlier — with the inner child who learned what it meant to be a boy in the specific environment he grew up in.
+Age regression work, as I apply it, does not begin with the presenting wound. It begins earlier — with the inner child who learned what it meant to be a boy in the specific environment he grew up in.
 
 Inner child healing is not metaphor. It is neurological.
 
@@ -3114,7 +3114,7 @@ He is winging it. In a life that requires tools he was never given.
 The work begins there.
 
 — Hakeem Lesolang
-Trauma & Hypnotherapy Practitioner | FOLA Polyclinics
+Trauma & Hypnosis Practitioner | FOLA Polyclinics
 fola.co.za
 
 **Facebook Text**:
@@ -3183,7 +3183,7 @@ You are not behind. You are not broken. You were never given the map.
 We have it.
 
 — Hakeem Lesolang
-Trauma & Hypnotherapy Practitioner | FOLA Polyclinics
+Trauma & Hypnosis Practitioner | FOLA Polyclinics
 fola.co.za
 
 **Facebook Text**:
@@ -3256,7 +3256,7 @@ If you are an employer, an HR director, a business leader in the South African c
 Let's talk.
 
 — Hakeem Lesolang
-Trauma & Hypnotherapy Practitioner | FOLA Polyclinics
+Trauma & Hypnosis Practitioner | FOLA Polyclinics
 fola.co.za
 
 **Facebook Text**:
@@ -3315,7 +3315,7 @@ If you work in mental health policy, corporate wellness, community development, 
 The awareness month is useful. What happens in the other eleven months is where lives change.
 
 — Hakeem Lesolang
-Trauma & Hypnotherapy Practitioner | FOLA Polyclinics
+Trauma & Hypnosis Practitioner | FOLA Polyclinics
 fola.co.za
 
 **Facebook Text**:
@@ -3369,7 +3369,7 @@ The men I work with are not weak. They are usually the strongest person in every
 
 A man who can only be strong cannot rest. Cannot receive. Cannot let anyone close enough to matter. Cannot, ultimately, change.
 
-The work I do — Age Regression Therapy, hypnotherapy, neuroscience-informed CBT and NLP — is not soft. It is demanding. It asks a man to go back to places he has spent decades avoiding. And it asks him to stay long enough to do something there.
+The work I do — age regression work, hypnosis, neuroscience-informed CBT and NLP — is not soft. It is demanding. It asks a man to go back to places he has spent decades avoiding. And it asks him to stay long enough to do something there.
 
 The men who complete the work do not just feel better.
 
@@ -3382,7 +3382,7 @@ This month and every month — if you are a man reading this who has been carryi
 Not managed. Moved.
 
 — Hakeem Lesolang
-Trauma & Hypnotherapy Practitioner | FOLA Polyclinics
+Trauma & Hypnosis Practitioner | FOLA Polyclinics
 fola.co.za
 Direct message to begin.
 
@@ -3396,7 +3396,7 @@ But naming is not the same as healing.
 
 If you've sat in a therapist's chair and left feeling heard but unchanged, it's not because you weren't ready. It's because most talk therapy treats the expression of the wound. Not the wound.
 
-FOLA is not a therapy practice in the traditional sense. It is a transformation practice. We use hypnotherapy, neuroscience, NLP, and CBT — not as tools in a kit, but as an integrated framework that goes where the conversation alone cannot go. Back into the body. Back into the nervous system. Back into the moment the wound was first made.
+FOLA is not a therapy practice in the traditional sense. It is a transformation practice. We use hypnosis, neuroscience, NLP, and CBT — not as tools in a kit, but as an integrated framework that goes where the conversation alone cannot go. Back into the body. Back into the nervous system. Back into the moment the wound was first made.
 
 The goal is not management.
 
@@ -7056,7 +7056,7 @@ Your body already knows what happened. It's been storing the memory, the tension
 
 This is why talk therapy alone often doesn't work for trauma. You can talk about something for ten years and still not heal it. Because healing happens in the body, not in the narrative.
 
-Age Regression Therapy works with the body's memory. It doesn't ask you to tell your story. It asks your nervous system to complete what it couldn't complete then.
+Age regression work works with the body's memory. It doesn't ask you to tell your story. It asks your nervous system to complete what it couldn't complete then.
 
 That's the difference between managing a wound and healing it.
 
