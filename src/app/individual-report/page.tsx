@@ -231,7 +231,7 @@ export default function IndividualReportPage() {
           </div>
           <div className="mt-8 pt-6 border-t border-[#e2e8f0]">
             <p className="text-xs text-[#a0aec0]">
-              Prepared by: LOVEBETTER by FOLA | Hakeem Lesolang, trauma and hypnotherapy practitioner
+              Prepared by: LOVEBETTER by FOLA | Hakeem Lesolang, hypnosis and NLP practitioner
             </p>
           </div>
         </section>
@@ -555,7 +555,7 @@ export default function IndividualReportPage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#B8654A]">Estimated Total Investment</p>
                 <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases (excluding cohort)</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
-                  Age Regression Hypnotherapy sessions are R3,680.50 each. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
+                  Age Regression Hypnosis sessions are R3,680.50 each. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
                 </p>
               </div>
               <span className="text-3xl font-bold">R{formatRand(report.totalInvestment)}</span>
@@ -739,7 +739,7 @@ export default function IndividualReportPage() {
             <div>
               <h3 className="font-semibold text-[#2d3748] mb-2">Disclaimers</h3>
               <p>
-                This report is a self-reflection tool. It is not a psychological test and does not constitute a diagnosis. It was prepared by a trauma and hypnotherapy practitioner who is not a psychologist and is not registered with the HPCSA.
+                This report is a self-reflection tool. It is not a psychological test and does not constitute a diagnosis. It was prepared by a hypnosis and NLP practitioner who is not a psychologist and is not registered with the HPCSA.
                 Results are intended to inform and guide therapeutic conversations, not replace
                 professional assessment. Your answers are scored on your device; a copy of your report is emailed to you through our email provider, Brevo.
                 By using this tool, you acknowledge that LOVEBETTER by FOLA and its practitioners
@@ -749,7 +749,7 @@ export default function IndividualReportPage() {
             <div className="pt-4 border-t border-[#e2e8f0] text-xs text-[#a0aec0] text-center">
               <p>Assessment Price: R600 | Personal Growth Assessment</p>
               <p className="mt-1">Report ID: {report.id} | Generated: {report.date}</p>
-              <p className="mt-1">LOVEBETTER by FOLA | Hakeem Lesolang, trauma and hypnotherapy practitioner</p>
+              <p className="mt-1">LOVEBETTER by FOLA | Hakeem Lesolang, hypnosis and NLP practitioner</p>
             </div>
           </div>
         </section>

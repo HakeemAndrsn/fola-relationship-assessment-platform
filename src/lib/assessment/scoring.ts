@@ -316,7 +316,7 @@ export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalF
   }
 
   const price = Math.min(3800, Math.max(2500, Math.round(base * multiplier)));
-  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2700 | Age Regression Hypnotherapy = R3,680.50 each`;
+  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2700 | Age Regression Hypnosis = R3,680.50 each`;
   return { price, breakdown };
 }
 

@@ -569,7 +569,7 @@ export default function Home() {
             <img src="/logo-transparent.png" alt="FOLA" className="w-6 h-6" />
             <span>© {new Date().getFullYear()} LoveBetter · Relationship Growth Readiness Assessment · All assessments R600</span>
           </div>
-          <p className="sm:order-last w-full text-[11px] leading-relaxed text-[#1B1917]/60" style={fontUI}>LoveBetter assessments are self-reflection tools, not psychological tests or diagnoses, and not a substitute for professional care. LoveBetter is run by FOLA Polyclinics (Pty) Ltd. Hakeem Lesolang is a trauma and hypnotherapy practitioner; he is not a psychologist and is not registered with the HPCSA. In crisis, call SADAG on 0800 567 567.</p>
+          <p className="sm:order-last w-full text-[11px] leading-relaxed text-[#1B1917]/60" style={fontUI}>LoveBetter assessments are self-reflection tools, not psychological tests or diagnoses, and not a substitute for professional care. LoveBetter is run by FOLA Polyclinics (Pty) Ltd. Hakeem Lesolang is a hypnosis and NLP practitioner; he is not a psychologist and is not registered with the HPCSA. In crisis, call SADAG on 0800 567 567.</p>
           <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6" style={fontUI}>
             <Link href="/personal-growth-assessment" className="hover:text-[#1B1917] transition-colors">Personal Growth Assessment</Link>
             <Link href="/assessment" className="hover:text-[#1B1917] transition-colors">Couples Assessment</Link>

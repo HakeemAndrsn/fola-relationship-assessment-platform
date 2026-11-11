@@ -300,7 +300,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       type: "self_worth",
       severity: "medium",
       message: "Self-worth deficits may be driving relational patterns",
-      recommendation: "NLP timeline work and hypnotherapy targeting core self-worth beliefs will create rapid structural change.",
+      recommendation: "NLP timeline work and hypnosis coaching on core self-worth beliefs can help shift these patterns.",
     });
   }
   if (emotionScore < 45) {
@@ -335,9 +335,9 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const breakdown =
     flagCount >= 3
       ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
-      : "Breakthrough Session = R2700 | Maintenance & Expansion sessions = R2700 | Age Regression Hypnotherapy = R3,680.50 each";
+      : "Breakthrough Session = R2700 | Maintenance & Expansion sessions = R2700 | Age Regression Hypnosis = R3,680.50 each";
 
-  // Treatment plan — strictly Phase 1, 2, 3 with Age Regression Therapy as high-ticket
+  // Treatment plan — strictly Phase 1, 2, 3 with the ART sequence as high-ticket
   const treatmentPlan: IndividualTreatmentPhase[] = [
     {
       phase: 1,
@@ -346,10 +346,10 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       focus: "Nervous system regulation, trauma processing, and core self-worth installation",
       sessions: [
         ...(traumaScore < 50
-          ? [{ description: "Age Regression Hypnotherapy Session", target: "Subconscious trauma processing & nervous system reset", price: 3680.5 }]
+          ? [{ description: "Age Regression Hypnosis Session", target: "Subconscious trauma processing & nervous system reset", price: 3680.5 }]
           : []),
         { description: "Individual Peak Performance Session", target: `${primaryGrowthEdge.label} — foundational work`, price: 2700 },
-        { description: "Hypnotherapy: Self-Worth Installation", target: "Subconscious self-worth reprogramming via NLP", price: 2700 },
+        { description: "Hypnosis Coaching: Self-Worth", target: "Subconscious self-worth reprogramming via NLP", price: 2700 },
       ],
     },
     {
@@ -361,7 +361,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
         { description: "Communication Pattern Rewiring", target: "Assertion, listening, repair — all three pillars", price: 2700 },
         { description: "Values & Vision Clarity Session", target: "Crystallising non-negotiables and relationship vision", price: 2700 },
         ...(attachScore < 60
-          ? [{ description: "Age Regression Hypnotherapy Session", target: "Earned secure attachment — NLP timeline work", price: 3680.5 }]
+          ? [{ description: "Age Regression Hypnosis Session", target: "Earned secure attachment — NLP timeline work", price: 3680.5 }]
           : []),
       ],
     },

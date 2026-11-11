@@ -24,7 +24,7 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">2. Scope Disclaimer</h2>
             <p>
-              Our assessments are self-reflection tools designed to map relational dynamics, attachment patterns, and stress points. They are **not** clinical diagnoses, psychiatric assessments, or a replacement for professional medical advice, psychotherapy, or couples therapy. If you are experiencing severe psychological distress, please contact a qualified healthcare practitioner. LoveBetter is run by FOLA Polyclinics (Pty) Ltd. Hakeem Lesolang is a trauma and hypnotherapy practitioner; he is not a psychologist and is not registered with the Health Professions Council of South Africa (HPCSA).
+              Our assessments are self-reflection tools designed to map relational dynamics, attachment patterns, and stress points. They are **not** clinical diagnoses, psychiatric assessments, or a replacement for professional medical advice, psychotherapy, or couples therapy. If you are experiencing severe psychological distress, please contact a qualified healthcare practitioner. LoveBetter is run by FOLA Polyclinics (Pty) Ltd. Hakeem Lesolang is a hypnosis and NLP practitioner; he is not a psychologist and is not registered with the Health Professions Council of South Africa (HPCSA).
             </p>
           </section>
 

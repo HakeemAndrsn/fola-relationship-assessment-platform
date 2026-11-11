@@ -22,7 +22,7 @@ const PRODUCTS_CONFIG = {
     ],
     features: [
       "Instant PDF download — play tonight",
-      "Built by a trauma and hypnotherapy practitioner",
+      "Built by a hypnosis and NLP practitioner",
       "Story-sized card images included for sharing — share a card to your story and tag @do.lovebetter",
       "52 questions in four tiers (playful to profound)"
     ],
@@ -831,7 +831,7 @@ function BundleSection() {
             </li>
             <li className="flex gap-2.5 items-baseline text-sm md:text-base">
               <span style={{ color: t.accent }} className="mr-1.5">—</span>
-              <span style={fontUI} className="opacity-90">Built by a trauma and hypnotherapy practitioner</span>
+              <span style={fontUI} className="opacity-90">Built by a hypnosis and NLP practitioner</span>
             </li>
           </ul>
 

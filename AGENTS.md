@@ -50,7 +50,7 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 - **Calendly**: Specific links per offer, post-booking redirect to fola.co.za/book/confirmed
 - **Lead capture**: Qualifying form before Calendly redirect. No Calendly link or WhatsApp auto-open on form submit.
 - **Soulfeggio** (not "Solfeggio") spelling throughout
-- **Scope wording (Nov 2026)**: assessments are self-reflection tools, never "clinical", "clinical-grade", "diagnostic", "screening" or "treatment" in user-facing copy. No unsupported claims (e.g. sessions saved, university-style). Keep the line that Hakeem is a trauma and hypnotherapy practitioner, not a psychologist and not HPCSA-registered, in the homepage footer, terms and both report disclaimers. Internal field names (clinicalFlags, treatmentPlan) may stay.
+- **Scope wording (Nov 2026)**: assessments are self-reflection tools, never "clinical", "clinical-grade", "diagnostic", "screening" or "treatment" in user-facing copy. No unsupported claims (e.g. sessions saved, university-style). Hakeem is a hypnosis and NLP practitioner (never "hypnotherapist" or "trauma and hypnotherapy practitioner"); FOLA work is coaching that uses hypnosis and NLP, never therapy or trauma treatment. Keep the line that he is not a psychologist and not HPCSA-registered in the homepage footer, terms and both report disclaimers. Internal field names (clinicalFlags, treatmentPlan) may stay.
 - **Version**: Display VERSION from config.py in Mini App hero and bot /start. Current: 1.2.0.
 
 ## User Preferences

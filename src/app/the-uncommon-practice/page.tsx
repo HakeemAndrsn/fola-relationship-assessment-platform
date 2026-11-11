@@ -5,10 +5,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Uncommon Practice Blog | LOVEBETTER by FOLA",
   description:
-    "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnotherapy, and the radical act of showing up for the person next to you.",
+    "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnosis, and the radical act of showing up for the person next to you.",
   openGraph: {
     title: "The Uncommon Practice Blog | LOVEBETTER by FOLA",
-    description: "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnotherapy, and the radical act of showing up for the person next to you.",
+    description: "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnosis, and the radical act of showing up for the person next to you.",
     type: "website",
     url: "https://lovebetter.co.za/the-uncommon-practice",
     siteName: "LOVEBETTER by FOLA",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "The Uncommon Practice Blog | LOVEBETTER by FOLA",
-    description: "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnotherapy, and the radical act of showing up for the person next to you.",
+    description: "Where neuroscience meets the nightstand. Hakeem writes about love, attachment, hypnosis, and the radical act of showing up for the person next to you.",
     images: ["https://lovebetter.co.za/logo-transparent.png"],
   },
 };
@@ -75,7 +75,7 @@ export default function BlogIndex() {
             </h2>
             <p className="mt-4 text-lg text-card-foreground/80 max-w-2xl mx-auto font-sans leading-relaxed">
               Where neuroscience meets the nightstand. On love, attachment,
-              hypnotherapy, NLP, and the radical act of showing up for the person
+              hypnosis, NLP, and the radical act of showing up for the person
               next to you.
             </p>
             <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
