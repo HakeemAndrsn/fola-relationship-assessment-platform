@@ -95,10 +95,11 @@ export const PREJUDICES_BIASES_QUESTIONS = [
   { id: "counter_willingness", label: "Willingness to counter biases", description: "I'm genuinely open to questioning and unlearning the gender-based beliefs I hold, even when they feel true or justified." },
 ];
 
-export const NEURODIVERGENCE_QUESTIONS = [
-  { id: "focus_in_conversation", label: "Sustained focus in conversation", description: "I can stay present and focused during extended conversations without drifting or getting overwhelmed." },
-  { id: "emotional_intensity", label: "Emotional intensity awareness", description: "I recognise when my emotional reactions are more intense than the situation seems to warrant." },
-  { id: "executive_function", label: "Executive function in daily life", description: "I manage time, commitments, tasks, and responsibilities reliably without significant lapses." },
-  { id: "sensory_processing", label: "Sensory or overwhelm sensitivity", description: "I handle sensory input, noise, and social overwhelm in a way that doesn't significantly disrupt my relationships." },
-  { id: "rejection_sensitivity", label: "Rejection sensitivity awareness", description: "I'm aware of how I respond to perceived criticism or rejection — and can manage that response." },
+// Money & Provision Patterns — maps to FOLA's ART stages 8–10. Higher = healthier.
+export const MONEY_PATTERNS_QUESTIONS = [
+  { id: "money_enough", label: "A sense of enough", description: "When there is enough, I can let myself feel that it is enough, without bracing for it to run out." },
+  { id: "money_family", label: "Family obligations", description: "I can support family financially (black tax) without it quietly controlling my choices or my relationships." },
+  { id: "money_openness", label: "Talking about money", description: "I can talk openly about money with someone I'm close to, without shame or avoidance." },
+  { id: "money_worth", label: "Receiving more", description: "I can ask for, charge or earn more without feeling that I haven't earned it." },
+  { id: "money_inheritance", label: "Inherited money patterns", description: "I can see how my family handled money, and I choose my own way rather than repeating it." },
 ];

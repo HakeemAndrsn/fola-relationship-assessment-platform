@@ -84,7 +84,7 @@ function riskFromAlignment(pct: number): "low" | "medium" | "high" {
 const DOMAIN_WEIGHTS: Record<string, number> = {
   attachment: 0.2,
   trauma: 0.2,
-  adhd: 0.15,
+  money: 0.15,
   values: 0.2,
   changeReadiness: 0.1,
   communication: 0.1,
@@ -124,18 +124,18 @@ export function calculateScores(data: AssessmentFormData): DomainScore[] {
     clinicalWeight: "critical",
   });
 
-  // ADHD
-  const adhdAvgA = averageSliders(data.adhd.partnerA);
-  const adhdAvgB = averageSliders(data.adhd.partnerB);
-  const adhdAlign = sliderAlignment(data.adhd.partnerA, data.adhd.partnerB);
+  // Money & Provision Patterns
+  const moneyAvgA = averageSliders(data.money.partnerA);
+  const moneyAvgB = averageSliders(data.money.partnerB);
+  const moneyAlign = sliderAlignment(data.money.partnerA, data.money.partnerB);
   scores.push({
-    domain: "adhd",
-    label: "Neurodivergence (ADHD)",
-    partnerAScore: Math.round(adhdAvgA * 10) / 10,
-    partnerBScore: Math.round(adhdAvgB * 10) / 10,
-    alignmentPercent: adhdAlign,
-    gap: Math.round(Math.abs(adhdAvgA - adhdAvgB) * 10) / 10,
-    riskLevel: riskFromAlignment(adhdAlign),
+    domain: "money",
+    label: "Money & Provision Patterns",
+    partnerAScore: Math.round(moneyAvgA * 10) / 10,
+    partnerBScore: Math.round(moneyAvgB * 10) / 10,
+    alignmentPercent: moneyAlign,
+    gap: Math.round(Math.abs(moneyAvgA - moneyAvgB) * 10) / 10,
+    riskLevel: riskFromAlignment(moneyAlign),
     clinicalWeight: "high",
   });
 
@@ -241,14 +241,18 @@ export function identifyClinicalFlags(data: AssessmentFormData, scores: DomainSc
     });
   }
 
-  // ADHD mismatch
-  const adhdGap = Math.abs(averageSliders(data.adhd.partnerA) - averageSliders(data.adhd.partnerB));
-  if (adhdGap > 4) {
+  // Money & provision strain
+  const moneyA = averageSliders(data.money.partnerA);
+  const moneyB = averageSliders(data.money.partnerB);
+  const moneyGap = Math.abs(moneyA - moneyB);
+  if (moneyGap > 4 || moneyA > 7 || moneyB > 7) {
     flags.push({
-      type: "adhd",
-      severity: "high",
-      message: `Significant neurodivergence gap detected (${adhdGap.toFixed(1)} points). This mismatch often presents as one partner feeling neglected while the other feels criticized.`,
-      recommendation: "ADHD-aware couples coaching recommended to build mutual understanding.",
+      type: "money",
+      severity: moneyA > 7 && moneyB > 7 ? "high" : "medium",
+      message: moneyGap > 4
+        ? `You carry money very differently (${moneyGap.toFixed(1)} points apart). Scarcity, family obligations or silence about money in one partner often shows up as conflict about something else.`
+        : "Money and provision are adding strain. Worry about running out, family obligations or avoiding the money conversation are likely feeding your arguments.",
+      recommendation: "A session on money and provision patterns (the later stages of FOLA's ART sequence) is recommended alongside couples work.",
     });
   }
 
@@ -298,9 +302,9 @@ export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalF
     multiplier += 0.3;
     components.push("Trauma mapping (+R150)");
   }
-  if (flags.some((f) => f.type === "adhd")) {
+  if (flags.some((f) => f.type === "money")) {
     multiplier += 0.2;
-    components.push("ADHD screening (+R100)");
+    components.push("Money patterns review (+R100)");
   }
   if (flags.some((f) => f.type === "values" && f.severity === "high")) {
     multiplier += 0.2;
@@ -312,7 +316,7 @@ export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalF
   }
 
   const price = Math.min(3800, Math.max(2500, Math.round(base * multiplier)));
-  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2700 | Age Regression Therapy = R4000 each`;
+  const breakdown = `${components.join(" | ")} | Maintenance & Expansion = R2700 | Age Regression Hypnosis = R3,680.50 each`;
   return { price, breakdown };
 }
 
@@ -324,7 +328,7 @@ export function generateTreatmentPlan(
 ): TreatmentPhase[] {
   const phases: TreatmentPhase[] = [];
   const hasHighTrauma = flags.some((f) => f.type === "trauma" && f.severity === "high");
-  const hasADHD = flags.some((f) => f.type === "adhd");
+  const hasMoney = flags.some((f) => f.type === "money");
 
   // Phase 1: Individual Foundation
   const phase1Sessions: TreatmentPhase["sessions"] = [];
@@ -348,12 +352,12 @@ export function generateTreatmentPlan(
       });
     }
   }
-  if (hasADHD) {
+  if (hasMoney) {
     phase1Sessions.push({
-      description: "Neurodivergence Awareness & Coping Strategies",
-      target: "Higher-scoring partner",
+      description: "Money & Provision Patterns Session",
+      target: "Couple",
       price: 2700,
-      why: "ADHD traits affect communication patterns and emotional regulation. Understanding neurodivergence helps both partners distinguish between intentional behaviour and neurological wiring.",
+      why: "Scarcity, family obligations and silence about money create conflict that looks like it is about something else. Working on the beliefs underneath helps both partners make money decisions together.",
     });
   }
   if (phase1Sessions.length === 0) {

@@ -34,6 +34,11 @@ function parseAndVerifyReportToken(token, secret) {
 const SENDER = { name: "LOVEBETTER by FOLA", email: "decks@fola.co.za" };
 const REPLY_TO = { name: "LOVEBETTER by FOLA", email: "admin@fola.co.za" };
 
+function formatRand(n) {
+  const v = Number(n);
+  return v.toLocaleString("en-US", { minimumFractionDigits: Number.isInteger(v) ? 0 : 2, maximumFractionDigits: 2 });
+}
+
 function escapeHtml(str) {
   return String(str ?? "")
     .replace(/&/g, "&amp;")
@@ -86,7 +91,7 @@ function treatmentPlanHtml(plan) {
         </div>
         ${phase.sessions.map((s) => `
           <div style="padding:10px 14px;border-bottom:1px solid #e2e8f0;">
-            <p style="margin:0;font-size:14px;color:#2d3748;"><strong>${escapeHtml(s.description)}</strong> — R${Number(s.price).toLocaleString()}</p>
+            <p style="margin:0;font-size:14px;color:#2d3748;"><strong>${escapeHtml(s.description)}</strong> — R${formatRand(s.price)}</p>
             <p style="margin:2px 0 0;font-size:12px;color:#718096;">Who: ${escapeHtml(s.target)}${s.why ? ` — ${escapeHtml(s.why)}` : ""}</p>
           </div>`).join("")}
       </div>`).join("")}
@@ -165,7 +170,7 @@ function buildCouplesEmail(report, email) {
 
         <div style="background:#121212;color:#fff;padding:16px;margin-top:16px;text-align:center;">
           <p style="margin:0;font-size:12px;color:#B8654A;text-transform:uppercase;letter-spacing:0.05em;">Estimated Total Investment</p>
-          <p style="margin:6px 0 0;font-size:22px;font-weight:bold;">R${Number(report.totalInvestment || 0).toLocaleString()}</p>
+          <p style="margin:6px 0 0;font-size:22px;font-weight:bold;">R${formatRand(report.totalInvestment || 0)}</p>
         </div>
 
         ${bookingBlockHtml(report.couple?.partnerA, email)}
@@ -222,7 +227,7 @@ function buildIndividualEmail(report, email) {
 
         <div style="background:#121212;color:#fff;padding:16px;margin-top:16px;text-align:center;">
           <p style="margin:0;font-size:12px;color:#B8654A;text-transform:uppercase;letter-spacing:0.05em;">Estimated Total Investment</p>
-          <p style="margin:6px 0 0;font-size:22px;font-weight:bold;">R${Number(report.totalInvestment || 0).toLocaleString()}</p>
+          <p style="margin:6px 0 0;font-size:22px;font-weight:bold;">R${formatRand(report.totalInvestment || 0)}</p>
         </div>
 
         ${bookingBlockHtml(report.name, email)}

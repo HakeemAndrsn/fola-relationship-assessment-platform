@@ -35,10 +35,10 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 
 ## Project Overview
 
-**LoveBETTER by FOLA** — Clinical relationship assessment platform.
+**LoveBETTER by FOLA** — Relationship self-reflection assessment platform.
 - **Domain**: lovebetter.co.za
 - **Stack**: Next.js (App Router), Tailwind CSS, shadcn/ui, Netlify Functions, Yoco SDK
-- **Purpose**: R600 clinical relationship assessments (individual & couples) → Discovery Call → high-ticket close
+- **Purpose**: R600 relationship self-reflection assessments (individual & couples) → Discovery Call → high-ticket close
 - **Status**: Live. Ship as-is, focus on selling, not building.
 
 ## Key Constraints
@@ -50,6 +50,7 @@ Update parent docs when parent-level structure, ownership, workflow, or child in
 - **Calendly**: Specific links per offer, post-booking redirect to fola.co.za/book/confirmed
 - **Lead capture**: Qualifying form before Calendly redirect. No Calendly link or WhatsApp auto-open on form submit.
 - **Soulfeggio** (not "Solfeggio") spelling throughout
+- **Scope wording (Nov 2026)**: assessments are self-reflection tools, never "clinical", "clinical-grade", "diagnostic", "screening" or "treatment" in user-facing copy. No unsupported claims (e.g. sessions saved, university-style). Hakeem is a hypnosis and NLP practitioner (never "hypnotherapist" or "trauma and hypnotherapy practitioner"); FOLA work is coaching that uses hypnosis and NLP, never therapy or trauma treatment. Keep the line that he is not a psychologist and not HPCSA-registered in the homepage footer, terms and both report disclaimers. Internal field names (clinicalFlags, treatmentPlan) may stay.
 - **Version**: Display VERSION from config.py in Mini App hero and bot /start. Current: 1.2.0.
 
 ## User Preferences

@@ -218,7 +218,7 @@ export default async function BlogPost({
                   </a>
                 </div>
                 <p className="text-xs text-card-foreground/60 font-sans">
-                  Hypnotherapist & Peak Performance Coach
+                  Hypnosis & NLP Practitioner
                 </p>
               </div>
             </div>

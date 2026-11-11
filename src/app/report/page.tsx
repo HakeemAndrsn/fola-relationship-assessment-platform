@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatRand } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
@@ -124,7 +125,7 @@ export default function ReportPage() {
   }, []);
 
   const statsString = report
-    ? `FOLA Couples Relational Diagnostic - Partners: ${report.couple.partnerA} & ${report.couple.partnerB} | Overall Alignment: ${report.overallScore}/100 | Top Strength: ${report.primaryStrength.label} (${report.primaryStrength.alignmentPercent}% alignment) | Primary Growth Edge: ${report.criticalFracture.label} (${report.criticalFracture.alignmentPercent}% alignment)`
+    ? `FOLA Couples Relationship Report - Partners: ${report.couple.partnerA} & ${report.couple.partnerB} | Overall Alignment: ${report.overallScore}/100 | Top Strength: ${report.primaryStrength.label} (${report.primaryStrength.alignmentPercent}% alignment) | Primary Growth Edge: ${report.criticalFracture.label} (${report.criticalFracture.alignmentPercent}% alignment)`
     : "";
 
   const getBookingUrl = (baseEventUrl: string) => {
@@ -195,7 +196,7 @@ export default function ReportPage() {
           <div className="space-y-1 text-left">
             <h3 className="text-sm font-bold text-[#121212] uppercase tracking-wider font-sans">🔒 Secure Offline Document</h3>
             <p className="text-xs text-[#4E4E4E] leading-relaxed max-w-xl font-sans">
-              To guarantee your clinical privacy, FOLA does not store your test results on our servers.
+              To protect your privacy, FOLA does not keep your results in a database. A copy is emailed to you through Brevo.
               Click <strong>Download PDF</strong> to save this document directly to your device.
             </p>
             {emailStatus === "sending" && (
@@ -216,7 +217,7 @@ export default function ReportPage() {
         {/* ── COVER PAGE ── */}
         <section className="text-center py-16 print:py-12 border-b-2 border-[#121212]">
           <div className="inline-block px-6 py-2 bg-[#121212] text-white text-xs font-semibold tracking-widest uppercase rounded mb-6">
-            Confidential Clinical Document
+            Confidential Document
           </div>
           <div className="flex justify-center mb-6">
             <img src="/logo-transparent.png" alt="FOLA" className="w-20 h-20" />
@@ -224,7 +225,7 @@ export default function ReportPage() {
           <h1 className="text-4xl font-bold text-[#121212] tracking-tight">
             FOLA Relational Assessment
           </h1>
-          <p className="mt-2 text-lg text-[#4a5568]">Comprehensive Relationship Diagnostic Report</p>
+          <p className="mt-2 text-lg text-[#4a5568]">Relationship Self-Reflection Report</p>
           <div className="mt-8 space-y-1 text-sm text-[#718096]">
             <p><span className="font-medium text-[#2d3748]">Partners:</span> {report.couple.partnerA} & {report.couple.partnerB}</p>
             <p><span className="font-medium text-[#2d3748]">Assessment Date:</span> {report.date}</p>
@@ -232,7 +233,7 @@ export default function ReportPage() {
           </div>
           <div className="mt-8 pt-6 border-t border-[#e2e8f0]">
             <p className="text-xs text-[#a0aec0]">
-              Prepared for: LOVEBETTER by FOLA | Clinical Director: Hakeem
+              Prepared by: LOVEBETTER by FOLA | Hakeem Lesolang, hypnosis and NLP practitioner
             </p>
           </div>
         </section>
@@ -263,7 +264,7 @@ export default function ReportPage() {
 
               {report.clinicalFlags.length > 0 && (
                 <div className="rounded-lg border border-[#B8654A]/40 bg-[#fffdf5] p-4">
-                  <p className="text-xs font-semibold text-[#121212] uppercase tracking-wider mb-2">Clinical Recommendations</p>
+                  <p className="text-xs font-semibold text-[#121212] uppercase tracking-wider mb-2">Areas to Watch</p>
                   {report.clinicalFlags.map((flag, i) => (
                     <div key={i} className="mt-2 flex items-start gap-2 text-sm">
                       <span className={`mt-0.5 inline-block h-2 w-2 rounded-full shrink-0 ${flag.severity === "high" ? "bg-red-500" : "bg-yellow-500"}`} />
@@ -395,7 +396,7 @@ export default function ReportPage() {
           {/* Clinical Risk Matrix */}
           <div className="mt-8">
             <h3 className="text-sm font-semibold text-[#2d3748] mb-4 uppercase tracking-wider">
-              Clinical Risk Matrix
+              Risk Matrix
             </h3>
             <div className="grid gap-3 sm:grid-cols-3">
               {(["high", "medium", "low"] as const).map((level) => {
@@ -487,7 +488,7 @@ export default function ReportPage() {
         {report.clinicalFlags.length > 0 && (
           <section className="print:break-before-page">
             <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
-              Clinical Flags & Considerations
+              Areas to Watch
             </h2>
             <div className="space-y-4">
               {report.clinicalFlags.map((flag, i) => (
@@ -506,7 +507,7 @@ export default function ReportPage() {
         {/* ── CLINICAL PATHWAY ── */}
         <section className="print:break-before-page">
           <h2 className="text-2xl font-bold text-[#121212] border-b-2 border-[#B8654A] pb-2 mb-6">
-            Clinical Pathway Recommendation
+            Suggested Pathway
           </h2>
 
           {/* Cohort — prominent offer, placed first */}
@@ -517,8 +518,8 @@ export default function ReportPage() {
                 <h3 className="text-xl font-bold text-[#121212]">The DoLoveBetter Cohort</h3>
                 <p className="text-sm text-[#4a5568] mt-2 leading-relaxed">
                   A structured 6-week group programme that addresses the beliefs, biases, and patterns
-                  that shape how you show up in relationships. Most couples see significant shifts before
-                  moving into individual or couples therapy.
+                  that shape how you show up in relationships. Many couples start here before
+                  moving into individual or couples work.
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-lg border border-[#e2e8f0] bg-white p-4">
@@ -558,7 +559,7 @@ export default function ReportPage() {
                           )}
                         </p>
                       </div>
-                      <span className="text-sm font-bold text-[#121212] ml-4">R{sess.price.toLocaleString()}</span>
+                      <span className="text-sm font-bold text-[#121212] ml-4">R{formatRand(sess.price)}</span>
                     </div>
                   ))}
                 </div>
@@ -570,10 +571,10 @@ export default function ReportPage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#B8654A]">Estimated Total Investment</p>
                 <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases (excluding cohort)</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
-                  Age Regression Therapy sessions are R4,000 each for deeper trauma work. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
+                  Age Regression Hypnosis sessions are R3,680.50 each. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
                 </p>
               </div>
-              <span className="text-3xl font-bold">R{report.totalInvestment.toLocaleString()}</span>
+              <span className="text-3xl font-bold">R{formatRand(report.totalInvestment)}</span>
             </div>
           </div>
         </section>
@@ -747,14 +748,15 @@ export default function ReportPage() {
                 <li>Bowlby, J. (1969). Attachment and Loss. Basic Books.</li>
                 <li>Prochaska, J.O. & DiClemente, C.C. (1983). Stages of Change in the Modification of Problem Behaviors.</li>
                 <li>Felitti, V.J. et al. (1998). Adverse Childhood Experiences Study.</li>
-                <li>Barkley, R.A. (2015). ADHD and the Nature of Self-Control. Guilford Press.</li>
+                <li>Klontz, B. T., &amp; Britt, S. L. (2012). How clients' money scripts predict their financial behaviors. Journal of Financial Planning, 25(11), 33–43.</li>
+                <li>Papp, L. M., Cummings, E. M., &amp; Goeke-Morey, M. C. (2009). For richer, for poorer: Money as a topic of marital conflict in the home. Family Relations, 58(1), 91–103.</li>
                 <li>Gottman, J.M. (1999). The Seven Principles for Making Marriage Work.</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold text-[#2d3748] mb-2">Disclaimers</h3>
               <p>
-                This report is a screening instrument and does not constitute a clinical diagnosis.
+                This report is a self-reflection tool. It is not a psychological test and does not constitute a diagnosis. It was prepared by a hypnosis and NLP practitioner who is not a psychologist and is not registered with the HPCSA.
                 Results are intended to inform and guide therapeutic conversations, not replace
                 professional assessment. All data is processed securely in compliance with POPIA. Personal
                 details and assessment responses are encrypted in transit and are not stored permanently
@@ -765,7 +767,7 @@ export default function ReportPage() {
             </div>
             <div className="pt-4 border-t border-[#e2e8f0] text-xs text-[#a0aec0] text-center">
               <p className="mt-1">Report ID: {report.id} | Generated: {report.date}</p>
-              <p className="mt-1">LOVEBETTER by FOLA | Clinical Director: Hakeem</p>
+              <p className="mt-1">LOVEBETTER by FOLA | Hakeem Lesolang, hypnosis and NLP practitioner</p>
             </div>
           </div>
         </section>

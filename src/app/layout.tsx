@@ -42,10 +42,10 @@ const isans = Instrument_Sans({
 
 export const metadata: Metadata = {
   title: "FOLA Relational Assessment | LOVEBETTER by FOLA",
-  description: "Comprehensive relationship diagnostic assessment for couples. Evaluates attachment, trauma, neurodivergence, values, communication, and more.",
+  description: "Research-informed relationship assessments for couples and individuals. A self-reflection map of attachment, communication, values and the patterns you bring to love.",
   openGraph: {
     title: "FOLA Relational Assessment | LOVEBETTER by FOLA",
-    description: "Comprehensive relationship diagnostic assessment for couples. Evaluates attachment, trauma, neurodivergence, values, communication, and more.",
+    description: "Research-informed relationship assessments for couples and individuals. A self-reflection map of attachment, communication, values and the patterns you bring to love.",
     type: "website",
     url: "https://lovebetter.co.za",
     siteName: "LOVEBETTER by FOLA",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "FOLA Relational Assessment | LOVEBETTER by FOLA",
-    description: "Comprehensive relationship diagnostic assessment for couples. Evaluates attachment, trauma, neurodivergence, values, communication, and more.",
+    description: "Research-informed relationship assessments for couples and individuals. A self-reflection map of attachment, communication, values and the patterns you bring to love.",
     images: ["https://lovebetter.co.za/og-image.png"],
   },
   icons: {

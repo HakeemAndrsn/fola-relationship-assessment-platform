@@ -26,7 +26,7 @@ export interface IndividualFormData {
   relationshipReadiness: SliderAnswers;
   communicationStyle: SliderAnswers;
   valuesClarity: SliderAnswers;
-  neurodivergenceAwareness: SliderAnswers;
+  moneyPatterns: SliderAnswers;
   prejudicesBiases: SliderAnswers;
   changeReadiness: ChangeReadiness;
 }

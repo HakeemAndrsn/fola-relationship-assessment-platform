@@ -20,7 +20,7 @@ import {
   RELATIONSHIP_READINESS_QUESTIONS,
   COMMUNICATION_QUESTIONS,
   VALUES_CLARITY_QUESTIONS,
-  NEURODIVERGENCE_QUESTIONS,
+  MONEY_PATTERNS_QUESTIONS,
   PREJUDICES_BIASES_QUESTIONS,
 } from "@/lib/individual-assessment/questions";
 import type {
@@ -41,7 +41,7 @@ const STEPS = [
   "Relationship Readiness",
   "Communication Style",
   "Values & Vision",
-  "Neurodivergence",
+  "Money & Provision",
   "Prejudices & Biases",
   "Change Readiness",
   "Review",
@@ -65,7 +65,7 @@ const DEFAULT: IndividualFormData = {
   relationshipReadiness: initSliders(RELATIONSHIP_READINESS_QUESTIONS),
   communicationStyle: initSliders(COMMUNICATION_QUESTIONS),
   valuesClarity: initSliders(VALUES_CLARITY_QUESTIONS),
-  neurodivergenceAwareness: initSliders(NEURODIVERGENCE_QUESTIONS),
+  moneyPatterns: initSliders(MONEY_PATTERNS_QUESTIONS),
   prejudicesBiases: initSliders(PREJUDICES_BIASES_QUESTIONS),
   changeReadiness: "contemplation",
 };
@@ -484,7 +484,7 @@ export default function IndividualAssessmentPage() {
                   <span className="text-[#B8654A] italic">Before you love again.</span>
                 </h1>
                 <p className="mt-4 text-card-foreground/80 text-sm max-w-lg mx-auto leading-relaxed font-sans">
-                  This is a 10-dimension clinical profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
+                  This is a 10-dimension profile of your relational world — your attachment wiring, emotional capacity, self-worth, and readiness. Not a quiz. A map.
                 </p>
               </div>
               <div className="space-y-4">
@@ -540,7 +540,7 @@ export default function IndividualAssessmentPage() {
                     className="mt-0.5"
                   />
                   <Label htmlFor="individual-consent" className="text-xs text-card-foreground/60 leading-relaxed font-sans font-normal cursor-pointer">
-                    I understand this is a clinical-grade screening tool, not a formal diagnosis. My data is private and used solely to generate my personal report. I consent to proceed.
+                    I understand this is a self-reflection tool, not a psychological test or a diagnosis. My data is private and used solely to generate my personal report. I consent to proceed.
                   </Label>
                 </div>
               </div>
@@ -635,14 +635,14 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 9: Neurodivergence ── */}
+          {/* ── STEP 9: Money & Provision ── */}
           {step === 9 && (
             <SliderSection
-              title="Neurodivergence Awareness"
-              description="This isn't about diagnosis — it's about self-awareness. Understanding your neurological wiring is one of the most liberating things you can do for your relationships."
-              questions={NEURODIVERGENCE_QUESTIONS}
-              values={data.neurodivergenceAwareness}
-              onChange={(id, val) => updateSliders("neurodivergenceAwareness", id, val)}
+              title="Money & Provision Patterns"
+              description="How you carry money shapes who you choose and how you love: the fear of running out, what you owe family, and what you let yourself have."
+              questions={MONEY_PATTERNS_QUESTIONS}
+              values={data.moneyPatterns}
+              onChange={(id, val) => updateSliders("moneyPatterns", id, val)}
             />
           )}
 
@@ -674,7 +674,7 @@ export default function IndividualAssessmentPage() {
               <div className="text-center">
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-serif">Your assessment is complete.</h2>
                 <p className="mt-3 text-card-foreground/80 text-sm font-sans max-w-md mx-auto">
-                  Here&apos;s a preview of your live scores. Generate your full clinical report below.
+                  Here&apos;s a preview of your live scores. Generate your full report below.
                 </p>
               </div>
 
@@ -719,22 +719,22 @@ export default function IndividualAssessmentPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
-                    <span className="text-sm font-sans">Generating your clinical report…</span>
+                    <span className="text-sm font-sans">Generating your report…</span>
                   </div>
-                  <p className="text-xs text-card-foreground/60 mt-3 font-sans">Calculating 10 dimensions across clinical frameworks…</p>
+                  <p className="text-xs text-card-foreground/60 mt-3 font-sans">Calculating 10 dimensions…</p>
                 </div>
               ) : (
                 <button
                   onClick={handleSubmit}
                   className="w-full flex items-center justify-center gap-2 bg-[#121212] text-[#F5F2EC] hover:bg-[#232323] py-4 rounded-xl text-base font-bold font-sans hover:bg-[#232323] transition-all hover:shadow-xl "
                 >
-                  Generate My Clinical Report — R600
+                  Generate My Report — R600
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </button>
               )}
-              <p className="text-center text-xs text-card-foreground/75 font-sans">Instant PDF report. 100% private. Clinical-grade accuracy.</p>
+              <p className="text-center text-xs text-card-foreground/75 font-sans">Instant PDF report. 100% private. Self-reflection, not diagnosis.</p>
             </div>
           )}
         </div>

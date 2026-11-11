@@ -30,7 +30,7 @@ export interface TraumaData {
   partnerB: SliderQuestions;
 }
 
-export interface ADHDData {
+export interface MoneyData {
   partnerA: SliderQuestions;
   partnerB: SliderQuestions;
 }
@@ -64,7 +64,7 @@ export interface AssessmentFormData {
   onboarding: OnboardingData;
   attachment: AttachmentData;
   trauma: TraumaData;
-  adhd: ADHDData;
+  money: MoneyData;
   values: ValuesData;
   changeReadiness: ChangeReadinessData;
   communication: CommunicationData;
@@ -84,7 +84,7 @@ export interface DomainScore {
 }
 
 export interface ClinicalFlag {
-  type: "trauma" | "adhd" | "values" | "readiness" | "prejudices";
+  type: "trauma" | "money" | "values" | "readiness" | "prejudices";
   severity: "high" | "medium" | "low";
   message: string;
   recommendation: string;

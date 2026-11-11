@@ -15,7 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { generateReport } from "@/lib/assessment/scoring";
 import {
   TRAUMA_QUESTIONS,
-  ADHD_QUESTIONS,
+  MONEY_QUESTIONS,
   VALUES_QUESTIONS,
   COMMUNICATION_QUESTIONS,
   FUTURE_VISION_QUESTIONS,
@@ -35,7 +35,7 @@ const STEPS = [
   "Onboarding",
   "Attachment Style",
   "Trauma Inventory",
-  "ADHD Screening",
+  "Money & Provision",
   "Values Alignment",
   "Change Readiness",
   "Communication",
@@ -54,7 +54,7 @@ const DEFAULT_DATA: AssessmentFormData = {
   onboarding: { partnerAName: "", partnerBName: "", relationshipDuration: "", primaryConcern: "", consentGiven: false },
   attachment: { partnerA: "secure", partnerB: "secure" },
   trauma: { partnerA: initSliders(TRAUMA_QUESTIONS), partnerB: initSliders(TRAUMA_QUESTIONS) },
-  adhd: { partnerA: initSliders(ADHD_QUESTIONS), partnerB: initSliders(ADHD_QUESTIONS) },
+  money: { partnerA: initSliders(MONEY_QUESTIONS), partnerB: initSliders(MONEY_QUESTIONS) },
   values: { partnerA: initSliders(VALUES_QUESTIONS), partnerB: initSliders(VALUES_QUESTIONS) },
   changeReadiness: { partnerA: "contemplation", partnerB: "contemplation" },
   communication: { partnerA: initSliders(COMMUNICATION_QUESTIONS), partnerB: initSliders(COMMUNICATION_QUESTIONS) },
@@ -241,7 +241,7 @@ export default function AssessmentPage() {
   );
 
   const updateSlider = useCallback(
-    (domain: "trauma" | "adhd" | "values" | "communication" | "futureVision" | "prejudices", partner: "partnerA" | "partnerB", id: string, val: number) =>
+    (domain: "trauma" | "money" | "values" | "communication" | "futureVision" | "prejudices", partner: "partnerA" | "partnerB", id: string, val: number) =>
       setData((d) => ({
         ...d,
         [domain]: { ...d[domain], [partner]: { ...d[domain][partner], [id]: val } },
@@ -347,15 +347,15 @@ export default function AssessmentPage() {
             <p className="text-xs font-semibold text-foreground uppercase tracking-wider font-sans">What's included</p>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
-              <p className="text-xs text-card-foreground/75 font-sans">8-dimension clinical assessment — attachment, trauma, ADHD screening, values alignment, and more</p>
+              <p className="text-xs text-card-foreground/75 font-sans">8-dimension relationship assessment: attachment, childhood experiences, money and provision patterns, values alignment, and more</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
-              <p className="text-xs text-card-foreground/75 font-sans">Joint report with individual scores, clinical flags, and a couples treatment pathway</p>
+              <p className="text-xs text-card-foreground/75 font-sans">Joint report with individual scores, areas to watch, and a couples growth pathway</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
-              <p className="text-xs text-card-foreground/75 font-sans">Brown University-style clinical report delivered instantly as PDF</p>
+              <p className="text-xs text-card-foreground/75 font-sans">Detailed report delivered instantly as PDF</p>
             </div>
           </div>
 
@@ -437,15 +437,15 @@ export default function AssessmentPage() {
               <h2 className="text-2xl font-semibold text-foreground">Welcome</h2>
               <p className="mt-2 text-sm text-card-foreground/75 leading-relaxed">
                 This assessment evaluates multiple dimensions of your relationship to provide personalised,
-                clinically-informed recommendations. Both partners should complete their sections honestly
+                research-informed suggestions. Both partners should complete their sections honestly
                 and independently for the most accurate results.
               </p>
             </div>
 
             <Card className="border-[#B8654A]/30 bg-secondary/40">
               <CardContent className="text-sm text-card-foreground/75 pt-4">
-                <strong className="text-foreground">Important:</strong> This is a screening tool, not a clinical diagnosis.
-                Results should be discussed with a qualified therapist. All responses are confidential and processed
+                <strong className="text-foreground">Important:</strong> This is a self-reflection tool, not a psychological test or a diagnosis.
+                Discuss anything that concerns you with a registered professional. All responses are confidential and processed
                 locally on your device.
               </CardContent>
             </Card>
@@ -502,7 +502,7 @@ export default function AssessmentPage() {
                 onCheckedChange={(v) => updateOnboarding("consentGiven", !!v)}
               />
               <Label htmlFor="consent" className="text-sm text-card-foreground/75 leading-relaxed cursor-pointer">
-                I understand this is a screening tool and not a substitute for professional clinical assessment.
+                I understand this is a self-reflection tool, not a psychological test, a diagnosis or a substitute for professional care.
                 I consent to completing this assessment and acknowledge the results are for informational purposes.
               </Label>
             </div>
@@ -564,18 +564,18 @@ export default function AssessmentPage() {
           />
         )}
 
-        {/* Step 3: ADHD */}
+        {/* Step 3: Money & Provision */}
         {step === 3 && (
           <SliderDomainSection
-            title="Neurodivergence Screening (ADHD Focus)"
-            description="These questions screen for patterns often associated with ADHD that can affect relationship dynamics. Higher scores indicate greater presence of these patterns."
-            questions={ADHD_QUESTIONS}
+            title="Money & Provision Patterns"
+            description="How each of you carries money: worry about running out, family obligations, and what goes unsaid. Higher scores mean more strain."
+            questions={MONEY_QUESTIONS}
             partnerAName={pA}
             partnerBName={pB}
-            partnerAValues={data.adhd.partnerA}
-            partnerBValues={data.adhd.partnerB}
-            onChangeA={(id, val) => updateSlider("adhd", "partnerA", id, val)}
-            onChangeB={(id, val) => updateSlider("adhd", "partnerB", id, val)}
+            partnerAValues={data.money.partnerA}
+            partnerBValues={data.money.partnerB}
+            onChangeA={(id, val) => updateSlider("money", "partnerA", id, val)}
+            onChangeB={(id, val) => updateSlider("money", "partnerB", id, val)}
           />
         )}
 
@@ -720,7 +720,7 @@ export default function AssessmentPage() {
             <Card className="border-[#B8654A]/30 bg-secondary/40">
               <CardContent className="pt-4 text-sm text-card-foreground/75">
                 Your report will include an overall relationship health score, domain-by-domain analysis,
-                clinical flags, personalised treatment recommendations, and an estimated investment breakdown.
+                areas to watch, personalised next-step suggestions, and an estimated investment breakdown.
               </CardContent>
             </Card>
           </div>
