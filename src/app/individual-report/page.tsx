@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatRand } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
@@ -542,7 +543,7 @@ export default function IndividualReportPage() {
                         <p className="text-sm font-medium text-[#2d3748]">{sess.description}</p>
                         <p className="text-xs text-[#718096]">Target: {sess.target}</p>
                       </div>
-                      <span className="text-sm font-bold text-[#121212]">R{sess.price.toLocaleString()}</span>
+                      <span className="text-sm font-bold text-[#121212]">R{formatRand(sess.price)}</span>
                     </div>
                   ))}
                 </div>
@@ -554,10 +555,10 @@ export default function IndividualReportPage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#B8654A]">Estimated Total Investment</p>
                 <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases (excluding cohort)</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
-                  Age Regression Therapy sessions are R4,000 each for deeper trauma work. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
+                  Age Regression Hypnotherapy sessions are R3,680.50 each. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
                 </p>
               </div>
-              <span className="text-3xl font-bold">R{report.totalInvestment.toLocaleString()}</span>
+              <span className="text-3xl font-bold">R{formatRand(report.totalInvestment)}</span>
             </div>
           </div>
         </section>
@@ -731,7 +732,7 @@ export default function IndividualReportPage() {
                 <li>Bowlby, J. (1969). Attachment and Loss. Basic Books.</li>
                 <li>Prochaska, J.O. & DiClemente, C.C. (1983). Stages of Change in the Modification of Problem Behaviors.</li>
                 <li>Felitti, V.J. et al. (1998). Adverse Childhood Experiences Study.</li>
-                <li>Barkley, R.A. (2015). ADHD and the Nature of Self-Control. Guilford Press.</li>
+                <li>Klontz, B. T., &amp; Britt, S. L. (2012). How clients' money scripts predict their financial behaviors. Journal of Financial Planning, 25(11), 33–43.</li>
                 <li>Gottman, J.M. (1999). The Seven Principles for Making Marriage Work.</li>
               </ul>
             </div>

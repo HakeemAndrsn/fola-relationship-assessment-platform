@@ -22,7 +22,7 @@ Instead of client-side local flags, all transaction entitlements are validated s
 4. **Replay Protection:** The assessment's final report is locked to the Yoco metadata email, ensuring a shared checkout ID cannot be replayed under an arbitrary address.
 
 ### 2. POPIA & Special Personal Information
-The platform measures highly sensitive indices (Attachment style, trauma/ACE screening, emotional regulation, neurodivergence). 
+The platform measures highly sensitive indices (attachment style, childhood experiences (ACE-informed), emotional regulation, money and provision patterns). 
 - **Raw Questionnaire Data:** Encrypted in transit and processed purely in the browser. Answers are **never** stored permanently on public web servers or database files.
 - **Record Retention:** Raw response structures are wiped immediately following PDF compilation and delivery. The platform retains only billing contact records and high-level composite scores for a period of up to 3 years to support clinical integration and regression therapy packages.
 

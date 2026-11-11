@@ -41,7 +41,7 @@ try {
       { domain: "communication", label: "Communication & Conflict", partnerAScore: 6, partnerBScore: 4, alignmentPercent: 55, gap: 2, riskLevel: "high", clinicalWeight: "critical" },
       { domain: "attachment", label: "Attachment Style", partnerAScore: 7, partnerBScore: 5, alignmentPercent: 65, gap: 2, riskLevel: "medium", clinicalWeight: "high" },
       { domain: "trauma", label: "Trauma & History", partnerAScore: 5, partnerBScore: 3, alignmentPercent: 45, gap: 2, riskLevel: "high", clinicalWeight: "critical" },
-      { domain: "adhd", label: "Neurodivergence", partnerAScore: 8, partnerBScore: 7, alignmentPercent: 82, gap: 1, riskLevel: "low", clinicalWeight: "moderate" },
+      { domain: "money", label: "Money & Provision Patterns", partnerAScore: 8, partnerBScore: 7, alignmentPercent: 82, gap: 1, riskLevel: "low", clinicalWeight: "moderate" },
       { domain: "values", label: "Values & Vision", partnerAScore: 9, partnerBScore: 8, alignmentPercent: 88, gap: 1, riskLevel: "low", clinicalWeight: "high" },
       { domain: "changeReadiness", label: "Change Readiness", partnerAScore: 6, partnerBScore: 8, alignmentPercent: 70, gap: 2, riskLevel: "medium", clinicalWeight: "moderate" },
       { domain: "futureVision", label: "Future Vision", partnerAScore: 7, partnerBScore: 6, alignmentPercent: 72, gap: 1, riskLevel: "medium", clinicalWeight: "moderate" },
@@ -71,7 +71,7 @@ try {
         weeks: "Weeks 5-10",
         sessions: [
           { description: "Attachment-Focused Session", target: "Pattern interruption and secure bonding", price: 2700 },
-          { description: "Age Regression Therapy — Partner B", target: "Childhood trauma processing", price: 4000 },
+          { description: "Age Regression Hypnotherapy — Partner B", target: "Childhood trauma processing", price: 3680.5 },
           { description: "Values & Vision Integration", target: "Shared future narrative", price: 2700 },
         ],
       },
@@ -100,7 +100,7 @@ try {
       { dimension: "selfAwareness", label: "Self-Awareness", score: 6, maxScore: 10, percentile: 40, riskLevel: "growth", clinicalWeight: "high" },
       { dimension: "attachment", label: "Attachment Style", score: 5, maxScore: 10, percentile: 30, riskLevel: "priority", clinicalWeight: "critical" },
       { dimension: "trauma", label: "Trauma & History", score: 4, maxScore: 10, percentile: 20, riskLevel: "priority", clinicalWeight: "critical" },
-      { dimension: "adhd", label: "Neurodivergence", score: 7, maxScore: 10, percentile: 60, riskLevel: "strength", clinicalWeight: "moderate" },
+      { dimension: "money_patterns", label: "Money & Provision Patterns", score: 7, maxScore: 10, percentile: 60, riskLevel: "strength", clinicalWeight: "moderate" },
       { dimension: "communication", label: "Communication Patterns", score: 6, maxScore: 10, percentile: 40, riskLevel: "growth", clinicalWeight: "high" },
       { dimension: "values", label: "Values & Vision", score: 8, maxScore: 10, percentile: 75, riskLevel: "strength", clinicalWeight: "moderate" },
       { dimension: "changeReadiness", label: "Change Readiness", score: 7, maxScore: 10, percentile: 60, riskLevel: "strength", clinicalWeight: "moderate" },
@@ -121,7 +121,7 @@ try {
         weeks: "Weeks 1-3",
         sessions: [
           { description: "Breakthrough Session", target: "Assessment review and goal setting", price: 2700 },
-          { description: "Age Regression Therapy", target: "Core trauma processing", price: 4000 },
+          { description: "Age Regression Hypnotherapy", target: "Core trauma processing", price: 3680.5 },
         ],
       },
       {

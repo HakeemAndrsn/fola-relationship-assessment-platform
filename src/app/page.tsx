@@ -267,14 +267,14 @@ export default function Home() {
                 <div className="space-y-2 mb-6">
                   {[
                     "Attachment Style — your neurological blueprint",
-                    "Trauma History — ACE-informed screening",
+                    "Trauma History — what your childhood left behind",
                     "Emotional Regulation — your nervous system capacity",
                     "Self-Worth & Identity — the foundation of everything",
                     "Relationship Readiness — are you actually available?",
                     "Communication Style — what's really happening",
                     "Values & Life Vision — your relational compass",
                     "Prejudices & Biases — beliefs you project onto partners",
-                    "Neurodivergence Awareness — unseen friction",
+                    "Money & Provision — scarcity, black tax and what you let yourself have",
                     "Change Readiness — where you actually are",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
@@ -312,7 +312,7 @@ export default function Home() {
                   {[
                     "Attachment Compatibility — your bonding blueprints side by side",
                     "Trauma Inventory — ACE scores and what they mean for you",
-                    "ADHD & Neurodivergence — the friction nobody talks about",
+                    "Money & Provision — the fight underneath the fight",
                     "Values Alignment — what matches, what doesn't, what matters",
                     "Change Readiness — are both partners actually ready?",
                     "Communication Patterns — the cycle beneath the argument",
@@ -451,7 +451,7 @@ export default function Home() {
                   </div>
                 ))}
                 <p style={fontUI} className="text-[11px] text-[#1B1917]/60 pt-2">
-                  We also draw on ACE research for trauma scoring and current neurodivergence literature for our ADHD screening domain. Full citations are included in every report.
+                  We also draw on ACE research for childhood experiences and on money-script research for our money and provision domain. Full citations are included in every report.
                 </p>
               </div>
             </div>

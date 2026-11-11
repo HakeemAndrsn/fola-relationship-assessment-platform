@@ -20,7 +20,7 @@ import {
   RELATIONSHIP_READINESS_QUESTIONS,
   COMMUNICATION_QUESTIONS,
   VALUES_CLARITY_QUESTIONS,
-  NEURODIVERGENCE_QUESTIONS,
+  MONEY_PATTERNS_QUESTIONS,
   PREJUDICES_BIASES_QUESTIONS,
 } from "@/lib/individual-assessment/questions";
 import type {
@@ -41,7 +41,7 @@ const STEPS = [
   "Relationship Readiness",
   "Communication Style",
   "Values & Vision",
-  "Neurodivergence",
+  "Money & Provision",
   "Prejudices & Biases",
   "Change Readiness",
   "Review",
@@ -65,7 +65,7 @@ const DEFAULT: IndividualFormData = {
   relationshipReadiness: initSliders(RELATIONSHIP_READINESS_QUESTIONS),
   communicationStyle: initSliders(COMMUNICATION_QUESTIONS),
   valuesClarity: initSliders(VALUES_CLARITY_QUESTIONS),
-  neurodivergenceAwareness: initSliders(NEURODIVERGENCE_QUESTIONS),
+  moneyPatterns: initSliders(MONEY_PATTERNS_QUESTIONS),
   prejudicesBiases: initSliders(PREJUDICES_BIASES_QUESTIONS),
   changeReadiness: "contemplation",
 };
@@ -635,14 +635,14 @@ export default function IndividualAssessmentPage() {
             />
           )}
 
-          {/* ── STEP 9: Neurodivergence ── */}
+          {/* ── STEP 9: Money & Provision ── */}
           {step === 9 && (
             <SliderSection
-              title="Neurodivergence Awareness"
-              description="This isn't about diagnosis — it's about self-awareness. Understanding your neurological wiring is one of the most liberating things you can do for your relationships."
-              questions={NEURODIVERGENCE_QUESTIONS}
-              values={data.neurodivergenceAwareness}
-              onChange={(id, val) => updateSliders("neurodivergenceAwareness", id, val)}
+              title="Money & Provision Patterns"
+              description="How you carry money shapes who you choose and how you love: the fear of running out, what you owe family, and what you let yourself have."
+              questions={MONEY_PATTERNS_QUESTIONS}
+              values={data.moneyPatterns}
+              onChange={(id, val) => updateSliders("moneyPatterns", id, val)}
             />
           )}
 

@@ -15,7 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { generateReport } from "@/lib/assessment/scoring";
 import {
   TRAUMA_QUESTIONS,
-  ADHD_QUESTIONS,
+  MONEY_QUESTIONS,
   VALUES_QUESTIONS,
   COMMUNICATION_QUESTIONS,
   FUTURE_VISION_QUESTIONS,
@@ -35,7 +35,7 @@ const STEPS = [
   "Onboarding",
   "Attachment Style",
   "Trauma Inventory",
-  "ADHD Screening",
+  "Money & Provision",
   "Values Alignment",
   "Change Readiness",
   "Communication",
@@ -54,7 +54,7 @@ const DEFAULT_DATA: AssessmentFormData = {
   onboarding: { partnerAName: "", partnerBName: "", relationshipDuration: "", primaryConcern: "", consentGiven: false },
   attachment: { partnerA: "secure", partnerB: "secure" },
   trauma: { partnerA: initSliders(TRAUMA_QUESTIONS), partnerB: initSliders(TRAUMA_QUESTIONS) },
-  adhd: { partnerA: initSliders(ADHD_QUESTIONS), partnerB: initSliders(ADHD_QUESTIONS) },
+  money: { partnerA: initSliders(MONEY_QUESTIONS), partnerB: initSliders(MONEY_QUESTIONS) },
   values: { partnerA: initSliders(VALUES_QUESTIONS), partnerB: initSliders(VALUES_QUESTIONS) },
   changeReadiness: { partnerA: "contemplation", partnerB: "contemplation" },
   communication: { partnerA: initSliders(COMMUNICATION_QUESTIONS), partnerB: initSliders(COMMUNICATION_QUESTIONS) },
@@ -241,7 +241,7 @@ export default function AssessmentPage() {
   );
 
   const updateSlider = useCallback(
-    (domain: "trauma" | "adhd" | "values" | "communication" | "futureVision" | "prejudices", partner: "partnerA" | "partnerB", id: string, val: number) =>
+    (domain: "trauma" | "money" | "values" | "communication" | "futureVision" | "prejudices", partner: "partnerA" | "partnerB", id: string, val: number) =>
       setData((d) => ({
         ...d,
         [domain]: { ...d[domain], [partner]: { ...d[domain][partner], [id]: val } },
@@ -347,7 +347,7 @@ export default function AssessmentPage() {
             <p className="text-xs font-semibold text-foreground uppercase tracking-wider font-sans">What's included</p>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
-              <p className="text-xs text-card-foreground/75 font-sans">8-dimension relationship assessment: attachment, childhood experiences, attention and focus patterns, values alignment, and more</p>
+              <p className="text-xs text-card-foreground/75 font-sans">8-dimension relationship assessment: attachment, childhood experiences, money and provision patterns, values alignment, and more</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-foreground mt-0.5 font-bold">✓</span>
@@ -564,18 +564,18 @@ export default function AssessmentPage() {
           />
         )}
 
-        {/* Step 3: ADHD */}
+        {/* Step 3: Money & Provision */}
         {step === 3 && (
           <SliderDomainSection
-            title="Neurodivergence Screening (ADHD Focus)"
-            description="These questions screen for patterns often associated with ADHD that can affect relationship dynamics. Higher scores indicate greater presence of these patterns."
-            questions={ADHD_QUESTIONS}
+            title="Money & Provision Patterns"
+            description="How each of you carries money: worry about running out, family obligations, and what goes unsaid. Higher scores mean more strain."
+            questions={MONEY_QUESTIONS}
             partnerAName={pA}
             partnerBName={pB}
-            partnerAValues={data.adhd.partnerA}
-            partnerBValues={data.adhd.partnerB}
-            onChangeA={(id, val) => updateSlider("adhd", "partnerA", id, val)}
-            onChangeB={(id, val) => updateSlider("adhd", "partnerB", id, val)}
+            partnerAValues={data.money.partnerA}
+            partnerBValues={data.money.partnerB}
+            onChangeA={(id, val) => updateSlider("money", "partnerA", id, val)}
+            onChangeB={(id, val) => updateSlider("money", "partnerB", id, val)}
           />
         )}
 

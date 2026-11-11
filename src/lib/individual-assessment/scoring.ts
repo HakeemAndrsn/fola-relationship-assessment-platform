@@ -135,10 +135,10 @@ function biasesInsight(score: number): string {
   return "Unexamined gender beliefs are likely driving significant patterns in your relationships — what you assume about the opposite gender may be creating the very conflicts you're trying to avoid.";
 }
 
-function neurodivergenceInsight(score: number): string {
-  if (score >= 70) return "Neurodivergent traits, if present, appear well-managed and integrated. Your self-awareness here is an asset.";
-  if (score >= 45) return "Some neurodivergent markers are intermittently affecting your relational functioning. Understanding these patterns reduces relational friction significantly.";
-  return "Significant neurodivergent markers are present that may be creating misattunement in your relationships. An assessment with a specialist would be clarifying and freeing.";
+function moneyInsight(score: number): string {
+  if (score >= 70) return "You hold money with a sense of enough. Family obligations and old money stories are not running your choices in love.";
+  if (score >= 45) return "Some money patterns are shaping your choices: worry about running out, family pressure, or discomfort with having more. Naming them early keeps them out of your relationships.";
+  return "Money and provision are carrying a lot of weight in your life. Scarcity, family obligations or silence about money are likely shaping who you choose and how you show up.";
 }
 
 // ── Main scoring function ──
@@ -149,7 +149,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const readinessRaw = avg(data.relationshipReadiness);
   const commRaw = avg(data.communicationStyle);
   const valuesRaw = avg(data.valuesClarity);
-  const neuroRaw = avg(data.neurodivergenceAwareness);
+  const moneyRaw = avg(data.moneyPatterns);
 
   // Trauma: high score = high trauma indicators (inverted for "health" percentage)
   const traumaScore = Math.round(100 - toPercent(traumaRaw));
@@ -159,7 +159,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const readinessScore2 = toPercent(readinessRaw);
   const commScore = toPercent(commRaw);
   const valuesScore = toPercent(valuesRaw);
-  const neuroScore = toPercent(neuroRaw);
+  const moneyScore = toPercent(moneyRaw);
   const biasesScore = toPercent(avg(data.prejudicesBiases));
   const changeScore = readinessScore(data.changeReadiness);
 
@@ -228,13 +228,13 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       insight: valuesInsight(valuesScore),
     },
     {
-      dimension: "neurodivergence",
-      label: "Neurodivergence Awareness",
-      score: neuroScore,
-      percentile: percentile(neuroScore),
-      riskLevel: riskFromScore(neuroScore),
+      dimension: "money_patterns",
+      label: "Money & Provision Patterns",
+      score: moneyScore,
+      percentile: percentile(moneyScore),
+      riskLevel: riskFromScore(moneyScore),
       clinicalWeight: "medium",
-      insight: neurodivergenceInsight(neuroScore),
+      insight: moneyInsight(moneyScore),
     },
     {
       dimension: "prejudices_biases",
@@ -265,7 +265,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
     relationship_readiness: 0.10,
     communication: 0.08,
     values_clarity: 0.09,
-    neurodivergence: 0.04,
+    money_patterns: 0.04,
     prejudices_biases: 0.10,
     change_readiness: 0.04,
   };
@@ -311,12 +311,12 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       recommendation: "Somatic regulation skills and nervous system education should be prioritised immediately.",
     });
   }
-  if (neuroScore < 45) {
+  if (moneyScore < 45) {
     flags.push({
-      type: "neurodivergence",
+      type: "money_patterns",
       severity: "medium",
-      message: "Neurodivergent markers are present and may be creating unseen relational friction",
-      recommendation: "A formal assessment and psychoeducation around ADHD/neurodivergence could be profoundly clarifying.",
+      message: "Money and provision patterns may be shaping your choices in love",
+      recommendation: "Work on money beliefs and family obligations (the later stages of FOLA's ART sequence) will loosen their hold on your relationships.",
     });
   }
   if (biasesScore < 45) {
@@ -335,7 +335,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const breakdown =
     flagCount >= 3
       ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
-      : "Breakthrough Session = R2700 | Maintenance & Expansion sessions = R2700 | Age Regression Therapy = R4000 each";
+      : "Breakthrough Session = R2700 | Maintenance & Expansion sessions = R2700 | Age Regression Hypnotherapy = R3,680.50 each";
 
   // Treatment plan — strictly Phase 1, 2, 3 with Age Regression Therapy as high-ticket
   const treatmentPlan: IndividualTreatmentPhase[] = [
@@ -346,7 +346,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       focus: "Nervous system regulation, trauma processing, and core self-worth installation",
       sessions: [
         ...(traumaScore < 50
-          ? [{ description: "Age Regression Therapy Session", target: "Subconscious trauma processing & nervous system reset", price: 4000 }]
+          ? [{ description: "Age Regression Hypnotherapy Session", target: "Subconscious trauma processing & nervous system reset", price: 3680.5 }]
           : []),
         { description: "Individual Peak Performance Session", target: `${primaryGrowthEdge.label} — foundational work`, price: 2700 },
         { description: "Hypnotherapy: Self-Worth Installation", target: "Subconscious self-worth reprogramming via NLP", price: 2700 },
@@ -361,7 +361,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
         { description: "Communication Pattern Rewiring", target: "Assertion, listening, repair — all three pillars", price: 2700 },
         { description: "Values & Vision Clarity Session", target: "Crystallising non-negotiables and relationship vision", price: 2700 },
         ...(attachScore < 60
-          ? [{ description: "Age Regression Therapy Session", target: "Earned secure attachment — NLP timeline work", price: 4000 }]
+          ? [{ description: "Age Regression Hypnotherapy Session", target: "Earned secure attachment — NLP timeline work", price: 3680.5 }]
           : []),
       ],
     },

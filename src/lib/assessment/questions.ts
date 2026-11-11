@@ -6,12 +6,14 @@ export const TRAUMA_QUESTIONS = [
   { id: "abandonment", label: "I fear being abandoned or rejected by my partner" },
 ];
 
-export const ADHD_QUESTIONS = [
-  { id: "focus", label: "I struggle to stay focused during important conversations" },
-  { id: "forgetfulness", label: "I frequently forget commitments, dates, or things my partner told me" },
-  { id: "overwhelm", label: "I feel overwhelmed by household or shared responsibilities" },
-  { id: "impulsivity", label: "I sometimes say or do things impulsively that I later regret" },
-  { id: "time_management", label: "I have difficulty managing my time, which affects our plans" },
+// Money & Provision Patterns — maps to FOLA's ART stages 8–10 (poverty mindedness,
+// expanding the wealth container, the Wealth Diet). Higher = more strain.
+export const MONEY_QUESTIONS = [
+  { id: "money_scarcity", label: "Even when there is enough, I worry that the money will run out" },
+  { id: "money_family", label: "Supporting family financially (black tax) puts pressure on our plans" },
+  { id: "money_silence", label: "I avoid talking openly with my partner about money" },
+  { id: "money_worth", label: "I feel uneasy asking for, charging or earning more, as if I haven't earned it" },
+  { id: "money_conflict", label: "Money sits underneath our arguments, even when we are fighting about something else" },
 ];
 
 export const VALUES_QUESTIONS = [
