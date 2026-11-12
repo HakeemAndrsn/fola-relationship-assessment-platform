@@ -662,7 +662,7 @@ export default function IndividualReportPage() {
               </div>
               <div className="pt-6">
                 <a
-                  href={getBookingUrl("https://calendly.com/folasessions/breakthrough-session")}
+                  href={getBookingUrl("https://calendly.com/folasessions/the-breakthrough-session")}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent("book_call_click", { call_type: "breakthrough_session", report_type: "individual", value: 2800, currency: "ZAR" })}

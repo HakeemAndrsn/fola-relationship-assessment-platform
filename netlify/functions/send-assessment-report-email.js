@@ -104,7 +104,7 @@ function bookingBlockHtml(name, email) {
   if (name) params.push("name=" + encodeURIComponent(name));
   if (email) params.push("email=" + encodeURIComponent(email));
   const suffix = params.length ? "?" + params.join("&") : "";
-  const breakthroughUrl = "https://calendly.com/folasessions/breakthrough-session" + suffix;
+  const breakthroughUrl = "https://calendly.com/folasessions/the-breakthrough-session" + suffix;
   const discoveryUrl = "https://calendly.com/folasessions/discovery-call" + suffix;
   return `
         <h2 style="color:#121212;font-size:18px;border-bottom:2px solid #B8654A;padding-bottom:6px;">Your Next Step</h2>
