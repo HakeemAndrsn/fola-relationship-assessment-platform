@@ -71,7 +71,7 @@ try {
         weeks: "Weeks 5-10",
         sessions: [
           { description: "Attachment-Focused Session", target: "Pattern interruption and secure bonding", price: 2700 },
-          { description: "Age Regression Hypnotherapy — Partner B", target: "Childhood trauma processing", price: 3680.5 },
+          { description: "Age Regression Hypnotherapy — Partner B", target: "Childhood trauma processing", price: 3650.8 },
           { description: "Values & Vision Integration", target: "Shared future narrative", price: 2700 },
         ],
       },
@@ -121,7 +121,7 @@ try {
         weeks: "Weeks 1-3",
         sessions: [
           { description: "Breakthrough Session", target: "Assessment review and goal setting", price: 2700 },
-          { description: "Age Regression Hypnotherapy", target: "Core trauma processing", price: 3680.5 },
+          { description: "Age Regression Hypnotherapy", target: "Core trauma processing", price: 3650.8 },
         ],
       },
       {
