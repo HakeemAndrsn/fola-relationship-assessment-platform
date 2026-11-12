@@ -296,7 +296,7 @@ export function identifyClinicalFlags(data: AssessmentFormData, scores: DomainSc
 export function calculateDynamicPrice(data: AssessmentFormData, flags: ClinicalFlag[]): { price: number; breakdown: string } {
   const base = 2500;
   let multiplier = 1.0;
-  const components: string[] = ["Breakthrough Session (R2700)"];
+  const components: string[] = ["Breakthrough Session (R2800)"];
 
   if (flags.some((f) => f.type === "trauma" && f.severity === "high")) {
     multiplier += 0.3;
@@ -337,18 +337,18 @@ export function generateTreatmentPlan(
     const traumaB = averageSliders(data.trauma.partnerB);
     if (traumaA > 7) {
       phase1Sessions.push({
-        description: "Breakthrough Session: Trauma Processing",
+        description: "Breakthrough Session: Past Experiences",
         target: data.onboarding.partnerAName,
-        price: 2700,
-        why: `${data.onboarding.partnerAName}'s trauma indicators are elevated. Processing these experiences individually creates safety and reduces reactivity in couple sessions.`,
+        price: 2800,
+        why: `${data.onboarding.partnerAName}'s childhood-experience scores are high. A one-to-one session first reduces reactivity in couple sessions. If these experiences feel overwhelming day to day, see a registered psychologist.`,
       });
     }
     if (traumaB > 7) {
       phase1Sessions.push({
-        description: "Breakthrough Session: Trauma Processing",
+        description: "Breakthrough Session: Past Experiences",
         target: data.onboarding.partnerBName,
-        price: 2700,
-        why: `${data.onboarding.partnerBName}'s trauma indicators are elevated. Individual processing prevents triggering in joint work and builds internal regulation capacity.`,
+        price: 2800,
+        why: `${data.onboarding.partnerBName}'s childhood-experience scores are high. A one-to-one session first keeps joint sessions steadier. If these experiences feel overwhelming day to day, see a registered psychologist.`,
       });
     }
   }

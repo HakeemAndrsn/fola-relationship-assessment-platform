@@ -335,7 +335,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
   const breakdown =
     flagCount >= 3
       ? "Session starting rate = R2500/hour | Trauma + Attachment + Regulation pathway = R3800"
-      : "Breakthrough Session = R2700 | Maintenance & Expansion sessions = R2700 | Age Regression Hypnosis = R3,650.80 each";
+      : "Breakthrough Session = R2800 | Maintenance & Expansion sessions = R2700 | Age Regression Hypnosis = R3,650.80 each";
 
   // Treatment plan — strictly Phase 1, 2, 3 with the ART sequence as high-ticket
   const treatmentPlan: IndividualTreatmentPhase[] = [

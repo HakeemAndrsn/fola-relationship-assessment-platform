@@ -571,7 +571,7 @@ export default function ReportPage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-[#B8654A]">Estimated Total Investment</p>
                 <p className="text-sm text-[#a0aec0] mt-1">Across all recommended phases (excluding cohort)</p>
                 <p className="mt-2 text-xs text-[#e2e8f0] leading-relaxed">
-                  Age Regression Hypnosis sessions are R3,650.80 each. Breakthrough & Maintenance sessions are R2,700 each. The DoLoveBetter Cohort is billed separately.
+                  Age Regression Hypnosis sessions are R3,650.80 each. Breakthrough Sessions are R2,800 and Maintenance sessions R2,700 each. The DoLoveBetter Cohort is billed separately.
                 </p>
               </div>
               <span className="text-3xl font-bold">R{formatRand(report.totalInvestment)}</span>

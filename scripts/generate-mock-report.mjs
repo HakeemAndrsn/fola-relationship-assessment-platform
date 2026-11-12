@@ -60,7 +60,7 @@ try {
         title: "Stabilisation & Safety",
         weeks: "Weeks 1-4",
         sessions: [
-          { description: "Breakthrough Session (Joint)", target: "Establish therapeutic alliance and safety", price: 2700 },
+          { description: "Breakthrough Session (Joint)", target: "Establish trust and safety", price: 2800 },
           { description: "Individual Session — Partner B", target: "Trauma history mapping", price: 2700 },
           { description: "Communication Rewiring Session", target: "De-escalation tools and active listening", price: 2700 },
         ],
@@ -120,7 +120,7 @@ try {
         title: "Foundation & Safety",
         weeks: "Weeks 1-3",
         sessions: [
-          { description: "Breakthrough Session", target: "Assessment review and goal setting", price: 2700 },
+          { description: "Breakthrough Session", target: "Assessment review and goal setting", price: 2800 },
           { description: "Age Regression Hypnotherapy", target: "Core trauma processing", price: 3650.8 },
         ],
       },
