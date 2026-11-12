@@ -136,9 +136,9 @@ function biasesInsight(score: number): string {
 }
 
 function moneyInsight(score: number): string {
-  if (score >= 70) return "You hold money with a sense of enough. Family obligations and old money stories are not running your choices in love.";
-  if (score >= 45) return "Some money patterns are shaping your choices: worry about running out, family pressure, or discomfort with having more. Naming them early keeps them out of your relationships.";
-  return "Money and provision are carrying a lot of weight in your life. Scarcity, family obligations or silence about money are likely shaping who you choose and how you show up.";
+  if (score >= 70) return "You hold money with a sense of enough. Old money stories are not running your choices in love.";
+  if (score >= 45) return "Some money patterns are shaping your choices: worry about running out, money that slips away, or discomfort with having more. Naming them early keeps them out of your relationships.";
+  return "Money and provision are carrying a lot of weight in your life. Scarcity, money that slips away or silence about money are likely shaping who you choose and how you show up.";
 }
 
 // ── Main scoring function ──
@@ -316,7 +316,7 @@ export function generateIndividualReport(data: IndividualFormData): IndividualRe
       type: "money_patterns",
       severity: "medium",
       message: "Money and provision patterns may be shaping your choices in love",
-      recommendation: "Work on money beliefs and family obligations (the later stages of FOLA's ART sequence) will loosen their hold on your relationships.",
+      recommendation: "Work on money beliefs and what you allow yourself to hold (the later stages of FOLA's ART sequence) will loosen their hold on your relationships.",
     });
   }
   if (biasesScore < 45) {

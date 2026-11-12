@@ -10,7 +10,7 @@ export const TRAUMA_QUESTIONS = [
 // expanding the wealth container, the Wealth Diet). Higher = more strain.
 export const MONEY_QUESTIONS = [
   { id: "money_scarcity", label: "Even when there is enough, I worry that the money will run out" },
-  { id: "money_family", label: "Supporting family financially (black tax) puts pressure on our plans" },
+  { id: "money_container", label: "When more money comes in, it slips away before it can grow" },
   { id: "money_silence", label: "I avoid talking openly with my partner about money" },
   { id: "money_worth", label: "I feel uneasy asking for, charging or earning more, as if I haven't earned it" },
   { id: "money_conflict", label: "Money sits underneath our arguments, even when we are fighting about something else" },

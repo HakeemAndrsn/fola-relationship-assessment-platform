@@ -568,7 +568,7 @@ export default function AssessmentPage() {
         {step === 3 && (
           <SliderDomainSection
             title="Money & Provision Patterns"
-            description="How each of you carries money: worry about running out, family obligations, and what goes unsaid. Higher scores mean more strain."
+            description="How each of you carries money: worry about running out, money that slips away, and what goes unsaid. Higher scores mean more strain."
             questions={MONEY_QUESTIONS}
             partnerAName={pA}
             partnerBName={pB}

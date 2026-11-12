@@ -98,7 +98,7 @@ export const PREJUDICES_BIASES_QUESTIONS = [
 // Money & Provision Patterns — maps to FOLA's ART stages 8–10. Higher = healthier.
 export const MONEY_PATTERNS_QUESTIONS = [
   { id: "money_enough", label: "A sense of enough", description: "When there is enough, I can let myself feel that it is enough, without bracing for it to run out." },
-  { id: "money_family", label: "Family obligations", description: "I can support family financially (black tax) without it quietly controlling my choices or my relationships." },
+  { id: "money_container", label: "Holding on to more", description: "When more money comes in, I can hold on to it and let it grow, instead of watching it slip away." },
   { id: "money_openness", label: "Talking about money", description: "I can talk openly about money with someone I'm close to, without shame or avoidance." },
   { id: "money_worth", label: "Receiving more", description: "I can ask for, charge or earn more without feeling that I haven't earned it." },
   { id: "money_inheritance", label: "Inherited money patterns", description: "I can see how my family handled money, and I choose my own way rather than repeating it." },

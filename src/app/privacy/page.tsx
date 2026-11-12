@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-lg font-semibold font-serif text-[#080e1d] mb-3">1. Commitment to Privacy</h2>
             <p>
-              At LOVEBETTER by FOLA, we process highly sensitive information, including what South African law defines as "Special Personal Information" under the Protection of Personal Information Act (POPIA). This includes mental health patterns, childhood trauma indicators, relationship friction points, and money and family-obligation patterns. We protect this information through data minimisation, secure transport, access controls, and clear disclosure of where your information goes.
+              At LOVEBETTER by FOLA, we process highly sensitive information, including what South African law defines as "Special Personal Information" under the Protection of Personal Information Act (POPIA). This includes mental health patterns, childhood trauma indicators, relationship friction points, and money patterns. We protect this information through data minimisation, secure transport, access controls, and clear disclosure of where your information goes.
             </p>
           </section>
 

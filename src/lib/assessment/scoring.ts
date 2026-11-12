@@ -250,8 +250,8 @@ export function identifyClinicalFlags(data: AssessmentFormData, scores: DomainSc
       type: "money",
       severity: moneyA > 7 && moneyB > 7 ? "high" : "medium",
       message: moneyGap > 4
-        ? `You carry money very differently (${moneyGap.toFixed(1)} points apart). Scarcity, family obligations or silence about money in one partner often shows up as conflict about something else.`
-        : "Money and provision are adding strain. Worry about running out, family obligations or avoiding the money conversation are likely feeding your arguments.",
+        ? `You carry money very differently (${moneyGap.toFixed(1)} points apart). Scarcity, money that slips away or silence about money in one partner often shows up as conflict about something else.`
+        : "Money and provision are adding strain. Worry about running out, money that slips away or avoiding the money conversation are likely feeding your arguments.",
       recommendation: "A session on money and provision patterns (the later stages of FOLA's ART sequence) is recommended alongside couples work.",
     });
   }
@@ -357,7 +357,7 @@ export function generateTreatmentPlan(
       description: "Money & Provision Patterns Session",
       target: "Couple",
       price: 2700,
-      why: "Scarcity, family obligations and silence about money create conflict that looks like it is about something else. Working on the beliefs underneath helps both partners make money decisions together.",
+      why: "Scarcity, money that slips away and silence about money create conflict that looks like it is about something else. Working on the beliefs underneath helps both partners make money decisions together.",
     });
   }
   if (phase1Sessions.length === 0) {

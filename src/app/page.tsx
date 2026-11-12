@@ -274,7 +274,7 @@ export default function Home() {
                     "Communication Style — what's really happening",
                     "Values & Life Vision — your relational compass",
                     "Prejudices & Biases — beliefs you project onto partners",
-                    "Money & Provision — scarcity, black tax and what you let yourself have",
+                    "Money & Provision — scarcity, worth and what you let yourself have",
                     "Change Readiness — where you actually are",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
